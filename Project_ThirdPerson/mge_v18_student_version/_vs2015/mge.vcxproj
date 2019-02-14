@@ -194,13 +194,21 @@
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
     <ClInclude Include="..\src\ThirdPerson\config.hpp" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\AIBigShip.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\BigShip.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\GoalObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GridGenerator.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GridObject.h" />
-    <ClInclude Include="..\src\ThirdPerson\Scripts\LuaAIHandler.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\MovingGridObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\Node.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\NodeWorld.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\PlayerBigShip.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\PlayerSmallShip.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\Ship.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\SmallShip.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\StaticGridObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\TileWorld.h" />
-    <ClInclude Include="..\src\ThirdPerson\Scripts\Worker.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\TreasureObject.h" />
     <ClInclude Include="..\src\ThirdPerson\ThirdPerson.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -231,13 +239,21 @@
     <ClCompile Include="..\src\mge\materials\WobblingMaterial.cpp" />
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\AIBigShip.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\BigShip.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\GoalObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\GridGenerator.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\GridObject.cpp" />
-    <ClCompile Include="..\src\ThirdPerson\Scripts\LuaAIHandler.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\MovingGridObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\Node.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\NodeWorld.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\PlayerBigShip.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\PlayerSmallShip.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\Ship.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\SmallShip.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\StaticGridObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\TileWorld.cpp" />
-    <ClCompile Include="..\src\ThirdPerson\Scripts\Worker.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\TreasureObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\ThirdPerson.cpp" />
   </ItemGroup>
   <ItemGroup>

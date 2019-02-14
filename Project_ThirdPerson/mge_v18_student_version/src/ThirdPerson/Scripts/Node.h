@@ -13,14 +13,14 @@ class Node : public GameObject
 {
 public:
 
-	enum TerrainTypes
+	enum TerrainTypes //These integers should be the same as the tiled indexes
 	{
 		normal = 0,
-		forest = 1,
-		plain = 2,
-		hills = 3,
-		desert = 4,
-		mountain = 5
+		water = 1,
+		island = 2,
+		obstacle = 3,
+		harbor = 4,
+		empty = 5,
 	};
 
 	struct AbstractNode {

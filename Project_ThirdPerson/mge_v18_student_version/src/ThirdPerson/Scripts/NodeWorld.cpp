@@ -17,6 +17,11 @@ void NodeWorld::AddNode(Node* node) {
 	_nodes.push_back(node); //TODO: Does this work?
 }
 
+void NodeWorld::AddInactiveNode(Node* node) {
+	_nodeLayer->add(node);
+	//_nodes.push_back(node); //TODO: Does this work?
+}
+
 int NodeWorld::GetNodeCount() {
 	return _nodes.size();
 }

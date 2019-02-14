@@ -28,7 +28,6 @@
 #include "mge/behaviours/CameraOrbitBehaviour.h"
 #include "mge/behaviours/SpawnerBehaviour.h"
 #include "mge/behaviours/MoveBehaviour.h"
-#include "ThirdPerson/Scripts/LuaAIHandler.h"
 
 #include "mge/util/DebugHud.hpp"
 

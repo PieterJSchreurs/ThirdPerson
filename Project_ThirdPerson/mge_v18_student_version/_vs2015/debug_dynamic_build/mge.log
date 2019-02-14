@@ -1,5 +1,20 @@
-﻿  Node.cpp
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\node.cpp(53): warning C4018: '<': signed/unsigned mismatch
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\node.cpp(68): warning C4018: '<': signed/unsigned mismatch
+﻿  AIBigShip.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  main.cpp
+  ThirdPerson.cpp
+  TreasureObject.cpp
+  StaticGridObject.cpp
+  SmallShip.cpp
+  Ship.cpp
+  PlayerSmallShip.cpp
+  PlayerBigShip.cpp
+  NodeWorld.cpp
+  Node.cpp
+  MovingGridObject.cpp
+  GridObject.cpp
+  GridGenerator.cpp
+  GoalObject.cpp
+  BigShip.cpp
   mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
   mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)

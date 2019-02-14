@@ -26,6 +26,15 @@
     <Filter Include="MGE Source files\ThirdPerson\Scripts">
       <UniqueIdentifier>{a273abef-bb3d-4ded-b56e-a9447ebafffa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MGE Source files\ThirdPerson\Scripts\GridObjects">
+      <UniqueIdentifier>{064bc0e2-8b0c-4779-b5b8-557b9ba1573d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MGE Source files\ThirdPerson\Scripts\GridObjects\Ships">
+      <UniqueIdentifier>{a8095041-7af9-429b-82d7-a518d3fccae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MGE Source files\ThirdPerson\Scripts\GridObjects\Other">
+      <UniqueIdentifier>{e1564d38-7022-4b43-92d4-c51bb353de12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp">
@@ -118,9 +127,6 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\GridGenerator.h">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ThirdPerson\Scripts\LuaAIHandler.h">
-      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\ThirdPerson\Scripts\Node.h">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClInclude>
@@ -130,12 +136,39 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\TileWorld.h">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ThirdPerson\Scripts\Worker.h">
-      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GridObject.h">
-      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\StaticGridObject.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\MovingGridObject.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\AIBigShip.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\BigShip.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\PlayerBigShip.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\PlayerSmallShip.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\Ship.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\SmallShip.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Ships</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\GoalObject.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\TreasureObject.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -223,9 +256,6 @@
     <ClCompile Include="..\src\ThirdPerson\Scripts\GridGenerator.cpp">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ThirdPerson\Scripts\LuaAIHandler.cpp">
-      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\ThirdPerson\Scripts\Node.cpp">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClCompile>
@@ -235,11 +265,38 @@
     <ClCompile Include="..\src\ThirdPerson\Scripts\TileWorld.cpp">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ThirdPerson\Scripts\Worker.cpp">
-      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\ThirdPerson\Scripts\GridObject.cpp">
-      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\StaticGridObject.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\MovingGridObject.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\AIBigShip.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\BigShip.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\PlayerBigShip.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\PlayerSmallShip.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\Ship.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\SmallShip.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Ships</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\GoalObject.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\TreasureObject.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

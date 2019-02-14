@@ -15,6 +15,7 @@ public:
 	virtual ~NodeWorld();
 
 	void AddNode(Node* node);
+	void AddInactiveNode(Node* node);
 	int GetNodeCount();
 	Node* GetNodeAt(int index);
 	void AddConnection(Node* nodeA, Node* nodeB);
