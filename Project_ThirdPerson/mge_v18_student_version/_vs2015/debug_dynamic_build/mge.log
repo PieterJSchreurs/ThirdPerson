@@ -1,0 +1,9 @@
+﻿  LitMaterial.cpp
+  GridGenerator.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(125): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(129): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(150): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(154): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+  mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
+  mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)
