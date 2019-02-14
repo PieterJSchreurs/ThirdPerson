@@ -1,0 +1,5 @@
+﻿  Node.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\node.cpp(53): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\node.cpp(68): warning C4018: '<': signed/unsigned mismatch
+  mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
+  mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)
