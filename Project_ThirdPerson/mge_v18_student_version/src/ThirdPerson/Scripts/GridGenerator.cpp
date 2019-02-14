@@ -16,11 +16,26 @@
 GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _tileWorld(pTileWorld)
 {
 	_cubeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
+
+	_cubeFullMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "flat.obj");
+	_cubeInvertedCornerMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "corner_inverted.obj");
+	_cubeStraightMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "straight.obj");
+	_cubeCornerMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "corner.obj");
+
 	_cylinderMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth.obj");
 	_planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
 	_suzannaMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth.obj");
 	_teapotMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth.obj");
 	_sphereMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+
+	AbstractMaterial* enemyShipMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+
+	GameObject* test = new GameObject("Water", glm::vec3(15, 5, 15));
+	test->setMaterial(enemyShipMaterial);
+	test->setMesh(_cubeFullMeshDefault);
+	test->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
+
+	_tileWorld.add(test);
 }
 
 
@@ -369,22 +384,22 @@ void GridGenerator::PlaceCorrectIslandNode(Node* pNode, int pColumn, int pRow, s
 	if (neighbours._type == tileTypes::fullTile)
 	{
 		pNode->setMaterial(islandMaterialFull);
-		pNode->setMesh(_cubeMeshDefault);
+		pNode->setMesh(_cubeFullMeshDefault);
 	}
 	else if (neighbours._type == tileTypes::straightTile)
 	{
 		pNode->setMaterial(islandMaterialStraight);
-		pNode->setMesh(_cubeMeshDefault);
+		pNode->setMesh(_cubeStraightMeshDefault);
 	}
 	else if (neighbours._type == tileTypes::cornerTile)
 	{
 		pNode->setMaterial(islandMaterialCorner);
-		pNode->setMesh(_cubeMeshDefault);
+		pNode->setMesh(_cubeCornerMeshDefault);
 	}
 	else if (neighbours._type == tileTypes::cornerInverseTile)
 	{
 		pNode->setMaterial(islandMaterialInverseCorner);
-		pNode->setMesh(_cubeMeshDefault);
+		pNode->setMesh(_cubeInvertedCornerMeshDefault);
 	}
 	else
 	{
@@ -404,22 +419,22 @@ void GridGenerator::PlaceCorrectHarborNode(Node* pNode, int pColumn, int pRow, s
 	if (neighbours._type == tileTypes::fullTile)
 	{
 		pNode->setMaterial(harborMaterialFull);
-		pNode->setMesh(_cubeMeshDefault);
+		pNode->setMesh(_cubeFullMeshDefault);
 	}
 	else if (neighbours._type == tileTypes::straightTile)
 	{
 		pNode->setMaterial(harborMaterialStraight);
-		pNode->setMesh(_cubeMeshDefault);
+		pNode->setMesh(_cubeStraightMeshDefault);
 	}
 	else if (neighbours._type == tileTypes::cornerTile)
 	{
 		pNode->setMaterial(harborMaterialCorner);
-		pNode->setMesh(_cubeMeshDefault);
+		pNode->setMesh(_cubeCornerMeshDefault);
 	}
 	else if (neighbours._type == tileTypes::cornerInverseTile)
 	{
 		pNode->setMaterial(harborMaterialInverseCorner);
-		pNode->setMesh(_cubeMeshDefault);
+		pNode->setMesh(_cubeInvertedCornerMeshDefault);
 	}
 	else
 	{

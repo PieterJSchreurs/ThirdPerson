@@ -177,6 +177,10 @@ private:
 
 	void PlaceCorrectIslandNode(Node* pNode, int pColumn, int pRow, std::vector<int> pAllNodes);
 	Mesh* _cubeMeshDefault;
+	Mesh* _cubeFullMeshDefault;
+	Mesh* _cubeInvertedCornerMeshDefault;
+	Mesh* _cubeStraightMeshDefault;
+	Mesh* _cubeCornerMeshDefault;
 	Mesh* _cylinderMeshDefault;
 	Mesh* _planeMeshDefault;
 	Mesh* _suzannaMeshDefault;
