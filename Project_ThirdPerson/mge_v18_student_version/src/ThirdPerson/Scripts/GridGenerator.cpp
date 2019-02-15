@@ -14,7 +14,7 @@
 #include <fstream>
 
 
-GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _tileWorld(pTileWorld)
+GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _fileName(pFileName), _tileWorld(pTileWorld)
 {
 	_cubeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
 
@@ -33,10 +33,7 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& aName, co
 
 
 void GridGenerator::GenerateNodeGraph() {
-
-	std::string fileName = "TestLevel_ThirdPerson";
-
-	std::ifstream myBaseFile(config::MGE_BASETILES_PATH + fileName + "_BaseTiles.csv");
+	std::ifstream myBaseFile(config::MGE_BASETILES_PATH + _fileName + "_BaseTiles.csv");
 	std::vector<int> baseTiles;
 
 	char id;
@@ -59,7 +56,7 @@ void GridGenerator::GenerateNodeGraph() {
 		}
 	}
 
-	std::ifstream myEntityFile(config::MGE_ENTITYTILES_PATH + fileName + "_EntityTiles.csv");
+	std::ifstream myEntityFile(config::MGE_ENTITYTILES_PATH + _fileName + "_EntityTiles.csv");
 	std::vector<int> entityTiles;
 
 	// Read the file.
@@ -228,17 +225,20 @@ void GridGenerator::GenerateNodeGraph() {
 			else if (nmbr == 6)
 			{
 				gridObj = new PlayerBigShip(_nodeCache[column][row], GetAllNodes(), "PlayerBigShip");
-				//node = new Node(Node::TerrainTypes::plain, "Node");
 				gridObj->setMaterial(bigShipMaterial);
 				gridObj->setMesh(_suzannaMeshDefault);
 				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
+
+				_playerShips.push_back(static_cast<Ship*>(gridObj));
 			}
 			else if (nmbr == 7)
 			{
 				gridObj = new PlayerSmallShip(_nodeCache[column][row], GetAllNodes(), "PlayerSmallShip");
 				gridObj->setMaterial(smallShipMaterial);
 				gridObj->setMesh(_suzannaMeshDefault);
-				gridObj->scale(glm::vec3(_tileWorld.tileSize()/2, _tileWorld.tileSize()/2, _tileWorld.tileSize()/2));
+				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
+
+				_playerShips.push_back(static_cast<Ship*>(gridObj));
 			}
 			else if (nmbr == 8)
 			{
@@ -246,6 +246,8 @@ void GridGenerator::GenerateNodeGraph() {
 				gridObj->setMaterial(enemyShipMaterial);
 				gridObj->setMesh(_teapotMeshDefault);
 				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
+
+				_AIShips.push_back(static_cast<Ship*>(gridObj));
 			}
 			else
 			{
@@ -296,18 +298,10 @@ GridGenerator::neighbourTiles GridGenerator::getNeighbourTiles(int pNodeX, int p
 			{
 				if (nodeRow < pNodeY && nodeColumn == pNodeX)
 				{
-					if (pNodeY == 0)
-					{
-						std::cout << pNodeX << ": Tile north of me is now true." << std::endl;
-					}
 					tiles._north = true;
 				}
 				else if (nodeRow < pNodeY && nodeColumn > pNodeX)
 				{
-					if (pNodeY == 0)
-					{
-						std::cout << pNodeX << ": Tile north-east of me is now true." << std::endl;
-					}
 					tiles._northEast = true;
 				}
 				else if (nodeColumn > pNodeX && nodeRow == pNodeY)
@@ -332,10 +326,6 @@ GridGenerator::neighbourTiles GridGenerator::getNeighbourTiles(int pNodeX, int p
 				}
 				else if (nodeRow < pNodeY && nodeColumn < pNodeX)
 				{
-					if (pNodeY == 0)
-					{
-						std::cout << pNodeX << ": Tile north-west of me is now true." << std::endl;
-					}
 					tiles._northWest = true;
 				}
 			}
@@ -344,23 +334,19 @@ GridGenerator::neighbourTiles GridGenerator::getNeighbourTiles(int pNodeX, int p
 
 	if (tiles.GetTilesInARow(8, 4)) //If this tile is completely surrounded
 	{
-		std::cout << pNodeX << " - " << pNodeY << ": FULL TILE!" << std::endl;
 		tiles._type = tileTypes::fullTile;
 	}
 	else if (tiles.GetTilesInARow(7, 3))
 	{
-		std::cout << pNodeX << " - " << pNodeY << ": INVERSE CORNER TILE!" << std::endl;
 		tiles._type = tileTypes::cornerInverseTile;
 		tiles.SetDirection(tiles._directionIndex + 1);
 	}
 	else if (tiles.GetTilesInARow(5, 2))
 	{
-		std::cout << pNodeX << " - " << pNodeY << ": STRAIGHT TILE!" << std::endl;
 		tiles._type = tileTypes::straightTile;
 	}
 	else if (tiles.GetTilesInARow(3, 1))
 	{
-		std::cout << pNodeX << " - " << pNodeY << ": CORNER TILE!" << std::endl;
 		tiles._type = tileTypes::cornerTile;
 		tiles.SetDirection(tiles._directionIndex+1);
 	}
@@ -481,10 +467,11 @@ std::vector<Node*> GridGenerator::GetAllNodes()
 	return allNodes;
 }
 
-void GridGenerator::SetHomeNode(Node* pNode, AbstractMaterial* pMaterial) {
-	AbstractMaterial* homeMaterial = new LitMaterial(glm::vec3(0.65f, 0.25f, 0.75f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	pNode->setMaterial(pMaterial);
-	pNode->SetNormalTerrainType();
+std::vector<Ship*> GridGenerator::GetPlayerShips() {
+	return _playerShips;
+}
+std::vector<Ship*> GridGenerator::GetAIShips() {
+	return _AIShips;
 }
 
 GridGenerator::~GridGenerator() {

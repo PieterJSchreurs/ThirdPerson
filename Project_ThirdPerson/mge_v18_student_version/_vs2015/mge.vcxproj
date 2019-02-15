@@ -203,6 +203,7 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\Node.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\NodeWorld.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\PlayerBigShip.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\PlayerController.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\PlayerSmallShip.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\Ship.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\SmallShip.h" />
@@ -248,6 +249,7 @@
     <ClCompile Include="..\src\ThirdPerson\Scripts\Node.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\NodeWorld.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\PlayerBigShip.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\PlayerController.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\PlayerSmallShip.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\Ship.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\SmallShip.cpp" />

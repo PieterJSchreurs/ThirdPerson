@@ -2,7 +2,6 @@
 #define THIRDPERSON_HPP
 
 #include "mge/core/AbstractGame.hpp"
-#include "ThirdPerson/Scripts/GridObject.h"
 
 class DebugHud;
 

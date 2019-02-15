@@ -2,6 +2,7 @@
 #define GRIDGENERATOR_HPP
 
 #include "glm.hpp"
+#include "ThirdPerson/Scripts/Ship.h"
 #include "ThirdPerson/Scripts/PlayerBigShip.h"
 #include "ThirdPerson/Scripts/PlayerSmallShip.h"
 #include "ThirdPerson/Scripts/AIBigShip.h"
@@ -19,7 +20,7 @@
 class GridGenerator : public GameObject
 {
 public:
-	GridGenerator(TileWorld& pTileWorld, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	GridGenerator(TileWorld& pTileWorld, const std::string& pFileName, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~GridGenerator();
 
 	void GenerateNodeGraph();
@@ -34,7 +35,8 @@ public:
 	int getGridWidth();
 	int getGridHeight();
 
-	void SetHomeNode(Node* pNode, AbstractMaterial* pMaterial);
+	std::vector<Ship*> GetPlayerShips();
+	std::vector<Ship*> GetAIShips();
 
 private:
 	enum tileTypes {
@@ -162,7 +164,6 @@ private:
 
 	neighbourTiles getNeighbourTiles(int pNodeX, int pNodeY, std::vector<int> pAllNodes, Node::TerrainTypes pType, Node::TerrainTypes pType2 = Node::TerrainTypes::empty);
 
-	void PlaceCorrectIslandNode(Node* pNode, int pColumn, int pRow, std::vector<int> pAllNodes);
 	Mesh* _cubeMeshDefault;
 	Mesh* _cubeFullMeshDefault;
 	Mesh* _cubeInvertedCornerMeshDefault;
@@ -173,6 +174,8 @@ private:
 	Mesh* _suzannaMeshDefault;
 	Mesh* _teapotMeshDefault;
 	Mesh* _sphereMeshDefault;
+
+	void PlaceCorrectIslandNode(Node* pNode, int pColumn, int pRow, std::vector<int> pAllNodes);
 	void PlaceCorrectHarborNode(Node* pNode, int pColumn, int pRow, std::vector<int> pAllNodes);
 
 	TileWorld& _tileWorld;		//the tileworld to inspect
@@ -181,8 +184,11 @@ private:
 	Node* _nodeCache[100][100];	//The map can not be bigger than 100 by 100!
 	int _gridWidth;
 	int _gridHeight;
-	//Node** _nodeCache[10];
-	//Node[, ] _nodeCache;		//maps column and row coordinates of the tileworld to the corresponding node (if there is any)
+
+	std::vector<Ship*> _playerShips;
+	std::vector<Ship*> _AIShips;
+
+	std::string _fileName;
 };
 
 #endif // GRIDGENERATOR_HPP
