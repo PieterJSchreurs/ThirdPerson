@@ -155,7 +155,7 @@ void ThirdPerson::_initializeScene()
 	std::cout << "===================================" << std::endl;
 	for (int i = 0; i < fileNames.size(); i++)
 	{
-		std::cout << fileNames[i].substr(0, fileNames[i].length() - 14) << std::endl; //Remove the _BaseTiles.csv extension
+		std::cout << fileNames[i].substr(0, fileNames[i].length() - 14) << std::endl; //Removes the _BaseTiles.csv extension.
 	}
 	std::cout << "===================================" << std::endl << std::endl;
 

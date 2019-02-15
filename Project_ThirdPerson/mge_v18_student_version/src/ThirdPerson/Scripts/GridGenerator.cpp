@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 
 GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _fileName(pFileName), _tileWorld(pTileWorld)
@@ -33,46 +34,130 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 
 
 void GridGenerator::GenerateNodeGraph() {
-	std::ifstream myBaseFile(config::MGE_BASETILES_PATH + _fileName + "_BaseTiles.csv");
-	std::vector<int> baseTiles;
 
 	char id;
 	char divider = ',';
 	char negative = '-';
+	std::vector<char> combiner;
+	std::string line;
 
-	// Read the file.
-	while (myBaseFile >> id)
-	{
-		if (id != divider) //Filter out all the divider characters.
+	std::ifstream myBaseFile(config::MGE_BASETILES_PATH + _fileName + "_BaseTiles.csv");
+	std::vector<int> baseTiles;
+
+	while (std::getline(myBaseFile, line)) { //Get the next line from our file.
+		std::istringstream s(line); //Put the line into a string stream
+		// Read the file.
+		while (s >> id) //Get the next character in our line
 		{
-			if (id != negative) //Filter out all the negative numbers.
+			if (id != divider) //Filter out all the divider characters.
 			{
-				baseTiles.push_back(id - '0'); //Put any number into our vector.
+				combiner.push_back(id);
 			}
 			else {
-				baseTiles.push_back(-1);
-				myBaseFile >> id; //Remove the number following the - sign.
+				int doubleId = 0;
+				int inverter = 1;
+
+				for (int i = 0; i < combiner.size(); i++)
+				{
+					if (combiner[i] != negative) //Filter out all the negative numbers.
+					{
+						if (combiner.size() - i - 1 > 0)
+						{
+							doubleId += (combiner[i] - '0') * (10 * (combiner.size() - i - 1));
+						}
+						else {
+							doubleId += (combiner[i] - '0');
+						}
+					}
+					else {
+						inverter = -1;
+					}
+				}
+				baseTiles.push_back(doubleId * inverter); //Put any number into our vector.
+				combiner.clear();
 			}
 		}
+		int doubleId = 0;
+		int inverter = 1;
+
+		for (int i = 0; i < combiner.size(); i++)
+		{
+			if (combiner[i] != negative) //Filter out all the negative numbers.
+			{
+				if (combiner.size() - i - 1 > 0)
+				{
+					doubleId += (combiner[i] - '0') * (10 * (combiner.size() - i - 1));
+				}
+				else {
+					doubleId += (combiner[i] - '0');
+				}
+			}
+			else {
+				inverter = -1;
+			}
+		}
+		baseTiles.push_back(doubleId * inverter); //Put any number into our vector.
+		combiner.clear();
 	}
 
 	std::ifstream myEntityFile(config::MGE_ENTITYTILES_PATH + _fileName + "_EntityTiles.csv");
 	std::vector<int> entityTiles;
 
 	// Read the file.
-	while (myEntityFile >> id)
-	{
-		if (id != divider) //Filter out all the divider characters.
+	while (std::getline(myEntityFile, line)) { //Get the next line from our file.
+		std::istringstream s(line); //Put the line into a string stream
+
+		while (s >> id) //Get the next character in our line
 		{
-			if (id != negative) //Filter out all the negative numbers.
+			if (id != divider) //Filter out all the divider characters.
 			{
-				entityTiles.push_back(id - '0'); //Put any number into our vector.
+				combiner.push_back(id);
 			}
 			else {
-				entityTiles.push_back(-1);
-				myEntityFile >> id; //Remove the number following the - sign.
+				int doubleId = 0;
+				int inverter = 1;
+
+				for (int i = 0; i < combiner.size(); i++)
+				{
+					if (combiner[i] != negative) //Filter out all the negative numbers.
+					{
+						if (combiner.size() - i - 1 > 0)
+						{
+							doubleId += (combiner[i] - '0') * (10 * (combiner.size() - i - 1));
+						}
+						else {
+							doubleId += (combiner[i] - '0');
+						}
+					}
+					else {
+						inverter = -1;
+					}
+				}
+				entityTiles.push_back(doubleId * inverter); //Put any number into our vector.
+				combiner.clear();
 			}
 		}
+		int doubleId = 0;
+		int inverter = 1;
+
+		for (int i = 0; i < combiner.size(); i++)
+		{
+			if (combiner[i] != negative) //Filter out all the negative numbers.
+			{
+				if (combiner.size() - i - 1 > 0)
+				{
+					doubleId += (combiner[i] - '0') * (10 * (combiner.size() - i - 1));
+				}
+				else {
+					doubleId += (combiner[i] - '0');
+				}
+			}
+			else {
+				inverter = -1;
+			}
+		}
+		entityTiles.push_back(doubleId * inverter); //Put any number into our vector.
+		combiner.clear();
 	}
 
 	AbstractMaterial* normalMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
@@ -115,7 +200,7 @@ void GridGenerator::GenerateNodeGraph() {
 				node->setMesh(_cubeMeshDefault);
 				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), 0, row * (_tileWorld.tileSize() * 2.0f + 0.1f)));
 			}
-			else if (nmbr == 2) //Island tile at half height, add an inactive water tile at height 0
+			else if (nmbr == 0) //Island tile at half height, add an inactive water tile at height 0
 			{
 				node = new Node(Node::TerrainTypes::island, "Island");
 				node->scale(glm::vec3(_tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2));
@@ -131,7 +216,7 @@ void GridGenerator::GenerateNodeGraph() {
 				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), 0, row * (_tileWorld.tileSize() * 2.0f + 0.1f)));
 				_nodeWorld->AddInactiveNode(inactiveNode);
 			}
-			else if (nmbr == 4) //Harbor tile at half height, add an inactive water tile at height 0
+			else if (nmbr == 1) //Harbor tile at half height, add an inactive water tile at height 0
 			{
 				node = new Node(Node::TerrainTypes::harbor, "Harbor");
 				node->scale(glm::vec3(_tileWorld.tileSize()*2, _tileWorld.tileSize()*2, _tileWorld.tileSize()*2));
@@ -203,18 +288,10 @@ void GridGenerator::GenerateNodeGraph() {
 
 	GridObject* gridObj = nullptr;
 	GridGenerator* selfRef = this;
-	for (int row = 0; row < _tileWorld.rows(); row++) { //TODO: These are not supposed to be nodes, they should be a new class named GridObject.
+	for (int row = 0; row < _tileWorld.rows(); row++) {
 		for (int column = 0; column < _tileWorld.columns(); column++) {
 			int nmbr = entityTiles[row * _tileWorld.rows() + column];
-			if (nmbr == 3)
-			{
-				gridObj = new GoalObject(_nodeCache[column][row], GetAllNodes(), "GoalObject");
-				//node = new Node(Node::TerrainTypes::plain, "Node");
-				gridObj->setMaterial(goalMaterial);
-				gridObj->setMesh(_sphereMeshDefault);
-				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
-			}
-			else if (nmbr == 5)
+			if (nmbr == 2)
 			{
 				gridObj = new TreasureObject(_nodeCache[column][row], GetAllNodes(), "TreasureObject");
 				//node = new Node(Node::TerrainTypes::plain, "Node");
@@ -222,37 +299,92 @@ void GridGenerator::GenerateNodeGraph() {
 				gridObj->setMesh(_sphereMeshDefault);
 				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 			}
-			else if (nmbr == 6)
+			else if (nmbr == 3)
+			{
+				gridObj = new GoalObject(_nodeCache[column][row], GetAllNodes(), "GoalObject");
+				//node = new Node(Node::TerrainTypes::plain, "Node");
+				gridObj->setMaterial(goalMaterial);
+				gridObj->setMesh(_sphereMeshDefault);
+				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
+			}
+			else if (nmbr >= 4 && nmbr <= 7)
 			{
 				gridObj = new PlayerBigShip(_nodeCache[column][row], GetAllNodes(), "PlayerBigShip");
+				if (nmbr == 4)
+				{
+					gridObj->setEulerAngles(glm::vec3(0,180,0));
+				}
+				else if (nmbr == 5)
+				{
+					gridObj->setEulerAngles(glm::vec3(0, 270, 0));
+				}
+				else if (nmbr == 6)
+				{
+					gridObj->setEulerAngles(glm::vec3(0, 0, 0));
+				}
+				else if (nmbr == 7)
+				{
+					gridObj->setEulerAngles(glm::vec3(0, 90, 0));
+				}
 				gridObj->setMaterial(bigShipMaterial);
 				gridObj->setMesh(_suzannaMeshDefault);
 				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 
 				_playerShips.push_back(static_cast<Ship*>(gridObj));
 			}
-			else if (nmbr == 7)
+			else if (nmbr >= 8 && nmbr <= 11)
 			{
 				gridObj = new PlayerSmallShip(_nodeCache[column][row], GetAllNodes(), "PlayerSmallShip");
+				if (nmbr == 8)
+				{
+					gridObj->setEulerAngles(glm::vec3(0, 180, 0));
+				}
+				else if (nmbr == 9)
+				{
+					gridObj->setEulerAngles(glm::vec3(0, 90, 0));
+				}
+				else if (nmbr == 10)
+				{
+					gridObj->setEulerAngles(glm::vec3(0, 0, 0));
+				}
+				else if (nmbr == 11)
+				{
+					gridObj->setEulerAngles(glm::vec3(0, 270, 0));
+				}
 				gridObj->setMaterial(smallShipMaterial);
 				gridObj->setMesh(_suzannaMeshDefault);
 				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 
 				_playerShips.push_back(static_cast<Ship*>(gridObj));
 			}
-			else if (nmbr == 8)
+			else if (nmbr >= 12 && nmbr <= 15)
 			{
 				gridObj = new AIBigShip(_nodeCache[column][row], GetAllNodes(), "AIBigShip");
+				if (nmbr == 12)
+				{
+					gridObj->setEulerAngles(glm::vec3(0, 180, 0)); //TODO: Correct this rotation
+				}
+				else if (nmbr == 13)
+				{
+					gridObj->setEulerAngles(glm::vec3(0, 270, 0));
+				}
+				else if (nmbr == 14)
+				{
+					gridObj->setEulerAngles(glm::vec3(0, 0, 0));
+				}
+				else if (nmbr == 15)
+				{
+					gridObj->setEulerAngles(glm::vec3(0, 90, 0));
+				}
 				gridObj->setMaterial(enemyShipMaterial);
-				gridObj->setMesh(_teapotMeshDefault);
+				gridObj->setMesh(_suzannaMeshDefault);
 				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 
 				_AIShips.push_back(static_cast<Ship*>(gridObj));
 			}
 			else
 			{
-				gridObj = new GridObject(_nodeCache[column][row], GetAllNodes(), "GridObject");
-				//node->setMaterial(normalMaterial);
+				gridObj = new GridObject(_nodeCache[column][row], GetAllNodes(), "GridObject"); //Unrecognized tile id.
 			}
 
 			//node->setMesh(planeMeshDefault);
