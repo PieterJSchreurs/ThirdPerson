@@ -4,6 +4,7 @@
 //#include "mge/core/Mesh.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
+#include "mge/materials/ColorMaterial.hpp"
 #include "mge/materials/LitMaterial.h"
 #include "mge/materials/LitTextureMaterial.h"
 
@@ -22,20 +23,11 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& aName, co
 	_cubeStraightMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "straight.obj");
 	_cubeCornerMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "corner.obj");
 
-	_cylinderMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth.obj");
+	_obstacleMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "obstacle.obj");
 	_planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
 	_suzannaMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth.obj");
 	_teapotMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth.obj");
 	_sphereMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
-
-	AbstractMaterial* enemyShipMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-
-	GameObject* test = new GameObject("Water", glm::vec3(15, 5, 15));
-	test->setMaterial(enemyShipMaterial);
-	test->setMesh(_cubeFullMeshDefault);
-	test->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
-
-	_tileWorld.add(test);
 }
 
 
@@ -88,6 +80,7 @@ void GridGenerator::GenerateNodeGraph() {
 
 	AbstractMaterial* normalMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* waterMaterial = new LitMaterial(glm::vec3(0.25f, 0.35f, 0.65f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+	AbstractMaterial* waterMaterial2 = new ColorMaterial(glm::vec3(0.25f, 0.35f, 0.65f));
 	AbstractMaterial* islandMaterialSingle = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* islandMaterialCorner = new LitMaterial(glm::vec3(0.75f, 0.75f, 0.75f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* islandMaterialStraight = new LitMaterial(glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
@@ -120,7 +113,7 @@ void GridGenerator::GenerateNodeGraph() {
 			if (nmbr < 0) //No tile, so will be just water at height 0
 			{
 				node = new Node(Node::TerrainTypes::water, "Water");
-				node->setMaterial(waterMaterial);
+				node->setMaterial(waterMaterial2);
 				node->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				node->setMesh(_cubeMeshDefault);
 				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), 0, row * (_tileWorld.tileSize() * 2.0f + 0.1f)));
@@ -128,14 +121,14 @@ void GridGenerator::GenerateNodeGraph() {
 			else if (nmbr == 2) //Island tile at half height, add an inactive water tile at height 0
 			{
 				node = new Node(Node::TerrainTypes::island, "Island");
-				node->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
+				node->scale(glm::vec3(_tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2));
 				PlaceCorrectIslandNode(node, column, row, baseTiles);
 
 				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), _tileWorld.tileSize(), row * (_tileWorld.tileSize() * 2.0f + 0.1f)));//TODO: How high should these tiles be placed?
 				_tileWorld.SetWalkable(column, row, false);
 
 				Node* inactiveNode = new Node(Node::TerrainTypes::water, "Water"); //Add the inactive water node
-				inactiveNode->setMaterial(waterMaterial);
+				inactiveNode->setMaterial(waterMaterial2);
 				inactiveNode->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				inactiveNode->setMesh(_cubeMeshDefault);
 				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), 0, row * (_tileWorld.tileSize() * 2.0f + 0.1f)));
@@ -144,14 +137,14 @@ void GridGenerator::GenerateNodeGraph() {
 			else if (nmbr == 4) //Harbor tile at half height, add an inactive water tile at height 0
 			{
 				node = new Node(Node::TerrainTypes::harbor, "Harbor");
-				node->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
+				node->scale(glm::vec3(_tileWorld.tileSize()*2, _tileWorld.tileSize()*2, _tileWorld.tileSize()*2));
 				PlaceCorrectHarborNode(node, column, row, baseTiles);
 
 				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), _tileWorld.tileSize(), row * (_tileWorld.tileSize() * 2.0f + 0.1f)));//TODO: How high should these tiles be placed?
 				_tileWorld.SetWalkable(column, row, false);
 
 				Node* inactiveNode = new Node(Node::TerrainTypes::water, "Water"); //Add the inactive water node
-				inactiveNode->setMaterial(waterMaterial);
+				inactiveNode->setMaterial(waterMaterial2);
 				inactiveNode->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				inactiveNode->setMesh(_cubeMeshDefault);
 				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), 0, row * (_tileWorld.tileSize() * 2.0f + 0.1f)));
@@ -358,6 +351,7 @@ GridGenerator::neighbourTiles GridGenerator::getNeighbourTiles(int pNodeX, int p
 	{
 		std::cout << pNodeX << " - " << pNodeY << ": INVERSE CORNER TILE!" << std::endl;
 		tiles._type = tileTypes::cornerInverseTile;
+		tiles.SetDirection(tiles._directionIndex + 1);
 	}
 	else if (tiles.GetTilesInARow(5, 2))
 	{
@@ -368,78 +362,80 @@ GridGenerator::neighbourTiles GridGenerator::getNeighbourTiles(int pNodeX, int p
 	{
 		std::cout << pNodeX << " - " << pNodeY << ": CORNER TILE!" << std::endl;
 		tiles._type = tileTypes::cornerTile;
+		tiles.SetDirection(tiles._directionIndex+1);
 	}
 
 	return tiles;
 }
 
 void GridGenerator::PlaceCorrectIslandNode(Node* pNode, int pColumn, int pRow, std::vector<int> pAllNodes) {
-	AbstractMaterial* islandMaterialSingle = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* islandMaterialCorner = new LitMaterial(glm::vec3(0.75f, 0.75f, 0.75f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* islandMaterialStraight = new LitMaterial(glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* islandMaterialInverseCorner = new LitMaterial(glm::vec3(0.25f, 0.25f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* islandMaterialFull = new LitMaterial(glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+	AbstractMaterial* islandMaterial = new LitMaterial(glm::vec3(0.75f, 0.75f, 0.75f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	
 	neighbourTiles neighbours = getNeighbourTiles(pColumn, pRow, pAllNodes, Node::TerrainTypes::island, Node::TerrainTypes::harbor);
 	if (neighbours._type == tileTypes::fullTile)
 	{
-		pNode->setMaterial(islandMaterialFull);
+		pNode->setMaterial(islandMaterial);
 		pNode->setMesh(_cubeFullMeshDefault);
 	}
 	else if (neighbours._type == tileTypes::straightTile)
 	{
-		pNode->setMaterial(islandMaterialStraight);
+		pNode->setMaterial(islandMaterial);
 		pNode->setMesh(_cubeStraightMeshDefault);
+		
+		pNode->setEulerAngles(glm::vec3(0,(-90 * neighbours._direction.x) + glm::min(0.0f, -180 * neighbours._direction.y),0));
 	}
 	else if (neighbours._type == tileTypes::cornerTile)
 	{
-		pNode->setMaterial(islandMaterialCorner);
+		pNode->setMaterial(islandMaterial);
 		pNode->setMesh(_cubeCornerMeshDefault);
+
+		pNode->setEulerAngles(glm::vec3(0, (-90 * neighbours._direction.x) + glm::min(0.0f, -180 * neighbours._direction.y), 0));
 	}
 	else if (neighbours._type == tileTypes::cornerInverseTile)
 	{
-		pNode->setMaterial(islandMaterialInverseCorner);
+		pNode->setMaterial(islandMaterial);
 		pNode->setMesh(_cubeInvertedCornerMeshDefault);
+
+		pNode->setEulerAngles(glm::vec3(0, (-90 * neighbours._direction.x) + glm::min(0.0f, -180 * neighbours._direction.y), 0));
 	}
 	else
 	{
-		pNode->setMaterial(islandMaterialSingle);
-		pNode->setMesh(_cylinderMeshDefault);
+		pNode->setMaterial(islandMaterial);
+		pNode->setMesh(_obstacleMeshDefault);
 	}
 }
 
 void GridGenerator::PlaceCorrectHarborNode(Node* pNode, int pColumn, int pRow, std::vector<int> pAllNodes) {
-	AbstractMaterial* harborMaterialSingle = new LitMaterial(glm::vec3(0.95f, 0.8f, 0.6f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* harborMaterialCorner = new LitMaterial(glm::vec3(0.8f, 0.65f, 0.45f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* harborMaterialStraight = new LitMaterial(glm::vec3(0.65f, 0.5f, 0.3f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* harborMaterialInverseCorner = new LitMaterial(glm::vec3(0.50f, 0.35f, 0.15f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* harborMaterialFull = new LitMaterial(glm::vec3(0.35f, 0.2f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+	AbstractMaterial* harborMaterial = new LitMaterial(glm::vec3(0.8f, 0.65f, 0.45f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 
 	neighbourTiles neighbours = getNeighbourTiles(pColumn, pRow, pAllNodes, Node::TerrainTypes::harbor, Node::TerrainTypes::island);
 	if (neighbours._type == tileTypes::fullTile)
 	{
-		pNode->setMaterial(harborMaterialFull);
+		pNode->setMaterial(harborMaterial);
 		pNode->setMesh(_cubeFullMeshDefault);
 	}
 	else if (neighbours._type == tileTypes::straightTile)
 	{
-		pNode->setMaterial(harborMaterialStraight);
+		pNode->setMaterial(harborMaterial);
 		pNode->setMesh(_cubeStraightMeshDefault);
+		pNode->setEulerAngles(glm::vec3(0, (-90 * neighbours._direction.x) + glm::min(0.0f, -180 * neighbours._direction.y), 0));
 	}
 	else if (neighbours._type == tileTypes::cornerTile)
 	{
-		pNode->setMaterial(harborMaterialCorner);
+		pNode->setMaterial(harborMaterial);
 		pNode->setMesh(_cubeCornerMeshDefault);
+		pNode->setEulerAngles(glm::vec3(0, (-90 * neighbours._direction.x) + glm::min(0.0f, -180 * neighbours._direction.y), 0));
 	}
 	else if (neighbours._type == tileTypes::cornerInverseTile)
 	{
-		pNode->setMaterial(harborMaterialInverseCorner);
+		pNode->setMaterial(harborMaterial);
 		pNode->setMesh(_cubeInvertedCornerMeshDefault);
+		pNode->setEulerAngles(glm::vec3(0, (-90 * neighbours._direction.x) + glm::min(0.0f, -180 * neighbours._direction.y), 0));
 	}
 	else
 	{
-		pNode->setMaterial(harborMaterialSingle);
-		pNode->setMesh(_cylinderMeshDefault);
+		pNode->setMaterial(harborMaterial);
+		pNode->setMesh(_obstacleMeshDefault);
 	}
 }
 
