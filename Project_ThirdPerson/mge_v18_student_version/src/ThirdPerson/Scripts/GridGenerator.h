@@ -57,6 +57,7 @@ private:
 		bool _tiles[8] = { _north, _northEast, _east, _southEast, _south, _southWest, _west, _northWest };
 
 		glm::vec2 _direction = glm::vec2(0, 0);
+		int _directionIndex = 0;
 		tileTypes _type = tileTypes::single;
 
 		void UpdateTilesArray() {
@@ -70,35 +71,36 @@ private:
 			_tiles[7] = _northWest;
 		}
 		void SetDirection(int pDir) {
-			if (pDir == 0)
+			_directionIndex = pDir % 8;
+			if (_directionIndex == 0) //North
 			{
 				_direction = glm::vec2(0, -1);
 			}
-			else if (pDir == 1)
+			else if (_directionIndex == 1) //North-east
 			{
 				_direction = glm::vec2(1, -1);
 			}
-			else if (pDir == 2)
+			else if (_directionIndex == 2) //East
 			{
 				_direction = glm::vec2(1, 0);
 			}
-			else if (pDir == 3)
+			else if (_directionIndex == 3) //South-east
 			{
 				_direction = glm::vec2(1, 1);
 			}
-			else if (pDir == 4)
+			else if (_directionIndex == 4) //South
 			{
 				_direction = glm::vec2(0, 1);
 			}
-			else if (pDir == 5)
+			else if (_directionIndex == 5) //South-west
 			{
 				_direction = glm::vec2(-1, 1);
 			}
-			else if (pDir == 6)
+			else if (_directionIndex == 6) //West
 			{
 				_direction = glm::vec2(-1, 0);
 			}
-			else if (pDir == 7)
+			else if (_directionIndex == 7) //North-west
 			{
 				_direction = glm::vec2(-1, -1);
 			}
@@ -120,19 +122,11 @@ private:
 					}
 					if ((counter == pAmount && cornerCounter == pCornerAmount) || counter > pAmount) //If there are pAmount tiles connected in a row
 					{
-						if (counter == pAmount)
-						{
-							SetDirection(i - (glm::floor(pAmount/2.0f)));
-						}
-						else if (counter > pAmount) //This will never be more than 1 larger than pAmount.
-						{
-							SetDirection(i - (glm::ceil(pAmount / 2.0f)));
-						}
+						SetDirection(i - (glm::floor(pAmount / 2.0f)));
 						return true;//Return true
 					}
-					if (i >= 7 && !fullCheck)//If there are no pAmount tiles in a row yet after having checked all the tiles, but there is a chain going, recheck north to see if it connects counter clockwise.
+					else if (i >= 7 && !fullCheck)//If there are no pAmount tiles in a row yet after having checked all the tiles, but there is a chain going, recheck north to see if it connects counter clockwise.
 					{
-						//std::cout << "DOING A FULL CHECK!" << std::endl;
 						fullCheck = true;
 						for (int j = 0; j < 8; j++)
 						{
@@ -145,14 +139,7 @@ private:
 								}
 								if ((counter == pAmount && cornerCounter == pCornerAmount) || counter > pAmount) //If there are pAmount tiles connected in a row
 								{
-									if (counter == pAmount)
-									{
-										SetDirection(((i + j + 1) % 8) - (glm::floor(pAmount / 2.0f)));
-									}
-									else if (counter > pAmount) //This will never be more than 1 larger than pAmount.
-									{
-										SetDirection(((i + j + 1) % 8) - (glm::ceil(pAmount / 2.0f)));
-									}
+									SetDirection(((i + j + 1) - (int)(glm::floor(pAmount / 2.0f))) % 8);
 									return true;//Return true
 								}
 							}
@@ -181,7 +168,7 @@ private:
 	Mesh* _cubeInvertedCornerMeshDefault;
 	Mesh* _cubeStraightMeshDefault;
 	Mesh* _cubeCornerMeshDefault;
-	Mesh* _cylinderMeshDefault;
+	Mesh* _obstacleMeshDefault;
 	Mesh* _planeMeshDefault;
 	Mesh* _suzannaMeshDefault;
 	Mesh* _teapotMeshDefault;
