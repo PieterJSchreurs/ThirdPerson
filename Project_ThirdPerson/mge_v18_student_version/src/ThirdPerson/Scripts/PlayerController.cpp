@@ -11,11 +11,25 @@ PlayerController::PlayerController(std::vector<Ship*> pShips, int pTurnAmount, i
 	if (_myShips.size() > _currentShipIndex)
 	{
 		_currentShip = _myShips[_currentShipIndex];
-		SelectNextShip(1); //Switch ship once to apply the correct material.
+		if (_isActive) {
+			SelectNextShip(1); //Switch ship once to apply the correct material.
+		}
 		std::cout << "Player has " << _myShips.size() << " ships." << std::endl;
 	}
 	else {
 		std::cout << "There were no ships passed into the PlayerController." << std::endl;
+	}
+}
+
+void PlayerController::ToggleIsActive() {
+	_isActive = !_isActive;
+	if (!_isActive)
+	{
+		_currentShip->setMaterial(_currentShip->GetBaseMaterial());
+	}
+	else {
+		AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+		_currentShip->setMaterial(purpleMaterial);
 	}
 }
 
@@ -35,38 +49,45 @@ void PlayerController::update(float pStep) {
 }
 
 void PlayerController::HandlePlayerInput() { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-		RotateCurrentShip(1);
-		_lastPlayerInput = _timer;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
-		RotateCurrentShip(-1);
-		_lastPlayerInput = _timer;
-	}
+	if (_isActive)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+			RotateCurrentShip(1);
+			_lastPlayerInput = _timer;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+			RotateCurrentShip(-1);
+			_lastPlayerInput = _timer;
+		}
 
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		MoveCurrentShip(glm::vec2(0, -1));
-		_lastPlayerInput = _timer;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		MoveCurrentShip(glm::vec2(-1, 0));
-		_lastPlayerInput = _timer;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		MoveCurrentShip(glm::vec2(0, 1));
-		_lastPlayerInput = _timer;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		MoveCurrentShip(glm::vec2(1, 0));
-		_lastPlayerInput = _timer;
-	}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+			MoveCurrentShip(glm::vec2(0, -1));
+			_lastPlayerInput = _timer;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+			MoveCurrentShip(glm::vec2(-1, 0));
+			_lastPlayerInput = _timer;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+			MoveCurrentShip(glm::vec2(0, 1));
+			_lastPlayerInput = _timer;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+			MoveCurrentShip(glm::vec2(1, 0));
+			_lastPlayerInput = _timer;
+		}
 
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		SelectNextShip(-1);
-		_lastPlayerInput = _timer;
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+			SelectNextShip(-1);
+			_lastPlayerInput = _timer;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+			SelectNextShip(1);
+			_lastPlayerInput = _timer;
+		}
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		SelectNextShip(1);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		ToggleIsActive();
 		_lastPlayerInput = _timer;
 	}
 }

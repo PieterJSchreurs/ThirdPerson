@@ -42,6 +42,9 @@ private:
 	const float _playerInputDelay = 0.5f;
 	float _lastPlayerInput = 0;
 
+	void ToggleIsActive();
+	bool _isActive = true;
+
 };
 
 #endif // PLAYERCONTROLLER_HPP

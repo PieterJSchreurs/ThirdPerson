@@ -38,6 +38,7 @@
 #include "ThirdPerson/Scripts/GridObject.h"
 
 #include "ThirdPerson/Scripts/PlayerController.h"
+#include "ThirdPerson/Scripts/AIController.h"
 
 #include "ThirdPerson/config.hpp"
 #include "ThirdPerson/ThirdPerson.hpp"
@@ -191,6 +192,8 @@ void ThirdPerson::_initializeScene()
 	myGridGenerator->GenerateNodeGraph();
 	PlayerController* myPlayerController = new PlayerController(myGridGenerator->GetPlayerShips(), 5, 3, myGridGenerator, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myPlayerController);
+	AIController* myAIController = new AIController(myGridGenerator->GetAIShips(), 5, 3, myGridGenerator, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+	_world->add(myAIController);
 
 	Light* light = new Light("light", glm::vec3(2, 1, 2), glm::vec3(0.75f, 0.75f, 0.75f), 0.75f, 0.65f, Light::LightType::Directional, glm::vec3(45, 135, 0));
 	_world->add(light);
