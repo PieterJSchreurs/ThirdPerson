@@ -5,6 +5,7 @@
 #include "ThirdPerson/Scripts/Node.h"
 #include "mge/core/GameObject.hpp"
 #include "lua.hpp"
+#include "mge/materials/AbstractMaterial.hpp"
 
 class GridObject : public GameObject
 {
@@ -14,11 +15,14 @@ public:
 	virtual ~GridObject();
 	virtual void update(float pStep);
 	virtual void setMaterial(AbstractMaterial* pMaterial);
+	AbstractMaterial* GetBaseMaterial();
 
 	//General vector manipulation functions_________________________________________________________
 	template <typename T>
 	int GetIndexOfItemInVector(const std::vector<T> &vecOfElements, const T &element);
 	void SortNodeVector(std::vector<Node*> &vecOfElements);
+
+	Node* GetCurrentNode();
 
 private:
 
@@ -30,6 +34,8 @@ protected:
 	std::vector<Node*> _allNodes;
 	Node* _nodeCache[100][100];
 	Node* _currentNode;
+
+	AbstractMaterial* _myBaseMaterial = nullptr;
 
 };
 

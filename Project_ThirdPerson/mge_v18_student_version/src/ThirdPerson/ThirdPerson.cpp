@@ -37,6 +37,8 @@
 #include "ThirdPerson/Scripts/GridGenerator.h"
 #include "ThirdPerson/Scripts/GridObject.h"
 
+#include "ThirdPerson/Scripts/PlayerController.h"
+
 #include "ThirdPerson/config.hpp"
 #include "ThirdPerson/ThirdPerson.hpp"
 
@@ -147,21 +149,19 @@ std::vector<std::string> getAllFileNamesInFolder(std::string folder)
 //build the game _world
 void ThirdPerson::_initializeScene()
 {
-
 	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
+	
+	std::cout << std::endl << "\t" << "List of level files" << std::endl;
+	std::cout << "===================================" << std::endl;
 	for (int i = 0; i < fileNames.size(); i++)
 	{
-		std::cout << fileNames[i] << std::endl;
+		std::cout << fileNames[i].substr(0, fileNames[i].length() - 14) << std::endl; //Removes the _BaseTiles.csv extension.
 	}
-	//std::string fileAI1;
-	//std::string fileAI2;
-	//std::cout << "Please type the file name of the first blue AI, and press enter. Don't forget to add the .lua extension!" << std::endl;
-	//std::cin >> fileAI1;
-	//std::cout << "Please type the file name of the second red AI, and press enter. Don't forget to add the .lua extension!" << std::endl;
-	//std::cin >> fileAI2;
+	std::cout << "===================================" << std::endl << std::endl;
 
-	//DebugHud* blueHud = new DebugHud(_window);
-	//DebugHud* redHud = new DebugHud(_window);
+	std::string fileName;
+	std::cout << "Please type the file name of the level you want to load below, press enter to confirm." << std::endl;
+	std::cin >> fileName;
 
     //MESHES
 
@@ -176,47 +176,24 @@ void ThirdPerson::_initializeScene()
 	Mesh* sphereMesh2S = Mesh::load(config::MGE_MODEL_PATH + "sphere2.obj");
 
     //MATERIALS
-    //create some materials to display the cube, the plane and the light
-	AbstractMaterial* redMaterial = new LitMaterial(glm::vec3(0.85f, 0.25f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-	AbstractMaterial* blueMaterial = new LitMaterial(glm::vec3(0.25f, 0.25f, 0.85f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+
 
     //SCENE SETUP
     //add camera first (it will be updated last)
     Camera* camera = new Camera ("camera", glm::vec3(0,40,20));
     camera->rotate(glm::radians(-68.0f), glm::vec3(1,0,0));
-	//camera->setBehaviour(new CameraMoveBehaviour(75, 75, 10, 10));
     _world->add(camera);
     _world->setMainCamera(camera);
 
 	TileWorld* myTileWorld = new TileWorld(_gameplayValues._gridWidth, _gameplayValues._gridHeight, _gameplayValues._tileSize, "TileWorld");
 	_world->add(myTileWorld);
-	GridGenerator* myGridGenerator = new GridGenerator(*myTileWorld);
+	GridGenerator* myGridGenerator = new GridGenerator(*myTileWorld, fileName);
 	myGridGenerator->GenerateNodeGraph();
-
-	//add a spinning monkey head
-	//Worker* blueAI = new Worker(myGridGenerator->GetNodeAtTile(1, glm::floor(_gameplayValues._gridHeight / 2)), myGridGenerator, blueHud, _gameplayValues, glm::vec2(10.0f, 10.0f), "Blue", glm::vec3(0, 2, 0));
-	//blueAI->scale(glm::vec3(_gameplayValues._tileSize/2, _gameplayValues._tileSize / 2, _gameplayValues._tileSize / 2));
-	//blueAI->setMesh(suzannaMeshS);
-	//blueAI->setMaterial(blueMaterial);
-	//blueAI->setBehaviour (new LuaAIHandler(blueAI, fileAI1));
-	//myTileWorld->add(blueAI);
-
-	////add a spinning monkey head
-	//Worker* redAI = new Worker(myGridGenerator->GetNodeAtTile(_gameplayValues._gridWidth-2, glm::floor(_gameplayValues._gridHeight / 2)), myGridGenerator, redHud, _gameplayValues, glm::vec2(640.0f, 10.0f), "Red", glm::vec3(0, 2, 0));
-	//redAI->scale(glm::vec3(_gameplayValues._tileSize / 2, _gameplayValues._tileSize / 2, _gameplayValues._tileSize / 2));
-	//redAI->setMesh(suzannaMeshS);
-	//redAI->setMaterial(redMaterial);
-	//redAI->setBehaviour(new LuaAIHandler(redAI, fileAI2));
-	//myTileWorld->add(redAI);
-
-	//blueAI->SetOpponent(redAI);
-	//redAI->SetOpponent(blueAI);
-
+	PlayerController* myPlayerController = new PlayerController(myGridGenerator->GetPlayerShips(), 5, 3, myGridGenerator, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+	_world->add(myPlayerController);
 
 	Light* light = new Light("light", glm::vec3(2, 1, 2), glm::vec3(0.75f, 0.75f, 0.75f), 0.75f, 0.65f, Light::LightType::Directional, glm::vec3(45, 135, 0));
 	_world->add(light);
-
-
 }
 
 void ThirdPerson::_render() {

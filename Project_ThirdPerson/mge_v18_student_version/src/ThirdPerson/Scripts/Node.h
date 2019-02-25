@@ -15,18 +15,17 @@ public:
 
 	enum TerrainTypes //These integers should be the same as the tiled indexes
 	{
-		normal = 0,
-		water = 1,
-		island = 2,
-		obstacle = 3,
-		harbor = 4,
-		empty = 5,
+		island = 0,
+		harbor = 1,
+		water = 2,
+		normal = 3,
+		empty = 4,
 	};
 
 	struct AbstractNode {
 		int gridX = 0;
 		int gridY = 0;
-		int type = (int)Node::TerrainTypes::normal;
+		int type = (int)Node::TerrainTypes::empty;
 	};
 	static int getX(lua_State* lua) { //Receives a userdata, and casts it to an abstractNode. Reads the gridX value, and returns it.
 		AbstractNode* node = static_cast<AbstractNode*>(lua_touserdata(lua, 1));
