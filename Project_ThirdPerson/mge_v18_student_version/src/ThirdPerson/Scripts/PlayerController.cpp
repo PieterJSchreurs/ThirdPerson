@@ -26,6 +26,8 @@ void PlayerController::ToggleIsActive() {
 	if (!_isActive)
 	{
 		_currentShip->setMaterial(_currentShip->GetBaseMaterial());
+		//Hallo dit is een comment om deze file opnieuw te laten compilen.
+		std::cout << "print die comment boii." << std::endl;
 	}
 	else {
 		AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
