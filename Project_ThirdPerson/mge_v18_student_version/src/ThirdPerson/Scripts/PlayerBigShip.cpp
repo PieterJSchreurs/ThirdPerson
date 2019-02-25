@@ -8,7 +8,7 @@ PlayerBigShip::PlayerBigShip(Node* pStartNode, std::vector<Node*> pAllNodes, con
 
 void PlayerBigShip::update(float pStep) {
 	BigShip::update(pStep);
-	WanderRandomly();
+	//WanderRandomly();
 }
 
 void PlayerBigShip::DecideMove() {

@@ -95,6 +95,14 @@ bool MovingGridObject::IsDone() {
 	return _done;
 }
 
+bool MovingGridObject::HasPath() {
+	if (wayPointQueue.empty() || wayPointQueue.size() <= 0)
+	{
+		return false;
+	}
+	return true;
+}
+
 std::vector<Node*> MovingGridObject::GetLastFoundPath() {
 	return _lastPathFound;
 }
@@ -112,19 +120,19 @@ bool MovingGridObject::moveToTargetWaypoint()
 			{
 				if (moveDir.x > 0)
 				{
-					rotateEulerTowards(glm::vec3(getEulerAngles().x, 90, getEulerAngles().z), 0.05f);
+					rotateEulerTowards(glm::vec3(getEulerAngles().x, 90, getEulerAngles().z), _speed * 3.5f);
 				}
 				else {
-					rotateEulerTowards(glm::vec3(getEulerAngles().x, 270, getEulerAngles().z), 0.05f);
+					rotateEulerTowards(glm::vec3(getEulerAngles().x, 270, getEulerAngles().z), _speed * 3.5f);
 				}
 			}
 			else {
 				if (moveDir.z > 0)
 				{
-					rotateEulerTowards(glm::vec3(getEulerAngles().x, 0, getEulerAngles().z), 0.05f);
+					rotateEulerTowards(glm::vec3(getEulerAngles().x, 0, getEulerAngles().z), _speed * 3.5f);
 				}
 				else {
-					rotateEulerTowards(glm::vec3(getEulerAngles().x, 180, getEulerAngles().z), 0.05f);
+					rotateEulerTowards(glm::vec3(getEulerAngles().x, 180, getEulerAngles().z), _speed * 3.5f);
 				}
 			}
 
@@ -168,6 +176,7 @@ void MovingGridObject::resetPathFinder() {
 	_doneList.clear();
 	_done = false;
 	_lastPathFound.clear();
+	resetNode(_currentNode);
 	_activeNode = nullptr;
 }
 

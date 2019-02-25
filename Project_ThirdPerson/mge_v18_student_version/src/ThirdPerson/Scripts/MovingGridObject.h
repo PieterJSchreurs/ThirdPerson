@@ -19,6 +19,7 @@ public:
 	Node* GetRandomNode();
 	bool IsDone();
 	std::vector<Node*> GetLastFoundPath();
+	bool HasPath();
 
 private:
 	//Pathfinder functions__________________________________________________________________________
@@ -27,14 +28,14 @@ private:
 	void resetPathFinder();
 	void resetNode(Node* pNode);
 
-	float _speed = 0.015f;
+	float _speed = 0.025f;
 	std::vector<Node*> wayPointQueue;
 
 	std::vector<Node*> _todoList;
 	std::vector<Node*> _doneList;
 	Node* _activeNode;
 
-	bool _done = false;
+	bool _done = true;
 	std::vector<Node*> _lastPathFound;
 };
 

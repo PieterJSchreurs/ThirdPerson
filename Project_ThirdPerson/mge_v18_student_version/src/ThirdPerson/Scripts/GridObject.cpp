@@ -10,6 +10,15 @@ GridObject::GridObject(Node* pStartNode, std::vector<Node*> pAllNodes, const std
 void GridObject::setMaterial(AbstractMaterial* pMaterial)
 {
 	GameObject::setMaterial(pMaterial);
+	if (_myBaseMaterial == nullptr)
+	{
+		//std::cout << "Does this work?" << std::endl;
+		_myBaseMaterial = getMaterial();
+	}
+}
+
+AbstractMaterial* GridObject::GetBaseMaterial() {
+	return _myBaseMaterial;
 }
 
 void GridObject::update(float pStep) {
@@ -57,6 +66,9 @@ void GridObject::SortNodeVector(std::vector<Node*> &vecOfElements) {
 	vecOfElements.swap(valueHolder); //TODO: Does this apply correctly?
 }
 
+Node* GridObject::GetCurrentNode() {
+	return _currentNode;
+}
 //DESTRUCTOR___________________________________________________________
 GridObject::~GridObject() {
 }
