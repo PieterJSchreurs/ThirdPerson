@@ -1,5 +1,7 @@
-﻿  AIController.cpp
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(11): warning C4018: '>': signed/unsigned mismatch
-  mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
-  mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)
+﻿  GridGenerator.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(60): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(83): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(120): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(143): warning C4018: '<': signed/unsigned mismatch
+  mge.vcxproj -> C:\Users\Amadeo\Desktop\school\project third person\Git\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
