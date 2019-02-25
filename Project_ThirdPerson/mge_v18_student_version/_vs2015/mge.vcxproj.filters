@@ -173,6 +173,9 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\PlayerController.h">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\AIController.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -302,6 +305,9 @@
       <Filter>MGE Source files\ThirdPerson\Scripts\GridObjects\Other</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ThirdPerson\Scripts\PlayerController.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\AIController.cpp">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClCompile>
   </ItemGroup>

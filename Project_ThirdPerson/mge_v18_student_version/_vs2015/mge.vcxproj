@@ -196,6 +196,7 @@
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
     <ClInclude Include="..\src\ThirdPerson\config.hpp" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\AIBigShip.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\AIController.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\BigShip.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GoalObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GridGenerator.h" />
@@ -242,6 +243,7 @@
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\AIBigShip.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\AIController.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\BigShip.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\GoalObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\GridGenerator.cpp" />
