@@ -37,6 +37,7 @@
 #include "ThirdPerson/Scripts/GridGenerator.h"
 #include "ThirdPerson/Scripts/GridObject.h"
 
+#include "ThirdPerson/Scripts/TurnHandler.h"
 #include "ThirdPerson/Scripts/PlayerController.h"
 #include "ThirdPerson/Scripts/AIController.h"
 
@@ -190,10 +191,14 @@ void ThirdPerson::_initializeScene()
 	_world->add(myTileWorld);
 	GridGenerator* myGridGenerator = new GridGenerator(*myTileWorld, fileName);
 	myGridGenerator->GenerateNodeGraph();
-	PlayerController* myPlayerController = new PlayerController(myGridGenerator->GetPlayerShips(), 5, 3, myGridGenerator, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+
+	PlayerController* myPlayerController = new PlayerController(myGridGenerator->GetPlayerShips(), myGridGenerator, true, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myPlayerController);
-	AIController* myAIController = new AIController(myGridGenerator->GetAIShips(), 5, 3, myGridGenerator, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+	PlayerController* myAIController = new PlayerController(myGridGenerator->GetAIShips(), myGridGenerator, false, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myAIController);
+	//TurnHandler& myTurnHandler = ;
+	//_world->add(&TurnHandler::getInstance());
+	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 5, 3);
 
 	Light* light = new Light("light", glm::vec3(2, 1, 2), glm::vec3(0.75f, 0.75f, 0.75f), 0.75f, 0.65f, Light::LightType::Directional, glm::vec3(45, 135, 0));
 	_world->add(light);

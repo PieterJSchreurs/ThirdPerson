@@ -9,6 +9,19 @@ MovingGridObject::MovingGridObject(Node* pStartNode, std::vector<Node*> pAllNode
 void MovingGridObject::update(float pStep) {
 	_moved = false;
 	GridObject::update(pStep);
+
+	HandleRotation();
+}
+
+void MovingGridObject::HandleRotation() {
+	if (getEulerAngles().y != _targetEuler.y)
+	{
+		rotateEulerTowards(glm::vec3(getEulerAngles().x, _targetEuler.y, getEulerAngles().z), _rotationSpeed);
+		if (glm::abs(getEulerAngles().y - _targetEuler.y) <= _snapThreshold)
+		{
+			setEulerAngles(_targetEuler);
+		}
+	}
 }
 
 void MovingGridObject::DecideMove() {
@@ -31,7 +44,7 @@ void MovingGridObject::FindPathTo(Node* pEndNode)
 std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode)
 {
 	//are we able to find a path??
-	if (_done || pStartNode == nullptr || pEndNode == nullptr || _todoList.size() == 0)
+	if (_done || pStartNode == nullptr || pEndNode == nullptr || _todoList.size() == 0 || pEndNode->GetOccupied())
 	{
 		_done = true;
 		return _lastPathFound;
@@ -55,9 +68,10 @@ std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode)
 		while (node != nullptr)
 		{
 			_lastPathFound.insert(_lastPathFound.begin(), node);
-
+			node->SetOccupied(false);
 			node = node->GetParentNode();
 		}
+		pEndNode->SetOccupied(true);
 		return _lastPathFound;
 	}
 	else
@@ -67,20 +81,23 @@ std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode)
 		{
 			Node* connectedNode = _activeNode->GetConnectionAt(i);
 
-			if (GetIndexOfItemInVector(_doneList, connectedNode) == -1 && GetIndexOfItemInVector(_todoList, connectedNode) == -1)
+			if (!connectedNode->GetOccupied())
 			{
-				connectedNode->SetParentNode(_activeNode);
-				connectedNode->costEstimate = glm::distance(pEndNode->getLocalPosition(), connectedNode->getLocalPosition());
-				connectedNode->costCurrent = _activeNode->costCurrent + glm::distance(_activeNode->getLocalPosition(), connectedNode->getLocalPosition());
-				connectedNode->costTotal = connectedNode->costEstimate + connectedNode->costCurrent;
+				if (GetIndexOfItemInVector(_doneList, connectedNode) == -1 && GetIndexOfItemInVector(_todoList, connectedNode) == -1)
+				{
+					connectedNode->SetParentNode(_activeNode);
+					connectedNode->costEstimate = glm::distance(pEndNode->getLocalPosition(), connectedNode->getLocalPosition());
+					connectedNode->costCurrent = _activeNode->costCurrent + glm::distance(_activeNode->getLocalPosition(), connectedNode->getLocalPosition());
+					connectedNode->costTotal = connectedNode->costEstimate + connectedNode->costCurrent;
 
-				_todoList.push_back(connectedNode);
-			}
-			else if (connectedNode->costCurrent > _activeNode->costCurrent + glm::distance(_activeNode->getLocalPosition(), connectedNode->getLocalPosition()))
-			{
-				connectedNode->costCurrent = _activeNode->costCurrent + glm::distance(_activeNode->getLocalPosition(), connectedNode->getLocalPosition());
-				connectedNode->costTotal = connectedNode->costEstimate + connectedNode->costCurrent;
-				connectedNode->SetParentNode(_activeNode);
+					_todoList.push_back(connectedNode);
+				}
+				else if (connectedNode->costCurrent > _activeNode->costCurrent + glm::distance(_activeNode->getLocalPosition(), connectedNode->getLocalPosition()))
+				{
+					connectedNode->costCurrent = _activeNode->costCurrent + glm::distance(_activeNode->getLocalPosition(), connectedNode->getLocalPosition());
+					connectedNode->costTotal = connectedNode->costEstimate + connectedNode->costCurrent;
+					connectedNode->SetParentNode(_activeNode);
+				}
 			}
 		}
 		SortNodeVector(_todoList);
@@ -113,32 +130,40 @@ bool MovingGridObject::moveToTargetWaypoint()
 		_moved = true;
 		if (!wayPointQueue.empty() && wayPointQueue.size() > 0)
 		{
-			glm::vec3 moveDir = glm::normalize(wayPointQueue[0]->getLocalPosition() - glm::vec3(getLocalPosition().x + 0.01f, wayPointQueue[0]->getLocalPosition().y, getLocalPosition().z));
+			glm::vec3 moveDir = glm::normalize(wayPointQueue[0]->getLocalPosition() - glm::vec3(getLocalPosition().x, wayPointQueue[0]->getLocalPosition().y, getLocalPosition().z));
+			if (isnan(moveDir.x)) //If the ship is trying to move to his current node, skip it.
+			{
+				_currentNode = wayPointQueue[0];
+				targetNextWaypoint();
+				return true;
+			}
+
 			translate(glm::vec4(moveDir * _speed, 1.0f) * getWorldTransform());
 
 			if (glm::abs(moveDir.x) > glm::abs(moveDir.z))
 			{
 				if (moveDir.x > 0)
 				{
-					rotateEulerTowards(glm::vec3(getEulerAngles().x, 90, getEulerAngles().z), _speed * 3.5f);
+					SetOrientation(glm::vec2(1, 0));
 				}
 				else {
-					rotateEulerTowards(glm::vec3(getEulerAngles().x, 270, getEulerAngles().z), _speed * 3.5f);
+					SetOrientation(glm::vec2(-1, 0));
 				}
 			}
 			else {
 				if (moveDir.z > 0)
 				{
-					rotateEulerTowards(glm::vec3(getEulerAngles().x, 0, getEulerAngles().z), _speed * 3.5f);
+					SetOrientation(glm::vec2(0, 1));
 				}
 				else {
-					rotateEulerTowards(glm::vec3(getEulerAngles().x, 180, getEulerAngles().z), _speed * 3.5f);
+					SetOrientation(glm::vec2(0, -1));
 				}
 			}
 
-			if (glm::distance(getLocalPosition(), _currentNode->getLocalPosition()) >= glm::distance(wayPointQueue[0]->getLocalPosition(), _currentNode->getLocalPosition())) {
+			if (glm::distance(glm::vec3(getLocalPosition().x, 0, getLocalPosition().z), glm::vec3(_currentNode->getLocalPosition().x, 0, _currentNode->getLocalPosition().z)) >= glm::distance(wayPointQueue[0]->getLocalPosition(), _currentNode->getLocalPosition())) {
 				_currentNode = wayPointQueue[0];
-				//setLocalPosition(_currentNode->getLocalPosition());
+				_enteredNewNode = true;
+				setLocalPosition(glm::vec3(_currentNode->getLocalPosition().x, getLocalPosition().y, _currentNode->getLocalPosition().z));
 				targetNextWaypoint();
 			}
 			return true;
@@ -147,6 +172,76 @@ bool MovingGridObject::moveToTargetWaypoint()
 	}
 	return true;
 }
+
+glm::vec2 MovingGridObject::GetOrientation() {
+	return _orientation;
+}
+void MovingGridObject::SetOrientation(glm::vec2 pOrien, bool pInstant) {
+	_orientation = pOrien;
+	if (_orientation.x > 0.0f)
+	{
+		_targetEuler = glm::vec3(getEulerAngles().x, 90, getEulerAngles().z);
+		if (pInstant)
+		{
+			setEulerAngles(glm::vec3(getEulerAngles().x, 90, getEulerAngles().z));
+		}
+	}
+	else if (_orientation.x < 0.0f){
+		_targetEuler = glm::vec3(getEulerAngles().x, 270, getEulerAngles().z);
+		if (pInstant)
+		{
+			setEulerAngles(glm::vec3(getEulerAngles().x, 270, getEulerAngles().z));
+		}
+	}
+	else if (_orientation.y > 0.0f) {
+		_targetEuler = glm::vec3(getEulerAngles().x, 0, getEulerAngles().z);
+		if (pInstant)
+		{
+			setEulerAngles(glm::vec3(getEulerAngles().x, 0, getEulerAngles().z));
+		}
+	}
+	else if (_orientation.y < 0.0f) {
+		_targetEuler = glm::vec3(getEulerAngles().x, 180, getEulerAngles().z);
+		if (pInstant)
+		{
+			setEulerAngles(glm::vec3(getEulerAngles().x, 180, getEulerAngles().z));
+		}
+	}
+}
+void MovingGridObject::TurnOrientation(int pDir) {
+	if (pDir > 0)
+	{
+		_targetEuler = glm::vec3(getEulerAngles().x, glm::iround(getEulerAngles().y + 90) % 360, getEulerAngles().z);
+	}
+	else {
+		if (getEulerAngles().y - 90 < 0)
+		{
+			_targetEuler = glm::vec3(getEulerAngles().x, getEulerAngles().y + 270, getEulerAngles().z);
+		}
+		else 
+		{
+			_targetEuler = glm::vec3(getEulerAngles().x, getEulerAngles().y - 90, getEulerAngles().z);
+		}
+	}
+
+	if (_targetEuler.y == 0)
+	{
+		_orientation = glm::vec2(0, 1);
+	}
+	else if (_targetEuler.y == 90)
+	{
+		_orientation = glm::vec2(1, 0);
+	}
+	else if (_targetEuler.y == 180)
+	{
+		_orientation = glm::vec2(0, -1);
+	}
+	else if (_targetEuler.y == 270)
+	{
+		_orientation = glm::vec2(-1, 0);
+	}
+}
+
 
 void MovingGridObject::targetNextWaypoint()
 {

@@ -29,7 +29,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Dynamic|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'" Label="Configuration">
@@ -190,6 +190,7 @@
     <ClInclude Include="..\src\mge\materials\LitTextureMaterial.h" />
     <ClInclude Include="..\src\mge\materials\TerrainMaterial.h" />
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
+    <ClInclude Include="..\src\mge\materials\WaterMaterial.h" />
     <ClInclude Include="..\src\mge\materials\WobblingMaterial.h" />
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\StaticGridObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\TileWorld.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\TreasureObject.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\TurnHandler.h" />
     <ClInclude Include="..\src\ThirdPerson\ThirdPerson.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -238,6 +240,7 @@
     <ClCompile Include="..\src\mge\materials\LitTextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\TerrainMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
+    <ClCompile Include="..\src\mge\materials\WaterMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\WobblingMaterial.cpp" />
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
@@ -258,6 +261,7 @@
     <ClCompile Include="..\src\ThirdPerson\Scripts\StaticGridObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\TileWorld.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\TreasureObject.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\TurnHandler.cpp" />
     <ClCompile Include="..\src\ThirdPerson\ThirdPerson.cpp" />
   </ItemGroup>
   <ItemGroup>

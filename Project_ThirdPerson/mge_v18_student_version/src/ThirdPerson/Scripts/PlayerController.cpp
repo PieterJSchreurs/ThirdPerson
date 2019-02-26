@@ -1,17 +1,16 @@
 #include "ThirdPerson/Scripts/PlayerController.h"
 #include "mge/core/World.hpp"
 #include <SFML/Window/Keyboard.hpp>
+#include "ThirdPerson/Scripts/TurnHandler.h"
 
 #include "mge/materials/LitMaterial.h"
 
-PlayerController::PlayerController(std::vector<Ship*> pShips, int pTurnAmount, int pCannonballAmount, GridGenerator* pGridGen, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _myShips(pShips), _turnAmount(pTurnAmount), _cannonballAmount(pCannonballAmount), _gridGenerator(pGridGen)
+PlayerController::PlayerController(std::vector<Ship*> pShips, GridGenerator* pGridGen, bool pActiveFirstTurn, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _myShips(pShips), _gridGenerator(pGridGen)
 {
-	_turnsLeft = _turnAmount;
-	_cannonballsLeft = _cannonballAmount;
 	if (_myShips.size() > _currentShipIndex)
 	{
 		_currentShip = _myShips[_currentShipIndex];
-		if (_isActive) {
+		if (pActiveFirstTurn) {
 			SelectNextShip(1); //Switch ship once to apply the correct material.
 		}
 		std::cout << "Player has " << _myShips.size() << " ships." << std::endl;
@@ -19,19 +18,27 @@ PlayerController::PlayerController(std::vector<Ship*> pShips, int pTurnAmount, i
 	else {
 		std::cout << "There were no ships passed into the PlayerController." << std::endl;
 	}
+
+	if (pActiveFirstTurn)
+	{
+		ToggleIsActive();
+	}
 }
 
 void PlayerController::ToggleIsActive() {
+	_lastPlayerInput = _timer;
 	_isActive = !_isActive;
 	if (!_isActive)
 	{
 		_currentShip->setMaterial(_currentShip->GetBaseMaterial());
-		//Hallo dit is een comment om deze file opnieuw te laten compilen.
-		std::cout << "print die comment boii." << std::endl;
 	}
 	else {
 		AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
 		_currentShip->setMaterial(purpleMaterial);
+		for (int i = 0; i < _myShips.size(); i++)
+		{
+			_myShips[i]->HandleStartOfTurn();
+		}
 	}
 }
 
@@ -54,28 +61,28 @@ void PlayerController::HandlePlayerInput() { //NOTE: Make sure only one input is
 	if (_isActive)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-			RotateCurrentShip(1);
+			_currentShip->TurnOrientation(1);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
-			RotateCurrentShip(-1);
+			_currentShip->TurnOrientation(-1);
 			_lastPlayerInput = _timer;
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-			MoveCurrentShip(glm::vec2(0, -1));
+			_currentShip->MoveShipInDir(glm::vec2(0, -1), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-			MoveCurrentShip(glm::vec2(-1, 0));
+			_currentShip->MoveShipInDir(glm::vec2(-1, 0), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-			MoveCurrentShip(glm::vec2(0, 1));
+			_currentShip->MoveShipInDir(glm::vec2(0, 1), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-			MoveCurrentShip(glm::vec2(1, 0));
+			_currentShip->MoveShipInDir(glm::vec2(1, 0), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 
@@ -87,10 +94,6 @@ void PlayerController::HandlePlayerInput() { //NOTE: Make sure only one input is
 			SelectNextShip(1);
 			_lastPlayerInput = _timer;
 		}
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		ToggleIsActive();
-		_lastPlayerInput = _timer;
 	}
 }
 
@@ -113,46 +116,6 @@ void PlayerController::SelectNextShip(int pDir) {
 
 	AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
 	_currentShip->setMaterial(purpleMaterial);
-}
-
-void PlayerController::MoveCurrentShip(glm::vec2 pDir) {
-	if (pDir.x > 0)
-	{
-		if (_currentShip->GetCurrentNode()->GetGridX() + 1 < _gridGenerator->getGridWidth())
-		{
-			_currentShip->FindPathTo(_gridGenerator->GetNodeAtTile(_currentShip->GetCurrentNode()->GetGridX() + 1, _currentShip->GetCurrentNode()->GetGridY()));
-		}
-	} 
-	else if (pDir.x < 0)
-	{
-		if (_currentShip->GetCurrentNode()->GetGridX() - 1 >= 0)
-		{
-			_currentShip->FindPathTo(_gridGenerator->GetNodeAtTile(_currentShip->GetCurrentNode()->GetGridX() - 1, _currentShip->GetCurrentNode()->GetGridY()));
-		}
-	}
-	else if (pDir.y > 0)
-	{
-		if (_currentShip->GetCurrentNode()->GetGridY() + 1 < _gridGenerator->getGridHeight())
-		{
-			_currentShip->FindPathTo(_gridGenerator->GetNodeAtTile(_currentShip->GetCurrentNode()->GetGridX(), _currentShip->GetCurrentNode()->GetGridY() + 1));
-		}
-	}
-	else if (pDir.y < 0)
-	{
-		if (_currentShip->GetCurrentNode()->GetGridY() - 1 >= 0)
-		{
-			_currentShip->FindPathTo(_gridGenerator->GetNodeAtTile(_currentShip->GetCurrentNode()->GetGridX(), _currentShip->GetCurrentNode()->GetGridY() - 1));
-		}
-	}
-}
-void PlayerController::RotateCurrentShip(int pDir) {
-	if (pDir > 0)
-	{
-		_currentShip->rotateEulerAngles(glm::vec3(0, 90, 0));
-	}
-	else {
-		_currentShip->rotateEulerAngles(glm::vec3(0, -90, 0));
-	}
 }
 
 PlayerController::~PlayerController() {

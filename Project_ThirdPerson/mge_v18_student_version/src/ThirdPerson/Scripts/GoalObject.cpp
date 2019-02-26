@@ -11,7 +11,8 @@ void GoalObject::update(float pStep) {
 }
 
 void GoalObject::DoAction() {
-
+	std::cout << "PLAYER FINISHED THE LEVEL!" << std::endl;
+	//_currentNode->SetStaticObject(nullptr);
 }
 
 

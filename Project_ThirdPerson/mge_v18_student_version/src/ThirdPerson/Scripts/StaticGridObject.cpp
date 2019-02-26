@@ -3,7 +3,7 @@
 
 StaticGridObject::StaticGridObject(Node* pStartNode, std::vector<Node*> pAllNodes, const std::string& aName, const glm::vec3& aPosition) : GridObject(pStartNode, pAllNodes, aName, aPosition)
 {
-
+	pStartNode->SetStaticObject(this);
 }
 
 void StaticGridObject::update(float pStep) {
@@ -11,7 +11,7 @@ void StaticGridObject::update(float pStep) {
 }
 
 void StaticGridObject::DoAction() {
-
+	
 }
 
 

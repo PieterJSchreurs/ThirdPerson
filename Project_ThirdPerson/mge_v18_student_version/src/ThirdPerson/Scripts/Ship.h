@@ -2,6 +2,7 @@
 #define SHIP_HPP
 
 #include "ThirdPerson/Scripts/MovingGridObject.h"
+class GridGenerator;
 
 class Ship : public MovingGridObject
 {
@@ -13,8 +14,19 @@ public:
 
 	virtual void DecideMove();
 
-private:
+	void MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen);
 
+	void SetShipValues(int pMovesPerTurn, int pCannonRange);
+	void HandleStartOfTurn();
+
+	virtual void TurnOrientation(int pDir);
+
+private:
+	int _movesPerTurn = 0;
+	int _movesRemaining = 0;
+
+	int _cannonRange = 0;
+	bool _shotThisTurn = false;
 };
 
 #endif // SHIP_HPP

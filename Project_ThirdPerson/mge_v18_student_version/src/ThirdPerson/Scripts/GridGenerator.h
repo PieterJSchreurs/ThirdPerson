@@ -3,11 +3,6 @@
 
 #include "glm.hpp"
 #include "ThirdPerson/Scripts/Ship.h"
-#include "ThirdPerson/Scripts/PlayerBigShip.h"
-#include "ThirdPerson/Scripts/PlayerSmallShip.h"
-#include "ThirdPerson/Scripts/AIBigShip.h"
-#include "ThirdPerson/Scripts/TreasureObject.h"
-#include "ThirdPerson/Scripts/GoalObject.h"
 #include "ThirdPerson/Scripts/Node.h"
 #include "ThirdPerson/Scripts/NodeWorld.h"
 #include "ThirdPerson/Scripts/TileWorld.h"
@@ -184,6 +179,7 @@ private:
 	Node* _nodeCache[100][100];	//The map can not be bigger than 100 by 100!
 	int _gridWidth;
 	int _gridHeight;
+	float _tileGap = 0.0f;
 
 	std::vector<Ship*> _playerShips;
 	std::vector<Ship*> _AIShips;

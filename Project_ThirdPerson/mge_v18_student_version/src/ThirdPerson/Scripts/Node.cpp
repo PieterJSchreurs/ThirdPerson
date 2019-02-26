@@ -1,5 +1,6 @@
 #include "ThirdPerson/Scripts/Node.h"
 #include "mge/core/World.hpp"
+#include "ThirdPerson/Scripts/StaticGridObject.h"
 
 Node::Node(TerrainTypes pTerrainMod, const std::string& pName, const glm::vec3& pPosition) :GameObject(pName, pPosition), _myTerrainType(pTerrainMod)
 {
@@ -17,6 +18,30 @@ int Node::GetGridX() {
 }
 int Node::GetGridY() {
 	return _y;
+}
+
+void Node::SetOccupied(bool pToggle) {
+	_occupied = pToggle;
+}
+bool Node::GetOccupied() {
+	return _occupied;
+}
+void Node::SetStaticObject(StaticGridObject* pObj) {
+	if (pObj != nullptr)
+	{
+		_hasStaticObject = true;
+		_myStaticObject = pObj;
+	}
+	else {
+		_hasStaticObject = false;
+		_myStaticObject = nullptr;
+	}
+}
+bool Node::GetHasStaticObject() {
+	return _hasStaticObject;
+}
+StaticGridObject* Node::GetStaticObject() {
+	return _myStaticObject;
 }
 
 Node::TerrainTypes Node::GetTerrainType()

@@ -3,6 +3,7 @@
 #include "AbstractGame.hpp"
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
+#include "ThirdPerson/Scripts/TurnHandler.h"
 
 AbstractGame::AbstractGame():_window(NULL),_renderer(NULL),_world(NULL), _fps(0)
 {
@@ -131,6 +132,7 @@ void AbstractGame::run()
 
 void AbstractGame::_update(float pStep) {
     _world->update(pStep);
+	TurnHandler::getInstance().update(pStep);
 }
 
 void AbstractGame::_render () {

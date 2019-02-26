@@ -1,12 +1,19 @@
 #include "ThirdPerson/Scripts/GridGenerator.h"
 #include "mge/core/World.hpp"
 
+#include "ThirdPerson/Scripts/PlayerBigShip.h"
+#include "ThirdPerson/Scripts/PlayerSmallShip.h"
+#include "ThirdPerson/Scripts/AIBigShip.h"
+#include "ThirdPerson/Scripts/TreasureObject.h"
+#include "ThirdPerson/Scripts/GoalObject.h"
 //#include "mge/core/Mesh.hpp"
 
+#include "mge/core/Texture.hpp"
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
 #include "mge/materials/LitMaterial.h"
 #include "mge/materials/LitTextureMaterial.h"
+#include "mge/materials/WaterMaterial.h"
 
 #include "ThirdPerson/config.hpp"
 
@@ -163,6 +170,7 @@ void GridGenerator::GenerateNodeGraph() {
 	AbstractMaterial* normalMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* waterMaterial = new LitMaterial(glm::vec3(0.25f, 0.35f, 0.65f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* waterMaterial2 = new ColorMaterial(glm::vec3(0.25f, 0.35f, 0.65f));
+	AbstractMaterial* waterMaterial3 = new WaterMaterial(Texture::load(config::MGE_TEXTURE_PATH + "WaterTexture.png"));
 	AbstractMaterial* islandMaterialSingle = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* islandMaterialCorner = new LitMaterial(glm::vec3(0.75f, 0.75f, 0.75f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* islandMaterialStraight = new LitMaterial(glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
@@ -195,10 +203,10 @@ void GridGenerator::GenerateNodeGraph() {
 			if (nmbr < 0) //No tile, so will be just water at height 0
 			{
 				node = new Node(Node::TerrainTypes::water, "Water");
-				node->setMaterial(waterMaterial2);
+				node->setMaterial(waterMaterial3);
 				node->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
-				node->setMesh(_cubeMeshDefault);
-				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), 0, row * (_tileWorld.tileSize() * 2.0f + 0.1f)));
+				node->setMesh(_planeMeshDefault);
+				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
 			}
 			else if (nmbr == 0) //Island tile at half height, add an inactive water tile at height 0
 			{
@@ -206,14 +214,14 @@ void GridGenerator::GenerateNodeGraph() {
 				node->scale(glm::vec3(_tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2));
 				PlaceCorrectIslandNode(node, column, row, baseTiles);
 
-				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), _tileWorld.tileSize(), row * (_tileWorld.tileSize() * 2.0f + 0.1f)));//TODO: How high should these tiles be placed?
+				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), _tileWorld.tileSize(), row * (_tileWorld.tileSize() * 2.0f + _tileGap)));//TODO: How high should these tiles be placed?
 				_tileWorld.SetWalkable(column, row, false);
 
 				Node* inactiveNode = new Node(Node::TerrainTypes::water, "Water"); //Add the inactive water node
-				inactiveNode->setMaterial(waterMaterial2);
+				inactiveNode->setMaterial(waterMaterial3);
 				inactiveNode->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
-				inactiveNode->setMesh(_cubeMeshDefault);
-				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), 0, row * (_tileWorld.tileSize() * 2.0f + 0.1f)));
+				inactiveNode->setMesh(_planeMeshDefault);
+				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
 				_nodeWorld->AddInactiveNode(inactiveNode);
 			}
 			else if (nmbr == 1) //Harbor tile at half height, add an inactive water tile at height 0
@@ -222,14 +230,14 @@ void GridGenerator::GenerateNodeGraph() {
 				node->scale(glm::vec3(_tileWorld.tileSize()*2, _tileWorld.tileSize()*2, _tileWorld.tileSize()*2));
 				PlaceCorrectHarborNode(node, column, row, baseTiles);
 
-				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), _tileWorld.tileSize(), row * (_tileWorld.tileSize() * 2.0f + 0.1f)));//TODO: How high should these tiles be placed?
+				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), _tileWorld.tileSize(), row * (_tileWorld.tileSize() * 2.0f + _tileGap)));//TODO: How high should these tiles be placed?
 				_tileWorld.SetWalkable(column, row, false);
 
 				Node* inactiveNode = new Node(Node::TerrainTypes::water, "Water"); //Add the inactive water node
-				inactiveNode->setMaterial(waterMaterial2);
+				inactiveNode->setMaterial(waterMaterial3);
 				inactiveNode->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
-				inactiveNode->setMesh(_cubeMeshDefault);
-				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), 0, row * (_tileWorld.tileSize() * 2.0f + 0.1f)));
+				inactiveNode->setMesh(_planeMeshDefault);
+				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
 				_nodeWorld->AddInactiveNode(inactiveNode);
 			}
 			else
@@ -238,7 +246,7 @@ void GridGenerator::GenerateNodeGraph() {
 				node->setMaterial(normalMaterial);
 				node->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				node->setMesh(_cubeMeshDefault);
-				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), 0, row * (_tileWorld.tileSize() * 2.0f + 0.1f)));
+				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
 			}
 
 			_nodeWorld->AddNode(node);
@@ -310,77 +318,80 @@ void GridGenerator::GenerateNodeGraph() {
 			else if (nmbr >= 4 && nmbr <= 7)
 			{
 				gridObj = new PlayerBigShip(_nodeCache[column][row], GetAllNodes(), "PlayerBigShip");
+				Ship* shipRef = static_cast<Ship*>(gridObj);
 				if (nmbr == 4)
 				{
-					gridObj->setEulerAngles(glm::vec3(0,180,0));
+					shipRef->SetOrientation(glm::vec2(0, -1), true);
 				}
 				else if (nmbr == 5)
 				{
-					gridObj->setEulerAngles(glm::vec3(0, 270, 0));
+					shipRef->SetOrientation(glm::vec2(-1, 0), true);
 				}
 				else if (nmbr == 6)
 				{
-					gridObj->setEulerAngles(glm::vec3(0, 0, 0));
+					shipRef->SetOrientation(glm::vec2(0, 1), true);
 				}
 				else if (nmbr == 7)
 				{
-					gridObj->setEulerAngles(glm::vec3(0, 90, 0));
+					shipRef->SetOrientation(glm::vec2(1, 0), true);
 				}
 				gridObj->setMaterial(bigShipMaterial);
 				gridObj->setMesh(_suzannaMeshDefault);
 				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 
-				_playerShips.push_back(static_cast<Ship*>(gridObj));
+				_playerShips.push_back(shipRef);
 			}
 			else if (nmbr >= 8 && nmbr <= 11)
 			{
 				gridObj = new PlayerSmallShip(_nodeCache[column][row], GetAllNodes(), "PlayerSmallShip");
+				Ship* shipRef = static_cast<Ship*>(gridObj);
 				if (nmbr == 8)
 				{
-					gridObj->setEulerAngles(glm::vec3(0, 180, 0));
+					shipRef->SetOrientation(glm::vec2(0, -1), true);
 				}
 				else if (nmbr == 9)
 				{
-					gridObj->setEulerAngles(glm::vec3(0, 90, 0));
+					shipRef->SetOrientation(glm::vec2(1, 0), true);
 				}
 				else if (nmbr == 10)
 				{
-					gridObj->setEulerAngles(glm::vec3(0, 0, 0));
+					shipRef->SetOrientation(glm::vec2(0, 1), true);
 				}
 				else if (nmbr == 11)
 				{
-					gridObj->setEulerAngles(glm::vec3(0, 270, 0));
+					shipRef->SetOrientation(glm::vec2(-1, 0), true);
 				}
 				gridObj->setMaterial(smallShipMaterial);
 				gridObj->setMesh(_suzannaMeshDefault);
 				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 
-				_playerShips.push_back(static_cast<Ship*>(gridObj));
+				_playerShips.push_back(shipRef);
 			}
 			else if (nmbr >= 12 && nmbr <= 15)
 			{
 				gridObj = new AIBigShip(_nodeCache[column][row], GetAllNodes(), "AIBigShip");
+				Ship* shipRef = static_cast<Ship*>(gridObj);
 				if (nmbr == 12)
 				{
-					gridObj->setEulerAngles(glm::vec3(0, 180, 0)); //TODO: Correct this rotation
+					shipRef->SetOrientation(glm::vec2(0, -1), true);
 				}
 				else if (nmbr == 13)
 				{
-					gridObj->setEulerAngles(glm::vec3(0, 270, 0));
+					shipRef->SetOrientation(glm::vec2(-1, 0), true);
 				}
 				else if (nmbr == 14)
 				{
-					gridObj->setEulerAngles(glm::vec3(0, 0, 0));
+					shipRef->SetOrientation(glm::vec2(0, 1), true);
 				}
 				else if (nmbr == 15)
 				{
-					gridObj->setEulerAngles(glm::vec3(0, 90, 0));
+					shipRef->SetOrientation(glm::vec2(1, 0), true);
 				}
 				gridObj->setMaterial(enemyShipMaterial);
 				gridObj->setMesh(_suzannaMeshDefault);
 				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 
-				_AIShips.push_back(static_cast<Ship*>(gridObj));
+				_AIShips.push_back(shipRef);
 			}
 			else
 			{
@@ -388,7 +399,7 @@ void GridGenerator::GenerateNodeGraph() {
 			}
 
 			//node->setMesh(planeMeshDefault);
-			gridObj->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + 0.1f), _tileWorld.tileSize(), row * (_tileWorld.tileSize() * 2.0f + 0.1f)));
+			gridObj->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), _tileWorld.tileSize(), row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
 
 			//node = new Node ((int)(_tileWorld.tileSize *0.8f), Color.LightGray, new Vec2 (column, row).Scale (_tileWorld.tileSize), 0);
 			//_nodeWorld->AddNode(node);

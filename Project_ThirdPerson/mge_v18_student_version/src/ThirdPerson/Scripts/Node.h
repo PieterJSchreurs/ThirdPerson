@@ -3,6 +3,8 @@
 
 #include "glm.hpp"
 #include "mge/core/GameObject.hpp"
+//#include "ThirdPerson/Scripts/StaticGridObject.h"
+class StaticGridObject;
 #include "lua.hpp"
 
 /**
@@ -56,6 +58,13 @@ public:
 	int GetGridX();
 	int GetGridY();
 
+	void SetOccupied(bool pToggle);
+	bool GetOccupied();
+
+	void SetStaticObject(StaticGridObject* pObj);
+	StaticGridObject* GetStaticObject();
+	bool GetHasStaticObject();
+
 	TerrainTypes GetTerrainType();
 	void SetNormalTerrainType();
 	Node* GetParentNode();
@@ -74,6 +83,10 @@ private:
 
 	int _x;
 	int _y;
+
+	bool _occupied = false;
+	bool _hasStaticObject = false;
+	StaticGridObject* _myStaticObject = nullptr;
 
 	std::vector<Node*> _connections;
 

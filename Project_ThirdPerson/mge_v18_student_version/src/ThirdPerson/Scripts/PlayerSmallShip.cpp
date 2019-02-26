@@ -3,7 +3,7 @@
 
 PlayerSmallShip::PlayerSmallShip(Node* pStartNode, std::vector<Node*> pAllNodes, const std::string& aName, const glm::vec3& aPosition) : SmallShip(pStartNode, pAllNodes, aName, aPosition)
 {
-
+	SetShipValues(4, 2);
 }
 
 void PlayerSmallShip::update(float pStep) {
