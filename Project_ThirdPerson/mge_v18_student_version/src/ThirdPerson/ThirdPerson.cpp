@@ -182,7 +182,7 @@ void ThirdPerson::_initializeScene()
 
     //SCENE SETUP
     //add camera first (it will be updated last)
-    Camera* camera = new Camera ("camera", glm::vec3(0,40,20));
+    Camera* camera = new Camera ("camera", glm::vec3(0,20,10));
     camera->rotate(glm::radians(-68.0f), glm::vec3(1,0,0));
     _world->add(camera);
     _world->setMainCamera(camera);

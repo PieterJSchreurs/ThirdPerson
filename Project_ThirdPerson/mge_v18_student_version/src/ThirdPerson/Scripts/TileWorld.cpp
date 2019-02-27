@@ -1,5 +1,5 @@
 #include "ThirdPerson/Scripts/TileWorld.h"
-#include "mge/core/World.hpp"
+//#include "mge/core/World.hpp"
 
 TileWorld::TileWorld(const int pColumns, const int pRows, float pTileSize, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _columns(glm::min(glm::max(pColumns, 7), 100)), _rows(glm::min(glm::max(pRows, 7), 100)), _tileSize(pTileSize)
 {

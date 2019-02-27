@@ -1,11 +1,11 @@
 #include "ThirdPerson/Scripts/Ship.h"
-#include "mge/core/World.hpp"
 #include "ThirdPerson/Scripts/GridGenerator.h"
 #include "ThirdPerson/Scripts/StaticGridObject.h"
 
-Ship::Ship(Node* pStartNode, std::vector<Node*> pAllNodes, const std::string& aName, const glm::vec3& aPosition) : MovingGridObject(pStartNode, pAllNodes, aName, aPosition)
+Ship::Ship(Node* pStartNode, std::vector<Node*> pAllNodes, bool pIsAI, bool pIsBig, const std::string& aName, const glm::vec3& aPosition) : MovingGridObject(pStartNode, pAllNodes, aName, aPosition), _isAI(pIsAI), _isBig(pIsBig)
 {
-	pStartNode->SetOccupied(true);
+	pStartNode->SetCurrentMovingObject(this);
+	//pStartNode->SetOccupied(true);
 }
 
 void Ship::update(float pStep) {
@@ -14,17 +14,13 @@ void Ship::update(float pStep) {
 		_enteredNewNode = false;
 		if (_currentNode->GetHasStaticObject())
 		{
-			_currentNode->GetStaticObject()->DoAction();
-			
+			_currentNode->GetStaticObject()->DoAction(_isAI, _isBig);
 		}
 	}
 }
 
-void Ship::DecideMove() {
-
-}
-
 void Ship::MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
+	std::cout << _movesRemaining << std::endl;
 	if (_movesRemaining > 0) //If the ship as movement left this turn
 	{
 		if (pDir.x > 0) //If the requested movement is to the east
@@ -72,6 +68,47 @@ void Ship::MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 			_movesRemaining--; //The ship used one movement action
 		}
 	}
+	else { //If this ship has no moves remaining
+		if (_actionsRemaining > 0) //Check if it has an action left over to consume
+		{
+			_actionsRemaining--;
+			_movesRemaining = _movesPerAction;
+			MoveShipInDir(pDir, pGridGen);
+		}
+	}
+}
+
+void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
+	if (!_shotThisTurn && _actionsRemaining > 0)
+	{
+		_shotThisTurn = true;
+		_actionsRemaining--;
+
+		for (int i = 1; i <= _cannonRange; i++)
+		{
+			glm::vec2 targetTile = glm::vec2(GetCurrentNode()->GetGridX() + pDir.x * i, GetCurrentNode()->GetGridY() + pDir.y * i);
+			if (targetTile.x < pGridGen->getGridWidth() && targetTile.x >= 0 && targetTile.y < pGridGen->getGridHeight() && targetTile.y >= 0) //Check if the requested tile exists in the grid.
+			{
+				Node* targetNode = pGridGen->GetNodeAtTile(targetTile.x, targetTile.y);
+				if (targetNode->GetWalkable())
+				{
+					if (targetNode->GetOccupied())
+					{
+						std::cout << "YARR ME MATEYS WE HIT A SHIP!" << std::endl;
+						targetNode->GetCurrentMovingObject()->TakeDamage(_cannonDamage);
+					}
+				}
+				else {
+					std::cout << "Cannon hit a wall." << std::endl;
+					return; //Hit a wall.
+				}
+				//FindPathTo(pGridGen->GetNodeAtTile(GetCurrentNode()->GetGridX() + 1, GetCurrentNode()->GetGridY())); //Get a path to the requested tile
+			}
+			else {
+				return; //Reached the end of the grid.
+			}
+		}
+	}
 }
 
 void Ship::TurnOrientation(int pDir) {
@@ -80,16 +117,35 @@ void Ship::TurnOrientation(int pDir) {
 		MovingGridObject::TurnOrientation(pDir);
 		_movesRemaining--;
 	}
+	else if(_actionsRemaining > 0) {
+		_actionsRemaining--;
+		_movesRemaining = _movesPerAction;
+		TurnOrientation(pDir);
+	}
 }
 
-void Ship::SetShipValues(int pMovesPerTurn, int pCannonRange) {
-	_movesPerTurn = pMovesPerTurn;
-	_movesRemaining = _movesPerTurn;
+void Ship::DestroyObject() {
+	//TODO: Implement object destruction here.
+	setLocalPosition(glm::vec3(0, 5, 0)); //TODO: implement a proper ship death here.
+	_currentNode->SetCurrentMovingObject(nullptr);
+	std::cout << "The ship at tile : " << _currentNode->GetGridX() << "-" << _currentNode->GetGridY() << " has sunk!" << std::endl;
+}
+
+void Ship::SetShipValues(int pShipHealth, int pMovesPerTurn, int pCannonRange, int pCannonDamage, int pActionsPerTurn) {
+	SetObjectValues(pShipHealth);
+
+	_actionsPerTurn = pActionsPerTurn;
+	_actionsRemaining = _actionsPerTurn;
+
+	_movesPerAction = pMovesPerTurn;
+	_movesRemaining = 0;
 	_cannonRange = pCannonRange;
+	_cannonDamage = pCannonDamage;
 	_shotThisTurn = false;
 }
 void Ship::HandleStartOfTurn() {
-	_movesRemaining = _movesPerTurn;
+	_actionsRemaining = _actionsPerTurn;
+	_movesRemaining = 0;
 	_shotThisTurn = false;
 }
 

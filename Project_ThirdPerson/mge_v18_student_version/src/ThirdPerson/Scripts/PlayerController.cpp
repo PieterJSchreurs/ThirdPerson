@@ -1,5 +1,5 @@
 #include "ThirdPerson/Scripts/PlayerController.h"
-#include "mge/core/World.hpp"
+//#include "mge/core/World.hpp"
 #include <SFML/Window/Keyboard.hpp>
 #include "ThirdPerson/Scripts/TurnHandler.h"
 
@@ -94,6 +94,15 @@ void PlayerController::HandlePlayerInput() { //NOTE: Make sure only one input is
 			SelectNextShip(1);
 			_lastPlayerInput = _timer;
 		}
+
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+			_currentShip->ShootInDir(glm::vec2(_currentShip->GetOrientation().y, -_currentShip->GetOrientation().x), _gridGenerator);
+			_lastPlayerInput = _timer;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) {
+			_currentShip->ShootInDir(glm::vec2(-_currentShip->GetOrientation().y, _currentShip->GetOrientation().x), _gridGenerator);
+			_lastPlayerInput = _timer;
+		}
 	}
 }
 
@@ -114,8 +123,14 @@ void PlayerController::SelectNextShip(int pDir) {
 
 	_currentShip = _myShips[_currentShipIndex];
 
-	AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-	_currentShip->setMaterial(purpleMaterial);
+	if (_currentShip->GetIsAlive()) //If the newly selected ship is alive, all is good
+	{
+		AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+		_currentShip->setMaterial(purpleMaterial);
+	}
+	else { //If the newly selected ship has already sunk, select the next available ship instead.
+		SelectNextShip(pDir);
+	}
 }
 
 PlayerController::~PlayerController() {

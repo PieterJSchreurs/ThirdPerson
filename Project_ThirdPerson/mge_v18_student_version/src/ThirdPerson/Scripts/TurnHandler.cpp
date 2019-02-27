@@ -1,5 +1,5 @@
 #include "ThirdPerson/Scripts/TurnHandler.h"
-#include "mge/core/World.hpp"
+//#include "mge/core/World.hpp"
 #include <SFML/Window/Keyboard.hpp>
 
 void TurnHandler::SetValues(PlayerController* pPlayerController, PlayerController* pAIController, int pTurnAmount, int pCannonballAmount) {

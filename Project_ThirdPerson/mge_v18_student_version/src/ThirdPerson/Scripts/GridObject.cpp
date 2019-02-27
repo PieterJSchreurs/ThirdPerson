@@ -1,5 +1,4 @@
 #include "ThirdPerson/Scripts/GridObject.h"
-#include "mge/core/World.hpp"
 
 GridObject::GridObject(Node* pStartNode, std::vector<Node*> pAllNodes, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _currentNode(pStartNode), _allNodes(pAllNodes)
 {

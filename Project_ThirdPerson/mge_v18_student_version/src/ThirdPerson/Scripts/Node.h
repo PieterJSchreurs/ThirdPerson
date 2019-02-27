@@ -5,6 +5,7 @@
 #include "mge/core/GameObject.hpp"
 //#include "ThirdPerson/Scripts/StaticGridObject.h"
 class StaticGridObject;
+class MovingGridObject;
 #include "lua.hpp"
 
 /**
@@ -46,7 +47,7 @@ public:
 	}
 
 
-	Node(TerrainTypes pTerrainMod, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	Node(TerrainTypes pTerrainMod, bool pWalkable = true, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~Node();
 
 	float costCurrent = 0.0f;								//keep track of cost up to now
@@ -58,6 +59,10 @@ public:
 	int GetGridX();
 	int GetGridY();
 
+	bool GetWalkable();
+
+	void SetCurrentMovingObject(MovingGridObject* pObj);
+	MovingGridObject* GetCurrentMovingObject();
 	void SetOccupied(bool pToggle);
 	bool GetOccupied();
 
@@ -84,9 +89,12 @@ private:
 	int _x;
 	int _y;
 
+	bool _walkable = true;
+
 	bool _occupied = false;
 	bool _hasStaticObject = false;
 	StaticGridObject* _myStaticObject = nullptr;
+	MovingGridObject* _myMovingObject = nullptr;
 
 	std::vector<Node*> _connections;
 

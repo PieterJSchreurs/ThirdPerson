@@ -3,6 +3,8 @@
 
 #include "ThirdPerson/Scripts/GridObject.h"
 
+class Ship;
+
 class StaticGridObject : public GridObject
 {
 public:
@@ -11,7 +13,7 @@ public:
 	virtual ~StaticGridObject();
 	virtual void update(float pStep);
 
-	virtual void DoAction();
+	virtual void DoAction(bool pIsAI, bool pIsBig = true);
 
 private:
 

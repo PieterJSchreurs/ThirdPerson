@@ -1,5 +1,4 @@
 #include "ThirdPerson/Scripts/MovingGridObject.h"
-#include "mge/core/World.hpp"
 
 MovingGridObject::MovingGridObject(Node* pStartNode, std::vector<Node*> pAllNodes, const std::string& aName, const glm::vec3& aPosition) : GridObject(pStartNode, pAllNodes, aName, aPosition)
 {
@@ -13,6 +12,29 @@ void MovingGridObject::update(float pStep) {
 	HandleRotation();
 }
 
+void MovingGridObject::SetObjectValues(int pHealth) {
+	_objectHealth = pHealth;
+}
+void MovingGridObject::TakeDamage(int pDamage) {
+	_objectHealth -= pDamage;
+	if (_objectHealth <= 0)
+	{
+		DestroyObject();
+	}
+	else {
+		std::cout << "Object took " << pDamage << " damage. Object has " << _objectHealth << " health remaining." << std::endl;
+	}
+}
+
+void MovingGridObject::DestroyObject() {
+	//TODO: Implement object destruction here.
+	std::cout << "Object has been destroyed." << std::endl;
+}
+
+bool MovingGridObject::GetIsAlive() {
+	return _objectHealth > 0;
+}
+
 void MovingGridObject::HandleRotation() {
 	if (getEulerAngles().y != _targetEuler.y)
 	{
@@ -22,10 +44,6 @@ void MovingGridObject::HandleRotation() {
 			setEulerAngles(_targetEuler);
 		}
 	}
-}
-
-void MovingGridObject::DecideMove() {
-
 }
 
 //PATHFINDER FUNCTIONS___________________________________________________________
@@ -68,10 +86,12 @@ std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode)
 		while (node != nullptr)
 		{
 			_lastPathFound.insert(_lastPathFound.begin(), node);
-			node->SetOccupied(false);
+			node->SetCurrentMovingObject(nullptr);
+			//node->SetOccupied(false);
 			node = node->GetParentNode();
 		}
-		pEndNode->SetOccupied(true);
+		pEndNode->SetCurrentMovingObject(this);
+		//pEndNode->SetOccupied(true);
 		return _lastPathFound;
 	}
 	else

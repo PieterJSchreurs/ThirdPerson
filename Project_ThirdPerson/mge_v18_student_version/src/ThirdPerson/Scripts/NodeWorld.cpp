@@ -1,5 +1,5 @@
 #include "ThirdPerson/Scripts/NodeWorld.h"
-#include "mge/core/World.hpp"
+//#include "mge/core/World.hpp"
 
 NodeWorld::NodeWorld(const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition)
 {

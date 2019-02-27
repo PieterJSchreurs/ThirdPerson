@@ -1,5 +1,5 @@
 #include "ThirdPerson/Scripts/AIController.h"
-#include "mge/core/World.hpp"
+//#include "mge/core/World.hpp"
 #include <SFML/Window/Keyboard.hpp>
 
 #include "mge/materials/LitMaterial.h"

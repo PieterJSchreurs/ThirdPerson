@@ -11,8 +11,6 @@ public:
 	virtual ~MovingGridObject();
 	virtual void update(float pStep);
 
-	virtual void DecideMove();
-
 	void FindPathTo(Node* pEndNode);
 	bool moveToTargetWaypoint();
 	bool _moved = false;
@@ -24,6 +22,11 @@ public:
 	glm::vec2 GetOrientation();
 	void SetOrientation(glm::vec2 pOrientation, bool pInstant = false);
 	virtual void TurnOrientation(int pDir);
+
+	void SetObjectValues(int pHealth);
+	void TakeDamage(int pDamage);
+	virtual void DestroyObject();
+	bool GetIsAlive();
 protected:
 	bool _enteredNewNode = true;
 
@@ -40,13 +43,14 @@ private:
 	float _rotationSpeed = 0.185f;
 	float _snapThreshold = 3.0f;
 
-	float _speed = 0.025f;
+	float _speed = 0.05f;
 	std::vector<Node*> wayPointQueue;
 
 	std::vector<Node*> _todoList;
 	std::vector<Node*> _doneList;
 	Node* _activeNode;
 
+	int _objectHealth = 0;
 
 	bool _done = true;
 	std::vector<Node*> _lastPathFound;

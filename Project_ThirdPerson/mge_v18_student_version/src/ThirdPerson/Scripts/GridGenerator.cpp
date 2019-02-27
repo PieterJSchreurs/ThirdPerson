@@ -1,5 +1,5 @@
 #include "ThirdPerson/Scripts/GridGenerator.h"
-#include "mge/core/World.hpp"
+//#include "mge/core/World.hpp"
 
 #include "ThirdPerson/Scripts/PlayerBigShip.h"
 #include "ThirdPerson/Scripts/PlayerSmallShip.h"
@@ -210,7 +210,7 @@ void GridGenerator::GenerateNodeGraph() {
 			}
 			else if (nmbr == 0) //Island tile at half height, add an inactive water tile at height 0
 			{
-				node = new Node(Node::TerrainTypes::island, "Island");
+				node = new Node(Node::TerrainTypes::island, false, "Island");
 				node->scale(glm::vec3(_tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2));
 				PlaceCorrectIslandNode(node, column, row, baseTiles);
 
@@ -226,7 +226,7 @@ void GridGenerator::GenerateNodeGraph() {
 			}
 			else if (nmbr == 1) //Harbor tile at half height, add an inactive water tile at height 0
 			{
-				node = new Node(Node::TerrainTypes::harbor, "Harbor");
+				node = new Node(Node::TerrainTypes::harbor, false, "Harbor");
 				node->scale(glm::vec3(_tileWorld.tileSize()*2, _tileWorld.tileSize()*2, _tileWorld.tileSize()*2));
 				PlaceCorrectHarborNode(node, column, row, baseTiles);
 
