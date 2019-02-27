@@ -3,8 +3,7 @@
 
 Ship::Ship(Node* pStartNode, std::vector<Node*> pAllNodes, const std::string& aName, const glm::vec3& aPosition) : MovingGridObject(pStartNode, pAllNodes, aName, aPosition)
 {
-	//Hello this is a ship for testing merging purposes.
-	std::cout << "Hello " << std::endl;
+
 }
 
 void Ship::update(float pStep) {
@@ -13,6 +12,20 @@ void Ship::update(float pStep) {
 
 void Ship::DecideMove() {
 
+}
+
+bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale)
+{
+	//This is slow, change it later.
+	glm::vec3 myPosition = getWorldPosition();
+	_radius = 2;
+	pCoordinates.z = -pCoordinates.z;
+	if ((myPosition.x + _radius > pCoordinates.x && myPosition.x - _radius < pCoordinates.x) && (myPosition.z + _radius > pCoordinates.z && myPosition.z - _radius < pCoordinates.z))
+	{
+		std::cout << "clicked on \t:" << _name << std::endl;
+		return true;
+	}
+	return false;
 }
 
 //DESTRUCTOR___________________________________________________________

@@ -39,6 +39,7 @@
 
 #include "ThirdPerson/Scripts/PlayerController.h"
 #include "ThirdPerson/Scripts/AIController.h"
+#include "ThirdPerson/Scripts/MouseInputHandler.h"
 
 #include "ThirdPerson/config.hpp"
 #include "ThirdPerson/ThirdPerson.hpp"
@@ -181,8 +182,8 @@ void ThirdPerson::_initializeScene()
 
     //SCENE SETUP
     //add camera first (it will be updated last)
-    Camera* camera = new Camera ("camera", glm::vec3(0,40,20));
-    camera->rotate(glm::radians(-68.0f), glm::vec3(1,0,0));
+    Camera* camera = new Camera ("camera", glm::vec3(0,60,0));
+    camera->rotate(glm::radians(-90.0f), glm::vec3(1,0,0));
     _world->add(camera);
     _world->setMainCamera(camera);
 
@@ -194,6 +195,8 @@ void ThirdPerson::_initializeScene()
 	_world->add(myPlayerController);
 	AIController* myAIController = new AIController(myGridGenerator->GetAIShips(), 5, 3, myGridGenerator, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myAIController);
+	MouseInputHandler* myMouseInputHandler = new MouseInputHandler(_window, _world, myGridGenerator->GetPlayerShips() , "", glm::vec3(0,0,0));
+	_world->add(myMouseInputHandler);
 
 	Light* light = new Light("light", glm::vec3(2, 1, 2), glm::vec3(0.75f, 0.75f, 0.75f), 0.75f, 0.65f, Light::LightType::Directional, glm::vec3(45, 135, 0));
 	_world->add(light);
