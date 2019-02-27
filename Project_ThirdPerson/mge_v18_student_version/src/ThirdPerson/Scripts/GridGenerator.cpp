@@ -181,9 +181,9 @@ void GridGenerator::GenerateNodeGraph() {
 	AbstractMaterial* islandMaterialInverseCorner = new LitMaterial(glm::vec3(0.25f, 0.25f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* islandMaterialFull = new LitMaterial(glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* harborMaterial = new LitMaterial(glm::vec3(0.5f, 0.35f, 0.15f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* bigShipMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* smallShipMaterial = new LitMaterial(glm::vec3(1.0f, 0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* enemyShipMaterial = new LitMaterial(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+	AbstractMaterial* bigShipMaterial = new LitMaterial(glm::vec3(0.55f, 0.41f, 0.211f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+	AbstractMaterial* smallShipMaterial = new LitMaterial(glm::vec3(0.65f, 0.5f, 0.3f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+	AbstractMaterial* enemyShipMaterial = new LitMaterial(glm::vec3(0.8f, 0.45f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* treasureMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* goalMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 

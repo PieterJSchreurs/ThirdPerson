@@ -32,8 +32,13 @@ public:
 	void SetValues(PlayerController* pPlayerController, PlayerController* pAIController, int pTurnAmount, int pCannonballAmount);
 
 	void HandlePlayerInput();
+	void ToggleIsActive();
 
 	void SetPlayerCollectedTreasure(bool pToggle);
+	void ReduceCannonballsLeft(int pAmount);
+	int GetCannonballsLeft();
+	void ReduceTurnsLeft(int pAmount);
+	int GetTurnsLeft();
 
 private:
 	TurnHandler() {}
@@ -41,8 +46,6 @@ private:
 	float _timer = 0;
 	const float _playerInputDelay = 0.5f;
 	float _lastPlayerInput = 0;
-
-	void ToggleIsActive();
 
 	PlayerController* _playerController;
 	PlayerController* _AIController;

@@ -13,7 +13,7 @@ class PlayerController : public GameObject
 {
 public:
 
-	PlayerController(std::vector<Ship*> pShips, GridGenerator* pGridGen, bool pActiveFirstTurn = false, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	PlayerController(std::vector<Ship*> pShips, GridGenerator* pGridGen, bool pIsPlayer = false, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~PlayerController();
 	virtual void update(float pStep);
 
@@ -36,6 +36,8 @@ private:
 	float _lastPlayerInput = 0;
 
 	bool _isActive = false;
+
+	bool _isPlayer = false;
 };
 
 #endif // PLAYERCONTROLLER_HPP

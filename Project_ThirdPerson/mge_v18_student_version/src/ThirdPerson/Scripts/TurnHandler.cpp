@@ -20,6 +20,26 @@ void TurnHandler::ToggleIsActive() {
 void TurnHandler::SetPlayerCollectedTreasure(bool pToggle) {
 	_playerCollectedTreasure = pToggle;
 }
+void TurnHandler::ReduceCannonballsLeft(int pAmount) {
+	_cannonballsLeft -= pAmount;
+	if (_cannonballsLeft <= 0)
+	{
+		std::cout << "No cannonballs left!" << std::endl;
+	}
+}
+int TurnHandler::GetCannonballsLeft() {
+	return _cannonballsLeft;
+}
+void TurnHandler::ReduceTurnsLeft(int pAmount) {
+	_turnsLeft -= pAmount;
+	if (_turnsLeft <= 0)
+	{
+		std::cout << "The player ran out of turns, so he lost!" << std::endl;
+	}
+}
+int TurnHandler::GetTurnsLeft() {
+	return _turnsLeft;
+}
 
 void TurnHandler::update(float pStep) {
 	_timer += pStep;
@@ -33,7 +53,6 @@ void TurnHandler::HandlePlayerInput() { //NOTE: Make sure only one input is read
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		ToggleIsActive();
 		_lastPlayerInput = _timer;
-		_turnsLeft--; //TODO: Only reduce turns remaining on players turn
 	}
 }
 

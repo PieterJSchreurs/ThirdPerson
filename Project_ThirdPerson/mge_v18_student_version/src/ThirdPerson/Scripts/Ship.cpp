@@ -1,6 +1,7 @@
 #include "ThirdPerson/Scripts/Ship.h"
 #include "ThirdPerson/Scripts/GridGenerator.h"
 #include "ThirdPerson/Scripts/StaticGridObject.h"
+#include "ThirdPerson/Scripts/TurnHandler.h"
 
 Ship::Ship(Node* pStartNode, std::vector<Node*> pAllNodes, bool pIsAI, bool pIsBig, const std::string& aName, const glm::vec3& aPosition) : MovingGridObject(pStartNode, pAllNodes, aName, aPosition), _isAI(pIsAI), _isBig(pIsBig)
 {
@@ -79,10 +80,15 @@ void Ship::MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 }
 
 void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
-	if (!_shotThisTurn && _actionsRemaining > 0)
+	if (!_shotThisTurn && _actionsRemaining > 0 && TurnHandler::getInstance().GetCannonballsLeft() > 0)
 	{
 		_shotThisTurn = true;
 		_actionsRemaining--;
+
+		if (!_isAI)
+		{
+			TurnHandler::getInstance().ReduceCannonballsLeft(1);
+		}
 
 		for (int i = 1; i <= _cannonRange; i++)
 		{
