@@ -36,6 +36,10 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 	_suzannaMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth.obj");
 	_teapotMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth.obj");
 	_sphereMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+
+	_mainShip = Mesh::load(config::MGE_MODEL_PATH + "main ship.obj");
+	_smallShip = Mesh::load(config::MGE_MODEL_PATH + "Small Ship.obj");
+	_enemyShip = Mesh::load(config::MGE_MODEL_PATH + "Enemy Ship.obj");
 }
 
 
@@ -336,8 +340,8 @@ void GridGenerator::GenerateNodeGraph() {
 					shipRef->SetOrientation(glm::vec2(1, 0), true);
 				}
 				gridObj->setMaterial(bigShipMaterial);
-				gridObj->setMesh(_suzannaMeshDefault);
-				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
+				gridObj->setMesh(_mainShip);
+				gridObj->scale(glm::vec3(_tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2));
 
 				_playerShips.push_back(shipRef);
 			}
@@ -362,8 +366,8 @@ void GridGenerator::GenerateNodeGraph() {
 					shipRef->SetOrientation(glm::vec2(-1, 0), true);
 				}
 				gridObj->setMaterial(smallShipMaterial);
-				gridObj->setMesh(_suzannaMeshDefault);
-				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
+				gridObj->setMesh(_smallShip);
+				gridObj->scale(glm::vec3(_tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2));
 
 				_playerShips.push_back(shipRef);
 			}
@@ -388,8 +392,8 @@ void GridGenerator::GenerateNodeGraph() {
 					shipRef->SetOrientation(glm::vec2(1, 0), true);
 				}
 				gridObj->setMaterial(enemyShipMaterial);
-				gridObj->setMesh(_suzannaMeshDefault);
-				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
+				gridObj->setMesh(_enemyShip);
+				gridObj->scale(glm::vec3(_tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2));
 
 				_AIShips.push_back(shipRef);
 			}

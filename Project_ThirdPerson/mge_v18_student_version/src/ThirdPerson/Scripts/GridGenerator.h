@@ -170,6 +170,10 @@ private:
 	Mesh* _teapotMeshDefault;
 	Mesh* _sphereMeshDefault;
 
+	Mesh* _mainShip;
+	Mesh* _smallShip;
+	Mesh* _enemyShip;
+
 	void PlaceCorrectIslandNode(Node* pNode, int pColumn, int pRow, std::vector<int> pAllNodes);
 	void PlaceCorrectHarborNode(Node* pNode, int pColumn, int pRow, std::vector<int> pAllNodes);
 
