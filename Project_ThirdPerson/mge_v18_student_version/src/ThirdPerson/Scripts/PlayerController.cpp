@@ -133,6 +133,14 @@ void PlayerController::SelectNextShip(int pDir) {
 	}
 }
 
+void PlayerController::SelectShip(Ship* pShip)
+{
+	_currentShip->setMaterial(_currentShip->GetBaseMaterial());
+	_currentShip = pShip;
+	AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+	_currentShip->setMaterial(purpleMaterial);
+}
+
 PlayerController::~PlayerController() {
 }
 

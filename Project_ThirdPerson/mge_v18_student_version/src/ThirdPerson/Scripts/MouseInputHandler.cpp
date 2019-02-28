@@ -17,30 +17,31 @@ void MouseInputHandler::update(float pStep)
 	_timer += pStep;
 	if (_timer - _lastPlayerInput >= _playerInputDelay)
 	{
-		HandleClick();
+		if (_renderWindow->hasFocus() && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			HandleClick();
+		}
 	}
 	GameObject::update(pStep);
 }
 
 void MouseInputHandler::HandleClick()
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	glm::vec3 mouseRay = calculateMouseRay();
+	//std::cout << "This is the position in which is clicked \t: " << mouseRay << std::endl;
+	int x = 0;
+	for each (Ship* pShip in _ships)
 	{
-		glm::vec3 mouseRay = calculateMouseRay();
-		//std::cout << "This is the position in which is clicked \t: " << mouseRay << std::endl;
-		int x = 0;
-		for each (Ship* pShip in _ships)
+		glm::vec2 cameraLengthFromMiddle = glm::vec2(_camera->getLocalPosition().y, _camera->getLocalPosition().z);
+		if (pShip->CheckIfClicked(mouseRay * cameraLengthFromMiddle.x, cameraLengthFromMiddle.x, x))
 		{
-			glm::vec2 cameraLengthFromMiddle = glm::vec2(_camera->getLocalPosition().y, _camera->getLocalPosition().z);
-			if (pShip->CheckIfClicked(mouseRay * cameraLengthFromMiddle.x, cameraLengthFromMiddle.x, x))
-			{
-				_playerController->SelectShip(pShip);
-			}
-			x++;
-			//std::cout << "This are the coordinates scaled up \t:" << mouseRay * _camera->getLocalPosition().y << std::endl;
+			_playerController->SelectShip(pShip);
 		}
-		_lastPlayerInput = _timer;
+		x++;
+		//std::cout << "This are the coordinates scaled up \t:" << mouseRay * _camera->getLocalPosition().y << std::endl;
 	}
+	_lastPlayerInput = _timer;
+
 }
 
 

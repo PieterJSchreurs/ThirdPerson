@@ -8,7 +8,7 @@ uniform int time;
 in vec2 texCoord;
 out vec4 fragment_color;
 
-vec4 _WaterColor = vec4(0.035, 06f, 0.95f, 0.5f);
+vec4 _WaterColor = vec4(0.035, 0.6f, 0.95f, 0.5f);
 vec4 _WaterFoamColor = vec4(0.5147058f, 0.5147058f, 0.5147058f, 0.5882353f);
 int _WaveHeight = 30;
 int _WaveInterval = 5000;
