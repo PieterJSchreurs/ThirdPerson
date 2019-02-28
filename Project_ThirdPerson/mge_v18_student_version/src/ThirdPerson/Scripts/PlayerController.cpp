@@ -61,13 +61,16 @@ void PlayerController::ToggleIsActive() {
 				return;
 			}
 		}
-		AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-		_currentShip->setMaterial(purpleMaterial);
+		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+		_currentShip->setMaterial(greenMaterial);
 		for (int i = 0; i < _myShips.size(); i++)
 		{
 			_myShips[i]->HandleStartOfTurn();
 		}
 	}
+}
+bool PlayerController::GetIsActive() {
+	return _isActive;
 }
 
 void PlayerController::update(float pStep) {
@@ -77,6 +80,7 @@ void PlayerController::update(float pStep) {
 		if (_timer - _lastPlayerInput >= _playerInputDelay)
 		{
 			HandlePlayerInput();
+			
 		}
 	}
 	else {
@@ -153,8 +157,8 @@ void PlayerController::SelectNextShip(int pDir) {
 
 	if (_currentShip->GetIsAlive()) //If the newly selected ship is alive, all is good
 	{
-		AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-		_currentShip->setMaterial(purpleMaterial);
+		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+		_currentShip->setMaterial(greenMaterial);
 	}
 	else { //If the newly selected ship has already sunk, select the next available ship instead.
 		SelectNextShip(pDir);

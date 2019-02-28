@@ -148,9 +148,76 @@ std::vector<std::string> getAllFileNamesInFolder(std::string folder)
 	return names;
 }
 
+void ThirdPerson::_update(float pStep) {
+	AbstractGame::_update(pStep);
+	TurnHandler::getInstance().update(pStep);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) { //Restart the current level (TODO: Garbage collection is not correct, memory is not freed correctly.)
+		destroyLevel();
+		loadLevel();
+	}
+}
+
+void ThirdPerson::loadLevel(std::string pFileName) {
+	if (pFileName != "")
+	{
+		_fileName = pFileName;
+	}
+	
+	_world = new World();
+
+	//MESHES
+
+	//load a bunch of meshes we will be using throughout this demo
+	//each mesh only has to be loaded once, but can be used multiple times:
+	//F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
+	//Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
+	//Mesh* cubeMeshF = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
+	//Mesh* suzannaMeshS = Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth.obj");
+	//Mesh* coneMeshS = Mesh::load(config::MGE_MODEL_PATH + "cone_smooth.obj");
+	//Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+	//Mesh* sphereMesh2S = Mesh::load(config::MGE_MODEL_PATH + "sphere2.obj");
+
+	//MATERIALS
+
+
+	//SCENE SETUP
+	//add camera first (it will be updated last)
+	Camera* camera = new Camera("camera", glm::vec3(0, 20, 10));
+	camera->rotate(glm::radians(-68.0f), glm::vec3(1, 0, 0));
+	_world->add(camera);
+	_world->setMainCamera(camera);
+
+	TileWorld* myTileWorld = new TileWorld(_gameplayValues._gridWidth, _gameplayValues._gridHeight, _gameplayValues._tileSize, "TileWorld");
+	_world->add(myTileWorld);
+	_myGridGenerator = new GridGenerator(*myTileWorld, _fileName);
+	_myGridGenerator->GenerateNodeGraph();
+
+	PlayerController* myPlayerController = new PlayerController(_myGridGenerator->GetPlayerShips(), _myGridGenerator, true, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+	_world->add(myPlayerController);
+	PlayerController* myAIController = new PlayerController(_myGridGenerator->GetAIShips(), _myGridGenerator, false, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+	_world->add(myAIController);
+
+	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 5, 3, camera);
+
+	Light* light = new Light("light", glm::vec3(2, 1, 2), glm::vec3(0.75f, 0.75f, 0.75f), 0.75f, 0.65f, Light::LightType::Directional, glm::vec3(45, 135, 0));
+	_world->add(light);
+}
+
+void ThirdPerson::destroyLevel() {
+	delete _myGridGenerator;
+	delete _world;
+}
+
 //build the game _world
 void ThirdPerson::_initializeScene()
 {
+
+	//LPCWSTR a;
+	//std::string s = config::MGE_AUDIO_PATH + "character sounds.wav";
+	//a = (LPCWSTR)s.c_str();
+	//PlaySound(a, NULL, SND_ASYNC);
+
 	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
 	
 	std::cout << std::endl << "\t" << "List of level files" << std::endl;
@@ -161,47 +228,10 @@ void ThirdPerson::_initializeScene()
 	}
 	std::cout << "===================================" << std::endl << std::endl;
 
-	std::string fileName;
 	std::cout << "Please type the file name of the level you want to load below, press enter to confirm." << std::endl;
-	std::cin >> fileName;
+	std::cin >> _fileName;
 
-    //MESHES
-
-    //load a bunch of meshes we will be using throughout this demo
-    //each mesh only has to be loaded once, but can be used multiple times:
-    //F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
-    Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");
-    Mesh* cubeMeshF = Mesh::load (config::MGE_MODEL_PATH+"cube_flat.obj");
-    Mesh* suzannaMeshS = Mesh::load (config::MGE_MODEL_PATH+"suzanna_smooth.obj");
-	Mesh* coneMeshS = Mesh::load(config::MGE_MODEL_PATH + "cone_smooth.obj");
-	Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
-	Mesh* sphereMesh2S = Mesh::load(config::MGE_MODEL_PATH + "sphere2.obj");
-
-    //MATERIALS
-
-
-    //SCENE SETUP
-    //add camera first (it will be updated last)
-    Camera* camera = new Camera ("camera", glm::vec3(0,20,10));
-    camera->rotate(glm::radians(-68.0f), glm::vec3(1,0,0));
-    _world->add(camera);
-    _world->setMainCamera(camera);
-
-	TileWorld* myTileWorld = new TileWorld(_gameplayValues._gridWidth, _gameplayValues._gridHeight, _gameplayValues._tileSize, "TileWorld");
-	_world->add(myTileWorld);
-	GridGenerator* myGridGenerator = new GridGenerator(*myTileWorld, fileName);
-	myGridGenerator->GenerateNodeGraph();
-
-	PlayerController* myPlayerController = new PlayerController(myGridGenerator->GetPlayerShips(), myGridGenerator, true, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
-	_world->add(myPlayerController);
-	PlayerController* myAIController = new PlayerController(myGridGenerator->GetAIShips(), myGridGenerator, false, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
-	_world->add(myAIController);
-	//TurnHandler& myTurnHandler = ;
-	//_world->add(&TurnHandler::getInstance());
-	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 5, 3);
-
-	Light* light = new Light("light", glm::vec3(2, 1, 2), glm::vec3(0.75f, 0.75f, 0.75f), 0.75f, 0.65f, Light::LightType::Directional, glm::vec3(45, 135, 0));
-	_world->add(light);
+	loadLevel();
 }
 
 void ThirdPerson::_render() {

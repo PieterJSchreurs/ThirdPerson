@@ -20,6 +20,7 @@ public:
 	void HandlePlayerInput();
 
 	void ToggleIsActive();
+	bool GetIsActive();
 
 private:
 

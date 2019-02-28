@@ -4,6 +4,7 @@
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
 #include "ThirdPerson/Scripts/TurnHandler.h"
+#include <SFML/Window/Keyboard.hpp>
 
 AbstractGame::AbstractGame():_window(NULL),_renderer(NULL),_world(NULL), _fps(0)
 {
@@ -34,7 +35,7 @@ void AbstractGame::initialize() {
 
 void AbstractGame::_initializeWindow() {
 	std::cout << "Initializing window..." << std::endl;
-	_window = new sf::RenderWindow( sf::VideoMode(800,600), "My Game!", sf::Style::Default, sf::ContextSettings(24,8,0,3,3));
+	_window = new sf::RenderWindow( sf::VideoMode(1200,900), "My Game!", sf::Style::Default, sf::ContextSettings(24,8,0,3,3));
 	//_window->setVerticalSyncEnabled(true);
     std::cout << "Window initialized." << std::endl << std::endl;
 	//Place the mouse in the center of the window.
@@ -132,7 +133,6 @@ void AbstractGame::run()
 
 void AbstractGame::_update(float pStep) {
     _world->update(pStep);
-	TurnHandler::getInstance().update(pStep);
 }
 
 void AbstractGame::_render () {

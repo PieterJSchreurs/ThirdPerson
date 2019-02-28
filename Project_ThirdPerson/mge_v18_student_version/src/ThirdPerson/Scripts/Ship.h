@@ -2,6 +2,7 @@
 #define SHIP_HPP
 
 #include "ThirdPerson/Scripts/MovingGridObject.h"
+#include "mge/core/Mesh.hpp"
 class GridGenerator;
 
 class Ship : public MovingGridObject
@@ -35,6 +36,9 @@ private:
 
 	bool _isAI = false;
 	bool _isBig = true;
+
+	GameObject* _myCannonball;
+	Mesh* _sphereMeshDefault;
 };
 
 #endif // SHIP_HPP

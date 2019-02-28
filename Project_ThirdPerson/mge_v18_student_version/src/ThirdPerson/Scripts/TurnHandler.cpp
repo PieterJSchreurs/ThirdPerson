@@ -1,8 +1,14 @@
 #include "ThirdPerson/Scripts/TurnHandler.h"
 //#include "mge/core/World.hpp"
 #include <SFML/Window/Keyboard.hpp>
+#include "mge/core/Texture.hpp"
+#include "mge/materials/TextureMaterial.hpp"
+#include "ThirdPerson/config.hpp"
 
-void TurnHandler::SetValues(PlayerController* pPlayerController, PlayerController* pAIController, int pTurnAmount, int pCannonballAmount) {
+
+void TurnHandler::SetValues(PlayerController* pPlayerController, PlayerController* pAIController, int pTurnAmount, int pCannonballAmount, GameObject* pCamera){
+	_camera = pCamera;
+	
 	_playerController = pPlayerController;
 	_AIController = pAIController;
 
@@ -10,11 +16,30 @@ void TurnHandler::SetValues(PlayerController* pPlayerController, PlayerControlle
 	_cannonballAmount = pCannonballAmount;
 	_turnsLeft = _turnAmount;
 	_cannonballsLeft = _cannonballAmount;
+
+	_planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
+	_turnIndicator = new GameObject("Turn indicator");
+	_turnIndicator->setMesh(_planeMeshDefault);
+	_turnIndicator->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
+	_turnIndicator->rotate(glm::radians(-90.0f), glm::vec3(-1, 0, 0));
+	_camera->add(_turnIndicator);
+	_turnIndicator->setLocalPosition(glm::vec3(0, 0, -0.25f));
 }
 
 void TurnHandler::ToggleIsActive() {
 	_playerController->ToggleIsActive();
 	_AIController->ToggleIsActive();
+	if (_playerController->GetIsActive())
+	{
+		AbstractMaterial* PlayerMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Player_Turn.png"));
+		_turnIndicator->setMaterial(PlayerMaterial);
+	}
+	else {
+		AbstractMaterial* AIMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "AI_Turn.png"));
+		_turnIndicator->setMaterial(AIMaterial);
+	}
+	_turnIndicator->setParent(_camera);
+	_turnIndicatorActivate = _timer;
 }
 
 void TurnHandler::SetPlayerCollectedTreasure(bool pToggle) {
@@ -46,6 +71,11 @@ void TurnHandler::update(float pStep) {
 	if (_timer - _lastPlayerInput >= _playerInputDelay)
 	{
 		HandlePlayerInput();
+	}
+
+	if (_timer - _turnIndicatorActivate >= _turnIndicatorDelay && _turnIndicator->getParent() != nullptr)
+	{
+		_turnIndicator->setParent(nullptr);
 	}
 }
 

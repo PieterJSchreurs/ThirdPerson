@@ -11,8 +11,8 @@ in vec2 uv;
 
 vec4 _WaterColor = vec4(0.4257677f, 0.8374597f, 0.9191176f, 0.2039216f);
 vec4 _WaterFoamColor = vec4(0.5147058f, 0.5147058f, 0.5147058f, 0.5882353f);
-int _WaveHeight = 30;
-int _WaveInterval = 5000;
+int _WaveHeight = 10;
+int _WaveInterval = 10000;
 int _WaveBuildUp = 50;
 int _WaveLength = 50;
 int _WaveSpeed = 1;
