@@ -105,7 +105,7 @@ void AbstractGame::run()
 		if (timeSinceLastUpdate > timePerFrame)
 		{
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
+			
 		    while (timeSinceLastUpdate > timePerFrame) {
                 timeSinceLastUpdate -= timePerFrame;
                 _update(timePerFrame.asSeconds());

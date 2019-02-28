@@ -203,6 +203,7 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\GoalObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GridGenerator.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GridObject.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\MouseInputHandler.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\MovingGridObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\Node.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\NodeWorld.h" />
@@ -252,6 +253,7 @@
     <ClCompile Include="..\src\ThirdPerson\Scripts\GoalObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\GridGenerator.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\GridObject.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\MouseInputHandler.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\MovingGridObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\Node.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\NodeWorld.cpp" />
