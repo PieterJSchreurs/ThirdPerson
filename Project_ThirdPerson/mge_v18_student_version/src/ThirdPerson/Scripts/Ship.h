@@ -12,7 +12,7 @@ public:
 	virtual void update(float pStep);
 
 	virtual void DecideMove();
-	bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale);
+	bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber);
 
 private:
 	float _radius = 1;

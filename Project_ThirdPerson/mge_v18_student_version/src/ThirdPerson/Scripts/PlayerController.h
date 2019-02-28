@@ -17,7 +17,7 @@ public:
 	PlayerController(std::vector<Ship*> pShips, int pTurnAmount, int pCannonballAmount, GridGenerator* pGridGen, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~PlayerController();
 	virtual void update(float pStep);
-
+	void PlayerController::SelectShip(Ship* pShip);
 	void HandlePlayerInput();
 
 private:

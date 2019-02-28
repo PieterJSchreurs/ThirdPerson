@@ -7,12 +7,13 @@
 #include "ThirdPerson/Scripts/Ship.h"
 #include <SFML/Window/Mouse.hpp>
 #include "mge/core/Camera.hpp"
+#include "ThirdPerson/Scripts/PlayerController.h"
 #include "mge/core/World.hpp"
 
 class MouseInputHandler : public GameObject
 {
 public:
-	MouseInputHandler(sf::RenderWindow* pWindow, World* pWorld, std::vector<Ship*> pShips, const std::string & aName, const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	MouseInputHandler(sf::RenderWindow* pWindow, World* pWorld, std::vector<Ship*> pShips, PlayerController* pPlayerController, const std::string & aName, const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 
 	virtual ~MouseInputHandler();
 	virtual void update(float pStep);
@@ -31,7 +32,7 @@ private:
 	bool _clickedMouse = false;
 
 	std::vector<Ship*> _ships;
-
+	PlayerController* _playerController;
 	void HandleClick();
 	glm::vec3 calculateMouseRay();
 	glm::vec2 getNormalizedDeviceCoords(float pMouseX, float pMouseY);
