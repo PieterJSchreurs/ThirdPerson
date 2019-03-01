@@ -124,17 +124,18 @@ void Ship::TurnOrientation(int pDir) {
 	}
 }
 
-bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber)
+bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, glm::vec3 pEulerAngles)
 {
+	std::cout << "This is the incoming coordinate" << pCoordinates <<  "\t This is the scale"<< pScale << std::endl;
 	//This is slow, change it later.
 	glm::vec3 myPosition = getWorldPosition();
-	_radiusModel = 2;
+	pCoordinates *= pScale;
+	_radiusModel = 1.5f;
 	pCoordinates.z = -pCoordinates.z;
-	std::cout << pNumber << "Coordinates \t:" << pCoordinates << "\t\t Position" << myPosition << std::endl;
-		
-	//Hardcoded, basically for testing. If you move the camera it needs to be changed.
-	//pCoordinates.x *= (40 / pCoordinates.y);
-	//std::cout << pNumber << "Coordinates new \t:" << pCoordinates << std::endl;
+	
+	//float scaledClick = pScale / pCoordinates.z;
+	//pCoordinates.z /= scaledClick;
+	//std::cout << pNumber << "Coordinates clicked \t:" << pCoordinates << "\t\t Position" << myPosition << std::endl;
 	if ((myPosition.x + _radiusModel > pCoordinates.x && myPosition.x - _radiusModel < pCoordinates.x) && (myPosition.z + _radiusModel > pCoordinates.z && myPosition.z - _radiusModel < pCoordinates.z))
 	{
 		std::cout << "clicked on \t:" << _name << std::endl;

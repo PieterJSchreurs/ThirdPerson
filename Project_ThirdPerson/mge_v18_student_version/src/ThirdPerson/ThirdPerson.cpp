@@ -30,12 +30,14 @@
 #include "mge/behaviours/MoveBehaviour.h"
 
 #include "mge/util/DebugHud.hpp"
+#include "ThirdPerson/Scripts/UIHandler.h"
 
 #include "ThirdPerson/Scripts/Node.h"
 #include "ThirdPerson/Scripts/NodeWorld.h"
 #include "ThirdPerson/Scripts/TileWorld.h"
 #include "ThirdPerson/Scripts/GridGenerator.h"
 #include "ThirdPerson/Scripts/GridObject.h"
+#include "ThirdPerson/MainMenu.h"
 
 #include "ThirdPerson/Scripts/TurnHandler.h"
 #include "ThirdPerson/Scripts/PlayerController.h"
@@ -46,7 +48,7 @@
 #include "ThirdPerson/ThirdPerson.hpp"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
-ThirdPerson::ThirdPerson():AbstractGame (),_hud(0)
+ThirdPerson::ThirdPerson() :AbstractGame(), _hud(0)
 {
 
 }
@@ -54,10 +56,10 @@ ThirdPerson::ThirdPerson():AbstractGame (),_hud(0)
 void ThirdPerson::initialize() {
 	initializeGameplayValues();
 
-    //setup the core part
-    AbstractGame::initialize();
+	//setup the core part
+	AbstractGame::initialize();
 
-    //setup the custom part so we can display some text
+	//setup the custom part so we can display some text
 	std::cout << "Initializing HUD" << std::endl;
 	_hud = new DebugHud(_window);
 	std::cout << "HUD initialized." << std::endl << std::endl;
@@ -71,10 +73,10 @@ void ThirdPerson::initializeGameplayValues() {
 
 	luaL_loadfile(lua, file.c_str());												//Load the file
 	lua_call(lua, 0, 0);															//Initialize all the values in the file
-	
+
 	//Get all the constant gameplay values from our lua file, and store them in a GameplayValues object.
 	lua_getglobal(lua, "gridWidth");
-	_gameplayValues._gridWidth = lua_tonumber(lua, -1);																		
+	_gameplayValues._gridWidth = lua_tonumber(lua, -1);
 	lua_pop(lua, 1);
 	lua_getglobal(lua, "gridHeight");
 	_gameplayValues._gridHeight = lua_tonumber(lua, -1);
@@ -82,7 +84,7 @@ void ThirdPerson::initializeGameplayValues() {
 	lua_getglobal(lua, "tileSize");
 	_gameplayValues._tileSize = lua_tonumber(lua, -1);
 	lua_pop(lua, 1);
-	
+
 	lua_getglobal(lua, "bigShipSpeed");
 	_gameplayValues._bigShipSpeed = lua_tonumber(lua, -1);
 	lua_pop(lua, 1);
@@ -127,7 +129,7 @@ std::vector<std::string> getAllFileNamesInFolder(std::string folder)
 {
 	std::vector<std::string> names;
 	std::string search_path = folder + "/*.*";
-	
+
 	WIN32_FIND_DATA fd;
 
 	std::wstring stemp = s2ws(search_path);
@@ -153,7 +155,7 @@ std::vector<std::string> getAllFileNamesInFolder(std::string folder)
 void ThirdPerson::_initializeScene()
 {
 	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
-	
+
 	std::cout << std::endl << "\t" << "List of level files" << std::endl;
 	std::cout << "===================================" << std::endl;
 	for (int i = 0; i < fileNames.size(); i++)
@@ -166,27 +168,28 @@ void ThirdPerson::_initializeScene()
 	std::cout << "Please type the file name of the level you want to load below, press enter to confirm." << std::endl;
 	std::cin >> fileName;
 
-    //MESHES
+	//MESHES
 
-    //load a bunch of meshes we will be using throughout this demo
-    //each mesh only has to be loaded once, but can be used multiple times:
-    //F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
-    Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");
-    Mesh* cubeMeshF = Mesh::load (config::MGE_MODEL_PATH+"cube_flat.obj");
-    Mesh* suzannaMeshS = Mesh::load (config::MGE_MODEL_PATH+"suzanna_smooth.obj");
+	//load a bunch of meshes we will be using throughout this demo
+	//each mesh only has to be loaded once, but can be used multiple times:
+	//F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
+	Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
+	Mesh* cubeMeshF = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
+	Mesh* suzannaMeshS = Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth.obj");
 	Mesh* coneMeshS = Mesh::load(config::MGE_MODEL_PATH + "cone_smooth.obj");
 	Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
 	Mesh* sphereMesh2S = Mesh::load(config::MGE_MODEL_PATH + "sphere2.obj");
 
-    //MATERIALS
+	//MATERIALS
 
 
-    //SCENE SETUP
-    //add camera first (it will be updated last)
-    Camera* camera = new Camera ("camera", glm::vec3(0,20,10));
-    camera->rotate(glm::radians(-68.0f), glm::vec3(1,0,0));
-    _world->add(camera);
-    _world->setMainCamera(camera);
+	//SCENE SETUP
+	//add camera first (it will be updated last)
+	Camera* camera = new Camera("camera", glm::vec3(0, 40, 0));
+	//camera->rotate(glm::radians(-68.0f), glm::vec3(1,0,0));
+	camera->setEulerAngles(glm::vec3(-90.0f, 0, 0));
+	_world->add(camera);
+	_world->setMainCamera(camera);
 
 	TileWorld* myTileWorld = new TileWorld(_gameplayValues._gridWidth, _gameplayValues._gridHeight, _gameplayValues._tileSize, "TileWorld");
 	_world->add(myTileWorld);
@@ -207,19 +210,24 @@ void ThirdPerson::_initializeScene()
 
 	Light* light = new Light("light", glm::vec3(2, 1, 2), glm::vec3(0.75f, 0.75f, 0.75f), 0.75f, 0.65f, Light::LightType::Directional, glm::vec3(45, 135, 0));
 	_world->add(light);
+
+	/*UIHandler* uiHandler = new UIHandler(_window);
+	_world->add(uiHandler);*/
 }
 
+
+
 void ThirdPerson::_render() {
-    AbstractGame::_render();
-    _updateHud();
+	AbstractGame::_render();
+	_updateHud();
 }
 
 void ThirdPerson::_updateHud() {
-    std::string debugInfo = "";
-    debugInfo += std::string ("FPS:") + std::to_string((int)_fps)+"\n";
+	std::string debugInfo = "";
+	debugInfo += std::string("FPS:") + std::to_string((int)_fps) + "\n";
 
-    _hud->setDebugInfo(debugInfo, 375, 10);
-    _hud->draw();
+	_hud->setDebugInfo(debugInfo, 375, 10);
+	_hud->draw();
 }
 
 ThirdPerson::~ThirdPerson()

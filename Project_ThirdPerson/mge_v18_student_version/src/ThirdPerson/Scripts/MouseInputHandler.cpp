@@ -28,12 +28,16 @@ void MouseInputHandler::update(float pStep)
 void MouseInputHandler::HandleClick()
 {
 	glm::vec3 mouseRay = calculateMouseRay();
-	//std::cout << "This is the position in which is clicked \t: " << mouseRay << std::endl;
+	glm::vec3 rotations = _camera->getEulerAngles();
+	std::cout << "rotations \t :"<< rotations << std::endl;
+	float yPosCam = _camera->getLocalPosition().y;
+	float zPosCam = _camera->getLocalPosition().z;
+	std::cout << zPosCam <<" " << yPosCam << std::endl;
 	int x = 0;
 	for each (Ship* pShip in _ships)
 	{
-		glm::vec2 cameraLengthFromMiddle = glm::vec2(_camera->getLocalPosition().y, _camera->getLocalPosition().z);
-		if (pShip->CheckIfClicked(mouseRay * cameraLengthFromMiddle.x, cameraLengthFromMiddle.x, x))
+		float lengthToMiddle = sqrt((zPosCam * zPosCam) + (yPosCam * yPosCam));
+		if (pShip->CheckIfClicked(mouseRay , lengthToMiddle, x, rotations))
 		{
 			_playerController->SelectShip(pShip);
 		}
