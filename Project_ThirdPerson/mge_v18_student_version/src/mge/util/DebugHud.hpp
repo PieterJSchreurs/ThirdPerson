@@ -22,6 +22,9 @@ class DebugHud
         std::string _debugInfo;
 
         sf::Font _font;
+		sf::Image _testimage;
+		sf::Texture _texture;
+
         sf::Text _debugText;
 
         void _createDebugHud();

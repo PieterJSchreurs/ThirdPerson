@@ -2,6 +2,7 @@
 #define THIRDPERSON_HPP
 
 #include "mge/core/AbstractGame.hpp"
+class GridGenerator;
 
 class DebugHud;
 
@@ -40,19 +41,26 @@ class ThirdPerson : public AbstractGame
 	protected:
 	    //override so we can construct the actual scene
         virtual void _initializeScene();
+		void loadLevel(std::string pFileName = "");
+		void destroyLevel();
+		GridGenerator* _myGridGenerator;
 
 	    //override render to render the hud as well.
 	    virtual void _render();
 
+		virtual void _update(float pStep);
+
 	private:
 		DebugHud* _hud;                   //hud display
-
+	
         void _updateHud();
 
 		ThirdPerson(const ThirdPerson&);
 		ThirdPerson& operator=(const ThirdPerson&);
 
 		void initializeGameplayValues();
+
+		std::string _fileName;
 };
 
 #endif // THIRDPERSON_HPP

@@ -1,17 +1,12 @@
 #include "ThirdPerson/Scripts/BigShip.h"
-#include "mge/core/World.hpp"
 
-BigShip::BigShip(Node* pStartNode, std::vector<Node*> pAllNodes, const std::string& aName, const glm::vec3& aPosition) : Ship(pStartNode, pAllNodes, aName, aPosition)
+BigShip::BigShip(Node* pStartNode, std::vector<Node*> pAllNodes, bool pIsAI, const std::string& aName, const glm::vec3& aPosition) : Ship(pStartNode, pAllNodes, pIsAI, true, aName, aPosition)
 {
-
+	SetShipValues(100, 2, 4, 100);
 }
 
 void BigShip::update(float pStep) {
 	Ship::update(pStep);
-}
-
-void BigShip::DecideMove() {
-
 }
 
 //DESTRUCTOR___________________________________________________________

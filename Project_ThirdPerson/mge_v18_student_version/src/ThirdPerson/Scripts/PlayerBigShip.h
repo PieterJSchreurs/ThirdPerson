@@ -11,8 +11,6 @@ public:
 	virtual ~PlayerBigShip();
 	virtual void update(float pStep);
 
-	virtual void DecideMove();
-
 	//C++ Gameplay functions________________________________________________________________________
 	void WanderRandomly();
 

@@ -11,8 +11,6 @@ public:
 	virtual ~PlayerSmallShip();
 	virtual void update(float pStep);
 
-	virtual void DecideMove();
-
 private:
 
 };

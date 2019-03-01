@@ -101,13 +101,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../src;C:\VisualStudioLibraryBundle\visualstudio2017_v3_2017_2018\vs_extended\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glew32d.lib;opengl32.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\VisualStudioLibrary\vcpkg;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\VisualStudioLibraryBundle\visualstudio2017_v3_2017_2018\vs_extended\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'">
@@ -191,6 +192,7 @@
     <ClInclude Include="..\src\mge\materials\LitTextureMaterial.h" />
     <ClInclude Include="..\src\mge\materials\TerrainMaterial.h" />
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
+    <ClInclude Include="..\src\mge\materials\WaterMaterial.h" />
     <ClInclude Include="..\src\mge\materials\WobblingMaterial.h" />
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
@@ -201,6 +203,7 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\GoalObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GridGenerator.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GridObject.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\MouseInputHandler.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\MovingGridObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\Node.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\NodeWorld.h" />
@@ -212,6 +215,8 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\StaticGridObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\TileWorld.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\TreasureObject.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\TurnHandler.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\UIHandler.h" />
     <ClInclude Include="..\src\ThirdPerson\ThirdPerson.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -239,6 +244,7 @@
     <ClCompile Include="..\src\mge\materials\LitTextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\TerrainMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
+    <ClCompile Include="..\src\mge\materials\WaterMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\WobblingMaterial.cpp" />
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
@@ -248,6 +254,7 @@
     <ClCompile Include="..\src\ThirdPerson\Scripts\GoalObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\GridGenerator.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\GridObject.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\MouseInputHandler.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\MovingGridObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\Node.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\NodeWorld.cpp" />
@@ -259,6 +266,8 @@
     <ClCompile Include="..\src\ThirdPerson\Scripts\StaticGridObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\TileWorld.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\TreasureObject.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\TurnHandler.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\UIHandler.cpp" />
     <ClCompile Include="..\src\ThirdPerson\ThirdPerson.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,6 @@
 #define AICONTROLLER_HPP
 
 #include "glm.hpp"
-#include "ThirdPerson/Scripts/Ship.h"
 #include "ThirdPerson/Scripts/GridGenerator.h"
 #include "mge/core/GameObject.hpp"
 
@@ -27,9 +26,6 @@ private:
 	Ship* _currentShip;
 	int _currentShipIndex = 0;
 	void SelectNextShip(int pDir);
-
-	void MoveCurrentShip(glm::vec2 pDir);
-	void RotateCurrentShip(int pDir);
 
 	std::vector<Ship*> _myShips;
 	int _turnAmount;

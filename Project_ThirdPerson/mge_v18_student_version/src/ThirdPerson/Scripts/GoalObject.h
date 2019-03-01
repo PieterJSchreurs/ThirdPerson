@@ -11,7 +11,7 @@ public:
 	virtual ~GoalObject();
 	virtual void update(float pStep);
 
-	virtual void DoAction();
+	virtual void DoAction(bool pIsAI, bool pIsBig = true);
 
 private:
 

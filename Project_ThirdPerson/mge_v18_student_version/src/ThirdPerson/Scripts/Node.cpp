@@ -1,7 +1,9 @@
 #include "ThirdPerson/Scripts/Node.h"
-#include "mge/core/World.hpp"
+//#include "mge/core/World.hpp"
+#include "ThirdPerson/Scripts/StaticGridObject.h"
+#include "ThirdPerson/Scripts/MovingGridObject.h"
 
-Node::Node(TerrainTypes pTerrainMod, const std::string& pName, const glm::vec3& pPosition) :GameObject(pName, pPosition), _myTerrainType(pTerrainMod)
+Node::Node(TerrainTypes pTerrainMod, bool pWalkable, const std::string& pName, const glm::vec3& pPosition) :GameObject(pName, pPosition), _myTerrainType(pTerrainMod), _walkable(pWalkable)
 {
 	terrainCostModifier = glm::max((int)_myTerrainType, 1);
 }
@@ -17,6 +19,48 @@ int Node::GetGridX() {
 }
 int Node::GetGridY() {
 	return _y;
+}
+
+bool Node::GetWalkable() {
+	return _walkable;
+}
+
+void Node::SetCurrentMovingObject(MovingGridObject* pObj) {
+	if (pObj != nullptr)
+	{
+		SetOccupied(true);
+		_myMovingObject = pObj;
+	}
+	else {
+		SetOccupied(false);
+		_myMovingObject = nullptr;
+	}
+}
+MovingGridObject* Node::GetCurrentMovingObject() {
+	return _myMovingObject;
+}
+void Node::SetOccupied(bool pToggle) {
+	_occupied = pToggle;
+}
+bool Node::GetOccupied() {
+	return _occupied;
+}
+void Node::SetStaticObject(StaticGridObject* pObj) {
+	if (pObj != nullptr)
+	{
+		_hasStaticObject = true;
+		_myStaticObject = pObj;
+	}
+	else {
+		_hasStaticObject = false;
+		_myStaticObject = nullptr;
+	}
+}
+bool Node::GetHasStaticObject() {
+	return _hasStaticObject;
+}
+StaticGridObject* Node::GetStaticObject() {
+	return _myStaticObject;
 }
 
 Node::TerrainTypes Node::GetTerrainType()

@@ -11,8 +11,6 @@ public:
 	virtual ~AIBigShip();
 	virtual void update(float pStep);
 
-	virtual void DecideMove();
-
 private:
 
 };

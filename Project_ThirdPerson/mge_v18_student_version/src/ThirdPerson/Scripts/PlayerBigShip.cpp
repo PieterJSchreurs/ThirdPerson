@@ -1,7 +1,6 @@
 #include "ThirdPerson/Scripts/PlayerBigShip.h"
-#include "mge/core/World.hpp"
 
-PlayerBigShip::PlayerBigShip(Node* pStartNode, std::vector<Node*> pAllNodes, const std::string& aName, const glm::vec3& aPosition) : BigShip(pStartNode, pAllNodes, aName, aPosition)
+PlayerBigShip::PlayerBigShip(Node* pStartNode, std::vector<Node*> pAllNodes, const std::string& aName, const glm::vec3& aPosition) : BigShip(pStartNode, pAllNodes, false, aName, aPosition)
 {
 
 }
@@ -9,10 +8,6 @@ PlayerBigShip::PlayerBigShip(Node* pStartNode, std::vector<Node*> pAllNodes, con
 void PlayerBigShip::update(float pStep) {
 	BigShip::update(pStep);
 	//WanderRandomly();
-}
-
-void PlayerBigShip::DecideMove() {
-
 }
 
 //GAMEPLAY FUNCTIONS_______________________________________________________________

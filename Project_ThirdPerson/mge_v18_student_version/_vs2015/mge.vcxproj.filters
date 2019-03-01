@@ -176,6 +176,18 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\AIController.h">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\materials\WaterMaterial.h">
+      <Filter>MGE Source files\mge\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\TurnHandler.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\MouseInputHandler.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\UIHandler.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -308,6 +320,18 @@
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ThirdPerson\Scripts\AIController.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\WaterMaterial.cpp">
+      <Filter>MGE Source files\mge\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\TurnHandler.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\MouseInputHandler.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\UIHandler.cpp">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClCompile>
   </ItemGroup>
