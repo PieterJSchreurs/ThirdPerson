@@ -5,12 +5,12 @@
 
 #include "mge/materials/LitMaterial.h"
 
-PlayerController::PlayerController(std::vector<Ship*> pShips, GridGenerator* pGridGen, bool pActiveFirstTurn, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _myShips(pShips), _gridGenerator(pGridGen)
+PlayerController::PlayerController(std::vector<Ship*> pShips, GridGenerator* pGridGen, bool pIsPlayer, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _myShips(pShips), _gridGenerator(pGridGen), _isPlayer(pIsPlayer)
 {
 	if (_myShips.size() > _currentShipIndex)
 	{
 		_currentShip = _myShips[_currentShipIndex];
-		if (pActiveFirstTurn) {
+		if (pIsPlayer) {
 			SelectNextShip(1); //Switch ship once to apply the correct material.
 		}
 		std::cout << "Player has " << _myShips.size() << " ships." << std::endl;
@@ -19,7 +19,7 @@ PlayerController::PlayerController(std::vector<Ship*> pShips, GridGenerator* pGr
 		std::cout << "There were no ships passed into the PlayerController." << std::endl;
 	}
 
-	if (pActiveFirstTurn)
+	if (pIsPlayer)
 	{
 		ToggleIsActive();
 	}
@@ -31,15 +31,46 @@ void PlayerController::ToggleIsActive() {
 	if (!_isActive)
 	{
 		_currentShip->setMaterial(_currentShip->GetBaseMaterial());
+		if (_isPlayer) //At the end of the players turn, reduce the amount of turns left by 1.
+		{
+			TurnHandler::getInstance().ReduceTurnsLeft(1);
+			if (TurnHandler::getInstance().GetTurnsLeft() <= 0)
+			{
+				std::cout << "The player has run out of turns, so he lost!" << std::endl;
+			}
+		}
 	}
-	else {
-		AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-		_currentShip->setMaterial(purpleMaterial);
+	else 
+	{
+		if (!_currentShip->GetIsAlive())
+		{
+			bool anyShipsAlive = false; //Check if the current controller has any ships that are still alive remaining
+			for (int i = 0; i < _myShips.size(); i++)
+			{
+				if (_myShips[i]->GetIsAlive())
+				{
+					anyShipsAlive = true;
+				}
+			}
+			if (anyShipsAlive) //If there is at least 1 ship still alive, select the next available ship.
+			{
+				SelectNextShip(1);
+			}
+			else { //If there are no more ships remaining, immediately end your turn.
+				TurnHandler::getInstance().ToggleIsActive();
+				return;
+			}
+		}
+		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+		_currentShip->setMaterial(greenMaterial);
 		for (int i = 0; i < _myShips.size(); i++)
 		{
 			_myShips[i]->HandleStartOfTurn();
 		}
 	}
+}
+bool PlayerController::GetIsActive() {
+	return _isActive;
 }
 
 void PlayerController::update(float pStep) {
@@ -49,6 +80,7 @@ void PlayerController::update(float pStep) {
 		if (_timer - _lastPlayerInput >= _playerInputDelay)
 		{
 			HandlePlayerInput();
+			
 		}
 	}
 	else {
@@ -125,8 +157,8 @@ void PlayerController::SelectNextShip(int pDir) {
 
 	if (_currentShip->GetIsAlive()) //If the newly selected ship is alive, all is good
 	{
-		AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-		_currentShip->setMaterial(purpleMaterial);
+		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+		_currentShip->setMaterial(greenMaterial);
 	}
 	else { //If the newly selected ship has already sunk, select the next available ship instead.
 		SelectNextShip(pDir);

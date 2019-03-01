@@ -18,7 +18,7 @@ void MoveBehaviour::update(float pStep)
 	if (_timer >= _destroyAfter)
 	{
 		_owner->getParent()->remove(_owner); //TODO: How do i delete these properly?
-		//delete _owner;
+		delete _owner;
 		//delete this;
 	}
 	else 

@@ -6,16 +6,36 @@ MovingGridObject::MovingGridObject(Node* pStartNode, std::vector<Node*> pAllNode
 }
 
 void MovingGridObject::update(float pStep) {
+	_timer += pStep;
 	_moved = false;
 	GridObject::update(pStep);
 
 	HandleRotation();
+
+	if (_delayedDamageAmount > 0 && _timer - _takeDamageTime >= _takeDamageDelay)
+	{
+		TakeDamage(_delayedDamageAmount);
+	}
 }
 
 void MovingGridObject::SetObjectValues(int pHealth) {
 	_objectHealth = pHealth;
 }
-void MovingGridObject::TakeDamage(int pDamage) {
+void MovingGridObject::TakeDamage(int pDamage, float pDelay) {
+	if (pDelay > 0)
+	{
+		_takeDamageDelay = pDelay;
+		_takeDamageTime = _timer;
+		_delayedDamageAmount = pDamage;
+		return;
+	}
+	else 
+	{
+		_takeDamageDelay = 0;
+		_takeDamageTime = 0;
+		_delayedDamageAmount = 0;
+	}
+
 	_objectHealth -= pDamage;
 	if (_objectHealth <= 0)
 	{

@@ -5,6 +5,7 @@
 #include "ThirdPerson/Scripts/GridGenerator.h"
 #include "mge/core/GameObject.hpp"
 #include "ThirdPerson/Scripts/PlayerController.h"
+#include "mge/core/Mesh.hpp"
 
 /**
 * Exercise for the student: implement the Light class...
@@ -29,20 +30,25 @@ public:
 	~TurnHandler();
 	void update(float pStep);
 
-	void SetValues(PlayerController* pPlayerController, PlayerController* pAIController, int pTurnAmount, int pCannonballAmount);
+	void SetValues(PlayerController* pPlayerController, PlayerController* pAIController, int pTurnAmount, int pCannonballAmount, GameObject* pWorld);
 
 	void HandlePlayerInput();
+	void ToggleIsActive();
 
 	void SetPlayerCollectedTreasure(bool pToggle);
+	void ReduceCannonballsLeft(int pAmount);
+	int GetCannonballsLeft();
+	void ReduceTurnsLeft(int pAmount);
+	int GetTurnsLeft();
 
 private:
 	TurnHandler() {}
 
+	GameObject* _camera;
+
 	float _timer = 0;
 	const float _playerInputDelay = 0.5f;
 	float _lastPlayerInput = 0;
-
-	void ToggleIsActive();
 
 	PlayerController* _playerController;
 	PlayerController* _AIController;
@@ -54,6 +60,11 @@ private:
 
 	int _turnsLeft;
 	int _cannonballsLeft;
+
+	Mesh* _planeMeshDefault;
+	GameObject* _turnIndicator;
+	float _turnIndicatorDelay = 2.0f;
+	float _turnIndicatorActivate = 0;
 
 };
 

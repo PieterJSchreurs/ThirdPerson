@@ -24,7 +24,7 @@ public:
 	virtual void TurnOrientation(int pDir);
 
 	void SetObjectValues(int pHealth);
-	void TakeDamage(int pDamage);
+	void TakeDamage(int pDamage, float pDelay = 0);
 	virtual void DestroyObject();
 	bool GetIsAlive();
 protected:
@@ -54,6 +54,11 @@ private:
 
 	bool _done = true;
 	std::vector<Node*> _lastPathFound;
+
+	float _timer = 0;
+	float _takeDamageDelay = 0;
+	float _takeDamageTime = 0;
+	int _delayedDamageAmount = 0;
 };
 
 #endif // MOVINGGRIDOBJECT_HPP

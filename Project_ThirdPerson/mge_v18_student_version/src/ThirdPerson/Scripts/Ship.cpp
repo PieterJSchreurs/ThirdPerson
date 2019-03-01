@@ -1,10 +1,21 @@
 #include "ThirdPerson/Scripts/Ship.h"
 #include "ThirdPerson/Scripts/GridGenerator.h"
 #include "ThirdPerson/Scripts/StaticGridObject.h"
+#include "ThirdPerson/Scripts/TurnHandler.h"
+#include "ThirdPerson/config.hpp"
+
+#include "mge/core/Texture.hpp"
+#include "mge/materials/LitMaterial.h"
+
+#include "mge/behaviours/MoveBehaviour.h"
+
+#include "windows.h"
 
 Ship::Ship(Node* pStartNode, std::vector<Node*> pAllNodes, bool pIsAI, bool pIsBig, const std::string& aName, const glm::vec3& aPosition) : MovingGridObject(pStartNode, pAllNodes, aName, aPosition), _isAI(pIsAI), _isBig(pIsBig)
 {
 	pStartNode->SetCurrentMovingObject(this);
+
+	_sphereMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
 	//pStartNode->SetOccupied(true);
 }
 
@@ -79,10 +90,24 @@ void Ship::MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 }
 
 void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
-	if (!_shotThisTurn && _actionsRemaining > 0)
+	if (!_shotThisTurn && _actionsRemaining > 0 && TurnHandler::getInstance().GetCannonballsLeft() > 0)
 	{
 		_shotThisTurn = true;
 		_actionsRemaining--;
+
+		AbstractMaterial* cannonballMaterial = new LitMaterial(glm::vec3(0.25f, 0.25f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+		_myCannonball = new GameObject("Cannonball", glm::vec3(0, 0, 0));
+		_myCannonball->setMesh(_sphereMeshDefault);
+		_myCannonball->setMaterial(cannonballMaterial);
+		_myCannonball->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
+		add(_myCannonball);
+		_myCannonball->setLocalPosition(glm::vec3(0, 0.5f, 0));
+		_myCannonball->setBehaviour(new MoveBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), _cannonRange*0.1f));
+
+		if (!_isAI)
+		{
+			TurnHandler::getInstance().ReduceCannonballsLeft(1);
+		}
 
 		for (int i = 1; i <= _cannonRange; i++)
 		{
@@ -95,16 +120,19 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 					if (targetNode->GetOccupied())
 					{
 						std::cout << "YARR ME MATEYS WE HIT A SHIP!" << std::endl;
-						targetNode->GetCurrentMovingObject()->TakeDamage(_cannonDamage);
+						targetNode->GetCurrentMovingObject()->TakeDamage(_cannonDamage, i*0.1f);
 					}
 				}
 				else {
 					std::cout << "Cannon hit a wall." << std::endl;
+					_myCannonball->setBehaviour(new MoveBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), i*0.1f));
+					
 					return; //Hit a wall.
 				}
 				//FindPathTo(pGridGen->GetNodeAtTile(GetCurrentNode()->GetGridX() + 1, GetCurrentNode()->GetGridY())); //Get a path to the requested tile
 			}
 			else {
+				_myCannonball->setBehaviour(new MoveBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), i*0.1f));
 				return; //Reached the end of the grid.
 			}
 		}

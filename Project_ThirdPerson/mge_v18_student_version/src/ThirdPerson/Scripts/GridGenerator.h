@@ -159,6 +159,26 @@ private:
 
 	neighbourTiles getNeighbourTiles(int pNodeX, int pNodeY, std::vector<int> pAllNodes, Node::TerrainTypes pType, Node::TerrainTypes pType2 = Node::TerrainTypes::empty);
 
+	int getDistanceFromHarborEntrance(int pNodeX, int pNodeY, std::vector<int> pAllNodes, int pCurrIndex = 0, glm::vec2 pCurrDir = glm::vec2(0, 0));
+	int _topLeftHarborIndex = -1;
+	int _prevHarborIndex = 0;
+
+	Mesh* _sandTileFull;
+	Mesh* _sandTileInvertedCorner;
+	Mesh* _sandTileStraight;
+	Mesh* _sandTileCorner;
+
+	Mesh* _harbourTiles[7];
+	Mesh* _harbourTile1;
+	Mesh* _harbourTile2;
+	Mesh* _harbourTile3;
+	Mesh* _harbourTile4;
+	Mesh* _harbourTile5;
+	Mesh* _harbourTile6;
+	Mesh* _harbourTile7;
+
+	Mesh* _treasureIslandTile;
+
 	Mesh* _cubeMeshDefault;
 	Mesh* _cubeFullMeshDefault;
 	Mesh* _cubeInvertedCornerMeshDefault;
@@ -176,6 +196,11 @@ private:
 
 	void PlaceCorrectIslandNode(Node* pNode, int pColumn, int pRow, std::vector<int> pAllNodes);
 	void PlaceCorrectHarborNode(Node* pNode, int pColumn, int pRow, std::vector<int> pAllNodes);
+	int GetCorrectHarborIndex();
+	int harborIndices1[7] = { 0, 1, 2, 3, 6, 5, 4 };
+	int harborIndices2[7] = { 2, 3, 4, 1, 5, 0, 6 };
+	int harborIndices3[7] = { 4, 5, 6, 3, 2, 1, 0 };
+	int harborIndices4[7] = { 6, 0, 5, 1, 4, 3, 2 };
 
 	TileWorld& _tileWorld;		//the tileworld to inspect
 	NodeWorld* _nodeWorld;		//the nodeworld to generate
