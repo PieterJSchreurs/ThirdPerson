@@ -17,6 +17,7 @@ public:
 	void ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen);
 
 	void SetShipValues(int pShipHealth, int pMovesPerTurn, int pCannonRange, int pCannonDamage, int pActionsPerTurn = 2);
+	bool CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, glm::vec3 pEulerAngles);
 	void HandleStartOfTurn();
 
 	virtual void TurnOrientation(int pDir);
@@ -36,6 +37,7 @@ private:
 
 	bool _isAI = false;
 	bool _isBig = true;
+	float _radiusModel;
 
 	GameObject* _myCannonball;
 	Mesh* _sphereMeshDefault;
