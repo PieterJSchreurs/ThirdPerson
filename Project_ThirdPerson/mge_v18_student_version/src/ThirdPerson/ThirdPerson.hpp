@@ -52,7 +52,7 @@ class ThirdPerson : public AbstractGame
 
 	private:
 		DebugHud* _hud;                   //hud display
-
+	
         void _updateHud();
 
 		ThirdPerson(const ThirdPerson&);

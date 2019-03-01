@@ -216,6 +216,7 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\TileWorld.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\TreasureObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\TurnHandler.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\UIHandler.h" />
     <ClInclude Include="..\src\ThirdPerson\ThirdPerson.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -266,6 +267,7 @@
     <ClCompile Include="..\src\ThirdPerson\Scripts\TileWorld.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\TreasureObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\TurnHandler.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\UIHandler.cpp" />
     <ClCompile Include="..\src\ThirdPerson\ThirdPerson.cpp" />
   </ItemGroup>
   <ItemGroup>
