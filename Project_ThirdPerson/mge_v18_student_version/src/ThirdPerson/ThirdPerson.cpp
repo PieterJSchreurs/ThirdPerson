@@ -40,6 +40,7 @@
 #include "ThirdPerson/Scripts/TurnHandler.h"
 #include "ThirdPerson/Scripts/PlayerController.h"
 #include "ThirdPerson/Scripts/AIController.h"
+#include "ThirdPerson/Scripts/MouseInputHandler.h"
 
 #include "ThirdPerson/config.hpp"
 #include "ThirdPerson/ThirdPerson.hpp"
@@ -198,7 +199,11 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	PlayerController* myAIController = new PlayerController(_myGridGenerator->GetAIShips(), _myGridGenerator, false, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myAIController);
 
+
 	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 5, 3, camera);
+
+	MouseInputHandler* myMouseInputHandler = new MouseInputHandler(_window, _world, _myGridGenerator->GetPlayerShips(), myPlayerController, "", glm::vec3(0, 0, 0));
+	_world->add(myMouseInputHandler);
 
 	Light* light = new Light("light", glm::vec3(2, 1, 2), glm::vec3(0.75f, 0.75f, 0.75f), 0.75f, 0.65f, Light::LightType::Directional, glm::vec3(45, 135, 0));
 	_world->add(light);
