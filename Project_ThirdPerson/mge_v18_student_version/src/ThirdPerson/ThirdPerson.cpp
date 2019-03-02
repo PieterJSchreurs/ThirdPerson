@@ -191,7 +191,14 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	TileWorld* myTileWorld = new TileWorld(_gameplayValues._gridWidth, _gameplayValues._gridHeight, _gameplayValues._tileSize, "TileWorld");
 	_world->add(myTileWorld);
-	_myGridGenerator = new GridGenerator(*myTileWorld, _fileName);
+	if (_myGridGenerator == nullptr)
+	{
+		_myGridGenerator = new GridGenerator(*myTileWorld, _fileName);
+	}
+	else {
+		_myGridGenerator->SetGridValues(myTileWorld, _fileName);
+	}
+
 	_myGridGenerator->GenerateNodeGraph();
 
 	PlayerController* myPlayerController = new PlayerController(_myGridGenerator->GetPlayerShips(), _myGridGenerator, true, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
@@ -210,7 +217,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 }
 
 void ThirdPerson::destroyLevel() {
-	delete _myGridGenerator;
+	_myGridGenerator->DestroyNodeGraph();
 	delete _world;
 }
 

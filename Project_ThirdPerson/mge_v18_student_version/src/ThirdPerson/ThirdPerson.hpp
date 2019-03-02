@@ -43,7 +43,7 @@ class ThirdPerson : public AbstractGame
         virtual void _initializeScene();
 		void loadLevel(std::string pFileName = "");
 		void destroyLevel();
-		GridGenerator* _myGridGenerator;
+		GridGenerator* _myGridGenerator = nullptr;
 
 	    //override render to render the hud as well.
 	    virtual void _render();

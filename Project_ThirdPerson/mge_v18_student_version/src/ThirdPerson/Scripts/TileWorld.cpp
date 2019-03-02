@@ -15,6 +15,18 @@ TileWorld::TileWorld(const int pColumns, const int pRows, float pTileSize, const
 	}
 }
 
+void TileWorld::SetTileWorldValues(TileWorld* pOther) {
+	_columns = pOther->columns();
+	_rows = pOther->rows();
+	_tileSize = pOther->tileSize();
+
+	for (int i = 0; i < _columns; i++) {
+		for (int j = 0; j < _rows; j++) {
+			_tileData[i][j] = &trueHolder; //All tiles default to walkable
+		}
+	}
+}
+
 float TileWorld::width() {
 	return _columns * _tileSize;
 }
