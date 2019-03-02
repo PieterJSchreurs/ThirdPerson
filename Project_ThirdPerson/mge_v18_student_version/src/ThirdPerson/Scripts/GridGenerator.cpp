@@ -26,10 +26,21 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 {
 	_cubeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
 
-	_sandTileFull = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_1.obj");
-	_sandTileInvertedCorner = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Inverse_Corner_1.obj");
-	_sandTileStraight = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Straight_1.obj");
-	_sandTileCorner = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Corner_1.obj");
+	_sandTilesFull[0] = _sandTileFull1 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_1.obj");
+	_sandTilesFull[1] = _sandTileFull2 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_2.obj");
+	_sandTilesFull[2] = _sandTileFull3 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_3.obj");
+
+	_sandTilesInvertedCorner[0] = _sandTileInvertedCorner1 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Inverse_Corner_1.obj");
+	_sandTilesInvertedCorner[1] = _sandTileInvertedCorner2 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Inverse_Corner_2.obj");
+	_sandTilesInvertedCorner[2] = _sandTileInvertedCorner3 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Inverse_Corner_3.obj");
+
+	_sandTilesStraight[0] = _sandTileStraight1 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Straight_1.obj");
+	_sandTilesStraight[1] = _sandTileStraight2 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Straight_2.obj");
+	_sandTilesStraight[2] = _sandTileStraight3 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Straight_3.obj");
+
+	_sandTilesCorner[0] = _sandTileCorner1 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Corner_1.obj");
+	_sandTilesCorner[1] = _sandTileCorner2 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Corner_2.obj");
+	_sandTilesCorner[2] = _sandTileCorner3 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Corner_3.obj");
 
 	_harbourTiles[0] = _harbourTile1 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Bottom_Left.obj");
 	_harbourTiles[1] = _harbourTile2 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Middle_Left.obj");
@@ -38,6 +49,16 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 	_harbourTiles[4] = _harbourTile5 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Top_Right.obj");
 	_harbourTiles[5] = _harbourTile6 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Middle_Right.obj");
 	_harbourTiles[6] = _harbourTile7 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Bottom_Right.obj");
+
+	_obstacleTiles[0] = _obstacleTile1 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_1.obj");
+	_obstacleTiles[1] = _obstacleTile2 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_2.obj");
+	_obstacleTiles[2] = _obstacleTile3 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_3.obj");
+	_obstacleTiles[3] = _obstacleTile4 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_4.obj");
+	_obstacleTiles[4] = _obstacleTile5 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_5.obj");
+	_obstacleTiles[5] = _obstacleTile6 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_6.obj");
+	_obstacleTiles[6] = _obstacleTile7 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_7.obj");
+	_obstacleTiles[7] = _obstacleTile8 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_8.obj");
+	_obstacleTiles[8] = _obstacleTile9 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_9.obj");
 	
 	_treasureIslandTile = Mesh::load(config::MGE_MODEL_PATH + "Treasure_Island.obj");
 
@@ -45,9 +66,8 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 	_cubeInvertedCornerMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "corner_inverted.obj");
 	_cubeStraightMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "straight.obj");
 	_cubeCornerMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "corner.obj");
-
 	_obstacleMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_2.obj");
-	_planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
+	_planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj");
 	_suzannaMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth.obj");
 	_teapotMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth.obj");
 	_sphereMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
@@ -57,7 +77,11 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 	_enemyShip = Mesh::load(config::MGE_MODEL_PATH + "Enemy Ship.obj");
 }
 
-
+void GridGenerator::SetGridValues(TileWorld* pTileWorld, const std::string& pFileName) {
+	std::cout << _tileWorld.columns() << std::endl;
+	_tileWorld.SetTileWorldValues(pTileWorld);
+	_fileName = pFileName;
+}
 
 void GridGenerator::GenerateNodeGraph() {
 
@@ -66,6 +90,8 @@ void GridGenerator::GenerateNodeGraph() {
 	char negative = '-';
 	std::vector<char> combiner;
 	std::string line;
+
+	std::cout << _fileName << std::endl;
 
 	std::ifstream myBaseFile(config::MGE_BASETILES_PATH + _fileName + "_BaseTiles.csv");
 	std::vector<int> baseTiles;
@@ -225,7 +251,7 @@ void GridGenerator::GenerateNodeGraph() {
 				node->setMaterial(waterMaterial3);
 				node->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				node->setMesh(_planeMeshDefault);
-				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0.65f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
+				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0.675f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
 			}
 			else if (nmbr == 0) //Island tile at half height, add an inactive water tile at height 0
 			{
@@ -240,7 +266,7 @@ void GridGenerator::GenerateNodeGraph() {
 				inactiveNode->setMaterial(waterMaterial3);
 				inactiveNode->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				inactiveNode->setMesh(_planeMeshDefault);
-				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0.65f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
+				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0.675f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
 				_nodeWorld->AddInactiveNode(inactiveNode);
 			}
 			else if (nmbr == 1) //Harbor tile at half height, add an inactive water tile at height 0
@@ -256,7 +282,7 @@ void GridGenerator::GenerateNodeGraph() {
 				inactiveNode->setMaterial(waterMaterial3);
 				inactiveNode->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				inactiveNode->setMesh(_planeMeshDefault);
-				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0.65f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
+				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0.675f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
 				_nodeWorld->AddInactiveNode(inactiveNode);
 			}
 			else
@@ -438,9 +464,14 @@ void GridGenerator::GenerateNodeGraph() {
 }
 
 void GridGenerator::DestroyNodeGraph() {
-	delete _nodeWorld;
-	//_nodeWorld.Destroy();
-	_nodeWorld = nullptr;
+	_tileWorld.getParent()->remove(&_tileWorld);
+	delete &_tileWorld; //TODO: Should this be the _tileWorld?
+
+	_topLeftHarborIndex = -1;
+	_prevHarborIndex = 0;
+
+	_playerShips.clear();
+	_AIShips.clear();
 }
 
 GridGenerator::neighbourTiles GridGenerator::getNeighbourTiles(int pNodeX, int pNodeY, std::vector<int> pAllNodes, Node::TerrainTypes pType, Node::TerrainTypes pType2) { //TODO: Can at most connect to 2 different tile types. Might need to add more.
@@ -557,36 +588,39 @@ void GridGenerator::PlaceCorrectIslandNode(Node* pNode, int pColumn, int pRow, s
 	AbstractMaterial* islandMaterial = new LitMaterial(glm::vec3(0.75f, 0.75f, 0.75f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	
 	neighbourTiles neighbours = getNeighbourTiles(pColumn, pRow, pAllNodes, Node::TerrainTypes::island, Node::TerrainTypes::harbor);
+	int tileIndex = rand() % 3;
 	if (neighbours._type == tileTypes::fullTile)
 	{
 		pNode->setMaterial(islandMaterial);
-		pNode->setMesh(_sandTileFull);
+		pNode->setMesh(_sandTilesFull[tileIndex]);
 	}
 	else if (neighbours._type == tileTypes::straightTile)
 	{
 		pNode->setMaterial(islandMaterial);
-		pNode->setMesh(_sandTileStraight);
+		pNode->setMesh(_sandTilesStraight[tileIndex]);
 		
 		pNode->setEulerAngles(glm::vec3(0,(90 * neighbours._direction.x) + glm::min(0.0f, 180 * neighbours._direction.y),0));
 	}
 	else if (neighbours._type == tileTypes::cornerTile)
 	{
 		pNode->setMaterial(islandMaterial);
-		pNode->setMesh(_sandTileCorner);
+		pNode->setMesh(_sandTilesCorner[tileIndex]);
 
 		pNode->setEulerAngles(glm::vec3(0, (90 * neighbours._direction.x) + glm::min(0.0f, 180 * neighbours._direction.y), 0));
 	}
 	else if (neighbours._type == tileTypes::cornerInverseTile)
 	{
 		pNode->setMaterial(islandMaterial);
-		pNode->setMesh(_sandTileInvertedCorner);
+		pNode->setMesh(_sandTilesInvertedCorner[tileIndex]);
 
 		pNode->setEulerAngles(glm::vec3(0, (90 * neighbours._direction.x) + glm::min(0.0f, 180 * neighbours._direction.y), 0));
 	}
 	else
 	{
+		tileIndex = rand() % 9;
 		pNode->setMaterial(islandMaterial);
-		pNode->setMesh(_obstacleMeshDefault);
+		pNode->setMesh(_obstacleTiles[tileIndex]);
+		pNode->setEulerAngles(glm::vec3(0, 90 * (rand() % 4), 0));
 	}
 }
 

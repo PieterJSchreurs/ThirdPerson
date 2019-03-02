@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  MoveBehaviour.cpp
 c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   AbstractGame.cpp
@@ -51,3 +52,14 @@ c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_
   ThirdPerson.cpp
 c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   Generating Code...
+=======
+﻿  GridGenerator.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(112): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(135): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(172): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(195): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(666): warning C4715: 'GridGenerator::GetCorrectHarborIndex': not all control paths return a value
+  mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
+  mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)
+>>>>>>> ed69984994fb23447ac234da9e1fc9e9abe3c2e8

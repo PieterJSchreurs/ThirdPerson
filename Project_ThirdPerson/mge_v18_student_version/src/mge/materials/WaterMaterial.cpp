@@ -20,6 +20,13 @@ GLint WaterMaterial::_aVertex = 0;
 GLint WaterMaterial::_aNormal = 0;
 GLint WaterMaterial::_aUV = 0;
 
+GLint WaterMaterial::_aWaterColor = 0;
+GLint WaterMaterial::_aWaterFoamColor = 0;
+GLint WaterMaterial::_aPulseSpeed = 0;
+GLint WaterMaterial::_aPulseAmount = 0;
+GLint WaterMaterial::_aPulseDist = 0;
+
+
 WaterMaterial::WaterMaterial(Texture * pDiffuseTexture) :_diffuseTexture(pDiffuseTexture) {
 	_lazyInitializeShader();
 }
@@ -42,6 +49,12 @@ void WaterMaterial::_lazyInitializeShader() {
 		_aVertex = _shader->getAttribLocation("vertex");
 		_aNormal = _shader->getAttribLocation("normal");
 		_aUV = _shader->getAttribLocation("uv");
+
+		_aWaterColor = _shader->getUniformLocation("waterColor");
+		_aWaterFoamColor = _shader->getUniformLocation("waterFoamColor");
+		_aPulseSpeed = _shader->getUniformLocation("pulseSpeed");
+		_aPulseAmount = _shader->getUniformLocation("pulseAmount");
+		_aPulseDist = _shader->getUniformLocation("pulseDist");
 	}
 }
 
@@ -69,6 +82,15 @@ void WaterMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMa
 
 	glUniform1i(_aTime, clock()); //These floats control the primary color of the checkerboard.
 								  //pass in a precalculate mvp matrix (see texture material for the opposite)
+	glm::vec4 waterColor = glm::vec4(0.035, 0.6f, 0.95f, 1.0f);
+	glUniform4fv(_aWaterColor, 1, glm::value_ptr(waterColor));
+	glm::vec4 waterFoamColor = glm::vec4(0.5f, 0.5f, 0.5f, 0.5f);
+	glUniform4fv(_aWaterFoamColor, 1, glm::value_ptr(waterFoamColor));
+
+	glUniform1i(_aPulseSpeed, 100); //Higher number = slower.
+	glUniform1i(_aPulseAmount, 50); //The modulo number decides the speed. 200 is one pulse at a time, <200 is more pulses, >200 is less pulses.
+	glUniform1f(_aPulseDist, 0.15f); //How far out should the vertices pulse.
+
 	glm::mat4 mvpMatrix = pProjectionMatrix * pViewMatrix * pModelMatrix;
 	glUniformMatrix4fv(_uMVPMatrix, 1, GL_FALSE, glm::value_ptr(mvpMatrix));
 
