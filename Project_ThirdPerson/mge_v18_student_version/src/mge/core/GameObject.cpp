@@ -122,6 +122,9 @@ void GameObject::rotateEulerAngles(glm::vec3 pRotation)
 }
 
 void GameObject::rotateEulerTowards(glm::vec3 pRotation, float pSpeed, float pPrecision) { // 0,0,0		190,0,0
+
+	
+
 	if (glm::abs(pRotation.x - getEulerAngles().x) > pPrecision) // 190 - 0 = 190
 	{
 		int fullCircleInverter = 360;

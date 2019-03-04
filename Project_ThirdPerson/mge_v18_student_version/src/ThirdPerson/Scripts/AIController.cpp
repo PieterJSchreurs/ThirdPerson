@@ -1,19 +1,14 @@
 #include "ThirdPerson/Scripts/AIController.h"
-//#include "mge/core/World.hpp"
 #include <SFML/Window/Keyboard.hpp>
 
 #include "mge/materials/LitMaterial.h"
+#include "ThirdPerson/Scripts/TurnHandler.h"
 
-AIController::AIController(std::vector<Ship*> pShips, int pTurnAmount, int pCannonballAmount, GridGenerator* pGridGen, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _myShips(pShips), _turnAmount(pTurnAmount), _cannonballAmount(pCannonballAmount), _gridGenerator(pGridGen)
+AIController::AIController(std::vector<Ship*> pMyShips, std::vector<Ship*> pEnemyShips, GridGenerator* pGridGen, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _myShips(pMyShips), _enemyShips(pEnemyShips), _gridGenerator(pGridGen)
 {
-	_turnsLeft = _turnAmount;
-	_cannonballsLeft = _cannonballAmount;
 	if (_myShips.size() > _currentShipIndex)
 	{
 		_currentShip = _myShips[_currentShipIndex];
-		if (_isActive) {
-			SelectNextShip(1); //Switch ship once to apply the correct material.
-		}
 		std::cout << "AI has " << _myShips.size() << " ships." << std::endl;
 	}
 	else {
@@ -22,24 +17,75 @@ AIController::AIController(std::vector<Ship*> pShips, int pTurnAmount, int pCann
 }
 
 void AIController::ToggleIsActive() {
+	_lastInput = _timer;
 	_isActive = !_isActive;
 	if (!_isActive)
 	{
 		_currentShip->setMaterial(_currentShip->GetBaseMaterial());
 	}
-	else {
-		AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-		_currentShip->setMaterial(purpleMaterial);
+	else
+	{
+		if (!_currentShip->GetIsAlive())
+		{
+			bool anyShipsAlive = false; //Check if the current controller has any ships that are still alive remaining
+			for (int i = 0; i < _myShips.size(); i++)
+			{
+				if (_myShips[i]->GetIsAlive())
+				{
+					anyShipsAlive = true;
+				}
+			}
+			if (anyShipsAlive) //If there is at least 1 ship still alive, select the next available ship.
+			{
+				SelectNextShip(1);
+			}
+			else { //If there are no more ships remaining, immediately end your turn.
+				TurnHandler::getInstance().ToggleIsActive();
+				return;
+			}
+		}
+		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+		_currentShip->setMaterial(greenMaterial);
+		for (int i = 0; i < _myShips.size(); i++)
+		{
+			_myShips[i]->HandleStartOfTurn();
+			handleShipStartOfTurn(i);
+		}
+	}
+}
+void AIController::handleShipStartOfTurn(int pIndex) {
+	for (int i = 0; i < _enemyShips.size(); i++) //Check all enemy ships
+	{
+		if (HasLineOfSight(_myShips[pIndex], _enemyShips[i])) //Does this ship have line of sight of any of the enemy ships.
+		{
+			Ship* shipTarget = GetShipTarget(_myShips[pIndex]); //Get the ships current target
+			if (shipTarget != nullptr) //If it already had a target
+			{
+				//Check if the newly found ship is closer than the old one.
+				if (glm::abs(_myShips[pIndex]->GetCurrentNode()->GetGridX() - _enemyShips[i]->GetCurrentNode()->GetGridX()) + glm::abs(_myShips[pIndex]->GetCurrentNode()->GetGridY() - _enemyShips[i]->GetCurrentNode()->GetGridY()) < glm::abs(_myShips[pIndex]->GetCurrentNode()->GetGridX() - shipTarget->GetCurrentNode()->GetGridX()) + glm::abs(_myShips[pIndex]->GetCurrentNode()->GetGridY() - shipTarget->GetCurrentNode()->GetGridY()))
+				{
+					shipTarget = _enemyShips[i]; //Target the newly found ship.
+					SetShipTarget(_myShips[pIndex], _enemyShips[i]);
+				}
+			}
+			else { //If it had no target yet.
+				shipTarget = _enemyShips[i]; //Target the newly found ship.
+				SetShipTarget(_myShips[pIndex], _enemyShips[i]);
+			}
+		}
 	}
 }
 
+bool AIController::GetIsActive() {
+	return _isActive;
+}
 void AIController::update(float pStep) {
 	_timer += pStep;
-	if (!_currentShip->HasPath()) //If you current ship is still moving to its destination (TODO: Or is doing any other action), block player input that affects that ship.
+	if (!_currentShip->HasPath()) //If you current ship is still moving to its destination, block player input that affects that ship.
 	{
-		if (_timer - _lastPlayerInput >= _playerInputDelay)
+		if (_timer - _lastInput >= _inputDelay)
 		{
-			HandlePlayerInput();
+			HandleInput();
 		}
 	}
 	else {
@@ -48,48 +94,125 @@ void AIController::update(float pStep) {
 	GameObject::update(pStep);
 }
 
-void AIController::HandlePlayerInput() { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
+void AIController::HandleInput() { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
 	if (_isActive)
 	{
+		std::cout << "Moves remaining: " << _currentShip->GetMovesRemaining() << std::endl;
+		if (_currentShip->GetMovesRemaining() > 0)
+		{
+			if (GetShipTarget(_currentShip) != nullptr) { //If this ship has a target
+				std::vector<Node*> currentShipPath = _currentShip->GetPathTo(GetShipTarget(_currentShip)->GetCurrentNode(), false);
+				std::cout << "test2: " << currentShipPath.size() << std::endl;
+				glm::vec2 shipMoveDir(currentShipPath[1]->GetGridX() - _currentShip->GetCurrentNode()->GetGridX(), currentShipPath[1]->GetGridY() - _currentShip->GetCurrentNode()->GetGridY());
+				std::cout << "test3: " << shipMoveDir.x << "-" << shipMoveDir.y << std::endl;
+				_currentShip->MoveShipInDir(shipMoveDir, _gridGenerator);
+				std::cout << "test4" << std::endl;
+				_lastInput = _timer;
+			}
+			else {
+				SelectNextShip(1);
+				_lastInput = _timer;
+			}
+		}
+		else {
+			_currentShip->ConsumeActionForMoves();
+			if (_currentShip->GetMovesRemaining() == 0) //TODO: End turn if all the ships have no moves remaining.
+			{
+				SelectNextShip(1);
+				_lastInput = _timer;
+			}
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+		{
+			HasLineOfSight(_currentShip, _enemyShips[0]);
+			_lastInput = _timer;
+		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
 			_currentShip->TurnOrientation(1);
-			_lastPlayerInput = _timer;
+			_lastInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
 			_currentShip->TurnOrientation(-1);
-			_lastPlayerInput = _timer;
+			_lastInput = _timer;
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 			_currentShip->MoveShipInDir(glm::vec2(0, -1), _gridGenerator);
-			_lastPlayerInput = _timer;
+			_lastInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 			_currentShip->MoveShipInDir(glm::vec2(-1, 0), _gridGenerator);
-			_lastPlayerInput = _timer;
+			_lastInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 			_currentShip->MoveShipInDir(glm::vec2(0, 1), _gridGenerator);
-			_lastPlayerInput = _timer;
+			_lastInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 			_currentShip->MoveShipInDir(glm::vec2(1, 0), _gridGenerator);
-			_lastPlayerInput = _timer;
+			_lastInput = _timer;
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 			SelectNextShip(-1);
-			_lastPlayerInput = _timer;
+			_lastInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 			SelectNextShip(1);
-			_lastPlayerInput = _timer;
+			_lastInput = _timer;
 		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		ToggleIsActive();
-		_lastPlayerInput = _timer;
+}
+
+bool AIController::HasLineOfSight(Ship* pFrom, Ship* pTo) {
+	std::vector<glm::vec2> lineOfSight = CalculateLine(pFrom->GetCurrentNode()->GetGridX(), pFrom->GetCurrentNode()->GetGridY(), pTo->GetCurrentNode()->GetGridX(), pTo->GetCurrentNode()->GetGridY());
+	for (int i = 0; i < lineOfSight.size(); i++)
+	{
+		std::cout << "Line of sight check: Passed through tile " << glm::iround(lineOfSight[i].x) << "-" << glm::iround(lineOfSight[i].y) << std::endl;
+		if (!_gridGenerator->GetNodeAtTile(glm::iround(lineOfSight[i].x), glm::iround(lineOfSight[i].y))->GetWalkable())
+		{
+			std::cout << "Tile was not walkable, so there is no line of sight." << std::endl;
+			return false;
+		}
 	}
+	std::cout << "Your current ship can see the target!" << std::endl;
+	return true;
+}
+std::vector<glm::vec2> AIController::CalculateLine(int pStartGridX, int pStartGridY, int pEndGridX, int pEndGridY)
+{
+	std::vector<glm::vec2> wall;
+	int xDiff = pEndGridX - pStartGridX;
+	int yDiff = pEndGridY - pStartGridY;
+	
+	int totalSteps = glm::abs(xDiff) + glm::abs(yDiff);
+
+	glm::vec2 wallStep((float)xDiff / totalSteps, (float)yDiff / totalSteps);
+
+	glm::vec2 prevTile(pStartGridX, pStartGridY);
+	wall.push_back(prevTile);
+
+	for (int i = 1; i <= totalSteps; i++)
+	{
+		glm::vec2 newTile(pStartGridX + glm::round(wallStep.x * i), pStartGridY + glm::round(wallStep.y * i));
+		if (glm::iround(newTile.x) == glm::iround(prevTile.x) && glm::iround(newTile.y) == glm::iround(prevTile.y))
+			continue;
+
+		if (glm::abs(glm::iround(newTile.x) - prevTile.x) + glm::abs(glm::iround(newTile.y) - prevTile.y) > 1)
+		{
+			glm::vec2 intermediateTile(pStartGridX + glm::round(wallStep.x * i), pStartGridY + glm::round(wallStep.y * (i - 1)));
+			if (!_gridGenerator->GetNodeAtTile(glm::iround(intermediateTile.x), glm::iround(intermediateTile.y))->GetWalkable()) //If the intermediate tile below isnt walkable, use the one above instead.
+			{
+				intermediateTile = glm::vec2(pStartGridX + glm::round(wallStep.x * (i - 1)), pStartGridY + glm::round(wallStep.y * i));
+			}
+			wall.push_back(intermediateTile);
+		}
+
+		wall.push_back(newTile);
+
+		prevTile = newTile;
+	}
+	return wall;
 }
 
 void AIController::SelectNextShip(int pDir) {
@@ -109,8 +232,34 @@ void AIController::SelectNextShip(int pDir) {
 
 	_currentShip = _myShips[_currentShipIndex];
 
-	AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-	_currentShip->setMaterial(purpleMaterial);
+	AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+	_currentShip->setMaterial(greenMaterial);
+}
+
+Ship* AIController::GetShipTarget(Ship* pShip) {
+	for (int i = 0; i < _myTargets.size(); i++)
+	{
+		if (_myTargets[i].first == pShip)
+		{
+			std::cout << "Key found, returning its target." << std::endl;
+			return _myTargets[i].second;
+		}
+	}
+	std::cout << "No key found, returning nullptr." << std::endl;
+	return nullptr;
+}
+void AIController::SetShipTarget(Ship* pKey, Ship* pValue) {
+	for (int i = 0; i < _myTargets.size(); i++)
+	{
+		if (_myTargets[i].first == pKey)
+		{
+			std::cout << "Key found, overwriting value." << std::endl;
+			_myTargets[i].second = pValue;
+			return;
+		}
+	}
+	std::cout << "No key found, adding it to the vector: Key: " << pKey->getName() << " Value: " << pValue->getName() << std::endl;
+	_myTargets.push_back(ShipTargetDict(pKey, pValue));
 }
 
 AIController::~AIController() {

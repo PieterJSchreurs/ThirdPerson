@@ -78,11 +78,17 @@ void MovingGridObject::FindPathTo(Node* pEndNode)
 	_todoList.push_back(_currentNode);
 	wayPointQueue = GetPath(_currentNode, pEndNode);
 }
+std::vector<Node*> MovingGridObject::GetPathTo(Node* pEndNode, bool pStopIfOccupied) {
+	resetPathFinder();
+	_todoList.push_back(_currentNode);
+	std::vector<Node*> pathHolder = GetPath(_currentNode, pEndNode, pStopIfOccupied);
+	return pathHolder;
+}
 
-std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode)
+std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode, bool pStopIfOccupied)
 {
 	//are we able to find a path??
-	if (_done || pStartNode == nullptr || pEndNode == nullptr || _todoList.size() == 0 || pEndNode->GetOccupied())
+	if (_done || pStartNode == nullptr || pEndNode == nullptr || _todoList.size() == 0 || (pStopIfOccupied && pEndNode->GetOccupied()))
 	{
 		_done = true;
 		return _lastPathFound;
@@ -112,6 +118,7 @@ std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode)
 		}
 		pEndNode->SetCurrentMovingObject(this);
 		//pEndNode->SetOccupied(true);
+		std::cout << "Found our target node! Path is long: " << _lastPathFound.size() << std::endl;
 		return _lastPathFound;
 	}
 	else
@@ -121,7 +128,7 @@ std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode)
 		{
 			Node* connectedNode = _activeNode->GetConnectionAt(i);
 
-			if (!connectedNode->GetOccupied())
+			if (!connectedNode->GetOccupied() || connectedNode == pEndNode)
 			{
 				if (GetIndexOfItemInVector(_doneList, connectedNode) == -1 && GetIndexOfItemInVector(_todoList, connectedNode) == -1)
 				{
@@ -142,7 +149,7 @@ std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode)
 		}
 		SortNodeVector(_todoList);
 
-		_lastPathFound = GetPath(_activeNode, pEndNode);
+		_lastPathFound = GetPath(_activeNode, pEndNode, pStopIfOccupied);
 	}
 	_done = true;
 	return _lastPathFound;

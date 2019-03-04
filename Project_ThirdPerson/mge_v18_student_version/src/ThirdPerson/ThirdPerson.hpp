@@ -39,6 +39,7 @@ class ThirdPerson : public AbstractGame
         virtual void initialize();
 
 	protected:
+
 	    //override so we can construct the actual scene
         virtual void _initializeScene();
 		void loadLevel(std::string pFileName = "");

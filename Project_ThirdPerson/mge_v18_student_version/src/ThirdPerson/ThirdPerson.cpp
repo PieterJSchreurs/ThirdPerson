@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <Windows.h>
+#include "mge/util/AudioManager.h"
 
 #include "glm.hpp"
 
@@ -64,6 +65,11 @@ void ThirdPerson::initialize() {
 }
 
 void ThirdPerson::initializeGameplayValues() {
+
+	AudioManager::getInstance().loadSound("characterSounds.wav");
+
+
+
 	lua_State* lua = luaL_newstate();												//Initialize our lua thread.
 	luaL_openlibs(lua);																//Load the standard libraries
 
@@ -152,10 +158,16 @@ std::vector<std::string> getAllFileNamesInFolder(std::string folder)
 void ThirdPerson::_update(float pStep) {
 	AbstractGame::_update(pStep);
 	TurnHandler::getInstance().update(pStep);
+	AudioManager::getInstance().update(pStep);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) { //Restart the current level (TODO: Garbage collection is not correct, memory is not freed correctly.)
 		destroyLevel();
 		loadLevel();
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
+
+		AudioManager::getInstance().playSound("characterSounds.wav");
 	}
 }
 
@@ -201,9 +213,9 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	_myGridGenerator->GenerateNodeGraph();
 
-	PlayerController* myPlayerController = new PlayerController(_myGridGenerator->GetPlayerShips(), _myGridGenerator, true, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+	PlayerController* myPlayerController = new PlayerController(_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myPlayerController);
-	PlayerController* myAIController = new PlayerController(_myGridGenerator->GetAIShips(), _myGridGenerator, false, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+	AIController* myAIController = new AIController(_myGridGenerator->GetAIShips(), _myGridGenerator->GetPlayerShips(), _myGridGenerator, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myAIController);
 
 
@@ -224,12 +236,6 @@ void ThirdPerson::destroyLevel() {
 //build the game _world
 void ThirdPerson::_initializeScene()
 {
-
-	//LPCWSTR a;
-	//std::string s = config::MGE_AUDIO_PATH + "character sounds.wav";
-	//a = (LPCWSTR)s.c_str();
-	//PlaySound(a, NULL, SND_ASYNC);
-
 	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
 	
 	std::cout << std::endl << "\t" << "List of level files" << std::endl;

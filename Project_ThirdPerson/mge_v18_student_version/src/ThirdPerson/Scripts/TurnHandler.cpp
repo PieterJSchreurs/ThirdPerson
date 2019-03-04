@@ -6,7 +6,7 @@
 #include "ThirdPerson/config.hpp"
 
 
-void TurnHandler::SetValues(PlayerController* pPlayerController, PlayerController* pAIController, int pTurnAmount, int pCannonballAmount, GameObject* pCamera){
+void TurnHandler::SetValues(PlayerController* pPlayerController, AIController* pAIController, int pTurnAmount, int pCannonballAmount, GameObject* pCamera){
 	_camera = pCamera;
 	
 	_playerController = pPlayerController;
