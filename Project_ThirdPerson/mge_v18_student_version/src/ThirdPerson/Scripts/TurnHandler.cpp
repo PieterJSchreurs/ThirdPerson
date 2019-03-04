@@ -6,9 +6,10 @@
 #include "ThirdPerson/config.hpp"
 
 
-void TurnHandler::SetValues(PlayerController* pPlayerController, PlayerController* pAIController, int pTurnAmount, int pCannonballAmount, GameObject* pCamera){
+void TurnHandler::SetValues(PlayerController* pPlayerController, PlayerController* pAIController, int pTurnAmount, int pCannonballAmount, GameObject* pCamera) {
 	_camera = pCamera;
-	
+	_initialized = true;
+
 	_playerController = pPlayerController;
 	_AIController = pAIController;
 
@@ -33,6 +34,7 @@ void TurnHandler::ToggleIsActive() {
 	{
 		AbstractMaterial* PlayerMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Player_Turn.png"));
 		_turnIndicator->setMaterial(PlayerMaterial);
+		std::cout << _turnIndicator->getWorldPosition() << std::endl;
 	}
 	else {
 		AbstractMaterial* AIMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "AI_Turn.png"));
@@ -68,14 +70,17 @@ int TurnHandler::GetTurnsLeft() {
 
 void TurnHandler::update(float pStep) {
 	_timer += pStep;
-	if (_timer - _lastPlayerInput >= _playerInputDelay)
+	if (_initialized)
 	{
-		HandlePlayerInput();
-	}
+		if (_timer - _lastPlayerInput >= _playerInputDelay)
+		{
+			HandlePlayerInput();
+		}
 
-	if (_timer - _turnIndicatorActivate >= _turnIndicatorDelay && _turnIndicator->getParent() != nullptr)
-	{
-		_turnIndicator->setParent(nullptr);
+		if (_timer - _turnIndicatorActivate >= _turnIndicatorDelay && _turnIndicator->getParent() != nullptr)
+		{
+			_turnIndicator->setParent(nullptr);
+		}
 	}
 }
 

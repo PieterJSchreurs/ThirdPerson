@@ -54,7 +54,7 @@ private:
 	PlayerController* _AIController;
 
 	bool _playerCollectedTreasure = false;
-
+	bool _initialized = false;
 	int _turnAmount;
 	int _cannonballAmount;
 

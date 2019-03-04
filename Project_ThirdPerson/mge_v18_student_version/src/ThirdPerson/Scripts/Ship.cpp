@@ -154,7 +154,7 @@ void Ship::TurnOrientation(int pDir) {
 
 bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, glm::vec3 pEulerAngles)
 {
-	std::cout << "This is the incoming coordinate" << pCoordinates << "\t This is the scale" << pScale << std::endl;
+	//std::cout << "This is the incoming coordinate" << pCoordinates << "\t This is the scale" << pScale << std::endl;
 	//This is slow, change it later.
 	glm::vec3 myPosition = getWorldPosition();
 	pCoordinates *= pScale;

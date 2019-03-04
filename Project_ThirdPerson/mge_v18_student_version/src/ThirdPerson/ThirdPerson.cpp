@@ -41,12 +41,13 @@
 #include "ThirdPerson/Scripts/PlayerController.h"
 #include "ThirdPerson/Scripts/AIController.h"
 #include "ThirdPerson/Scripts/MouseInputHandler.h"
+#include "ThirdPerson/Scripts/MainMenu.h"
 
 #include "ThirdPerson/config.hpp"
 #include "ThirdPerson/ThirdPerson.hpp"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
-ThirdPerson::ThirdPerson():AbstractGame (),_hud(0)
+ThirdPerson::ThirdPerson() :AbstractGame(), _hud(0)
 {
 
 }
@@ -54,10 +55,10 @@ ThirdPerson::ThirdPerson():AbstractGame (),_hud(0)
 void ThirdPerson::initialize() {
 	initializeGameplayValues();
 
-    //setup the core part
-    AbstractGame::initialize();
+	//setup the core part
+	AbstractGame::initialize();
 
-    //setup the custom part so we can display some text
+	//setup the custom part so we can display some text
 	std::cout << "Initializing HUD" << std::endl;
 	_hud = new DebugHud(_window);
 	std::cout << "HUD initialized." << std::endl << std::endl;
@@ -71,10 +72,10 @@ void ThirdPerson::initializeGameplayValues() {
 
 	luaL_loadfile(lua, file.c_str());												//Load the file
 	lua_call(lua, 0, 0);															//Initialize all the values in the file
-	
+
 	//Get all the constant gameplay values from our lua file, and store them in a GameplayValues object.
 	lua_getglobal(lua, "gridWidth");
-	_gameplayValues._gridWidth = lua_tonumber(lua, -1);																		
+	_gameplayValues._gridWidth = lua_tonumber(lua, -1);
 	lua_pop(lua, 1);
 	lua_getglobal(lua, "gridHeight");
 	_gameplayValues._gridHeight = lua_tonumber(lua, -1);
@@ -82,7 +83,7 @@ void ThirdPerson::initializeGameplayValues() {
 	lua_getglobal(lua, "tileSize");
 	_gameplayValues._tileSize = lua_tonumber(lua, -1);
 	lua_pop(lua, 1);
-	
+
 	lua_getglobal(lua, "bigShipSpeed");
 	_gameplayValues._bigShipSpeed = lua_tonumber(lua, -1);
 	lua_pop(lua, 1);
@@ -127,7 +128,7 @@ std::vector<std::string> getAllFileNamesInFolder(std::string folder)
 {
 	std::vector<std::string> names;
 	std::string search_path = folder + "/*.*";
-	
+
 	WIN32_FIND_DATA fd;
 
 	std::wstring stemp = s2ws(search_path);
@@ -159,12 +160,27 @@ void ThirdPerson::_update(float pStep) {
 	}
 }
 
+
+void ThirdPerson::InitializeMainMenu()
+{
+	Camera* camera = new Camera("camera", glm::vec3(0, 0, 0));
+	camera->rotate(glm::radians(-90.0f), glm::vec3(1, 0, 0));
+	_world->add(camera);
+	_world->setMainCamera(camera);
+
+	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
+	MainMenu* mainMenu = new MainMenu(camera, this, _window, fileNames ,"MainMenu");
+	_world->add(mainMenu);
+	std::cout << "Made menu" << std::endl;
+}
+
 void ThirdPerson::loadLevel(std::string pFileName) {
+	
 	if (pFileName != "")
 	{
 		_fileName = pFileName;
 	}
-	
+	//delete _world;
 	_world = new World();
 
 	//MESHES
@@ -217,39 +233,40 @@ void ThirdPerson::destroyLevel() {
 //build the game _world
 void ThirdPerson::_initializeScene()
 {
-
+	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
+	InitializeMainMenu();
 	//LPCWSTR a;
 	//std::string s = config::MGE_AUDIO_PATH + "character sounds.wav";
 	//a = (LPCWSTR)s.c_str();
 	//PlaySound(a, NULL, SND_ASYNC);
 
-	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
-	
-	std::cout << std::endl << "\t" << "List of level files" << std::endl;
-	std::cout << "===================================" << std::endl;
-	for (int i = 0; i < fileNames.size(); i++)
-	{
-		std::cout << fileNames[i].substr(0, fileNames[i].length() - 14) << std::endl; //Removes the _BaseTiles.csv extension.
-	}
-	std::cout << "===================================" << std::endl << std::endl;
+	//std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
 
-	std::cout << "Please type the file name of the level you want to load below, press enter to confirm." << std::endl;
-	std::cin >> _fileName;
+	//std::cout << std::endl << "\t" << "List of level files" << std::endl;
+	//std::cout << "===================================" << std::endl;
+	//for (int i = 0; i < fileNames.size(); i++)
+	//{
+	//	std::cout << fileNames[i].substr(0, fileNames[i].length() - 14) << std::endl; //Removes the _BaseTiles.csv extension.
+	//}
+	//std::cout << "===================================" << std::endl << std::endl;
 
-	loadLevel();
+	//std::cout << "Please type the file name of the level you want to load below, press enter to confirm." << std::endl;
+	//std::cin >> _fileName;
+
+	//loadLevel();
 }
 
 void ThirdPerson::_render() {
-    AbstractGame::_render();
-    _updateHud();
+	AbstractGame::_render();
+	_updateHud();
 }
 
 void ThirdPerson::_updateHud() {
-    std::string debugInfo = "";
-    debugInfo += std::string ("FPS:") + std::to_string((int)_fps)+"\n";
+	std::string debugInfo = "";
+	debugInfo += std::string("FPS:") + std::to_string((int)_fps) + "\n";
 
-    _hud->setDebugInfo(debugInfo, 375, 10);
-    _hud->draw();
+	_hud->setDebugInfo(debugInfo, 375, 10);
+	_hud->draw();
 }
 
 ThirdPerson::~ThirdPerson()
