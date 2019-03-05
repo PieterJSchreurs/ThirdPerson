@@ -30,6 +30,7 @@
 #include "mge/behaviours/SpawnerBehaviour.h"
 #include "mge/behaviours/MoveBehaviour.h"
 
+#include "ThirdPerson/Scripts/MainMenu.h"
 #include "mge/util/DebugHud.hpp"
 
 #include "ThirdPerson/Scripts/Node.h"
@@ -169,6 +170,19 @@ void ThirdPerson::_update(float pStep) {
 
 		AudioManager::getInstance().playSound("characterSounds.wav");
 	}
+}
+
+void ThirdPerson::InitializeMainMenu()
+{
+	Camera* camera = new Camera("camera", glm::vec3(0, 0, 0));
+	camera->rotate(glm::radians(-90.0f), glm::vec3(1, 0, 0));
+	_world->add(camera);
+	_world->setMainCamera(camera);
+
+	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
+	MainMenu* mainMenu = new MainMenu(this, _window, fileNames, "MainMenu");
+	_world->add(mainMenu);
+	std::cout << "Made menu" << std::endl;
 }
 
 void ThirdPerson::loadLevel(std::string pFileName) {

@@ -191,6 +191,9 @@
     <ClInclude Include="..\src\mge\util\AudioManager.h">
       <Filter>MGE Source files\mge\util</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\MainMenu.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -339,6 +342,9 @@
     </ClCompile>
     <ClCompile Include="..\src\mge\util\AudioManager.cpp">
       <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\MainMenu.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

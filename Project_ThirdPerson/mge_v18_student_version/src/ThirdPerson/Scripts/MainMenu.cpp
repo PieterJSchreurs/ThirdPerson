@@ -1,17 +1,17 @@
 #include <string>
 #include <SFML/Graphics/Rect.hpp>
-#include "MainMenu.h"
+#include "ThirdPerson/Scripts/MainMenu.h"
 #include "ThirdPerson/config.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/materials/TextureMaterial.hpp"
 #include <SFML/Window/Keyboard.hpp>
 
 
-MainMenu::MainMenu(ThirdPerson * pThirdPerson, sf::RenderWindow* pRenderWindow, std::vector<std::string> pFileNames, const std::string & aName, const glm::vec3 & aPosition) : GameObject(aName, aPosition), _thirdPerson(pThirdPerson), _renderWindow(pRenderWindow), _fileNames(pFileNames)
+MainMenu::MainMenu(ThirdPerson* pThirdPerson, sf::RenderWindow* pRenderWindow, std::vector<std::string> pFileNames, const std::string & aName, const glm::vec3 & aPosition) : GameObject(aName, aPosition), _thirdPerson(pThirdPerson), _renderWindow(pRenderWindow), _fileNames(pFileNames)
 {
-	_thirdPerson = pThirdPerson;
-	_renderWindow = pRenderWindow;
-	_fileNames = pFileNames;
+	//_thirdPerson = pThirdPerson;
+	//_renderWindow = pRenderWindow;
+	//_fileNames = pFileNames;
 	if (!_font.loadFromFile(config::MGE_FONT_PATH + "piratesfont.otf")) {
 		std::cout << "Could not load font, exiting..." << std::endl;
 		return;
