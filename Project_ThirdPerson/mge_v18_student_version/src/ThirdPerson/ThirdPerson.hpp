@@ -34,14 +34,13 @@ class ThirdPerson : public AbstractGame
 	public:
 		ThirdPerson();
 		virtual ~ThirdPerson();
-
+		void loadLevel(std::string pFileName = "");
         //override initialize so we can add a DebugHud
         virtual void initialize();
 
 	protected:
 	    //override so we can construct the actual scene
         virtual void _initializeScene();
-		void loadLevel(std::string pFileName = "");
 		void destroyLevel();
 		GridGenerator* _myGridGenerator;
 
@@ -52,9 +51,11 @@ class ThirdPerson : public AbstractGame
 
 	private:
 		DebugHud* _hud;                   //hud display
-	
-        void _updateHud();
 
+
+        void _updateHud();
+		void InitializeMainMenu();
+		
 		ThirdPerson(const ThirdPerson&);
 		ThirdPerson& operator=(const ThirdPerson&);
 
