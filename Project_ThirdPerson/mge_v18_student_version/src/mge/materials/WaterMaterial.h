@@ -37,6 +37,12 @@ private:
 	static GLint _aUV;
 
 	Texture* _diffuseTexture;
+	
+	static GLint _aWaterColor;
+	static GLint _aWaterFoamColor;
+	static GLint _aPulseSpeed;
+	static GLint _aPulseAmount;
+	static GLint _aPulseDist;
 
 	WaterMaterial(const WaterMaterial&);
 	WaterMaterial& operator=(const WaterMaterial&);

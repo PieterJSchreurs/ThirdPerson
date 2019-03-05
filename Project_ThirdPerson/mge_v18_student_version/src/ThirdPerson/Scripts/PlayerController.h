@@ -13,7 +13,7 @@ class PlayerController : public GameObject
 {
 public:
 
-	PlayerController(std::vector<Ship*> pShips, GridGenerator* pGridGen, bool pIsPlayer = false, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	PlayerController(std::vector<Ship*> pShips, GridGenerator* pGridGen, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~PlayerController();
 	virtual void update(float pStep);
 	void PlayerController::SelectShip(Ship* pShip);

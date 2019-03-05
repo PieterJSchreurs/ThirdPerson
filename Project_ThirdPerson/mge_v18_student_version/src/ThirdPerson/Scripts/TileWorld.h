@@ -15,6 +15,8 @@ public:
 	TileWorld(const int pColumns = 5, const int pRows = 5, float pTileSize = 2.0f, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~TileWorld();
 
+	void SetTileWorldValues(TileWorld* pOther);
+
 	float width();
 	float height();
 
@@ -26,11 +28,12 @@ public:
 	bool GetWalkable(int pColumn, int pRow);
 
 private:
+
 	bool falseHolder = false;
 	bool trueHolder = true;
 
-	const int _columns;							//the amount of columns
-	const int _rows;							//the amount of rows
+	int _columns;							//the amount of columns
+	int _rows;							//the amount of rows
 	float _tileSize;							//the size of one gridcell
 
 	//Canvas _gridCanvas;						//canvas used to draw gridlines on

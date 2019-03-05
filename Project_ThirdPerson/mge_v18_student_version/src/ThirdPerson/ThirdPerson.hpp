@@ -39,10 +39,11 @@ class ThirdPerson : public AbstractGame
         virtual void initialize();
 
 	protected:
+
 	    //override so we can construct the actual scene
         virtual void _initializeScene();
 		void destroyLevel();
-		GridGenerator* _myGridGenerator;
+		GridGenerator* _myGridGenerator = nullptr;
 
 	    //override render to render the hud as well.
 	    virtual void _render();

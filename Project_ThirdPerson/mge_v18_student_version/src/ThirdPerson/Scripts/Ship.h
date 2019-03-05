@@ -18,11 +18,15 @@ public:
 
 	void SetShipValues(int pShipHealth, int pMovesPerTurn, int pCannonRange, int pCannonDamage, int pActionsPerTurn = 2);
 	bool CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, glm::vec3 pEulerAngles);
-	void HandleStartOfTurn();
+	virtual void HandleStartOfTurn();
 
 	virtual void TurnOrientation(int pDir);
 
 	virtual void DestroyObject();
+
+	int GetActionsRemaining();
+	int GetMovesRemaining();
+	void ConsumeActionForMoves();
 
 private:
 	int _actionsPerTurn = 0;

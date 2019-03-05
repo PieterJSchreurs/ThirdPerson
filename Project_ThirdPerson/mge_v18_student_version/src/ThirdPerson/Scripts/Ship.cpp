@@ -31,7 +31,6 @@ void Ship::update(float pStep) {
 }
 
 void Ship::MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
-	std::cout << _movesRemaining << std::endl;
 	if (_movesRemaining > 0) //If the ship as movement left this turn
 	{
 		if (pDir.x > 0) //If the requested movement is to the east
@@ -80,12 +79,19 @@ void Ship::MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 		}
 	}
 	else { //If this ship has no moves remaining
-		if (_actionsRemaining > 0) //Check if it has an action left over to consume
+		ConsumeActionForMoves();
+		if (_movesRemaining > 0)
 		{
-			_actionsRemaining--;
-			_movesRemaining = _movesPerAction;
 			MoveShipInDir(pDir, pGridGen);
 		}
+	}
+}
+
+void Ship::ConsumeActionForMoves() {
+	if (_actionsRemaining > 0) //Check if it has an action left over to consume
+	{
+		_actionsRemaining--;
+		_movesRemaining = _movesPerAction;
 	}
 }
 
@@ -146,8 +152,7 @@ void Ship::TurnOrientation(int pDir) {
 		_movesRemaining--;
 	}
 	else if(_actionsRemaining > 0) {
-		_actionsRemaining--;
-		_movesRemaining = _movesPerAction;
+		ConsumeActionForMoves();
 		TurnOrientation(pDir);
 	}
 }
@@ -195,6 +200,13 @@ void Ship::HandleStartOfTurn() {
 	_actionsRemaining = _actionsPerTurn;
 	_movesRemaining = 0;
 	_shotThisTurn = false;
+}
+
+int Ship::GetActionsRemaining() {
+	return _actionsRemaining;
+}
+int Ship::GetMovesRemaining() {
+	return _movesRemaining;
 }
 
 //DESTRUCTOR___________________________________________________________

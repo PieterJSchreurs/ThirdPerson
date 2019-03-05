@@ -29,7 +29,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Dynamic|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'" Label="Configuration">
@@ -195,6 +195,7 @@
     <ClInclude Include="..\src\mge\materials\WaterMaterial.h" />
     <ClInclude Include="..\src\mge\materials\WobblingMaterial.h" />
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
+    <ClInclude Include="..\src\mge\util\AudioManager.h" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
     <ClInclude Include="..\src\ThirdPerson\config.hpp" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\AIBigShip.h" />
@@ -248,6 +249,7 @@
     <ClCompile Include="..\src\mge\materials\WaterMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\WobblingMaterial.cpp" />
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
+    <ClCompile Include="..\src\mge\util\AudioManager.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\AIBigShip.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\AIController.cpp" />

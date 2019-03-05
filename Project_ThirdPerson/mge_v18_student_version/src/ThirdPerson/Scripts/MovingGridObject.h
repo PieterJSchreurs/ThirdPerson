@@ -12,6 +12,7 @@ public:
 	virtual void update(float pStep);
 
 	void FindPathTo(Node* pEndNode);
+	std::vector<Node*> GetPathTo(Node* pEndNode, bool pStopIfOccupied = true);
 	bool moveToTargetWaypoint();
 	bool _moved = false;
 	Node* GetRandomNode();
@@ -32,10 +33,10 @@ protected:
 
 private:
 	//Pathfinder functions__________________________________________________________________________
-	std::vector<Node*> GetPath(Node* pStartNode, Node* pEndNode);
 	void targetNextWaypoint();
-	void resetPathFinder();
 	void resetNode(Node* pNode);
+	void resetPathFinder();
+	std::vector<Node*> GetPath(Node* pStartNode, Node* pEndNode, bool pStopIfOccupied = true);
 
 	glm::vec2 _orientation = glm::vec2(1, 0);
 	glm::vec3 _targetEuler;

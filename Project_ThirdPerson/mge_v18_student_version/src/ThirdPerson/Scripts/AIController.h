@@ -13,11 +13,13 @@ class AIController : public GameObject
 {
 public:
 
-	AIController(std::vector<Ship*> pShips, int pTurnAmount, int pCannonballAmount, GridGenerator* pGridGen, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	AIController(std::vector<Ship*> pMyShips, std::vector<Ship*> pEnemyShips, GridGenerator* pGridGen, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~AIController();
 	virtual void update(float pStep);
 
-	void HandlePlayerInput();
+	void HandleInput();
+	void ToggleIsActive();
+	bool GetIsActive();
 
 private:
 
@@ -26,20 +28,26 @@ private:
 	Ship* _currentShip;
 	int _currentShipIndex = 0;
 	void SelectNextShip(int pDir);
+	int GetShipsAlive();
+	int _turnsHandled = 0;
 
 	std::vector<Ship*> _myShips;
-	int _turnAmount;
-	int _cannonballAmount;
-
-	int _turnsLeft;
-	int _cannonballsLeft;
+	std::vector<Ship*> _enemyShips;
+	using ShipTargetDict = std::pair<Ship*, Ship*>;
+	std::vector<ShipTargetDict> _myTargets;
+	Ship* GetShipTarget(Ship* pShip);
+	void SetShipTarget(Ship* pKey, Ship* pValue);
 
 	float _timer = 0;
-	const float _playerInputDelay = 0.5f;
-	float _lastPlayerInput = 0;
+	const float _inputDelay = 0.5f;
+	float _lastInput = 0;
 
-	void ToggleIsActive();
 	bool _isActive = false;
+
+	void handleShipStartOfTurn(int pIndex);
+
+	std::vector<glm::vec2> CalculateLine(int pStartGridX, int pStartGridY, int pEndGridX, int pEndGridY);
+	bool HasLineOfSight(Ship* pFrom, Ship* pTo);
 
 };
 

@@ -5,36 +5,31 @@ uniform sampler2D diffuseTexture;
 
 uniform int time;
 
+uniform vec4 waterColor;
+uniform vec4 waterFoamColor;
+
+uniform int pulseSpeed;//Higher number = slower.
+uniform int pulseAmount; //The modulo number decides the speed. 200 is one pulse at a time, <200 is more pulses, >200 is less pulses.
+uniform float pulseDist; //How far out should the vertices pulse.
+
+in vec4 fWorldPos;
 in vec2 texCoord;
+
 out vec4 fragment_color;
 
-vec4 _WaterColor = vec4(0.035, 0.6f, 0.95f, 0.5f);
-vec4 _WaterFoamColor = vec4(0.5147058f, 0.5147058f, 0.5147058f, 0.5882353f);
-int _WaveHeight = 10;
-int _WaveInterval = 10000;
-int _WaveBuildUp = 50;
-int _WaveLength = 50;
-int _WaveSpeed = 1;
-vec4 _WaveDirection = vec4(-1.0f, -1.0f, 0.0f, 0.0f);
-
 void main( void ) {
+	int pulseTime = time / pulseSpeed; 
 
-	vec4 direction = normalize(_WaveDirection);
-	float interval = _WaveSpeed * _WaveInterval; //2 = 0.5 * 4
-	float timeScale = (int((texCoord.x * -direction.x) + (texCoord.y * -direction.y) + (1.0f * -direction.z) + time * _WaveSpeed * 100) % int(interval * 100)) / (interval * 100); //11 * 0.5 = 5.5 % 2 = 1.5
-	float alpha = clamp(1.0f - timeScale * (1.0f / (_WaveLength / 100.0f)), 0.0f, 1.0f);
-	float buildUp = clamp(1.0f - timeScale, 0.0f, 1.0f); // 1 - 1 = 0
-	if (buildUp <= _WaveBuildUp / 100.0f)
-	{
-		alpha = 1 - (buildUp / (_WaveBuildUp / 100.0f)); // 1 - (0 / 0.2) = 1 - 0 = 1
-		//alpha = 1 - (buildUp / _WaveBuildUp);
-	}
+	int pulse = (pulseTime + int((fWorldPos.x + fWorldPos.z))) % pulseAmount; //Divide the vertices by assigning a number between 0 and 200 (instead of -1 to 1). Offset this number using pulseTime, and apply the pulse curve using pulseAmount.
+
 	vec4 col = texture(diffuseTexture, texCoord);
 
-	fragment_color = _WaterColor + (col * (_WaterFoamColor * (1 - alpha + 0.25f)));
-	//fragment_color = _WaterColor + ((col * (1 - alpha) * (_WaveHeight / 100.0f)) * _WaterFoamColor);
-	// coordinate-wise multiplication!:
+	vec4 waterFoam = vec4(col.x * waterFoamColor.x * col.a * waterFoamColor.a, col.y * waterFoamColor.y* col.a * waterFoamColor.a, col.z * waterFoamColor.z * col.a * waterFoamColor.a, col.a * waterFoamColor.a); //Why do i have to do this...
 
-
-	//fragment_color = texture(diffuseTexture,texCoord);
+	if(pulse < pulseAmount/2.0f) { //If the vertex got assigned a number in the first half of the total pulseAmount.
+		fragment_color = waterColor + ((waterFoam) * ((pulse / (pulseAmount/2.0f))));	 //Pulse the vertex outwards. The higher the number, the further it pulses outwards. (goes from neutral to fully extended)
+	} else { //Vertices in the second half of the total pulseAmount.
+		//Still pulse the vertex outwards. The LOWER the number, the further it pulses outwards. (goes from fully extended to neutral)
+		fragment_color = waterColor + ((waterFoam) * (((pulseAmount-pulse) / (pulseAmount/2.0f))));
+	}
 }

@@ -78,11 +78,17 @@ void MovingGridObject::FindPathTo(Node* pEndNode)
 	_todoList.push_back(_currentNode);
 	wayPointQueue = GetPath(_currentNode, pEndNode);
 }
+std::vector<Node*> MovingGridObject::GetPathTo(Node* pEndNode, bool pStopIfOccupied) {
+	resetPathFinder();
+	_todoList.push_back(_currentNode);
+	std::vector<Node*> pathHolder = GetPath(_currentNode, pEndNode, pStopIfOccupied);
+	return pathHolder;
+}
 
-std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode)
+std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode, bool pStopIfOccupied)
 {
 	//are we able to find a path??
-	if (_done || pStartNode == nullptr || pEndNode == nullptr || _todoList.size() == 0 || pEndNode->GetOccupied())
+	if (_done || pStartNode == nullptr || pEndNode == nullptr || _todoList.size() == 0 || (pStopIfOccupied && pEndNode->GetOccupied()))
 	{
 		_done = true;
 		return _lastPathFound;
@@ -102,15 +108,18 @@ std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode)
 		_lastPathFound.clear();
 
 		Node* node = pEndNode;
+		if (pEndNode->GetOccupied()) //If the end node is occupied.
+		{
+			std::cout << "The target node at " << node->GetGridX() << "-" << node->GetGridY() << " is occupied." << std::endl;
+			node = node->GetParentNode(); //Skip the end node, get the path to the closest node instead
+			std::cout << "Targeting node at " << node->GetGridX() << "-" << node->GetGridY() << " instead." << std::endl;
+		}
 
 		while (node != nullptr)
 		{
 			_lastPathFound.insert(_lastPathFound.begin(), node);
-			node->SetCurrentMovingObject(nullptr);
-			//node->SetOccupied(false);
 			node = node->GetParentNode();
 		}
-		pEndNode->SetCurrentMovingObject(this);
 		//pEndNode->SetOccupied(true);
 		return _lastPathFound;
 	}
@@ -121,7 +130,7 @@ std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode)
 		{
 			Node* connectedNode = _activeNode->GetConnectionAt(i);
 
-			if (!connectedNode->GetOccupied())
+			if (!connectedNode->GetOccupied() || connectedNode == pEndNode)
 			{
 				if (GetIndexOfItemInVector(_doneList, connectedNode) == -1 && GetIndexOfItemInVector(_todoList, connectedNode) == -1)
 				{
@@ -142,7 +151,7 @@ std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode)
 		}
 		SortNodeVector(_todoList);
 
-		_lastPathFound = GetPath(_activeNode, pEndNode);
+		_lastPathFound = GetPath(_activeNode, pEndNode, pStopIfOccupied);
 	}
 	_done = true;
 	return _lastPathFound;
@@ -173,7 +182,6 @@ bool MovingGridObject::moveToTargetWaypoint()
 			glm::vec3 moveDir = glm::normalize(wayPointQueue[0]->getLocalPosition() - glm::vec3(getLocalPosition().x, wayPointQueue[0]->getLocalPosition().y, getLocalPosition().z));
 			if (isnan(moveDir.x)) //If the ship is trying to move to his current node, skip it.
 			{
-				_currentNode = wayPointQueue[0];
 				targetNextWaypoint();
 				return true;
 			}
@@ -201,10 +209,9 @@ bool MovingGridObject::moveToTargetWaypoint()
 			}
 
 			if (glm::distance(glm::vec3(getLocalPosition().x, 0, getLocalPosition().z), glm::vec3(_currentNode->getLocalPosition().x, 0, _currentNode->getLocalPosition().z)) >= glm::distance(wayPointQueue[0]->getLocalPosition(), _currentNode->getLocalPosition())) {
-				_currentNode = wayPointQueue[0];
+				targetNextWaypoint();
 				_enteredNewNode = true;
 				setLocalPosition(glm::vec3(_currentNode->getLocalPosition().x, getLocalPosition().y, _currentNode->getLocalPosition().z));
-				targetNextWaypoint();
 			}
 			return true;
 		}
@@ -285,6 +292,9 @@ void MovingGridObject::TurnOrientation(int pDir) {
 
 void MovingGridObject::targetNextWaypoint()
 {
+	_currentNode->SetCurrentMovingObject(nullptr);
+	_currentNode = wayPointQueue[0];
+	_currentNode->SetCurrentMovingObject(this);
 	wayPointQueue.erase(wayPointQueue.begin());
 }
 

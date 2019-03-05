@@ -18,6 +18,8 @@ public:
 	GridGenerator(TileWorld& pTileWorld, const std::string& pFileName, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~GridGenerator();
 
+	void SetGridValues(TileWorld* pTileWorld, const std::string& pFileName);
+
 	void GenerateNodeGraph();
 	void DestroyNodeGraph();
 
@@ -163,10 +165,22 @@ private:
 	int _topLeftHarborIndex = -1;
 	int _prevHarborIndex = 0;
 
-	Mesh* _sandTileFull;
-	Mesh* _sandTileInvertedCorner;
-	Mesh* _sandTileStraight;
-	Mesh* _sandTileCorner;
+	Mesh* _sandTilesFull[3];
+	Mesh* _sandTileFull1;
+	Mesh* _sandTileFull2;
+	Mesh* _sandTileFull3;
+	Mesh* _sandTilesInvertedCorner[3];
+	Mesh* _sandTileInvertedCorner1;
+	Mesh* _sandTileInvertedCorner2;
+	Mesh* _sandTileInvertedCorner3;
+	Mesh* _sandTilesStraight[3];
+	Mesh* _sandTileStraight1;
+	Mesh* _sandTileStraight2;
+	Mesh* _sandTileStraight3;
+	Mesh* _sandTilesCorner[3];
+	Mesh* _sandTileCorner1;
+	Mesh* _sandTileCorner2;
+	Mesh* _sandTileCorner3;
 
 	Mesh* _harbourTiles[7];
 	Mesh* _harbourTile1;
@@ -177,7 +191,22 @@ private:
 	Mesh* _harbourTile6;
 	Mesh* _harbourTile7;
 
+	Mesh* _obstacleTiles[9];
+	Mesh* _obstacleTile1;
+	Mesh* _obstacleTile2;
+	Mesh* _obstacleTile3;
+	Mesh* _obstacleTile4;
+	Mesh* _obstacleTile5;
+	Mesh* _obstacleTile6;
+	Mesh* _obstacleTile7;
+	Mesh* _obstacleTile8;
+	Mesh* _obstacleTile9;
+
 	Mesh* _treasureIslandTile;
+
+	Mesh* _mainShip;
+	Mesh* _smallShip;
+	Mesh* _enemyShip;
 
 	Mesh* _cubeMeshDefault;
 	Mesh* _cubeFullMeshDefault;
@@ -189,10 +218,6 @@ private:
 	Mesh* _suzannaMeshDefault;
 	Mesh* _teapotMeshDefault;
 	Mesh* _sphereMeshDefault;
-
-	Mesh* _mainShip;
-	Mesh* _smallShip;
-	Mesh* _enemyShip;
 
 	void PlaceCorrectIslandNode(Node* pNode, int pColumn, int pRow, std::vector<int> pAllNodes);
 	void PlaceCorrectHarborNode(Node* pNode, int pColumn, int pRow, std::vector<int> pAllNodes);
