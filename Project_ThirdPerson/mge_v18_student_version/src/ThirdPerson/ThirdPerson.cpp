@@ -43,6 +43,7 @@
 #include "ThirdPerson/Scripts/PlayerController.h"
 #include "ThirdPerson/Scripts/AIController.h"
 #include "ThirdPerson/Scripts/MouseInputHandler.h"
+#include "ThirdPerson/Scripts/UIHandler.h"
 
 #include "ThirdPerson/config.hpp"
 #include "ThirdPerson/ThirdPerson.hpp"
@@ -158,7 +159,10 @@ std::vector<std::string> getAllFileNamesInFolder(std::string folder)
 
 void ThirdPerson::_update(float pStep) {
 	AbstractGame::_update(pStep);
-	TurnHandler::getInstance().update(pStep);
+	if (TurnHandler::getInstance().GetIsInitialized())
+	{
+		TurnHandler::getInstance().update(pStep);
+	}
 	AudioManager::getInstance().update(pStep);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) { //Restart the current level (TODO: Garbage collection is not correct, memory is not freed correctly.)
@@ -190,7 +194,6 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	{
 		_fileName = pFileName;
 	}
-	
 	_world = new World();
 
 	//MESHES
@@ -214,6 +217,9 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	camera->rotate(glm::radians(-68.0f), glm::vec3(1, 0, 0));
 	_world->add(camera);
 	_world->setMainCamera(camera);
+
+	UIHandler* uiHandler = new UIHandler(_window, "UIHandler");
+	_world->add(uiHandler);
 
 	TileWorld* myTileWorld = new TileWorld(_gameplayValues._gridWidth, _gameplayValues._gridHeight, _gameplayValues._tileSize, "TileWorld");
 	_world->add(myTileWorld);
@@ -251,19 +257,19 @@ void ThirdPerson::destroyLevel() {
 void ThirdPerson::_initializeScene()
 {
 	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
-	
-	std::cout << std::endl << "\t" << "List of level files" << std::endl;
-	std::cout << "===================================" << std::endl;
-	for (int i = 0; i < fileNames.size(); i++)
-	{
-		std::cout << fileNames[i].substr(0, fileNames[i].length() - 14) << std::endl; //Removes the _BaseTiles.csv extension.
-	}
-	std::cout << "===================================" << std::endl << std::endl;
+	InitializeMainMenu();
+	//std::cout << std::endl << "\t" << "List of level files" << std::endl;
+	//std::cout << "===================================" << std::endl;
+	//for (int i = 0; i < fileNames.size(); i++)
+	//{
+	//	std::cout << fileNames[i].substr(0, fileNames[i].length() - 14) << std::endl; //Removes the _BaseTiles.csv extension.
+	//}
+	//std::cout << "===================================" << std::endl << std::endl;
 
-	std::cout << "Please type the file name of the level you want to load below, press enter to confirm." << std::endl;
-	std::cin >> _fileName;
+	//std::cout << "Please type the file name of the level you want to load below, press enter to confirm." << std::endl;
+	//std::cin >> _fileName;
 
-	loadLevel();
+	//loadLevel();
 }
 
 void ThirdPerson::_render() {

@@ -41,6 +41,7 @@ public:
 	int GetCannonballsLeft();
 	void ReduceTurnsLeft(int pAmount);
 	int GetTurnsLeft();
+	bool GetIsInitialized();
 
 private:
 	TurnHandler() {}

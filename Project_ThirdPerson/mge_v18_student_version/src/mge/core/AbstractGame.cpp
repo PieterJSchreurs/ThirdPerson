@@ -17,6 +17,7 @@ AbstractGame::~AbstractGame()
     delete _window;
     delete _renderer;
     delete _world;
+	delete _worldMainMenu;
 }
 
 void AbstractGame::initialize() {
@@ -83,6 +84,7 @@ void AbstractGame::_initializeWorld() {
     //setup the world
 	std::cout << "Initializing world..." << std::endl;
 	_world = new World();
+	_worldMainMenu = new World();
     std::cout << "World initialized." << std::endl << std::endl;
 }
 

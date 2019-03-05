@@ -24,6 +24,13 @@ void TurnHandler::SetValues(PlayerController* pPlayerController, AIController* p
 	_turnIndicator->rotate(glm::radians(-90.0f), glm::vec3(-1, 0, 0));
 	_camera->add(_turnIndicator);
 	_turnIndicator->setLocalPosition(glm::vec3(0, 0, -0.25f));
+	_initialized = true;
+	
+}
+
+bool TurnHandler::GetIsInitialized()
+{
+	return _initialized;
 }
 
 void TurnHandler::ToggleIsActive() {

@@ -9,9 +9,6 @@
 
 MainMenu::MainMenu(ThirdPerson* pThirdPerson, sf::RenderWindow* pRenderWindow, std::vector<std::string> pFileNames, const std::string & aName, const glm::vec3 & aPosition) : GameObject(aName, aPosition), _thirdPerson(pThirdPerson), _renderWindow(pRenderWindow), _fileNames(pFileNames)
 {
-	//_thirdPerson = pThirdPerson;
-	//_renderWindow = pRenderWindow;
-	//_fileNames = pFileNames;
 	if (!_font.loadFromFile(config::MGE_FONT_PATH + "piratesfont.otf")) {
 		std::cout << "Could not load font, exiting..." << std::endl;
 		return;
