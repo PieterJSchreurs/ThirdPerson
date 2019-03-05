@@ -93,6 +93,7 @@ void Ship::ConsumeActionForMoves() {
 		_actionsRemaining--;
 		_movesRemaining = _movesPerAction;
 	}
+	std::cout << "Ship has actions remaining: " << _actionsRemaining << std::endl;
 }
 
 void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
@@ -208,6 +209,13 @@ int Ship::GetActionsRemaining() {
 }
 int Ship::GetMovesRemaining() {
 	return _movesRemaining;
+}
+
+int Ship::GetCannonRange() {
+	return _cannonRange;
+}
+int Ship::GetMovesPerAction() {
+	return _movesPerAction;
 }
 
 //DESTRUCTOR___________________________________________________________

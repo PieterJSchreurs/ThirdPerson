@@ -17,7 +17,11 @@ public:
 	virtual ~AIController();
 	virtual void update(float pStep);
 
-	void HandleInput();
+	void HandleShips();
+	bool MakeShipShoot();
+	void MoveShipToTarget();
+	void EndShipTurn();
+	void GiveShipMoves();
 	void ToggleIsActive();
 	bool GetIsActive();
 

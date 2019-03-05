@@ -89,7 +89,7 @@ void UIHandler::update(float pStep)
 				{
 					_buttons[i].setTextureRect(sf::IntRect(182, 0, 91, 147));
 				}
-				_spritesToDraw.push_back(_buttons[i]);
+				//_spritesToDraw.push_back(_buttons[i]);
 			}
 			/*if (_buttons[i].getTexture() == &_arrowTopTexture)
 			{
@@ -102,7 +102,7 @@ void UIHandler::update(float pStep)
 			if (_buttons[i].getTexture() == &_arrowTopTextureArray)
 			{
 				_buttons[i].setTextureRect(sf::IntRect(273, 0, 91, 147));
-				_spritesToDraw.push_back(_buttons[i]);
+				//_spritesToDraw.push_back(_buttons[i]);
 			}
 		}
 	}

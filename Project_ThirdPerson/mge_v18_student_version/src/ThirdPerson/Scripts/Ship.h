@@ -28,6 +28,9 @@ public:
 	int GetMovesRemaining();
 	void ConsumeActionForMoves();
 
+	int GetCannonRange();
+	int GetMovesPerAction();
+
 private:
 	int _actionsPerTurn = 0;
 	int _actionsRemaining = 0;

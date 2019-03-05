@@ -50,6 +50,14 @@ void AIController::ToggleIsActive() {
 void AIController::handleShipStartOfTurn(int pIndex) {
 	for (int i = 0; i < _enemyShips.size(); i++) //Check all enemy ships
 	{
+		if (!_enemyShips[i]->GetIsAlive())
+		{
+			if (_enemyShips[i] == GetShipTarget(_myShips[pIndex]))
+			{
+				SetShipTarget(_myShips[pIndex], nullptr);
+			}
+			continue;
+		}
 		if (HasLineOfSight(_myShips[pIndex], _enemyShips[i])) //Does this ship have line of sight of any of the enemy ships.
 		{
 			Ship* shipTarget = GetShipTarget(_myShips[pIndex]); //Get the ships current target
@@ -93,7 +101,7 @@ void AIController::update(float pStep) {
 	{
 		if (_timer - _lastInput >= _inputDelay)
 		{
-			HandleInput();
+			HandleShips();
 		}
 	}
 	else {
@@ -102,64 +110,17 @@ void AIController::update(float pStep) {
 	GameObject::update(pStep);
 }
 
-void AIController::HandleInput() { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
+void AIController::HandleShips() { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
 	if (_isActive) //If it is your turn.
 	{
-		if (_currentShip->GetMovesRemaining() > 0) //If your current ship has moves remaining
-		{
-			if (GetShipTarget(_currentShip) != nullptr) { //If this ship has a target
-				std::vector<Node*> currentShipPath = _currentShip->GetPathTo(GetShipTarget(_currentShip)->GetCurrentNode(), false); //Get a path from your current ship to its target.
-				if (currentShipPath.size() >= 2)
-				{
-					glm::vec2 shipMoveDir(currentShipPath[1]->GetGridX() - _currentShip->GetCurrentNode()->GetGridX(), currentShipPath[1]->GetGridY() - _currentShip->GetCurrentNode()->GetGridY()); //Get the first step along the found path
-					//If the ship is trying to move directly backwards.
-					if ((_currentShip->GetOrientation().x == (-1 * shipMoveDir.x) && _currentShip->GetOrientation().x != 0) || (_currentShip->GetOrientation().y == (-1 * shipMoveDir.y) && _currentShip->GetOrientation().y != 0))
-					{
-						_currentShip->TurnOrientation(1);
-					}
-					else {
-						_currentShip->MoveShipInDir(shipMoveDir, _gridGenerator); //Move 1 step along the found path.
-					}
-				}
-				else {
-					_turnsHandled++; //TODO: Implement cannon shooting here (The ship is right next to its target at this point)
-					if (_turnsHandled < GetShipsAlive())
-					{
-						SelectNextShip(1);
-						_lastInput = _timer;
-					}
-					else {
-						TurnHandler::getInstance().ToggleIsActive();
-					}
-				}
-				_lastInput = _timer;
-			}
-			else {
-				_turnsHandled++;
-				if (_turnsHandled < GetShipsAlive())
-				{
-					SelectNextShip(1);
-					_lastInput = _timer;
-				}
-				else {
-					TurnHandler::getInstance().ToggleIsActive();
-				}
+		if (GetShipTarget(_currentShip) != nullptr) {
+			if (!MakeShipShoot())
+			{
+				MoveShipToTarget();
 			}
 		}
 		else {
-			_currentShip->ConsumeActionForMoves();
-			if (_currentShip->GetMovesRemaining() == 0)
-			{
-				_turnsHandled++;
-				if (_turnsHandled < GetShipsAlive())
-				{
-					SelectNextShip(1);
-					_lastInput = _timer;
-				}
-				else {
-					TurnHandler::getInstance().ToggleIsActive();
-				}
-			}
+			EndShipTurn();
 		}
 
 
@@ -205,6 +166,179 @@ void AIController::HandleInput() { //NOTE: Make sure only one input is read at a
 	}
 }
 
+bool AIController::MakeShipShoot() {
+	if (_currentShip->GetActionsRemaining() > 0 || _currentShip->GetMovesRemaining() > 0)
+	{
+		//If the target is within cannon range along the X-axis.
+		int xDist = GetShipTarget(_currentShip)->GetCurrentNode()->GetGridX() - _currentShip->GetCurrentNode()->GetGridX();
+		if (glm::abs(xDist) <= _currentShip->GetCannonRange())
+		{
+			std::cout << "Ship is within X range: " << xDist << std::endl;
+			//If the target is within cannon range along the Y-axis.
+			int yDist = GetShipTarget(_currentShip)->GetCurrentNode()->GetGridY() - _currentShip->GetCurrentNode()->GetGridY();
+			if (glm::abs(yDist) <= _currentShip->GetCannonRange())
+			{
+				std::cout << "Ship is within Y range: " << yDist << std::endl;
+				if (xDist == 0 || yDist == 0)
+				{
+					if (xDist == 0)
+					{
+						std::cout << "xDist is 0" << std::endl;
+						if (_currentShip->GetOrientation().y != 0)
+						{
+							std::cout << "Turning ship to the correct rotation." << std::endl;
+							_currentShip->TurnOrientation(1);
+							_lastInput = _timer;
+							return true;
+						}
+						else
+						{
+							if (_currentShip->GetActionsRemaining() > 0)
+							{
+								std::cout << "Shooting in dir: 0-" << glm::sign(yDist) << std::endl;
+								_currentShip->ShootInDir(glm::vec2(0, glm::sign(yDist)), _gridGenerator);
+							}
+							else {
+								std::cout << "No actions left, waiting for next turn." << std::endl;
+								EndShipTurn();
+							}
+							_lastInput = _timer;
+							return true;
+						}
+					}
+					else {
+						if (_currentShip->GetOrientation().x != 0)
+						{
+							std::cout << "Turning ship to the correct rotation." << std::endl;
+							_currentShip->TurnOrientation(1);
+							_lastInput = _timer;
+							return true;
+						}
+						else
+						{
+							if (_currentShip->GetActionsRemaining() > 0)
+							{
+								std::cout << "Shooting in dir: " << glm::sign(xDist) << "-0" << std::endl;
+								_currentShip->ShootInDir(glm::vec2(glm::sign(xDist), 0), _gridGenerator);
+							}
+							else {
+								std::cout << "No actions left, waiting for next turn." << std::endl;
+								EndShipTurn();
+							}
+							_lastInput = _timer;
+							return true;
+						}
+					}
+				}
+
+				if (glm::abs(xDist) < glm::abs(yDist) && _gridGenerator->GetNodeAtTile(GetShipTarget(_currentShip)->GetCurrentNode()->GetGridX(), _currentShip->GetCurrentNode()->GetGridY())->GetWalkable())
+				{
+					std::cout << "Ship is closer to target X" << std::endl;
+					std::vector<Node*> targetTilePath = _currentShip->GetPathTo(_gridGenerator->GetNodeAtTile(GetShipTarget(_currentShip)->GetCurrentNode()->GetGridX(), _currentShip->GetCurrentNode()->GetGridY())); //Get a path from your current ship to its target.
+					std::cout << "Target path size: " << targetTilePath.size() << std::endl;
+					if (targetTilePath.size() - 1 == glm::abs(xDist)) //If a straight path to the tile is available.
+					{
+						std::cout << "Straight path to target tile is available" << std::endl;
+						if (targetTilePath.size() >= 2)
+						{
+							std::cout << "Moving towards target." << std::endl;
+							glm::vec2 shipMoveDir(targetTilePath[1]->GetGridX() - _currentShip->GetCurrentNode()->GetGridX(), targetTilePath[1]->GetGridY() - _currentShip->GetCurrentNode()->GetGridY()); //Get the first step along the found path
+																																																		   //If the ship is trying to move directly backwards.
+							if ((_currentShip->GetOrientation().x == (-1 * shipMoveDir.x) && _currentShip->GetOrientation().x != 0) || (_currentShip->GetOrientation().y == (-1 * shipMoveDir.y) && _currentShip->GetOrientation().y != 0))
+							{
+								_currentShip->TurnOrientation(1);
+							}
+							else {
+								_currentShip->MoveShipInDir(shipMoveDir, _gridGenerator); //Move 1 step along the found path.
+							}
+							_lastInput = _timer;
+							return true;
+						}
+					}
+				}
+				else {
+					if (_gridGenerator->GetNodeAtTile(_currentShip->GetCurrentNode()->GetGridX(), GetShipTarget(_currentShip)->GetCurrentNode()->GetGridY())->GetWalkable())
+					{
+						std::cout << "Ship is closer to target Y" << std::endl;
+						std::vector<Node*> targetTilePath = _currentShip->GetPathTo(_gridGenerator->GetNodeAtTile(_currentShip->GetCurrentNode()->GetGridX(), GetShipTarget(_currentShip)->GetCurrentNode()->GetGridY())); //Get a path from your current ship to its target.
+						std::cout << "Target path size: " << targetTilePath.size() << std::endl;
+						if (targetTilePath.size() - 1 == glm::abs(yDist)) //If a straight path to the tile is available.
+						{
+							std::cout << "Straight path to target tile is available" << std::endl;
+							if (targetTilePath.size() >= 2)
+							{
+								std::cout << "Moving towards target." << std::endl;
+								glm::vec2 shipMoveDir(targetTilePath[1]->GetGridX() - _currentShip->GetCurrentNode()->GetGridX(), targetTilePath[1]->GetGridY() - _currentShip->GetCurrentNode()->GetGridY()); //Get the first step along the found path
+																																																			   //If the ship is trying to move directly backwards.
+								if ((_currentShip->GetOrientation().x == (-1 * shipMoveDir.x) && _currentShip->GetOrientation().x != 0) || (_currentShip->GetOrientation().y == (-1 * shipMoveDir.y) && _currentShip->GetOrientation().y != 0))
+								{
+									_currentShip->TurnOrientation(1);
+								}
+								else {
+									_currentShip->MoveShipInDir(shipMoveDir, _gridGenerator); //Move 1 step along the found path.
+								}
+								_lastInput = _timer;
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return false;
+}
+void AIController::MoveShipToTarget() {
+	if (_currentShip->GetMovesRemaining() > 0) //If your current ship has moves remaining
+	{
+		if (GetShipTarget(_currentShip) != nullptr) { //If this ship has a target
+
+			//Get a path from your current ship to its target.
+			std::vector<Node*> currentShipPath = _currentShip->GetPathTo(GetShipTarget(_currentShip)->GetCurrentNode(), false);
+			if (currentShipPath.size() >= 2)
+			{
+				glm::vec2 shipMoveDir(currentShipPath[1]->GetGridX() - _currentShip->GetCurrentNode()->GetGridX(), currentShipPath[1]->GetGridY() - _currentShip->GetCurrentNode()->GetGridY()); //Get the first step along the found path
+																																																 //If the ship is trying to move directly backwards.
+				if ((_currentShip->GetOrientation().x == (-1 * shipMoveDir.x) && _currentShip->GetOrientation().x != 0) || (_currentShip->GetOrientation().y == (-1 * shipMoveDir.y) && _currentShip->GetOrientation().y != 0))
+				{
+					_currentShip->TurnOrientation(1);
+				}
+				else {
+					_currentShip->MoveShipInDir(shipMoveDir, _gridGenerator); //Move 1 step along the found path.
+				}
+			}
+			else {
+				EndShipTurn();
+			}
+			_lastInput = _timer;
+		}
+		else {
+			EndShipTurn();
+		}
+	}
+	else {
+		GiveShipMoves();
+	}
+}
+void AIController::EndShipTurn() {
+	_turnsHandled++;
+	if (_turnsHandled < GetShipsAlive())
+	{
+		SelectNextShip(1);
+		_lastInput = _timer;
+	}
+	else {
+		TurnHandler::getInstance().ToggleIsActive();
+	}
+}
+void AIController::GiveShipMoves() {
+	_currentShip->ConsumeActionForMoves();
+	if (_currentShip->GetMovesRemaining() == 0)
+	{
+		EndShipTurn();
+	}
+}
+
 int AIController::GetShipsAlive() {
 	int alive = 0;
 	for (int i = 0; i < _myShips.size(); i++)
@@ -221,14 +355,11 @@ bool AIController::HasLineOfSight(Ship* pFrom, Ship* pTo) {
 	std::vector<glm::vec2> lineOfSight = CalculateLine(pFrom->GetCurrentNode()->GetGridX(), pFrom->GetCurrentNode()->GetGridY(), pTo->GetCurrentNode()->GetGridX(), pTo->GetCurrentNode()->GetGridY());
 	for (int i = 0; i < lineOfSight.size(); i++)
 	{
-		std::cout << "Line of sight check: Passed through tile " << glm::iround(lineOfSight[i].x) << "-" << glm::iround(lineOfSight[i].y) << std::endl;
 		if (!_gridGenerator->GetNodeAtTile(glm::iround(lineOfSight[i].x), glm::iround(lineOfSight[i].y))->GetWalkable())
 		{
-			std::cout << "Tile was not walkable, so there is no line of sight." << std::endl;
 			return false;
 		}
 	}
-	std::cout << "Your current ship can see the target!" << std::endl;
 	return true;
 }
 std::vector<glm::vec2> AIController::CalculateLine(int pStartGridX, int pStartGridY, int pEndGridX, int pEndGridY)
@@ -270,7 +401,7 @@ std::vector<glm::vec2> AIController::CalculateLine(int pStartGridX, int pStartGr
 void AIController::SelectNextShip(int pDir) {
 	_currentShip->setMaterial(_currentShip->GetBaseMaterial());
 
-	_currentShipIndex += pDir;
+	_currentShipIndex += pDir; // -1
 	int valHolder = _myShips.size();
 
 	if (_currentShipIndex >= valHolder)
@@ -285,8 +416,14 @@ void AIController::SelectNextShip(int pDir) {
 	_currentShip = _myShips[_currentShipIndex];
 	handleShipStartOfTurn(_currentShipIndex);
 
-	AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-	_currentShip->setMaterial(greenMaterial);
+	if (_currentShip->GetIsAlive()) //If the newly selected ship is alive, all is good
+	{
+		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+		_currentShip->setMaterial(greenMaterial);
+	}
+	else { //If the newly selected ship has already sunk, select the next available ship instead.
+		SelectNextShip(pDir);
+	}
 }
 
 Ship* AIController::GetShipTarget(Ship* pShip) {
@@ -294,11 +431,9 @@ Ship* AIController::GetShipTarget(Ship* pShip) {
 	{
 		if (_myTargets[i].first == pShip)
 		{
-			std::cout << "Key found, returning its target." << std::endl;
 			return _myTargets[i].second;
 		}
 	}
-	std::cout << "No key found, returning nullptr." << std::endl;
 	return nullptr;
 }
 void AIController::SetShipTarget(Ship* pKey, Ship* pValue) {
@@ -306,12 +441,10 @@ void AIController::SetShipTarget(Ship* pKey, Ship* pValue) {
 	{
 		if (_myTargets[i].first == pKey)
 		{
-			std::cout << "Key found, overwriting value." << std::endl;
 			_myTargets[i].second = pValue;
 			return;
 		}
 	}
-	std::cout << "No key found, adding it to the vector: Key: " << pKey->getName() << " Value: " << pValue->getName() << std::endl;
 	_myTargets.push_back(ShipTargetDict(pKey, pValue));
 }
 
