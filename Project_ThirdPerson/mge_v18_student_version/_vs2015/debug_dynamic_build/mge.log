@@ -1,9 +1,5 @@
-﻿  GridGenerator.cpp
+﻿  AbstractGame.cpp
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(112): warning C4018: '<': signed/unsigned mismatch
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(135): warning C4018: '<': signed/unsigned mismatch
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(172): warning C4018: '<': signed/unsigned mismatch
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(195): warning C4018: '<': signed/unsigned mismatch
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(666): warning C4715: 'GridGenerator::GetCorrectHarborIndex': not all control paths return a value
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\abstractgame.cpp(25): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
   mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)

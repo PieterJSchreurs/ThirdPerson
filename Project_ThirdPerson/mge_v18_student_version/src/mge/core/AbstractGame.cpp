@@ -134,11 +134,17 @@ void AbstractGame::run()
 }
 
 void AbstractGame::_update(float pStep) {
-    _world->update(pStep);
+	if (_world != nullptr)
+	{
+		_world->update(pStep);
+	}
 }
 
 void AbstractGame::_render () {
-    _renderer->render(_world);
+	if (_world != nullptr)
+	{
+		_renderer->render(_world);
+	}
 }
 
 void AbstractGame::_processEvents()

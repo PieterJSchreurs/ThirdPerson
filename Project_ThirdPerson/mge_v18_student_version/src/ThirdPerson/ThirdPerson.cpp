@@ -68,10 +68,6 @@ void ThirdPerson::initialize() {
 
 void ThirdPerson::initializeGameplayValues() {
 
-	AudioManager::getInstance().loadSound("characterSounds.wav");
-
-
-
 	lua_State* lua = luaL_newstate();												//Initialize our lua thread.
 	luaL_openlibs(lua);																//Load the standard libraries
 
@@ -179,10 +175,10 @@ void ThirdPerson::_update(float pStep) {
 void ThirdPerson::InitializeMainMenu()
 {
 	Camera* camera = new Camera("camera", glm::vec3(0, 0, 0));
-	camera->rotate(glm::radians(-90.0f), glm::vec3(1, 0, 0));
+	camera->rotate(glm::radians(0.0f), glm::vec3(0, 0, 0));
 	_world->add(camera);
 	_world->setMainCamera(camera);
-
+	
 	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
 	MainMenu* mainMenu = new MainMenu(this, _window, fileNames, "MainMenu");
 	_world->add(mainMenu);
@@ -194,7 +190,10 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	{
 		_fileName = pFileName;
 	}
+
 	_world = new World();
+
+	//AudioManager::getInstance().loadSound("characterSounds.wav");
 
 	//MESHES
 
@@ -246,6 +245,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	Light* light = new Light("light", glm::vec3(2, 1, 2), glm::vec3(0.75f, 0.75f, 0.75f), 0.75f, 0.65f, Light::LightType::Directional, glm::vec3(45, 135, 0));
 	_world->add(light);
+
 }
 
 void ThirdPerson::destroyLevel() {

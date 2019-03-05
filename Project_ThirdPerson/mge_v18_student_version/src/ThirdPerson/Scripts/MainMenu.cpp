@@ -134,7 +134,7 @@ void MainMenu::HandleClick()
 						std::string levelName = _texts[i].getString();
 						std::cout << levelName << std::endl;
 						LoadScene(levelName);
-						
+						return;
 					}
 				}
 

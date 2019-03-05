@@ -62,14 +62,7 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 	
 	_treasureIslandTile = Mesh::load(config::MGE_MODEL_PATH + "Treasure_Island.obj");
 
-	_cubeFullMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "flat.obj");
-	_cubeInvertedCornerMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "corner_inverted.obj");
-	_cubeStraightMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "straight.obj");
-	_cubeCornerMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "corner.obj");
-	_obstacleMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_2.obj");
 	_planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj");
-	_suzannaMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth.obj");
-	_teapotMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth.obj");
 	_sphereMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
 
 	_mainShip = Mesh::load(config::MGE_MODEL_PATH + "Main_Ship.obj");
