@@ -42,6 +42,7 @@
 #include "ThirdPerson/Scripts/AIController.h"
 #include "ThirdPerson/Scripts/MouseInputHandler.h"
 #include "ThirdPerson/Scripts/MainMenu.h"
+#include "ThirdPerson/Scripts/UIHandler.h"
 
 #include "ThirdPerson/config.hpp"
 #include "ThirdPerson/ThirdPerson.hpp"
@@ -169,7 +170,7 @@ void ThirdPerson::InitializeMainMenu()
 	_world->setMainCamera(camera);
 
 	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
-	MainMenu* mainMenu = new MainMenu(camera, this, _window, fileNames ,"MainMenu");
+	MainMenu* mainMenu = new MainMenu( this, _window, fileNames ,"MainMenu");
 	_world->add(mainMenu);
 	std::cout << "Made menu" << std::endl;
 }
@@ -200,10 +201,13 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	//SCENE SETUP
 	//add camera first (it will be updated last)
-	Camera* camera = new Camera("camera", glm::vec3(0, 20, 10));
+	Camera* camera = new Camera("camera", glm::vec3(0, 60, 20));
 	camera->rotate(glm::radians(-68.0f), glm::vec3(1, 0, 0));
 	_world->add(camera);
 	_world->setMainCamera(camera);
+
+	UIHandler* uiHandler = new UIHandler(_window, "UIHandler");
+	_world->add(uiHandler);
 
 	TileWorld* myTileWorld = new TileWorld(_gameplayValues._gridWidth, _gameplayValues._gridHeight, _gameplayValues._tileSize, "TileWorld");
 	_world->add(myTileWorld);
@@ -214,7 +218,6 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	_world->add(myPlayerController);
 	PlayerController* myAIController = new PlayerController(_myGridGenerator->GetAIShips(), _myGridGenerator, false, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myAIController);
-
 
 	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 5, 3, camera);
 

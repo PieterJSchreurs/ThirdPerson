@@ -7,16 +7,11 @@
 #include <SFML/Window/Keyboard.hpp>
 
 
-MainMenu::MainMenu(Camera * pCamera, ThirdPerson * pThirdPerson, sf::RenderWindow* pRenderWindow, std::vector<std::string> pFileNames, const std::string & aName, const glm::vec3 & aPosition) : GameObject(aName, aPosition), _camera(pCamera), _thirdPerson(pThirdPerson), _renderWindow(pRenderWindow), _fileNames(pFileNames)
+MainMenu::MainMenu(ThirdPerson * pThirdPerson, sf::RenderWindow* pRenderWindow, std::vector<std::string> pFileNames, const std::string & aName, const glm::vec3 & aPosition) : GameObject(aName, aPosition), _thirdPerson(pThirdPerson), _renderWindow(pRenderWindow), _fileNames(pFileNames)
 {
 	_thirdPerson = pThirdPerson;
-	_camera = pCamera;
 	_renderWindow = pRenderWindow;
 	_fileNames = pFileNames;
-	//for (int i = 0; i < _fileNames.size(); i++)
-	//{
-	//	_fileNames[i].substr(0, _fileNames[i].length() - 14); //Removes the _BaseTiles.csv extension.
-	//}
 	if (!_font.loadFromFile(config::MGE_FONT_PATH + "piratesfont.otf")) {
 		std::cout << "Could not load font, exiting..." << std::endl;
 		return;
@@ -148,7 +143,6 @@ void MainMenu::HandleClick()
 
 				if (spriteBounds == _levelSelectButton.getGlobalBounds())
 				{
-					std::cout << "clicked on level select \t \t " << spriteBounds.height << std::endl;
 					LoadLevelSelect();
 					break;
 				}

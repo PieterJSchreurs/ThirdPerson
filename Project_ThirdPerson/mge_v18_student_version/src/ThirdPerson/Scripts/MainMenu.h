@@ -4,13 +4,12 @@
 #include "glm.hpp"
 #include "mge/core/Mesh.hpp"
 #include "mge/core/GameObject.hpp"
-#include "mge/core/Camera.hpp"
 #include "ThirdPerson/ThirdPerson.hpp"
 
 class MainMenu : public GameObject
 {
 public:
-	MainMenu(Camera* pCamera, ThirdPerson* pThirdPerson, sf::RenderWindow* pRenderWindow, std::vector<std::string> pFileNames,const std::string & aName, const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	MainMenu(ThirdPerson* pThirdPerson, sf::RenderWindow* pRenderWindow, std::vector<std::string> pFileNames,const std::string & aName, const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~MainMenu();
 	virtual void update(float pStep);
 
@@ -22,7 +21,6 @@ private:
 	bool _isLevelLoading = false;
 
 	std::vector<std::string> _fileNames;
-	Camera* _camera;
 	sf::Font _font;
 	sf::Text _levelText;
 	std::vector<sf::Sprite> _spritesToDraw;
