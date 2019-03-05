@@ -98,8 +98,9 @@ void Ship::ConsumeActionForMoves() {
 void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 	if (!_shotThisTurn && _actionsRemaining > 0 && TurnHandler::getInstance().GetCannonballsLeft() > 0)
 	{
-		_shotThisTurn = true;
+		_shotThisTurn = false;
 		_actionsRemaining--;
+		_movesRemaining = 0;
 
 		AbstractMaterial* cannonballMaterial = new LitMaterial(glm::vec3(0.25f, 0.25f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 		_myCannonball = new GameObject("Cannonball", glm::vec3(0, 0, 0));
