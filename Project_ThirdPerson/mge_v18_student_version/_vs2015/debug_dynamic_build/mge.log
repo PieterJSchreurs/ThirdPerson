@@ -1,65 +1,8 @@
-<<<<<<< HEAD
-﻿  MoveBehaviour.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  AbstractGame.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\mge\core\abstractgame.hpp(4): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
-  WaterMaterial.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  DebugHud.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\mge\util\debughud.cpp(4): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
-  AIBigShip.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  AIController.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  BigShip.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  GoalObject.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  GridGenerator.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  GridObject.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  MouseInputHandler.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  MovingGridObject.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  Node.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  NodeWorld.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  PlayerBigShip.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  PlayerController.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  PlayerSmallShip.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  Ship.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  SmallShip.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  StaticGridObject.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  Generating Code...
-  Compiling...
-  TileWorld.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  TreasureObject.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  TurnHandler.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  UIHandler.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  ThirdPerson.cpp
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
-  Generating Code...
-=======
-﻿  GridGenerator.cpp
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(112): warning C4018: '<': signed/unsigned mismatch
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(135): warning C4018: '<': signed/unsigned mismatch
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(172): warning C4018: '<': signed/unsigned mismatch
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(195): warning C4018: '<': signed/unsigned mismatch
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(666): warning C4715: 'GridGenerator::GetCorrectHarborIndex': not all control paths return a value
-  mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
-  mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)
->>>>>>> ed69984994fb23447ac234da9e1fc9e9abe3c2e8
+﻿  Ship.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\ship.cpp(118): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+  mge.vcxproj -> C:\Users\Amadeo\Desktop\school\project third person\Git\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
