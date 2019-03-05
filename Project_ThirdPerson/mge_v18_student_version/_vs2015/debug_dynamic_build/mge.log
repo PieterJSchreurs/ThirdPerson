@@ -1,14 +1,9 @@
-﻿  ThirdPerson.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(85): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(88): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(91): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(95): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(98): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(101): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(104): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(107): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(110): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(113): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(116): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-  mge.vcxproj -> C:\Users\piete\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
+﻿  GridGenerator.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(112): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(135): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(172): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(195): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(666): warning C4715: 'GridGenerator::GetCorrectHarborIndex': not all control paths return a value
+  mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
+  mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)

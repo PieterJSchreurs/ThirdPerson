@@ -72,9 +72,9 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 	_teapotMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth.obj");
 	_sphereMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
 
-	_mainShip = Mesh::load(config::MGE_MODEL_PATH + "main ship.obj");
-	_smallShip = Mesh::load(config::MGE_MODEL_PATH + "Small Ship.obj");
-	_enemyShip = Mesh::load(config::MGE_MODEL_PATH + "Enemy Ship.obj");
+	_mainShip = Mesh::load(config::MGE_MODEL_PATH + "Main_Ship.obj");
+	_smallShip = Mesh::load(config::MGE_MODEL_PATH + "Small_Ship.obj");
+	_enemyShip = Mesh::load(config::MGE_MODEL_PATH + "Enemy_Ship.obj");
 }
 
 void GridGenerator::SetGridValues(TileWorld* pTileWorld, const std::string& pFileName) {
