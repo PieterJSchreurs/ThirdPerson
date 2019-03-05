@@ -31,7 +31,6 @@ void Ship::update(float pStep) {
 }
 
 void Ship::MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
-	std::cout << _movesRemaining << std::endl;
 	if (_movesRemaining > 0) //If the ship as movement left this turn
 	{
 		if (pDir.x > 0) //If the requested movement is to the east

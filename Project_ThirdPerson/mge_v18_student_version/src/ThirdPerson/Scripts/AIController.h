@@ -28,6 +28,8 @@ private:
 	Ship* _currentShip;
 	int _currentShipIndex = 0;
 	void SelectNextShip(int pDir);
+	int GetShipsAlive();
+	int _turnsHandled = 0;
 
 	std::vector<Ship*> _myShips;
 	std::vector<Ship*> _enemyShips;
