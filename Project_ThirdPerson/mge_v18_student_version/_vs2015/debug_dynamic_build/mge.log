@@ -1,15 +1,177 @@
-﻿  ThirdPerson.cpp
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(81): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(84): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(87): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(91): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(94): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(97): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(100): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(103): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(106): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(109): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(112): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-  mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
-  mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)
+﻿  main.cpp
+  AbstractBehaviour.cpp
+  CameraMoveBehaviour.cpp
+  CameraOrbitBehaviour.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\mge\behaviours\cameraorbitbehaviour.cpp(73): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\mge\behaviours\cameraorbitbehaviour.cpp(74): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  KeysBehaviour.cpp
+  MoveBehaviour.cpp
+  RotatingBehaviour.cpp
+  SpawnerBehaviour.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\mge\behaviours\spawnerbehaviour.cpp(30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  AbstractGame.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\mge\core\abstractgame.cpp(25): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Camera.cpp
+  GameObject.cpp
+  Light.cpp
+  Mesh.cpp
+  Renderer.cpp
+  ShaderProgram.cpp
+  Texture.cpp
+  World.cpp
+  AbstractMaterial.cpp
+  ColorMaterial.cpp
+  LitMaterial.cpp
+  Generating Code...
+  Compiling...
+  LitTextureMaterial.cpp
+  TerrainMaterial.cpp
+  TextureMaterial.cpp
+  WaterMaterial.cpp
+  WobblingMaterial.cpp
+  MGEDemo.cpp
+  AudioManager.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\mge\util\audiomanager.cpp(10): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\mge\util\audiomanager.cpp(38): warning C4018: '<': signed/unsigned mismatch
+  DebugHud.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\mge\util\debughud.cpp(35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  AIBigShip.cpp
+  AIController.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(9): warning C4018: '>': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(42): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(51): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(352): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(364): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(438): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(448): warning C4018: '<': signed/unsigned mismatch
+  BigShip.cpp
+  GoalObject.cpp
+  GridGenerator.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(105): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(128): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(165): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(188): warning C4018: '<': signed/unsigned mismatch
+  GridObject.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridobject.cpp(44): warning C4305: 'initializing': truncation from '__int64' to 'float'
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridobject.cpp(46): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridobject.cpp(48): warning C4305: '=': truncation from '__int64' to 'float'
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridobject.cpp(50): warning C4018: '<': signed/unsigned mismatch
+  MainMenu.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(59): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(67): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(75): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(79): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(80): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(108): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(136): warning C4018: '<': signed/unsigned mismatch
+  MouseInputHandler.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mouseinputhandler.cpp(40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mouseinputhandler.cpp(55): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+  MovingGridObject.cpp
+  Node.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\node.cpp(97): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\node.cpp(112): warning C4018: '<': signed/unsigned mismatch
+  NodeWorld.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\nodeworld.cpp(30): warning C4018: '<': signed/unsigned mismatch
+  PlayerBigShip.cpp
+  Generating Code...
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(677): warning C4715: 'GridGenerator::GetCorrectHarborIndex': not all control paths return a value
+  Compiling...
+  PlayerController.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(9): warning C4018: '>': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(39): warning C4018: '<': signed/unsigned mismatch
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(57): warning C4018: '<': signed/unsigned mismatch
+  PlayerSmallShip.cpp
+  Ship.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\ship.cpp(131): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+  SmallShip.cpp
+  StaticGridObject.cpp
+  TileWorld.cpp
+  TreasureObject.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  TurnHandler.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  UIHandler.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\uihandler.cpp(38): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\uihandler.cpp(43): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\uihandler.cpp(48): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\uihandler.cpp(53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\uihandler.cpp(58): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\uihandler.cpp(63): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\uihandler.cpp(68): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\uihandler.cpp(73): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\uihandler.cpp(91): warning C4018: '<': signed/unsigned mismatch
+  ThirdPerson.cpp
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(81): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(84): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(87): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(91): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(94): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(97): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(100): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(103): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(106): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(109): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(112): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+  Generating Code...
+  mge.vcxproj -> C:\Users\Amadeo\Desktop\school\project third person\Git\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
