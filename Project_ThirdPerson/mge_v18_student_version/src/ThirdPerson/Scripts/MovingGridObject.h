@@ -30,7 +30,6 @@ public:
 	bool GetIsAlive();
 protected:
 	bool _enteredNewNode = true;
-
 private:
 	//Pathfinder functions__________________________________________________________________________
 	void targetNextWaypoint();

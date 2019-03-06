@@ -206,9 +206,7 @@ void GridGenerator::GenerateNodeGraph() {
 	}
 
 	AbstractMaterial* normalMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* waterMaterial = new LitMaterial(glm::vec3(0.25f, 0.35f, 0.65f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* waterMaterial2 = new ColorMaterial(glm::vec3(0.25f, 0.35f, 0.65f));
-	AbstractMaterial* waterMaterial3 = new WaterMaterial(Texture::load(config::MGE_TEXTURE_PATH + "WaterTexture.png"));
+	AbstractMaterial* waterMaterial = new WaterMaterial(Texture::load(config::MGE_TEXTURE_PATH + "WaterTexture.png"));
 	AbstractMaterial* islandMaterialSingle = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* islandMaterialCorner = new LitMaterial(glm::vec3(0.75f, 0.75f, 0.75f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* islandMaterialStraight = new LitMaterial(glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
@@ -238,6 +236,7 @@ void GridGenerator::GenerateNodeGraph() {
 	_enemyShipMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemy_Ship.png"), glm::vec3(1, 1, 1), 0.25f);
 	_treasureIslandMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* goalMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+	AbstractMaterial* dangerCubeMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "DangerCube.png"), glm::vec3(1, 1, 1), 0.25f);
 
 
 	//create a new node world to and nodes to
@@ -258,23 +257,23 @@ void GridGenerator::GenerateNodeGraph() {
 			int nmbr = baseTiles[row * _tileWorld.rows() + column];
 			if (nmbr < 0) //No tile, so will be just water at height 0
 			{
-				node = new Node(Node::TerrainTypes::water, "Water");
-				node->setMaterial(waterMaterial3);
+				node = new Node(Node::TerrainTypes::water, _cubeMeshDefault, _cubeMeshDefault, "Water");
+				node->setMaterial(waterMaterial);
 				node->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				node->setMesh(_planeMeshDefault);
 				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0.675f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
 			}
 			else if (nmbr == 0) //Island tile at half height, add an inactive water tile at height 0
 			{
-				node = new Node(Node::TerrainTypes::island, false, "Island");
+				node = new Node(Node::TerrainTypes::island, _cubeMeshDefault, false, "Island");
 				node->scale(glm::vec3(_tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2));
 				PlaceCorrectIslandNode(node, column, row, baseTiles);
 
 				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), _tileWorld.tileSize(), row * (_tileWorld.tileSize() * 2.0f + _tileGap)));//TODO: How high should these tiles be placed?
 				_tileWorld.SetWalkable(column, row, false);
 
-				Node* inactiveNode = new Node(Node::TerrainTypes::water, "Water"); //Add the inactive water node
-				inactiveNode->setMaterial(waterMaterial3);
+				Node* inactiveNode = new Node(Node::TerrainTypes::water, _cubeMeshDefault, "Water"); //Add the inactive water node
+				inactiveNode->setMaterial(waterMaterial);
 				inactiveNode->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				inactiveNode->setMesh(_planeMeshDefault);
 				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0.675f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
@@ -282,15 +281,15 @@ void GridGenerator::GenerateNodeGraph() {
 			}
 			else if (nmbr == 1) //Harbor tile at half height, add an inactive water tile at height 0
 			{
-				node = new Node(Node::TerrainTypes::harbor, false, "Harbor");
+				node = new Node(Node::TerrainTypes::harbor, _cubeMeshDefault, false, "Harbor");
 				node->scale(glm::vec3(_tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2));
 				PlaceCorrectHarborNode(node, column, row, baseTiles);
 
 				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), _tileWorld.tileSize(), row * (_tileWorld.tileSize() * 2.0f + _tileGap)));//TODO: How high should these tiles be placed?
 				_tileWorld.SetWalkable(column, row, false);
 
-				Node* inactiveNode = new Node(Node::TerrainTypes::water, "Water"); //Add the inactive water node
-				inactiveNode->setMaterial(waterMaterial3);
+				Node* inactiveNode = new Node(Node::TerrainTypes::water, _cubeMeshDefault, "Water"); //Add the inactive water node
+				inactiveNode->setMaterial(waterMaterial);
 				inactiveNode->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				inactiveNode->setMesh(_planeMeshDefault);
 				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0.675f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
@@ -298,7 +297,7 @@ void GridGenerator::GenerateNodeGraph() {
 			}
 			else
 			{
-				node = new Node(Node::TerrainTypes::normal, "Node");
+				node = new Node(Node::TerrainTypes::normal, _cubeMeshDefault, "Node");
 				node->setMaterial(normalMaterial);
 				node->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				node->setMesh(_cubeMeshDefault);

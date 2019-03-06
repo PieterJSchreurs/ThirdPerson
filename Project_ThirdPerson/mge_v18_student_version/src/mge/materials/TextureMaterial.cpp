@@ -50,12 +50,6 @@ void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 
     _shader->use();
 
-    //Print the number of lights in the scene and the position of the first light.
-    //It is not used, but this demo is just meant to show you THAT materials can access the lights in a world
-    //if (pWorld->getLightCount() > 0) {
-    //    std::cout << "TextureMaterial has discovered light is at position:" << pWorld->getLightAt(0)->getLocalPosition() << std::endl;
-    //}
-
     //setup texture slot 0
     glActiveTexture(GL_TEXTURE0);
     //bind the texture to the current active slot

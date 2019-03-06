@@ -9,7 +9,7 @@ PlayerController::PlayerController(std::vector<Ship*> pShips, GridGenerator* pGr
 	if (_myShips.size() > _currentShipIndex)
 	{
 		_currentShip = _myShips[_currentShipIndex];
-		SelectNextShip(1); //Switch ship once to apply the correct material.
+		SelectNextShip(1); //Switch ship once to apply the correct material._gridGenerator
 		std::cout << "Player has " << _myShips.size() << " ships." << std::endl;
 	}
 	else {
@@ -25,6 +25,7 @@ void PlayerController::ToggleIsActive() {
 	if (!_isActive)
 	{
 		_currentShip->setMaterial(_currentShip->GetBaseMaterial());
+		ToggleRangeIndicators(_currentShip, false);
 		TurnHandler::getInstance().ReduceTurnsLeft(1);
 		if (TurnHandler::getInstance().GetTurnsLeft() <= 0)
 		{
@@ -54,6 +55,7 @@ void PlayerController::ToggleIsActive() {
 		}
 		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
 		_currentShip->setMaterial(greenMaterial);
+		ToggleRangeIndicators(_currentShip, true);
 		for (int i = 0; i < _myShips.size(); i++)
 		{
 			_myShips[i]->HandleStartOfTurn();
@@ -68,13 +70,20 @@ void PlayerController::update(float pStep) {
 	_timer += pStep;
 	if (!_currentShip->HasPath()) //If you current ship is still moving to its destination (TODO: Or is doing any other action), block player input that affects that ship.
 	{
+		if (!_rangeIndicatorsActive && _isActive)
+		{
+			ToggleRangeIndicators(_currentShip, true);
+		}
 		if (_timer - _lastPlayerInput >= _playerInputDelay)
 		{
 			HandlePlayerInput(sf::Keyboard::Numpad0);
-			
 		}
 	}
 	else {
+		if (_rangeIndicatorsActive)
+		{
+			ToggleRangeIndicators(_currentShip, false);
+		}
 		_currentShip->moveToTargetWaypoint();
 	}
 	GameObject::update(pStep);
@@ -84,11 +93,15 @@ void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make 
 	if (_isActive)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) || pKey == sf::Keyboard::Q) {
+			ToggleRangeIndicators(_currentShip, false);
 			_currentShip->TurnOrientation(1);
+			ToggleRangeIndicators(_currentShip, true);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) || pKey == sf::Keyboard::E) {
+			ToggleRangeIndicators(_currentShip, false);
 			_currentShip->TurnOrientation(-1);
+			ToggleRangeIndicators(_currentShip, true);
 			_lastPlayerInput = _timer;
 		}
 
@@ -131,6 +144,7 @@ void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make 
 
 void PlayerController::SelectNextShip(int pDir) {
 	_currentShip->setMaterial(_currentShip->GetBaseMaterial());
+	ToggleRangeIndicators(_currentShip, false);
 
 	_currentShipIndex += pDir; // -1
 	int valHolder = _myShips.size();
@@ -150,6 +164,7 @@ void PlayerController::SelectNextShip(int pDir) {
 	{
 		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
 		_currentShip->setMaterial(greenMaterial);
+		ToggleRangeIndicators(_currentShip, true);
 	}
 	else { //If the newly selected ship has already sunk, select the next available ship instead.
 		SelectNextShip(pDir);
@@ -159,9 +174,94 @@ void PlayerController::SelectNextShip(int pDir) {
 void PlayerController::SelectShip(Ship* pShip)
 {
 	_currentShip->setMaterial(_currentShip->GetBaseMaterial());
+	ToggleRangeIndicators(_currentShip, false);
+
 	_currentShip = pShip;
 	AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
 	_currentShip->setMaterial(purpleMaterial);
+	ToggleRangeIndicators(_currentShip, true);
+}
+
+void PlayerController::ToggleRangeIndicators(Ship* pShip, bool pToggle) {
+	_rangeIndicatorsActive = pToggle;
+	Node* centerNode = pShip->GetCurrentNode();
+	if (pShip->GetOrientation().x != 0)
+	{
+		//Loop from ship tile out to cannonrange upwards.
+		for (int i = centerNode->GetGridY()+1; i <= centerNode->GetGridY()+pShip->GetCannonRange(); i++)
+		{
+			if (i >= 0 && i < _gridGenerator->getGridHeight())
+			{
+				if (_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->GetWalkable())
+				{
+					_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->SetTileGlow(pToggle);
+					//TODO: Place danger cube.
+				}
+				else {
+					break;
+				}
+			}
+			else {
+				break;
+			}
+		}
+		//Loop from ship tile out to cannonrange downwards.
+		for (int i = centerNode->GetGridY()-1; i >= centerNode->GetGridY()-pShip->GetCannonRange(); i--)
+		{
+			if (i >= 0 && i < _gridGenerator->getGridHeight())
+			{
+				if (_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->GetWalkable())
+				{
+					_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->SetTileGlow(pToggle);
+					//TODO: Place danger cube.
+				}
+				else {
+					break;
+				}
+			}
+			else {
+				break;
+			}
+		}
+	}
+	else {
+		//Loop from ship tile out to cannonrange to the right.
+		for (int i = centerNode->GetGridX() + 1; i <= centerNode->GetGridX() + pShip->GetCannonRange(); i++)
+		{
+			if (i >= 0 && i < _gridGenerator->getGridWidth())
+			{
+				if (_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->GetWalkable())
+				{
+					_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->SetTileGlow(pToggle);
+					//TODO: Place danger cube.
+				}
+				else {
+					break;
+				}
+			}
+			else {
+				break;
+			}
+		}
+		//Loop from ship tile out to cannonrange to the left.
+		for (int i = centerNode->GetGridX() - 1; i >= centerNode->GetGridX() - pShip->GetCannonRange(); i--)
+		{
+			if (i >= 0 && i < _gridGenerator->getGridWidth())
+			{
+				if (_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->GetWalkable())
+				{
+					_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->SetTileGlow(pToggle);
+					//TODO: Place danger cube.
+				}
+				else {
+					break;
+				}
+			}
+			else {
+				break;
+			}
+		}
+	}
 }
 
 PlayerController::~PlayerController() {

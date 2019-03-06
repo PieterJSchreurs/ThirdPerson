@@ -195,24 +195,9 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	//AudioManager::getInstance().loadSound("characterSounds.wav");
 
-	//MESHES
-
-	//load a bunch of meshes we will be using throughout this demo
-	//each mesh only has to be loaded once, but can be used multiple times:
-	//F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
-	//Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
-	//Mesh* cubeMeshF = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
-	//Mesh* suzannaMeshS = Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth.obj");
-	//Mesh* coneMeshS = Mesh::load(config::MGE_MODEL_PATH + "cone_smooth.obj");
-	//Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
-	//Mesh* sphereMesh2S = Mesh::load(config::MGE_MODEL_PATH + "sphere2.obj");
-
-	//MATERIALS
-
-
 	//SCENE SETUP
 	//add camera first (it will be updated last)
-	Camera* camera = new Camera("camera", glm::vec3(0, 30, 15));
+	Camera* camera = new Camera("camera", glm::vec3(0, 20, 10));
 	camera->rotate(glm::radians(-68.0f), glm::vec3(1, 0, 0));
 	_world->add(camera);
 	_world->setMainCamera(camera);

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  main.cpp
   AbstractBehaviour.cpp
   CameraMoveBehaviour.cpp
@@ -175,3 +176,11 @@ c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_
 c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(112): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
   Generating Code...
   mge.vcxproj -> C:\Users\Amadeo\Desktop\school\project third person\Git\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
+=======
+﻿  Node.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\node.cpp(119): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\node.cpp(134): warning C4018: '<': signed/unsigned mismatch
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
+  mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
+  mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)
+>>>>>>> 028cda4f9ce47ec6d196a4bcd235a74d72a94edb
