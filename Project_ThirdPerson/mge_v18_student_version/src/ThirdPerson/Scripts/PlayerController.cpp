@@ -70,7 +70,7 @@ void PlayerController::update(float pStep) {
 	{
 		if (_timer - _lastPlayerInput >= _playerInputDelay)
 		{
-			HandlePlayerInput();
+			HandlePlayerInput(sf::Keyboard::Numpad0);
 			
 		}
 	}
@@ -80,31 +80,31 @@ void PlayerController::update(float pStep) {
 	GameObject::update(pStep);
 }
 
-void PlayerController::HandlePlayerInput() { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
+void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
 	if (_isActive)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) || pKey == sf::Keyboard::Q) {
 			_currentShip->TurnOrientation(1);
 			_lastPlayerInput = _timer;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) || pKey == sf::Keyboard::E) {
 			_currentShip->TurnOrientation(-1);
 			_lastPlayerInput = _timer;
 		}
 
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || pKey == sf::Keyboard::W) {
 			_currentShip->MoveShipInDir(glm::vec2(0, -1), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || pKey == sf::Keyboard::A) {
 			_currentShip->MoveShipInDir(glm::vec2(-1, 0), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || pKey == sf::Keyboard::S) {
 			_currentShip->MoveShipInDir(glm::vec2(0, 1), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || pKey == sf::Keyboard::D) {
 			_currentShip->MoveShipInDir(glm::vec2(1, 0), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}

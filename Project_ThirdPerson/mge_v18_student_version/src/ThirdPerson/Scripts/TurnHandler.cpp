@@ -6,9 +6,9 @@
 #include "ThirdPerson/config.hpp"
 
 
-void TurnHandler::SetValues(PlayerController* pPlayerController, AIController* pAIController, int pTurnAmount, int pCannonballAmount, GameObject* pCamera){
+void TurnHandler::SetValues(PlayerController* pPlayerController, AIController* pAIController, int pTurnAmount, int pCannonballAmount, GameObject* pCamera) {
 	_camera = pCamera;
-	
+
 	_playerController = pPlayerController;
 	_AIController = pAIController;
 
@@ -16,6 +16,8 @@ void TurnHandler::SetValues(PlayerController* pPlayerController, AIController* p
 	_cannonballAmount = pCannonballAmount;
 	_turnsLeft = _turnAmount;
 	_cannonballsLeft = _cannonballAmount;
+	_maxShots = _cannonballsLeft;
+	_maxTurns = _turnAmount;
 
 	_planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
 	_turnIndicator = new GameObject("Turn indicator");
@@ -25,7 +27,7 @@ void TurnHandler::SetValues(PlayerController* pPlayerController, AIController* p
 	_camera->add(_turnIndicator);
 	_turnIndicator->setLocalPosition(glm::vec3(0, 0, -0.25f));
 	_initialized = true;
-	
+
 }
 
 bool TurnHandler::GetIsInitialized()
@@ -98,6 +100,16 @@ TurnHandler::~TurnHandler() {
 	{
 		std::cout << "Trying to destroy the instance." << std::endl;
 	}
+}
+
+int TurnHandler::GetMaxValueTurns()
+{
+	return _maxTurns;
+}
+
+int TurnHandler::GetMaxValueShots()
+{
+	return _maxShots;
 }
 
 

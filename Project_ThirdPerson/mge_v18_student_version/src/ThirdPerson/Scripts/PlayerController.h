@@ -3,6 +3,7 @@
 
 #include "glm.hpp"
 #include "ThirdPerson/Scripts/GridGenerator.h"
+#include <SFML/Window/Keyboard.hpp>
 #include "mge/core/GameObject.hpp"
 
 /**
@@ -17,7 +18,7 @@ public:
 	virtual ~PlayerController();
 	virtual void update(float pStep);
 	void PlayerController::SelectShip(Ship* pShip);
-	void HandlePlayerInput();
+	void HandlePlayerInput(sf::Keyboard::Key pKey);
 
 	void ToggleIsActive();
 	bool GetIsActive();

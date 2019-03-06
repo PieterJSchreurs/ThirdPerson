@@ -41,6 +41,8 @@ public:
 	int GetCannonballsLeft();
 	void ReduceTurnsLeft(int pAmount);
 	int GetTurnsLeft();
+	int GetMaxValueTurns();
+	int GetMaxValueShots();
 	bool GetIsInitialized();
 
 private:
@@ -59,7 +61,8 @@ private:
 	bool _initialized = false;
 	int _turnAmount;
 	int _cannonballAmount;
-
+	int _maxTurns;
+	int _maxShots;
 	int _turnsLeft;
 	int _cannonballsLeft;
 
