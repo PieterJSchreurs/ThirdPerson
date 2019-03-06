@@ -37,6 +37,13 @@ void UIHandler::InitializeUI()
 	_flagBackground.setTexture(_textureMoveBackground);
 	_flagBackground.setPosition(_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x, 0);
 	_spritesToDraw.push_back(_flagBackground);
+	//Movement left text
+	_movementLeftText.setFont(_font);
+	_movementLeftText.setCharacterSize(35);
+	_movementLeftText.setFillColor(sf::Color(139, 69, 19));
+	_movementLeftText.setString("");
+	_movementLeftText.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) + 35, (_flagBackground.getTexture()->getSize().y / 2) - 30);
+
 	//Arrow top.
 	_arrowTop.setTexture(_arrowTopTextureArray);
 	_arrowTop.setTextureRect(sf::IntRect(0, 0, _arrowTopTextureArray.getSize().x / 5, _arrowTopTextureArray.getSize().y));
@@ -65,7 +72,7 @@ void UIHandler::InitializeUI()
 	//Compass
 	_compassShooting.setTexture(_compassShootingTextureArray);
 	_compassShooting.setTextureRect(sf::IntRect((_compassShootingTextureArray.getSize().x / 4) * 2, 0, _compassShootingTextureArray.getSize().x / 4, _compassShootingTextureArray.getSize().y));
-	_compassShooting.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) - 20, (_flagBackground.getTexture()->getSize().y / 2) - 50);
+	_compassShooting.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) - 10, (_flagBackground.getTexture()->getSize().y / 2) - 60);
 	_spritesToDraw.push_back(_compassShooting);
 	//Endturn
 	_endTurn.setTexture(_endTurnTextureArray);
@@ -87,100 +94,144 @@ void UIHandler::update(float pStep)
 			_clickedMouse = true;
 		}
 	}
-	//GameObject::update(pStep);
 	for (int i = 0; i < _spritesToDraw.size(); i++) {
 		sf::FloatRect spriteBounds = _spritesToDraw[i].getGlobalBounds();
 		//Hover
 		if ((mousePosOnScreen.x > spriteBounds.left && mousePosOnScreen.x < spriteBounds.left + spriteBounds.width) && (mousePosOnScreen.y > spriteBounds.top && mousePosOnScreen.y < spriteBounds.top + spriteBounds.height)) {
 			if (_spritesToDraw[i].getTexture() == &_arrowTopTextureArray) {
-				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-					_clickedMouse = false;
-					_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 2, 0, (_arrowTopTextureArray.getSize().x) / 5, _arrowTopTextureArray.getSize().y));
-					_playerController->HandlePlayerInput(sf::Keyboard::W);
-					_lastPlayerInput = _timer;
-
+				if (!_isInShootingMode) {
+					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+						_clickedMouse = false;
+						_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 2, 0, (_arrowTopTextureArray.getSize().x) / 5, _arrowTopTextureArray.getSize().y));
+						_playerController->HandlePlayerInput(sf::Keyboard::W);
+						_lastPlayerInput = _timer;
+					}
+					else {
+						if (_timer - _lastPlayerInput >= _playerInputDelay) {
+							_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 1, 0, (_arrowTopTextureArray.getSize().x) / 5, _arrowTopTextureArray.getSize().y));
+						}
+					}
 				}
 				else {
-					if (_timer - _lastPlayerInput >= _playerInputDelay) {
-						_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 1, 0, (_arrowTopTextureArray.getSize().x) / 5, _arrowTopTextureArray.getSize().y));
-					}
+					_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 3, 0, (_arrowTopTextureArray.getSize().x) / 5, _arrowTopTextureArray.getSize().y));
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowLeftTextureArray) {
-				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-					_clickedMouse = false;
-					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
-					_playerController->HandlePlayerInput(sf::Keyboard::A);
-					_lastPlayerInput = _timer;
+				if (!_isInShootingMode) {
+					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+						_clickedMouse = false;
+						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+						_playerController->HandlePlayerInput(sf::Keyboard::A);
+						_lastPlayerInput = _timer;
 
+					}
+					else {
+						if (_timer - _lastPlayerInput >= _playerInputDelay) {
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+						}
+					}
 				}
 				else {
-					if (_timer - _lastPlayerInput >= _playerInputDelay) {
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+						_playerController->HandlePlayerInput(sf::Keyboard::Z);
+						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+						_clickedMouse = false;
+						_lastPlayerInput = _timer;
+					}
+					else {
+						if (_timer - _lastPlayerInput >= _playerInputDelay) {
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+						}
 					}
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowRightTextureArray) {
-				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-					_clickedMouse = false;
-					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
-					_playerController->HandlePlayerInput(sf::Keyboard::D);
-					_lastPlayerInput = _timer;
+				if (!_isInShootingMode) {
+					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+						_clickedMouse = false;
+						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+						_playerController->HandlePlayerInput(sf::Keyboard::D);
+						_lastPlayerInput = _timer;
 
+					}
+					else {
+						if (_timer - _lastPlayerInput >= _playerInputDelay) {
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+						}
+					}
 				}
 				else {
-					if (_timer - _lastPlayerInput >= _playerInputDelay) {
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+						_playerController->HandlePlayerInput(sf::Keyboard::X);
+						_clickedMouse = false;
+						_lastPlayerInput = _timer;
+					}
+					else {
+						if (_timer - _lastPlayerInput >= _playerInputDelay) {
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+						}
 					}
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowRotateLeftTextureArray) {
-				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-					_clickedMouse = false;
-					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 4, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
-					_playerController->HandlePlayerInput(sf::Keyboard::Q);
-					_lastPlayerInput = _timer;
-
-				}
-				else {
-					if (_timer - _lastPlayerInput >= _playerInputDelay) {
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 3, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+				if (!_isInShootingMode) {
+					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+						_clickedMouse = false;
+						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 4, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+						_playerController->HandlePlayerInput(sf::Keyboard::Q);
+						_lastPlayerInput = _timer;
+					}
+					else {
+						if (_timer - _lastPlayerInput >= _playerInputDelay) {
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 3, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+						}
 					}
 				}
+				else {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 1, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+				}
+
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowRotateRightTextureArray) {
-				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-					_clickedMouse = false;
-					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 4, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
-					_playerController->HandlePlayerInput(sf::Keyboard::E);
-					_lastPlayerInput = _timer;
+				if (!_isInShootingMode) {
+					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+						_clickedMouse = false;
+						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 4, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
+						_playerController->HandlePlayerInput(sf::Keyboard::E);
+						_lastPlayerInput = _timer;
 
+					}
+					else {
+						if (_timer - _lastPlayerInput >= _playerInputDelay) {
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 3, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
+						}
+					}
 				}
 				else {
-					if (_timer - _lastPlayerInput >= _playerInputDelay) {
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 3, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
-					}
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 1, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_compassShootingTextureArray) {
 				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					_clickedMouse = false;
+					_lastPlayerInput = _timer;
 					if (_isInShootingMode) {
 						_isInShootingMode = false;
 						_spritesToDraw[i].setTextureRect(sf::IntRect((_compassShootingTextureArray.getSize().x / 4) * 2, 0, _compassShootingTextureArray.getSize().x / 4, _compassShootingTextureArray.getSize().y));
 					}
-					_isInShootingMode = true;
-					_spritesToDraw[i].setTextureRect(sf::IntRect((_compassShootingTextureArray.getSize().x / 4), 0, _compassShootingTextureArray.getSize().x / 4, _compassShootingTextureArray.getSize().y));
-					_lastPlayerInput = _timer;
+					else {
+						_isInShootingMode = true;
+						_spritesToDraw[i].setTextureRect(sf::IntRect((_compassShootingTextureArray.getSize().x / 4), 0, _compassShootingTextureArray.getSize().x / 4, _compassShootingTextureArray.getSize().y));
+					}
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_endTurnTextureArray) {
 				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					_clickedMouse = false;
 					_spritesToDraw[i].setTextureRect(sf::IntRect((_endTurnTextureArray.getSize().x / 4) * 2, 0, (_endTurnTextureArray.getSize().x) / 4, _endTurnTextureArray.getSize().y));
-					_playerController->HandlePlayerInput(sf::Keyboard::Space);
+					TurnHandler::getInstance().ToggleIsActive();
 					_lastPlayerInput = _timer;
-
 				}
 				else {
 					if (_timer - _lastPlayerInput >= _playerInputDelay) {
@@ -192,7 +243,12 @@ void UIHandler::update(float pStep)
 		//Reset if not hover
 		else {
 			if (_spritesToDraw[i].getTexture() == &_arrowTopTextureArray) {
-				_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _arrowTopTextureArray.getSize().x / 5, _arrowTopTextureArray.getSize().y));
+				if (!_isInShootingMode) {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _arrowTopTextureArray.getSize().x / 5, _arrowTopTextureArray.getSize().y));
+				}
+				else {
+					_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 3, 0, (_arrowTopTextureArray.getSize().x) / 5, _arrowTopTextureArray.getSize().y));
+				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowLeftTextureArray) {
 				_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4), _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
@@ -201,13 +257,20 @@ void UIHandler::update(float pStep)
 				_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4), _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowRotateLeftTextureArray) {
-				_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 2, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+				if (!_isInShootingMode) {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 2, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+				}
+				else {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 1, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowRotateRightTextureArray) {
-				_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 2, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
-			}
-			if (_spritesToDraw[i].getTexture() == &_compassShootingTextureArray) {
-				_spritesToDraw[i].setTextureRect(sf::IntRect((_compassShootingTextureArray.getSize().x / 4) * 2, 0, _compassShootingTextureArray.getSize().x / 4, _compassShootingTextureArray.getSize().y));
+				if (!_isInShootingMode) {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 2, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
+				}
+				else {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 1, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
+				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_endTurnTextureArray) {
 				_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _endTurnTextureArray.getSize().x / 4, _endTurnTextureArray.getSize().y));
@@ -222,6 +285,9 @@ void UIHandler::update(float pStep)
 	}
 	_renderWindow->draw(_turnText);
 	_renderWindow->draw(_playerNameText);
+	if (!_isInShootingMode) {
+		_renderWindow->draw(_movementLeftText);
+	}
 	_renderWindow->popGLStates();
 }
 
@@ -231,7 +297,9 @@ void UIHandler::SetPlayerText()
 	int cannonBallsLeft = TurnHandler::getInstance().GetCannonballsLeft();
 	std::string text = "Turns \t:" + std::to_string(turnsLeft) + " / " + std::to_string(TurnHandler::getInstance().GetMaxValueTurns())
 		+ "\nShots left \t:" + std::to_string(cannonBallsLeft) + " / " + std::to_string(TurnHandler::getInstance().GetMaxValueShots());
-
+	int movesRemaining = _playerController->GetMovesRemaining();
+	//See if movesremaining is 0.
+	_movementLeftText.setString(std::to_string(movesRemaining));
 	_turnText.setString(text);
 }
 

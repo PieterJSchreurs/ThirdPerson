@@ -29,6 +29,7 @@ private:
 	sf::Font _font;
 	sf::Text _turnText;
 	sf::Text _playerNameText;
+	sf::Text _movementLeftText;
 	sf::RenderWindow* _renderWindow;
 	std::vector<sf::Sprite> _spritesToDraw;
 	std::vector<sf::Sprite> _buttons;

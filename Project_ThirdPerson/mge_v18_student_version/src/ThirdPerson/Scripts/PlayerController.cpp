@@ -93,19 +93,22 @@ void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make 
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || pKey == sf::Keyboard::W) {
-			_currentShip->MoveShipInDir(glm::vec2(0, -1), _gridGenerator);
+			glm::vec2 directionVec = _currentShip->GetOrientation();
+			_currentShip->MoveShipInDir(directionVec, _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || pKey == sf::Keyboard::A) {
-			_currentShip->MoveShipInDir(glm::vec2(-1, 0), _gridGenerator);
+			glm::vec2 directionVec = _currentShip->GetOrientation();
+			_currentShip->MoveShipInDir(glm::vec2(directionVec.y, -directionVec.x), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || pKey == sf::Keyboard::S) {
-			_currentShip->MoveShipInDir(glm::vec2(0, 1), _gridGenerator);
+			_currentShip->MoveShipInDir(glm::vec2(0,-1), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || pKey == sf::Keyboard::D) {
-			_currentShip->MoveShipInDir(glm::vec2(1, 0), _gridGenerator);
+			glm::vec2 directionVec = _currentShip->GetOrientation();
+			_currentShip->MoveShipInDir(glm::vec2(-directionVec.y, directionVec.x), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 
@@ -118,16 +121,17 @@ void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make 
 			_lastPlayerInput = _timer;
 		}
 
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) || pKey == sf::Keyboard::Z) {
 			_currentShip->ShootInDir(glm::vec2(_currentShip->GetOrientation().y, -_currentShip->GetOrientation().x), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) ||  pKey == sf::Keyboard::X) {
 			_currentShip->ShootInDir(glm::vec2(-_currentShip->GetOrientation().y, _currentShip->GetOrientation().x), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 	}
 }
+
 
 void PlayerController::SelectNextShip(int pDir) {
 	_currentShip->setMaterial(_currentShip->GetBaseMaterial());
@@ -162,6 +166,10 @@ void PlayerController::SelectShip(Ship* pShip)
 	_currentShip = pShip;
 	AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
 	_currentShip->setMaterial(purpleMaterial);
+}
+
+int PlayerController::GetMovesRemaining(){
+	return _currentShip->GetMovesRemaining();
 }
 
 PlayerController::~PlayerController() {
