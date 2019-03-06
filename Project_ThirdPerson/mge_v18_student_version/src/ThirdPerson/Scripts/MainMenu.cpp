@@ -22,6 +22,8 @@ MainMenu::~MainMenu()
 
 void MainMenu::update(float pStep)
 {
+	glActiveTexture(GL_TEXTURE0);
+	_renderWindow->pushGLStates();
 	for each (sf::Sprite pSprite in _spritesToDraw)
 	{
 		_renderWindow->draw(pSprite);
@@ -30,6 +32,7 @@ void MainMenu::update(float pStep)
 	{
 		_renderWindow->draw(pText);
 	}
+	_renderWindow->popGLStates();
 	if (!_isLevelLoading)
 	{
 		if (_timer - _lastPlayerInput >= _playerInputDelay)
@@ -110,6 +113,10 @@ void MainMenu::FillMainMenu()
 void MainMenu::LoadScene(std::string pString)
 {
 	_thirdPerson->loadLevel(pString);
+
+	getParent()->remove(this);
+	delete this;
+
 }
 
 void MainMenu::HandleClick()

@@ -215,11 +215,14 @@ void UIHandler::update(float pStep)
 		}
 	}
 
+	glActiveTexture(GL_TEXTURE0);
+	_renderWindow->pushGLStates();
 	for each (sf::Sprite pSprite in _spritesToDraw) {
 		_renderWindow->draw(pSprite);
 	}
 	_renderWindow->draw(_turnText);
 	_renderWindow->draw(_playerNameText);
+	_renderWindow->popGLStates();
 }
 
 void UIHandler::SetPlayerText()

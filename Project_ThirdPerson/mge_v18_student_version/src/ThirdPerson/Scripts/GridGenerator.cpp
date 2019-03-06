@@ -42,13 +42,13 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 	_sandTilesCorner[1] = _sandTileCorner2 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Corner_2.obj");
 	_sandTilesCorner[2] = _sandTileCorner3 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Corner_3.obj");
 
-	_harbourTiles[0] = _harbourTile1 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Bottom_Left.obj");
-	_harbourTiles[1] = _harbourTile2 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Middle_Left.obj");
-	_harbourTiles[2] = _harbourTile3 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Top_Left.obj");
-	_harbourTiles[3] = _harbourTile4 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Top_Middle.obj");
-	_harbourTiles[4] = _harbourTile5 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Top_Right.obj");
-	_harbourTiles[5] = _harbourTile6 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Middle_Right.obj");
-	_harbourTiles[6] = _harbourTile7 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Bottom_Right.obj");
+	_harborTiles[0] = _harborTile1 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Bottom_Left.obj");
+	_harborTiles[1] = _harborTile2 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Middle_Left.obj");
+	_harborTiles[2] = _harborTile3 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Top_Left.obj");
+	_harborTiles[3] = _harborTile4 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Top_Middle.obj");
+	_harborTiles[4] = _harborTile5 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Top_Right.obj");
+	_harborTiles[5] = _harborTile6 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Middle_Right.obj");
+	_harborTiles[6] = _harborTile7 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Bottom_Right.obj");
 
 	_obstacleTiles[0] = _obstacleTile1 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_1.obj");
 	_obstacleTiles[1] = _obstacleTile2 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_2.obj");
@@ -59,7 +59,7 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 	_obstacleTiles[5] = _obstacleTile7 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_7.obj");
 	_obstacleTiles[6] = _obstacleTile8 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_8.obj");
 	_obstacleTiles[7] = _obstacleTile9 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_9.obj");
-	
+
 	_treasureIslandTile = Mesh::load(config::MGE_MODEL_PATH + "Treasure_Island.obj");
 
 	_planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj");
@@ -91,7 +91,7 @@ void GridGenerator::GenerateNodeGraph() {
 
 	while (std::getline(myBaseFile, line)) { //Get the next line from our file.
 		std::istringstream s(line); //Put the line into a string stream
-		// Read the file.
+									// Read the file.
 		while (s >> id) //Get the next character in our line
 		{
 			if (id != divider) //Filter out all the divider characters.
@@ -214,17 +214,35 @@ void GridGenerator::GenerateNodeGraph() {
 	AbstractMaterial* islandMaterialStraight = new LitMaterial(glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* islandMaterialInverseCorner = new LitMaterial(glm::vec3(0.25f, 0.25f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* islandMaterialFull = new LitMaterial(glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* harborMaterial = new LitMaterial(glm::vec3(0.5f, 0.35f, 0.15f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* bigShipMaterial = new LitMaterial(glm::vec3(0.55f, 0.41f, 0.211f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* smallShipMaterial = new LitMaterial(glm::vec3(0.65f, 0.5f, 0.3f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* enemyShipMaterial = new LitMaterial(glm::vec3(0.8f, 0.45f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	AbstractMaterial* treasureMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+
+	_obstacleMaterials[0] = _obstacleMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_1.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[1] = _obstacleMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_2.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[2] = _obstacleMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_3.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[3] = _obstacleMaterial4 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_4.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[4] = _obstacleMaterial5 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_5.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[5] = _obstacleMaterial6 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_6.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[6] = _obstacleMaterial7 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_7.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[7] = _obstacleMaterial8 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_8.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[8] = _obstacleMaterial9 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_9.png"), glm::vec3(1, 1, 1), 0.25f);
+
+	_harborMaterials[0] = _harborMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Bottom_Left.png"), glm::vec3(1, 1, 1), 0.25f);
+	_harborMaterials[1] = _harborMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Middle_Left.png"), glm::vec3(1, 1, 1), 0.25f);
+	_harborMaterials[2] = _harborMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Top_Left.png"), glm::vec3(1, 1, 1), 0.25f);
+	_harborMaterials[3] = _harborMaterial4 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Top_Middle.png"), glm::vec3(1, 1, 1), 0.25f);
+	_harborMaterials[4] = _harborMaterial5 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Top_Right.png"), glm::vec3(1, 1, 1), 0.25f);
+	_harborMaterials[5] = _harborMaterial6 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Middle_Right.png"), glm::vec3(1, 1, 1), 0.25f);
+	_harborMaterials[6] = _harborMaterial7 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Bottom_Right.png"), glm::vec3(1, 1, 1), 0.25f);
+
+	_mainShipMaterial = new LitMaterial(glm::vec3(0.55f, 0.41f, 0.211f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+	_smallShipMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Small_Ship.png"), glm::vec3(1, 1, 1), 0.25f);
+	_enemyShipMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemy_Ship.png"), glm::vec3(1, 1, 1), 0.25f);
+	_treasureIslandMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* goalMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 
 
 	//create a new node world to and nodes to
 	_nodeWorld = new NodeWorld();
-	
+
 	//_tileWorld->setLocalPosition(glm::vec3(-_tileWorld.columns() * _tileWorld.tileSize() + (_tileWorld.tileSize()/1.5f), 0, -_tileWorld.rows() * _tileWorld.tileSize() + (_tileWorld.tileSize() / 1.5f)));
 	_tileWorld.add(_nodeWorld);
 
@@ -265,7 +283,7 @@ void GridGenerator::GenerateNodeGraph() {
 			else if (nmbr == 1) //Harbor tile at half height, add an inactive water tile at height 0
 			{
 				node = new Node(Node::TerrainTypes::harbor, false, "Harbor");
-				node->scale(glm::vec3(_tileWorld.tileSize()*2, _tileWorld.tileSize()*2, _tileWorld.tileSize()*2));
+				node->scale(glm::vec3(_tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2));
 				PlaceCorrectHarborNode(node, column, row, baseTiles);
 
 				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), _tileWorld.tileSize(), row * (_tileWorld.tileSize() * 2.0f + _tileGap)));//TODO: How high should these tiles be placed?
@@ -315,7 +333,7 @@ void GridGenerator::GenerateNodeGraph() {
 			int minNodeRow = glm::max(0, row - 1);//1
 			int maxNodeRow = glm::min(_tileWorld.rows() - 1, row + 1);//3
 
-			//loop through all neighbouring connections and add them
+																	  //loop through all neighbouring connections and add them
 			for (int nodeColumn = minNodeColumn; nodeColumn <= maxNodeColumn; nodeColumn++) {
 				for (int nodeRow = minNodeRow; nodeRow <= maxNodeRow; nodeRow++) {
 					//skip center node (that's us) and null nodes (they arent walkable)
@@ -346,7 +364,7 @@ void GridGenerator::GenerateNodeGraph() {
 			{
 				gridObj = new TreasureObject(_nodeCache[column][row], GetAllNodes(), "TreasureObject");
 				//node = new Node(Node::TerrainTypes::plain, "Node");
-				gridObj->setMaterial(treasureMaterial);
+				gridObj->setMaterial(_treasureIslandMaterial);
 				gridObj->setMesh(_treasureIslandTile);
 				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 			}
@@ -378,7 +396,7 @@ void GridGenerator::GenerateNodeGraph() {
 				{
 					shipRef->SetOrientation(glm::vec2(1, 0), true);
 				}
-				gridObj->setMaterial(bigShipMaterial);
+				gridObj->setMaterial(_mainShipMaterial);
 				gridObj->setMesh(_mainShip);
 				gridObj->scale(glm::vec3(_tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2));
 
@@ -404,7 +422,7 @@ void GridGenerator::GenerateNodeGraph() {
 				{
 					shipRef->SetOrientation(glm::vec2(-1, 0), true);
 				}
-				gridObj->setMaterial(smallShipMaterial);
+				gridObj->setMaterial(_smallShipMaterial);
 				gridObj->setMesh(_smallShip);
 				gridObj->scale(glm::vec3(_tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2));
 
@@ -430,7 +448,7 @@ void GridGenerator::GenerateNodeGraph() {
 				{
 					shipRef->SetOrientation(glm::vec2(1, 0), true);
 				}
-				gridObj->setMaterial(enemyShipMaterial);
+				gridObj->setMaterial(_enemyShipMaterial);
 				gridObj->setMesh(_enemyShip);
 				gridObj->scale(glm::vec3(_tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2, _tileWorld.tileSize() * 2));
 
@@ -475,7 +493,7 @@ GridGenerator::neighbourTiles GridGenerator::getNeighbourTiles(int pNodeX, int p
 	int minNodeRow = glm::max(-1, pNodeY - 1);//1
 	int maxNodeRow = glm::min(_tileWorld.rows(), pNodeY + 1);//3
 
-	//loop through all neighbouring nodes
+															 //loop through all neighbouring nodes
 	for (int nodeColumn = minNodeColumn; nodeColumn <= maxNodeColumn; nodeColumn++) {
 		for (int nodeRow = minNodeRow; nodeRow <= maxNodeRow; nodeRow++) {
 			//skip center node (that's us) and null nodes (they arent walkable)
@@ -541,18 +559,18 @@ GridGenerator::neighbourTiles GridGenerator::getNeighbourTiles(int pNodeX, int p
 	else if (tiles.GetTilesInARow(3, 1))
 	{
 		tiles._type = tileTypes::cornerTile;
-		tiles.SetDirection(tiles._directionIndex+1);
+		tiles.SetDirection(tiles._directionIndex + 1);
 	}
 
 	return tiles;
 }
 
 int GridGenerator::getDistanceFromHarborEntrance(int pNodeX, int pNodeY, std::vector<int> pAllNodes, int pCurrIndex, glm::vec2 pCurrDir) {
-	if (pAllNodes[(pNodeY+1) * _tileWorld.rows() + pNodeX] == Node::TerrainTypes::harbor && pCurrDir.y != -1) //Check down
+	if (pAllNodes[(pNodeY + 1) * _tileWorld.rows() + pNodeX] == Node::TerrainTypes::harbor && pCurrDir.y != -1) //Check down
 	{
-		if (pAllNodes[(pNodeY) * _tileWorld.rows() + pNodeX - 1] == Node::TerrainTypes::harbor && pCurrDir.x != 1)
+		if (pAllNodes[(pNodeY)* _tileWorld.rows() + pNodeX - 1] == Node::TerrainTypes::harbor && pCurrDir.x != 1)
 		{
-			pCurrIndex = getDistanceFromHarborEntrance(pNodeX-1, pNodeY, pAllNodes, pCurrIndex + 1, glm::vec2(-1, 0));
+			pCurrIndex = getDistanceFromHarborEntrance(pNodeX - 1, pNodeY, pAllNodes, pCurrIndex + 1, glm::vec2(-1, 0));
 		}
 		else {
 			pCurrIndex = getDistanceFromHarborEntrance(pNodeX, pNodeY + 1, pAllNodes, pCurrIndex + 1, glm::vec2(0, 1));
@@ -561,13 +579,13 @@ int GridGenerator::getDistanceFromHarborEntrance(int pNodeX, int pNodeY, std::ve
 	else if (pAllNodes[(pNodeY + 1) * _tileWorld.rows() + pNodeX] != Node::TerrainTypes::harbor && pCurrIndex == 0) { //If the first node has no harbor tile below, he is index 1, so return immediately.
 		return pCurrIndex;
 	}
-	else if (pAllNodes[(pNodeY) * _tileWorld.rows() + pNodeX+1] == Node::TerrainTypes::harbor && pCurrDir.x != -1) //Check right
+	else if (pAllNodes[(pNodeY)* _tileWorld.rows() + pNodeX + 1] == Node::TerrainTypes::harbor && pCurrDir.x != -1) //Check right
 	{
-		pCurrIndex = getDistanceFromHarborEntrance(pNodeX+1, pNodeY, pAllNodes, pCurrIndex + 1, glm::vec2(1, 0));
+		pCurrIndex = getDistanceFromHarborEntrance(pNodeX + 1, pNodeY, pAllNodes, pCurrIndex + 1, glm::vec2(1, 0));
 	}
-	else if (pAllNodes[(pNodeY-1)* _tileWorld.rows() + pNodeX] == Node::TerrainTypes::harbor && pCurrDir.y != 1) //Check up
+	else if (pAllNodes[(pNodeY - 1)* _tileWorld.rows() + pNodeX] == Node::TerrainTypes::harbor && pCurrDir.y != 1) //Check up
 	{
-		pCurrIndex = getDistanceFromHarborEntrance(pNodeX, pNodeY-1, pAllNodes, pCurrIndex + 1, glm::vec2(0, -1));
+		pCurrIndex = getDistanceFromHarborEntrance(pNodeX, pNodeY - 1, pAllNodes, pCurrIndex + 1, glm::vec2(0, -1));
 	}
 	else if (pAllNodes[(pNodeY)* _tileWorld.rows() + pNodeX - 1] == Node::TerrainTypes::harbor && pCurrDir.x != 1) //Check left
 	{
@@ -579,7 +597,7 @@ int GridGenerator::getDistanceFromHarborEntrance(int pNodeX, int pNodeY, std::ve
 
 void GridGenerator::PlaceCorrectIslandNode(Node* pNode, int pColumn, int pRow, std::vector<int> pAllNodes) {
 	AbstractMaterial* islandMaterial = new LitMaterial(glm::vec3(0.75f, 0.75f, 0.75f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	
+
 	neighbourTiles neighbours = getNeighbourTiles(pColumn, pRow, pAllNodes, Node::TerrainTypes::island, Node::TerrainTypes::harbor);
 	int tileIndex = rand() % 3;
 	if (neighbours._type == tileTypes::fullTile)
@@ -591,8 +609,8 @@ void GridGenerator::PlaceCorrectIslandNode(Node* pNode, int pColumn, int pRow, s
 	{
 		pNode->setMaterial(islandMaterial);
 		pNode->setMesh(_sandTilesStraight[tileIndex]);
-		
-		pNode->setEulerAngles(glm::vec3(0,(90 * neighbours._direction.x) + glm::min(0.0f, 180 * neighbours._direction.y),0));
+
+		pNode->setEulerAngles(glm::vec3(0, (90 * neighbours._direction.x) + glm::min(0.0f, 180 * neighbours._direction.y), 0));
 	}
 	else if (neighbours._type == tileTypes::cornerTile)
 	{
@@ -611,7 +629,7 @@ void GridGenerator::PlaceCorrectIslandNode(Node* pNode, int pColumn, int pRow, s
 	else
 	{
 		tileIndex = rand() % 8;
-		pNode->setMaterial(islandMaterial);
+		pNode->setMaterial(_obstacleMaterials[tileIndex]);
 		pNode->setMesh(_obstacleTiles[tileIndex]);
 		pNode->setEulerAngles(glm::vec3(0, 90 * (rand() % 4), 0));
 	}
@@ -629,9 +647,9 @@ void GridGenerator::PlaceCorrectHarborNode(Node* pNode, int pColumn, int pRow, s
 		harborIndex = GetCorrectHarborIndex();
 	}
 
-	pNode->setMesh(_harbourTiles[harborIndex]);
-	AbstractMaterial* harborMaterial = new LitMaterial(glm::vec3(0.8f, 0.65f, 0.45f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	pNode->setMaterial(harborMaterial);
+	pNode->setMesh(_harborTiles[harborIndex]);
+	//AbstractMaterial* harborMaterial = new LitMaterial(glm::vec3(0.8f, 0.65f, 0.45f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+	pNode->setMaterial(_harborMaterials[harborIndex]);
 	_prevHarborIndex++;
 
 	neighbourTiles neighbours = getNeighbourTiles(pColumn, pRow, pAllNodes, Node::TerrainTypes::island, Node::TerrainTypes::harbor);
@@ -672,7 +690,7 @@ Node* GridGenerator::GetNodeAtTile(int pColumn, int pRow) {
 std::vector<Node*> GridGenerator::GetAllNodesOfType(Node::TerrainTypes type)
 {
 	std::vector<Node*> nodesOfType;
-	
+
 	for (int i = 0; i < _gridWidth; i++)
 	{
 		for (int j = 0; j < _gridHeight; j++)

@@ -212,7 +212,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	//SCENE SETUP
 	//add camera first (it will be updated last)
-	Camera* camera = new Camera("camera", glm::vec3(0, 40, 20));
+	Camera* camera = new Camera("camera", glm::vec3(0, 30, 15));
 	camera->rotate(glm::radians(-68.0f), glm::vec3(1, 0, 0));
 	_world->add(camera);
 	_world->setMainCamera(camera);
@@ -234,7 +234,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	AIController* myAIController = new AIController(_myGridGenerator->GetAIShips(), _myGridGenerator->GetPlayerShips(), _myGridGenerator, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myAIController);
 
-	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 5, 20, camera);
+	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 5, 20, _world->getMainCamera());
 
 	UIHandler* uiHandler = new UIHandler(_window, myPlayerController, "UIHandler");
 	_world->add(uiHandler);
