@@ -3,8 +3,17 @@
 #include "ThirdPerson/Scripts/StaticGridObject.h"
 #include "ThirdPerson/Scripts/MovingGridObject.h"
 
-Node::Node(TerrainTypes pTerrainMod, bool pWalkable, const std::string& pName, const glm::vec3& pPosition) :GameObject(pName, pPosition), _myTerrainType(pTerrainMod), _walkable(pWalkable)
+#include "mge/core/Mesh.hpp"
+#include "mge/core/Texture.hpp"
+#include "mge/materials/LitTextureMaterial.h"
+
+#include "ThirdPerson/config.hpp"
+
+Node::Node(TerrainTypes pTerrainMod, Mesh* pGlowCube, bool pWalkable, const std::string& pName, const glm::vec3& pPosition) :GameObject(pName, pPosition), _myTerrainType(pTerrainMod), _walkable(pWalkable)
 {
+	_myGlowCube = new GameObject("GlowCube");
+	_myGlowCube->setMesh(pGlowCube);
+
 	terrainCostModifier = glm::max((int)_myTerrainType, 1);
 }
 
@@ -61,6 +70,19 @@ bool Node::GetHasStaticObject() {
 }
 StaticGridObject* Node::GetStaticObject() {
 	return _myStaticObject;
+}
+
+void Node::SetTileGlow(bool pToggle, std::string pTexture) {
+	if (pToggle)
+	{
+		add(_myGlowCube);
+		_myGlowCube->setLocalPosition(glm::vec3(0, -0.65f, 0));
+		AbstractMaterial* glowCubeMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + pTexture), glm::vec3(1, 1, 1), 0.25f);
+		_myGlowCube->setMaterial(glowCubeMaterial);
+	}
+	else {
+		remove(_myGlowCube);
+	}
 }
 
 Node::TerrainTypes Node::GetTerrainType()

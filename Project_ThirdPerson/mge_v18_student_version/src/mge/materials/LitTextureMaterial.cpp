@@ -50,6 +50,9 @@ void LitTextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pMo
 
 	_shader->use();
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	//setup texture slot 0
 	glActiveTexture(GL_TEXTURE0);
 	//bind the texture to the current active slot
@@ -104,18 +107,6 @@ void LitTextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pMo
 	delete[](lightTypes);
 	delete[](lightDirections);
 	lights.empty();
-
-	//Print the number of lights in the scene and the position of the first light.
-	//It is not used, but this demo is just meant to show you THAT materials can access the lights in a world
-	//if (pWorld->getLightCount() > 0) {
-	//    std::cout << "LitTextureMaterial has discovered light is at position:" << pWorld->getLightAt(0)->getLocalPosition() << std::endl;
-	//}
-
-
-
-	//pass in a precalculate mvp matrix (see texture material for the opposite)
-	//glm::mat4 mvpMatrix = pProjectionMatrix * pViewMatrix * pModelMatrix;
-	//glUniformMatrix4fv(_uMVPMatrix, 1, GL_FALSE, glm::value_ptr(mvpMatrix));
 
 	//now inform mesh of where to stream its data
 	pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV);

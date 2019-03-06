@@ -1,15 +1,6 @@
-﻿  ThirdPerson.cpp
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(81): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(84): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(87): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(91): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(94): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(97): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(100): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(103): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(106): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(109): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(112): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+﻿  Node.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\node.cpp(119): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\node.cpp(134): warning C4018: '<': signed/unsigned mismatch
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
   mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)
