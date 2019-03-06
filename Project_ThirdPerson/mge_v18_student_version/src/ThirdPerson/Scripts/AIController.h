@@ -17,7 +17,11 @@ public:
 	virtual ~AIController();
 	virtual void update(float pStep);
 
-	void HandleInput();
+	void HandleShips();
+	bool MakeShipShoot();
+	void MoveShipToTarget();
+	void EndShipTurn();
+	void GiveShipMoves();
 	void ToggleIsActive();
 	bool GetIsActive();
 
@@ -47,7 +51,7 @@ private:
 	void handleShipStartOfTurn(int pIndex);
 
 	std::vector<glm::vec2> CalculateLine(int pStartGridX, int pStartGridY, int pEndGridX, int pEndGridY);
-	bool HasLineOfSight(Ship* pFrom, Ship* pTo);
+	bool HasLineOfSight(Node* pFrom, Node* pTo);
 
 };
 

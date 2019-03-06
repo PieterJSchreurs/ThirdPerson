@@ -110,9 +110,7 @@ std::vector<Node*> MovingGridObject::GetPath(Node* pStartNode, Node* pEndNode, b
 		Node* node = pEndNode;
 		if (pEndNode->GetOccupied()) //If the end node is occupied.
 		{
-			std::cout << "The target node at " << node->GetGridX() << "-" << node->GetGridY() << " is occupied." << std::endl;
 			node = node->GetParentNode(); //Skip the end node, get the path to the closest node instead
-			std::cout << "Targeting node at " << node->GetGridX() << "-" << node->GetGridY() << " instead." << std::endl;
 		}
 
 		while (node != nullptr)
