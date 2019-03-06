@@ -31,7 +31,6 @@ void Ship::update(float pStep) {
 }
 
 void Ship::MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
-	std::cout << _movesRemaining << std::endl;
 	if (_movesRemaining > 0) //If the ship as movement left this turn
 	{
 		if (pDir.x > 0) //If the requested movement is to the east
@@ -80,18 +79,37 @@ void Ship::MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 		}
 	}
 	else { //If this ship has no moves remaining
-		if (_actionsRemaining > 0) //Check if it has an action left over to consume
+		ConsumeActionForMoves();
+		if (_movesRemaining > 0)
 		{
-			_actionsRemaining--;
-			_movesRemaining = _movesPerAction;
 			MoveShipInDir(pDir, pGridGen);
 		}
 	}
 }
 
-void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
-	if (!_shotThisTurn && _actionsRemaining > 0 && TurnHandler::getInstance().GetCannonballsLeft() > 0)
+void Ship::ConsumeActionForMoves() {
+	if (_actionsRemaining > 0) //Check if it has an action left over to consume
 	{
+		_actionsRemaining--;
+		_movesRemaining = _movesPerAction;
+	}
+	std::cout << "Ship has actions remaining: " << _actionsRemaining << std::endl;
+}
+
+void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
+	if (!_shotThisTurn && _actionsRemaining > 0)
+	{
+		if (!_isAI)
+		{
+			if (TurnHandler::getInstance().GetCannonballsLeft() > 0)
+			{
+				TurnHandler::getInstance().ReduceCannonballsLeft(1);
+			}
+			else 
+			{
+				return;
+			}
+		}
 		_shotThisTurn = false;
 		_actionsRemaining--;
 		_movesRemaining = 0;
@@ -104,11 +122,6 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 		add(_myCannonball);
 		_myCannonball->setLocalPosition(glm::vec3(0, 0.5f, 0));
 		_myCannonball->setBehaviour(new MoveBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), _cannonRange*0.1f));
-
-		if (!_isAI)
-		{
-			TurnHandler::getInstance().ReduceCannonballsLeft(1);
-		}
 
 		for (int i = 1; i <= _cannonRange; i++)
 		{
@@ -147,15 +160,14 @@ void Ship::TurnOrientation(int pDir) {
 		_movesRemaining--;
 	}
 	else if(_actionsRemaining > 0) {
-		_actionsRemaining--;
-		_movesRemaining = _movesPerAction;
+		ConsumeActionForMoves();
 		TurnOrientation(pDir);
 	}
 }
 
 bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, glm::vec3 pEulerAngles)
 {
-	std::cout << "This is the incoming coordinate" << pCoordinates << "\t This is the scale" << pScale << std::endl;
+	//std::cout << "This is the incoming coordinate" << pCoordinates << "\t This is the scale" << pScale << std::endl;
 	//This is slow, change it later.
 	glm::vec3 myPosition = getWorldPosition();
 	pCoordinates *= pScale;
@@ -196,6 +208,20 @@ void Ship::HandleStartOfTurn() {
 	_actionsRemaining = _actionsPerTurn;
 	_movesRemaining = 0;
 	_shotThisTurn = false;
+}
+
+int Ship::GetActionsRemaining() {
+	return _actionsRemaining;
+}
+int Ship::GetMovesRemaining() {
+	return _movesRemaining;
+}
+
+int Ship::GetCannonRange() {
+	return _cannonRange;
+}
+int Ship::GetMovesPerAction() {
+	return _movesPerAction;
 }
 
 //DESTRUCTOR___________________________________________________________

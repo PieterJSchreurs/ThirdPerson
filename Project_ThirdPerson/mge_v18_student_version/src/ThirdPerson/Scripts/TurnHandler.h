@@ -5,6 +5,7 @@
 #include "ThirdPerson/Scripts/GridGenerator.h"
 #include "mge/core/GameObject.hpp"
 #include "ThirdPerson/Scripts/PlayerController.h"
+#include "ThirdPerson/Scripts/AIController.h"
 #include "mge/core/Mesh.hpp"
 
 /**
@@ -30,7 +31,7 @@ public:
 	~TurnHandler();
 	void update(float pStep);
 
-	void SetValues(PlayerController* pPlayerController, PlayerController* pAIController, int pTurnAmount, int pCannonballAmount, GameObject* pWorld);
+	void SetValues(PlayerController* pPlayerController, AIController* pAIController, int pTurnAmount, int pCannonballAmount, GameObject* pWorld);
 
 	void HandlePlayerInput();
 	void ToggleIsActive();
@@ -40,6 +41,9 @@ public:
 	int GetCannonballsLeft();
 	void ReduceTurnsLeft(int pAmount);
 	int GetTurnsLeft();
+	int GetMaxValueTurns();
+	int GetMaxValueShots();
+	bool GetIsInitialized();
 
 private:
 	TurnHandler() {}
@@ -51,13 +55,14 @@ private:
 	float _lastPlayerInput = 0;
 
 	PlayerController* _playerController;
-	PlayerController* _AIController;
+	AIController* _AIController;
 
 	bool _playerCollectedTreasure = false;
-
+	bool _initialized = false;
 	int _turnAmount;
 	int _cannonballAmount;
-
+	int _maxTurns;
+	int _maxShots;
 	int _turnsLeft;
 	int _cannonballsLeft;
 

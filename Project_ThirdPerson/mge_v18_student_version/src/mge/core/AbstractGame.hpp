@@ -53,6 +53,7 @@ class AbstractGame
 		sf::RenderWindow* _window;  //sfml window to render into
 		Renderer* _renderer;        //the renderer class to render the world
 		World* _world;              //the root game object that represents our scene
+		World* _worldMainMenu;		//The world for main menu
 		float _fps;                 //stores the real fps
 
     private:

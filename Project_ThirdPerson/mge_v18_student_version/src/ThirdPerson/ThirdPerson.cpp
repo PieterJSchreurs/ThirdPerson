@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <Windows.h>
+#include "mge/util/AudioManager.h"
 
 #include "glm.hpp"
 
@@ -29,6 +30,7 @@
 #include "mge/behaviours/SpawnerBehaviour.h"
 #include "mge/behaviours/MoveBehaviour.h"
 
+#include "ThirdPerson/Scripts/MainMenu.h"
 #include "mge/util/DebugHud.hpp"
 
 #include "ThirdPerson/Scripts/Node.h"
@@ -41,6 +43,7 @@
 #include "ThirdPerson/Scripts/PlayerController.h"
 #include "ThirdPerson/Scripts/AIController.h"
 #include "ThirdPerson/Scripts/MouseInputHandler.h"
+#include "ThirdPerson/Scripts/UIHandler.h"
 
 #include "ThirdPerson/config.hpp"
 #include "ThirdPerson/ThirdPerson.hpp"
@@ -64,6 +67,7 @@ void ThirdPerson::initialize() {
 }
 
 void ThirdPerson::initializeGameplayValues() {
+
 	lua_State* lua = luaL_newstate();												//Initialize our lua thread.
 	luaL_openlibs(lua);																//Load the standard libraries
 
@@ -151,12 +155,34 @@ std::vector<std::string> getAllFileNamesInFolder(std::string folder)
 
 void ThirdPerson::_update(float pStep) {
 	AbstractGame::_update(pStep);
-	TurnHandler::getInstance().update(pStep);
+	if (TurnHandler::getInstance().GetIsInitialized())
+	{
+		TurnHandler::getInstance().update(pStep);
+	}
+	AudioManager::getInstance().update(pStep);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) { //Restart the current level (TODO: Garbage collection is not correct, memory is not freed correctly.)
 		destroyLevel();
 		loadLevel();
 	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
+
+		AudioManager::getInstance().playSound("characterSounds.wav");
+	}
+}
+
+void ThirdPerson::InitializeMainMenu()
+{
+	Camera* camera = new Camera("camera", glm::vec3(0, 0, 0));
+	camera->rotate(glm::radians(0.0f), glm::vec3(0, 0, 0));
+	_world->add(camera);
+	_world->setMainCamera(camera);
+	
+	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
+	MainMenu* mainMenu = new MainMenu(this, _window, fileNames, "MainMenu");
+	_world->add(mainMenu);
+	std::cout << "Made menu" << std::endl;
 }
 
 void ThirdPerson::loadLevel(std::string pFileName) {
@@ -164,8 +190,10 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	{
 		_fileName = pFileName;
 	}
-	
+
 	_world = new World();
+
+	//AudioManager::getInstance().loadSound("characterSounds.wav");
 
 	//MESHES
 
@@ -184,7 +212,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	//SCENE SETUP
 	//add camera first (it will be updated last)
-	Camera* camera = new Camera("camera", glm::vec3(0, 20, 10));
+	Camera* camera = new Camera("camera", glm::vec3(0, 30, 15));
 	camera->rotate(glm::radians(-68.0f), glm::vec3(1, 0, 0));
 	_world->add(camera);
 	_world->setMainCamera(camera);
@@ -201,19 +229,22 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	_myGridGenerator->GenerateNodeGraph();
 
-	PlayerController* myPlayerController = new PlayerController(_myGridGenerator->GetPlayerShips(), _myGridGenerator, true, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+	PlayerController* myPlayerController = new PlayerController(_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myPlayerController);
-	PlayerController* myAIController = new PlayerController(_myGridGenerator->GetAIShips(), _myGridGenerator, false, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+	AIController* myAIController = new AIController(_myGridGenerator->GetAIShips(), _myGridGenerator->GetPlayerShips(), _myGridGenerator, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myAIController);
 
+	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 5, 20, _world->getMainCamera());
 
-	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 5, 20, camera);
+	UIHandler* uiHandler = new UIHandler(_window, myPlayerController, "UIHandler");
+	_world->add(uiHandler);
 
 	MouseInputHandler* myMouseInputHandler = new MouseInputHandler(_window, _world, _myGridGenerator->GetPlayerShips(), myPlayerController, "", glm::vec3(0, 0, 0));
 	_world->add(myMouseInputHandler);
 
 	Light* light = new Light("light", glm::vec3(2, 1, 2), glm::vec3(0.75f, 0.75f, 0.75f), 0.75f, 0.65f, Light::LightType::Directional, glm::vec3(45, 135, 0));
 	_world->add(light);
+
 }
 
 void ThirdPerson::destroyLevel() {
@@ -224,26 +255,20 @@ void ThirdPerson::destroyLevel() {
 //build the game _world
 void ThirdPerson::_initializeScene()
 {
-
-	//LPCWSTR a;
-	//std::string s = config::MGE_AUDIO_PATH + "character sounds.wav";
-	//a = (LPCWSTR)s.c_str();
-	//PlaySound(a, NULL, SND_ASYNC);
-
 	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
-	
-	std::cout << std::endl << "\t" << "List of level files" << std::endl;
-	std::cout << "===================================" << std::endl;
-	for (int i = 0; i < fileNames.size(); i++)
-	{
-		std::cout << fileNames[i].substr(0, fileNames[i].length() - 14) << std::endl; //Removes the _BaseTiles.csv extension.
-	}
-	std::cout << "===================================" << std::endl << std::endl;
+	InitializeMainMenu();
+	//std::cout << std::endl << "\t" << "List of level files" << std::endl;
+	//std::cout << "===================================" << std::endl;
+	//for (int i = 0; i < fileNames.size(); i++)
+	//{
+	//	std::cout << fileNames[i].substr(0, fileNames[i].length() - 14) << std::endl; //Removes the _BaseTiles.csv extension.
+	//}
+	//std::cout << "===================================" << std::endl << std::endl;
 
-	std::cout << "Please type the file name of the level you want to load below, press enter to confirm." << std::endl;
-	std::cin >> _fileName;
+	//std::cout << "Please type the file name of the level you want to load below, press enter to confirm." << std::endl;
+	//std::cin >> _fileName;
 
-	loadLevel();
+	//loadLevel();
 }
 
 void ThirdPerson::_render() {

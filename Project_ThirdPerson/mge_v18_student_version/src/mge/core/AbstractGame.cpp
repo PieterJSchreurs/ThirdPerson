@@ -17,6 +17,7 @@ AbstractGame::~AbstractGame()
     delete _window;
     delete _renderer;
     delete _world;
+	delete _worldMainMenu;
 }
 
 void AbstractGame::initialize() {
@@ -35,7 +36,7 @@ void AbstractGame::initialize() {
 
 void AbstractGame::_initializeWindow() {
 	std::cout << "Initializing window..." << std::endl;
-	_window = new sf::RenderWindow( sf::VideoMode(1200,900), "My Game!", sf::Style::Default, sf::ContextSettings(24,8,0,3,3));
+	_window = new sf::RenderWindow( sf::VideoMode(1200,900), "My Game!", sf::Style::Default , sf::ContextSettings(24,8,0,3,3));
 	//_window->setVerticalSyncEnabled(true);
     std::cout << "Window initialized." << std::endl << std::endl;
 	//Place the mouse in the center of the window.
@@ -83,6 +84,7 @@ void AbstractGame::_initializeWorld() {
     //setup the world
 	std::cout << "Initializing world..." << std::endl;
 	_world = new World();
+	_worldMainMenu = new World();
     std::cout << "World initialized." << std::endl << std::endl;
 }
 
@@ -132,11 +134,17 @@ void AbstractGame::run()
 }
 
 void AbstractGame::_update(float pStep) {
-    _world->update(pStep);
+	if (_world != nullptr)
+	{
+		_world->update(pStep);
+	}
 }
 
 void AbstractGame::_render () {
-    _renderer->render(_world);
+	if (_world != nullptr)
+	{
+		_renderer->render(_world);
+	}
 }
 
 void AbstractGame::_processEvents()

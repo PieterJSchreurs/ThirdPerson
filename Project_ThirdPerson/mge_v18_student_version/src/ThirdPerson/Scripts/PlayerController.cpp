@@ -1,28 +1,22 @@
 #include "ThirdPerson/Scripts/PlayerController.h"
-//#include "mge/core/World.hpp"
 #include <SFML/Window/Keyboard.hpp>
 #include "ThirdPerson/Scripts/TurnHandler.h"
 
 #include "mge/materials/LitMaterial.h"
 
-PlayerController::PlayerController(std::vector<Ship*> pShips, GridGenerator* pGridGen, bool pIsPlayer, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _myShips(pShips), _gridGenerator(pGridGen), _isPlayer(pIsPlayer)
+PlayerController::PlayerController(std::vector<Ship*> pShips, GridGenerator* pGridGen, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _myShips(pShips), _gridGenerator(pGridGen)
 {
 	if (_myShips.size() > _currentShipIndex)
 	{
 		_currentShip = _myShips[_currentShipIndex];
-		if (pIsPlayer) {
-			SelectNextShip(1); //Switch ship once to apply the correct material.
-		}
+		SelectNextShip(1); //Switch ship once to apply the correct material.
 		std::cout << "Player has " << _myShips.size() << " ships." << std::endl;
 	}
 	else {
 		std::cout << "There were no ships passed into the PlayerController." << std::endl;
 	}
 
-	if (pIsPlayer)
-	{
-		ToggleIsActive();
-	}
+	ToggleIsActive();
 }
 
 void PlayerController::ToggleIsActive() {
@@ -31,13 +25,10 @@ void PlayerController::ToggleIsActive() {
 	if (!_isActive)
 	{
 		_currentShip->setMaterial(_currentShip->GetBaseMaterial());
-		if (_isPlayer) //At the end of the players turn, reduce the amount of turns left by 1.
+		TurnHandler::getInstance().ReduceTurnsLeft(1);
+		if (TurnHandler::getInstance().GetTurnsLeft() <= 0)
 		{
-			TurnHandler::getInstance().ReduceTurnsLeft(1);
-			if (TurnHandler::getInstance().GetTurnsLeft() <= 0)
-			{
-				std::cout << "The player has run out of turns, so he lost!" << std::endl;
-			}
+			std::cout << "The player has run out of turns, so he lost!" << std::endl;
 		}
 	}
 	else 
@@ -79,7 +70,7 @@ void PlayerController::update(float pStep) {
 	{
 		if (_timer - _lastPlayerInput >= _playerInputDelay)
 		{
-			HandlePlayerInput();
+			HandlePlayerInput(sf::Keyboard::Numpad0);
 			
 		}
 	}
@@ -89,31 +80,31 @@ void PlayerController::update(float pStep) {
 	GameObject::update(pStep);
 }
 
-void PlayerController::HandlePlayerInput() { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
+void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
 	if (_isActive)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) || pKey == sf::Keyboard::Q) {
 			_currentShip->TurnOrientation(1);
 			_lastPlayerInput = _timer;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) || pKey == sf::Keyboard::E) {
 			_currentShip->TurnOrientation(-1);
 			_lastPlayerInput = _timer;
 		}
 
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || pKey == sf::Keyboard::W) {
 			_currentShip->MoveShipInDir(glm::vec2(0, -1), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || pKey == sf::Keyboard::A) {
 			_currentShip->MoveShipInDir(glm::vec2(-1, 0), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || pKey == sf::Keyboard::S) {
 			_currentShip->MoveShipInDir(glm::vec2(0, 1), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || pKey == sf::Keyboard::D) {
 			_currentShip->MoveShipInDir(glm::vec2(1, 0), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}

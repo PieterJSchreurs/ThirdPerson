@@ -149,7 +149,7 @@ private:
 						}
 					}
 				}
-				else 
+				else
 				{
 					counter = 0;
 					cornerCounter = 0;
@@ -182,16 +182,24 @@ private:
 	Mesh* _sandTileCorner2;
 	Mesh* _sandTileCorner3;
 
-	Mesh* _harbourTiles[7];
-	Mesh* _harbourTile1;
-	Mesh* _harbourTile2;
-	Mesh* _harbourTile3;
-	Mesh* _harbourTile4;
-	Mesh* _harbourTile5;
-	Mesh* _harbourTile6;
-	Mesh* _harbourTile7;
+	Mesh* _harborTiles[7];
+	Mesh* _harborTile1;
+	Mesh* _harborTile2;
+	Mesh* _harborTile3;
+	Mesh* _harborTile4;
+	Mesh* _harborTile5;
+	Mesh* _harborTile6;
+	Mesh* _harborTile7;
+	AbstractMaterial* _harborMaterials[7];
+	AbstractMaterial* _harborMaterial1;
+	AbstractMaterial* _harborMaterial2;
+	AbstractMaterial* _harborMaterial3;
+	AbstractMaterial* _harborMaterial4;
+	AbstractMaterial* _harborMaterial5;
+	AbstractMaterial* _harborMaterial6;
+	AbstractMaterial* _harborMaterial7;
 
-	Mesh* _obstacleTiles[9];
+	Mesh* _obstacleTiles[8];
 	Mesh* _obstacleTile1;
 	Mesh* _obstacleTile2;
 	Mesh* _obstacleTile3;
@@ -201,12 +209,26 @@ private:
 	Mesh* _obstacleTile7;
 	Mesh* _obstacleTile8;
 	Mesh* _obstacleTile9;
+	AbstractMaterial* _obstacleMaterials[8];
+	AbstractMaterial* _obstacleMaterial1;
+	AbstractMaterial* _obstacleMaterial2;
+	AbstractMaterial* _obstacleMaterial3;
+	AbstractMaterial* _obstacleMaterial4;
+	AbstractMaterial* _obstacleMaterial5;
+	AbstractMaterial* _obstacleMaterial6;
+	AbstractMaterial* _obstacleMaterial7;
+	AbstractMaterial* _obstacleMaterial8;
+	AbstractMaterial* _obstacleMaterial9;
 
 	Mesh* _treasureIslandTile;
+	AbstractMaterial* _treasureIslandMaterial;
 
 	Mesh* _mainShip;
+	AbstractMaterial* _mainShipMaterial;
 	Mesh* _smallShip;
+	AbstractMaterial* _smallShipMaterial;
 	Mesh* _enemyShip;
+	AbstractMaterial* _enemyShipMaterial;
 
 	Mesh* _cubeMeshDefault;
 	Mesh* _cubeFullMeshDefault;

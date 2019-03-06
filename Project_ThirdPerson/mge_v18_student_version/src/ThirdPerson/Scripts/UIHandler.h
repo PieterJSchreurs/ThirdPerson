@@ -4,22 +4,60 @@
 #include "glm.hpp"
 #include "mge/core/GameObject.hpp"
 #include <SFML/Graphics.hpp>
-#include "mge/core/Camera.hpp"
+#include "ThirdPerson/Scripts/PlayerController.h"
+#include "ThirdPerson/Scripts/TurnHandler.h"
+#include "mge/core/Texture.hpp"
 
 class UIHandler : public GameObject
 {
 public:
 
-	UIHandler(sf::RenderWindow* pWindow, const std::string & aName, const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	UIHandler(sf::RenderWindow* pWindow, PlayerController* pPlayerController, const std::string & aName, const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~UIHandler();
+	virtual void update(float pStep);
 
 private:
+	float _test = 0;
+	float _timer = 0;
+	float _playerInputDelay = 0.5f;
+	float _lastPlayerInput = 0;
+	bool _clickedMouse = false;
+	bool _isInShootingMode = false;
 
-	sf::RenderWindow* _window;
-	sf::Sprite _sprite;
-	sf::Texture _texture;
+	PlayerController* _playerController;
 
-	//void createSprite(sf::Sprite* pSprite, float xCoordinate, float yCoordinate);
+	sf::Font _font;
+	sf::Text _turnText;
+	sf::Text _playerNameText;
+	sf::RenderWindow* _renderWindow;
+	std::vector<sf::Sprite> _spritesToDraw;
+	std::vector<sf::Sprite> _buttons;
+	sf::Sprite _flagBackground;
+	sf::Sprite _playerBackground;
+	sf::Sprite _playerIcon;
+	sf::Texture _texturePlayerIcon;
+	sf::Texture _textureMoveBackground;
+	sf::Texture _texturePlayerBackground;
+	sf::Texture _compassShootingTextureArray;
+	sf::Texture _endTurnTextureArray;
+	
+	sf::Texture _arrowTopTextureArray;
+	sf::Texture _arrowLeftTextureArray;
+	sf::Texture _arrowRightTextureArray;
+	sf::Texture _arrowRotateLeftTextureArray;
+	sf::Texture _arrowRotateRightTextureArray;
+
+	sf::Sprite _arrowTop;
+	sf::Sprite _arrowLeft;
+	sf::Sprite _arrowRight;
+	sf::Sprite _arrowRotateLeft;
+	sf::Sprite _arrowRotateRight;
+	sf::Sprite _endTurn;
+	sf::Sprite _compassShooting;
+
+	void InitializeUI();
+	void fillTextures();
+	void SetPlayerText();
 };
 
 #endif // UIHANDLER_HPP
