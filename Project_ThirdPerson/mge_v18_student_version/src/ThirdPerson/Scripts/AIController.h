@@ -51,7 +51,7 @@ private:
 	void handleShipStartOfTurn(int pIndex);
 
 	std::vector<glm::vec2> CalculateLine(int pStartGridX, int pStartGridY, int pEndGridX, int pEndGridY);
-	bool HasLineOfSight(Ship* pFrom, Ship* pTo);
+	bool HasLineOfSight(Node* pFrom, Node* pTo);
 
 };
 

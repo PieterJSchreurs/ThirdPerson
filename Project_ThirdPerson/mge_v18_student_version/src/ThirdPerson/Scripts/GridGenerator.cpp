@@ -52,13 +52,13 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 
 	_obstacleTiles[0] = _obstacleTile1 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_1.obj");
 	_obstacleTiles[1] = _obstacleTile2 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_2.obj");
-	_obstacleTiles[2] = _obstacleTile3 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_3.obj");
-	_obstacleTiles[3] = _obstacleTile4 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_4.obj");
-	_obstacleTiles[4] = _obstacleTile5 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_5.obj");
-	_obstacleTiles[5] = _obstacleTile6 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_6.obj");
-	_obstacleTiles[6] = _obstacleTile7 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_7.obj");
-	_obstacleTiles[7] = _obstacleTile8 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_8.obj");
-	_obstacleTiles[8] = _obstacleTile9 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_9.obj");
+	//_obstacleTiles[2] = _obstacleTile3 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_3.obj");
+	_obstacleTiles[2] = _obstacleTile4 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_4.obj");
+	_obstacleTiles[3] = _obstacleTile5 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_5.obj");
+	_obstacleTiles[4] = _obstacleTile6 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_6.obj");
+	_obstacleTiles[5] = _obstacleTile7 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_7.obj");
+	_obstacleTiles[6] = _obstacleTile8 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_8.obj");
+	_obstacleTiles[7] = _obstacleTile9 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_9.obj");
 	
 	_treasureIslandTile = Mesh::load(config::MGE_MODEL_PATH + "Treasure_Island.obj");
 
@@ -610,7 +610,7 @@ void GridGenerator::PlaceCorrectIslandNode(Node* pNode, int pColumn, int pRow, s
 	}
 	else
 	{
-		tileIndex = rand() % 9;
+		tileIndex = rand() % 8;
 		pNode->setMaterial(islandMaterial);
 		pNode->setMesh(_obstacleTiles[tileIndex]);
 		pNode->setEulerAngles(glm::vec3(0, 90 * (rand() % 4), 0));

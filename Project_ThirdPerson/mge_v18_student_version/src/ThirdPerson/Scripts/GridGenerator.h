@@ -191,7 +191,7 @@ private:
 	Mesh* _harbourTile6;
 	Mesh* _harbourTile7;
 
-	Mesh* _obstacleTiles[9];
+	Mesh* _obstacleTiles[8];
 	Mesh* _obstacleTile1;
 	Mesh* _obstacleTile2;
 	Mesh* _obstacleTile3;

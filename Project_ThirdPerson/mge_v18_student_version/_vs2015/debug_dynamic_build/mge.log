@@ -1,11 +1,51 @@
-﻿  AIController.cpp
+﻿  AbstractGame.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\abstractgame.cpp(25): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  ThirdPerson.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(81): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(84): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(87): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(91): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(94): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(97): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(100): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(103): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(106): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(109): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(112): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+  TurnHandler.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  TreasureObject.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Ship.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\ship.cpp(131): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  PlayerController.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(9): warning C4018: '>': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(39): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(57): warning C4018: '<': signed/unsigned mismatch
+  MouseInputHandler.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mouseinputhandler.cpp(40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mouseinputhandler.cpp(55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  GridGenerator.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(105): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(128): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(165): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(188): warning C4018: '<': signed/unsigned mismatch
+  AIController.cpp
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(9): warning C4018: '>': signed/unsigned mismatch
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(42): warning C4018: '<': signed/unsigned mismatch
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(51): warning C4018: '<': signed/unsigned mismatch
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(344): warning C4018: '<': signed/unsigned mismatch
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(356): warning C4018: '<': signed/unsigned mismatch
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(430): warning C4018: '<': signed/unsigned mismatch
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(440): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(352): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(364): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(438): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\aicontroller.cpp(448): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(659): warning C4715: 'GridGenerator::GetCorrectHarborIndex': not all control paths return a value
   mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
   mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)

@@ -97,8 +97,19 @@ void Ship::ConsumeActionForMoves() {
 }
 
 void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
-	if (!_shotThisTurn && _actionsRemaining > 0 && TurnHandler::getInstance().GetCannonballsLeft() > 0)
+	if (!_shotThisTurn && _actionsRemaining > 0)
 	{
+		if (!_isAI)
+		{
+			if (TurnHandler::getInstance().GetCannonballsLeft() > 0)
+			{
+				TurnHandler::getInstance().ReduceCannonballsLeft(1);
+			}
+			else 
+			{
+				return;
+			}
+		}
 		_shotThisTurn = false;
 		_actionsRemaining--;
 		_movesRemaining = 0;
@@ -111,11 +122,6 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 		add(_myCannonball);
 		_myCannonball->setLocalPosition(glm::vec3(0, 0.5f, 0));
 		_myCannonball->setBehaviour(new MoveBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), _cannonRange*0.1f));
-
-		if (!_isAI)
-		{
-			TurnHandler::getInstance().ReduceCannonballsLeft(1);
-		}
 
 		for (int i = 1; i <= _cannonRange; i++)
 		{
