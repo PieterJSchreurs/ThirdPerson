@@ -36,15 +36,8 @@ void PlayerController::ToggleIsActive() {
 	{
 		if (!_currentShip->GetIsAlive())
 		{
-			bool anyShipsAlive = false; //Check if the current controller has any ships that are still alive remaining
-			for (int i = 0; i < _myShips.size(); i++)
-			{
-				if (_myShips[i]->GetIsAlive())
-				{
-					anyShipsAlive = true;
-				}
-			}
-			if (anyShipsAlive) //If there is at least 1 ship still alive, select the next available ship.
+			std::cout << "The current ship is dead." << std::endl;
+			if (GetShipsAlive() > 0) //If there is at least 1 ship still alive, select the next available ship.
 			{
 				SelectNextShip(1);
 			}
@@ -151,6 +144,17 @@ void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make 
 }
 
 
+int PlayerController::GetShipsAlive() {
+	int alive = 0;
+	for (int i = 0; i < _myShips.size(); i++)
+	{
+		if (_myShips[i]->GetIsAlive())
+		{
+			alive++;
+		}
+	}
+	return alive;
+}
 void PlayerController::SelectNextShip(int pDir) {
 	_currentShip->setMaterial(_currentShip->GetBaseMaterial());
 	ToggleRangeIndicators(_currentShip, false);

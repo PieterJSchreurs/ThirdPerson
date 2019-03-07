@@ -14,7 +14,7 @@ public:
 	
 	virtual ~GridObject();
 	virtual void update(float pStep);
-	virtual void setMaterial(AbstractMaterial* pMaterial);
+	virtual void setMaterial(AbstractMaterial* pMaterial, bool pToggle = false);
 	AbstractMaterial* GetBaseMaterial();
 
 	//General vector manipulation functions_________________________________________________________

@@ -4,7 +4,6 @@
 TileWorld::TileWorld(const int pColumns, const int pRows, float pTileSize, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _columns(glm::min(glm::max(pColumns, 7), 100)), _rows(glm::min(glm::max(pRows, 7), 100)), _tileSize(pTileSize)
 {
 	setLocalPosition(glm::vec3(-_columns * _tileSize + (_tileSize / 1.5f), 0, -_rows * _tileSize + (_tileSize / 1.5f)));
-
 	//initialize all tiles to walkable
 	//**_tileData = new bool[_columns];
 	for (int i = 0; i < _columns; i++) {

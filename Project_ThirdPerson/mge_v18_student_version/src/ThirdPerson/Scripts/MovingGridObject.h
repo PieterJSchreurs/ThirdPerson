@@ -26,6 +26,7 @@ public:
 
 	void SetObjectValues(int pHealth);
 	void TakeDamage(int pDamage, float pDelay = 0);
+	virtual void HandleDamaged();
 	virtual void DestroyObject();
 	bool GetIsAlive();
 protected:

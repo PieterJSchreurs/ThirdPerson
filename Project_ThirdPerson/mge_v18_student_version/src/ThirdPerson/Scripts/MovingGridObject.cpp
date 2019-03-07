@@ -43,7 +43,11 @@ void MovingGridObject::TakeDamage(int pDamage, float pDelay) {
 	}
 	else {
 		std::cout << "Object took " << pDamage << " damage. Object has " << _objectHealth << " health remaining." << std::endl;
+		HandleDamaged();
 	}
+}
+void MovingGridObject::HandleDamaged() {
+	//Apply any visual effects to the object in this overloaded function.
 }
 
 void MovingGridObject::DestroyObject() {

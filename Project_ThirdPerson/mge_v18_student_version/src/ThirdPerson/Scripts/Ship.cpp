@@ -186,6 +186,10 @@ bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, g
 	return false;
 }
 
+void Ship::HandleDamaged() {
+	MovingGridObject::HandleDamaged();
+	//Apply any visual effects to the object in this overloaded function.
+}
 void Ship::DestroyObject() {
 	//TODO: Implement object destruction here.
 	setLocalPosition(glm::vec3(0, 5, 0)); //TODO: implement a proper ship death here.
@@ -209,6 +213,12 @@ void Ship::HandleStartOfTurn() {
 	_actionsRemaining = _actionsPerTurn;
 	_movesRemaining = 0;
 	_shotThisTurn = false;
+}
+
+void Ship::FlushActions() {
+	_actionsRemaining = 0;
+	_movesRemaining = 0;
+	_shotThisTurn = true;
 }
 
 int Ship::GetActionsRemaining() {

@@ -33,6 +33,7 @@ private:
 	Ship* _currentShip;
 	int _currentShipIndex = 0;
 	void SelectNextShip(int pDir);
+	int GetShipsAlive();
 
 	std::vector<Ship*> _myShips;
 
