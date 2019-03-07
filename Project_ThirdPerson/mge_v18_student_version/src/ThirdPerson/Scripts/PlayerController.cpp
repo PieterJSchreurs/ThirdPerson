@@ -92,7 +92,12 @@ void PlayerController::update(float pStep) {
 void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
 	if (_isActive)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) || pKey == sf::Keyboard::Q) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			TurnHandler::getInstance().ToggleIsActive();
+			_lastPlayerInput = _timer;
+		}
+
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) || pKey == sf::Keyboard::Q) {
 			ToggleRangeIndicators(_currentShip, false);
 			_currentShip->TurnOrientation(1);
 			ToggleRangeIndicators(_currentShip, true);
@@ -106,19 +111,22 @@ void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make 
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || pKey == sf::Keyboard::W) {
-			_currentShip->MoveShipInDir(glm::vec2(0, -1), _gridGenerator);
+			glm::vec2 directionVec = _currentShip->GetOrientation();
+			_currentShip->MoveShipInDir(directionVec, _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || pKey == sf::Keyboard::A) {
-			_currentShip->MoveShipInDir(glm::vec2(-1, 0), _gridGenerator);
+			glm::vec2 directionVec = _currentShip->GetOrientation();
+			_currentShip->MoveShipInDir(glm::vec2(directionVec.y, -directionVec.x), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || pKey == sf::Keyboard::S) {
-			_currentShip->MoveShipInDir(glm::vec2(0, 1), _gridGenerator);
+			_currentShip->MoveShipInDir(glm::vec2(0,-1), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || pKey == sf::Keyboard::D) {
-			_currentShip->MoveShipInDir(glm::vec2(1, 0), _gridGenerator);
+			glm::vec2 directionVec = _currentShip->GetOrientation();
+			_currentShip->MoveShipInDir(glm::vec2(-directionVec.y, directionVec.x), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 
@@ -131,16 +139,17 @@ void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make 
 			_lastPlayerInput = _timer;
 		}
 
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) || pKey == sf::Keyboard::Z) {
 			_currentShip->ShootInDir(glm::vec2(_currentShip->GetOrientation().y, -_currentShip->GetOrientation().x), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) ||  pKey == sf::Keyboard::X) {
 			_currentShip->ShootInDir(glm::vec2(-_currentShip->GetOrientation().y, _currentShip->GetOrientation().x), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 	}
 }
+
 
 void PlayerController::SelectNextShip(int pDir) {
 	_currentShip->setMaterial(_currentShip->GetBaseMaterial());
@@ -262,6 +271,10 @@ void PlayerController::ToggleRangeIndicators(Ship* pShip, bool pToggle) {
 			}
 		}
 	}
+}
+
+int PlayerController::GetMovesRemaining(){
+	return _currentShip->GetMovesRemaining();
 }
 
 PlayerController::~PlayerController() {

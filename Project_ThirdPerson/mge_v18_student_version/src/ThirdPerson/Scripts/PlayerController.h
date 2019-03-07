@@ -22,6 +22,7 @@ public:
 
 	void ToggleIsActive();
 	bool GetIsActive();
+	int GetMovesRemaining();
 
 	void ToggleRangeIndicators(Ship* pShip, bool pToggle);
 

@@ -55,6 +55,8 @@ void AIController::handleShipStartOfTurn(int pIndex) {
 			if (_enemyShips[i] == GetShipTarget(_myShips[pIndex]))
 			{
 				SetShipTarget(_myShips[pIndex], nullptr);
+				handleShipStartOfTurn(pIndex);
+				return;
 			}
 			continue;
 		}
@@ -121,47 +123,6 @@ void AIController::HandleShips() { //NOTE: Make sure only one input is read at a
 		}
 		else {
 			EndShipTurn();
-		}
-
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
-		{
-			HasLineOfSight(_currentShip->GetCurrentNode(), _enemyShips[0]->GetCurrentNode());
-			_lastInput = _timer;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-			_currentShip->TurnOrientation(1);
-			_lastInput = _timer;
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
-			_currentShip->TurnOrientation(-1);
-			_lastInput = _timer;
-		}
-
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-			_currentShip->MoveShipInDir(glm::vec2(0, -1), _gridGenerator);
-			_lastInput = _timer;
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-			_currentShip->MoveShipInDir(glm::vec2(-1, 0), _gridGenerator);
-			_lastInput = _timer;
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-			_currentShip->MoveShipInDir(glm::vec2(0, 1), _gridGenerator);
-			_lastInput = _timer;
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-			_currentShip->MoveShipInDir(glm::vec2(1, 0), _gridGenerator);
-			_lastInput = _timer;
-		}
-
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-			SelectNextShip(-1);
-			_lastInput = _timer;
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			SelectNextShip(1);
-			_lastInput = _timer;
 		}
 	}
 }

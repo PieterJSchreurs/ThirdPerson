@@ -27,9 +27,9 @@ void main( void ) {
 	vec4 waterFoam = vec4(col.x * waterFoamColor.x * col.a * waterFoamColor.a, col.y * waterFoamColor.y* col.a * waterFoamColor.a, col.z * waterFoamColor.z * col.a * waterFoamColor.a, col.a * waterFoamColor.a); //Why do i have to do this...
 
 	if(pulse < pulseAmount/2.0f) { //If the vertex got assigned a number in the first half of the total pulseAmount.
-		fragment_color = waterColor + ((waterFoam) * ((pulse / (pulseAmount/2.0f))));	 //Pulse the vertex outwards. The higher the number, the further it pulses outwards. (goes from neutral to fully extended)
+		fragment_color = waterColor + ((waterFoam) * ((pulse / (pulseAmount/2.0f))+0.15f));	 //Pulse the vertex outwards. The higher the number, the further it pulses outwards. (goes from neutral to fully extended)
 	} else { //Vertices in the second half of the total pulseAmount.
 		//Still pulse the vertex outwards. The LOWER the number, the further it pulses outwards. (goes from fully extended to neutral)
-		fragment_color = waterColor + ((waterFoam) * (((pulseAmount-pulse) / (pulseAmount/2.0f))));
+		fragment_color = waterColor + ((waterFoam) * (((pulseAmount-pulse) / (pulseAmount/2.0f))+0.15f));
 	}
 }

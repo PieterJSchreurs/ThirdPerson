@@ -197,8 +197,9 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	//SCENE SETUP
 	//add camera first (it will be updated last)
-	Camera* camera = new Camera("camera", glm::vec3(0, 30, 15));
-	camera->rotate(glm::radians(-68.0f), glm::vec3(1, 0, 0));
+	Camera* camera = new Camera("camera", glm::vec3(13.5f, 18.5f, 13.5f));
+	camera->rotate(glm::radians(45.0f), glm::vec3(0, 1, 0));
+	camera->rotate(glm::radians(-55.0f), glm::vec3(1, 0, 0));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 

@@ -89,10 +89,10 @@ void TurnHandler::update(float pStep) {
 }
 
 void TurnHandler::HandlePlayerInput() { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		ToggleIsActive();
-		_lastPlayerInput = _timer;
-	}
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+	//	ToggleIsActive();
+	//	_lastPlayerInput = _timer;
+	//}
 }
 
 TurnHandler::~TurnHandler() {

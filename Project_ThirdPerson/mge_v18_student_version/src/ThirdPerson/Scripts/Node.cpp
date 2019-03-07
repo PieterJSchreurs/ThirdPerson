@@ -9,11 +9,8 @@
 
 #include "ThirdPerson/config.hpp"
 
-Node::Node(TerrainTypes pTerrainMod, Mesh* pGlowCube, bool pWalkable, const std::string& pName, const glm::vec3& pPosition) :GameObject(pName, pPosition), _myTerrainType(pTerrainMod), _walkable(pWalkable)
+Node::Node(TerrainTypes pTerrainMod, bool pWalkable, const std::string& pName, const glm::vec3& pPosition) :GameObject(pName, pPosition), _myTerrainType(pTerrainMod), _walkable(pWalkable)
 {
-	_myGlowCube = new GameObject("GlowCube");
-	_myGlowCube->setMesh(pGlowCube);
-
 	terrainCostModifier = glm::max((int)_myTerrainType, 1);
 }
 
@@ -72,16 +69,23 @@ StaticGridObject* Node::GetStaticObject() {
 	return _myStaticObject;
 }
 
+void Node::InitializeTileGlow(Mesh* pGlowCube) {
+	_myGlowCube = new GameObject("GlowCube");
+	_myGlowCube->setMesh(pGlowCube);
+	_world->add(_myGlowCube);
+	_myGlowCube->setLocalPosition(getWorldPosition() + glm::vec3(0, -0.65f, 0));
+}
 void Node::SetTileGlow(bool pToggle, std::string pTexture) {
 	if (pToggle)
 	{
-		add(_myGlowCube);
-		_myGlowCube->setLocalPosition(glm::vec3(0, -0.65f, 0));
+		//_world->add(_myGlowCube);
+		//_myGlowCube->setLocalPosition(getWorldPosition() + glm::vec3(0, -0.65f, 0));
 		AbstractMaterial* glowCubeMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + pTexture), glm::vec3(1, 1, 1), 0.25f);
 		_myGlowCube->setMaterial(glowCubeMaterial);
 	}
 	else {
-		remove(_myGlowCube);
+		//_world->remove(_myGlowCube);
+		_myGlowCube->setMaterial(nullptr);
 	}
 }
 
