@@ -287,6 +287,13 @@ void GridGenerator::GenerateNodeGraph() {
 	_tileWorld.add(candle);
 	candle->setLocalPosition(glm::vec3(-_tileWorld.tileSize(), 1.0f, -_tileWorld.tileSize()));
 
+	//GameObject* coin1 = new GameObject("Coin1", glm::vec3(0, 0, 0));
+	//coin1->setScale(glm::vec3(2, 2, 2));
+	//coin1->setMesh(_coin1Mesh);
+	//coin1->setMaterial(_coin1Material);
+	//_tileWorld.add(coin1);
+	//coin1->setLocalPosition(glm::vec3(-_tileWorld.tileSize(), 1.0f, -_tileWorld.tileSize()));
+
 	GameObject* coin2 = new GameObject("Coin2", glm::vec3(0, 0, 0));
 	coin2->setScale(glm::vec3(2, 2, 2));
 	coin2->setMesh(_coin2Mesh);
