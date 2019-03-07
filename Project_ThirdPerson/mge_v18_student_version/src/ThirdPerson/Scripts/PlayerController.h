@@ -24,6 +24,8 @@ public:
 	bool GetIsActive();
 	int GetMovesRemaining();
 
+	void ToggleRangeIndicators(Ship* pShip, bool pToggle);
+
 private:
 
 	GridGenerator* _gridGenerator;
@@ -41,6 +43,8 @@ private:
 	bool _isActive = false;
 
 	bool _isPlayer = false;
+
+	bool _rangeIndicatorsActive = false;
 };
 
 #endif // PLAYERCONTROLLER_HPP

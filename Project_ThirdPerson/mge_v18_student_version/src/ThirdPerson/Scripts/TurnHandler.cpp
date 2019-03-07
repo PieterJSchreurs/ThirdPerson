@@ -25,7 +25,7 @@ void TurnHandler::SetValues(PlayerController* pPlayerController, AIController* p
 	_turnIndicator->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
 	_turnIndicator->rotate(glm::radians(-90.0f), glm::vec3(-1, 0, 0));
 	_camera->add(_turnIndicator);
-	_turnIndicator->setLocalPosition(glm::vec3(0, 0, -0.25f));
+	_turnIndicator->setLocalPosition(glm::vec3(0, 0.45f, -1.0f));
 	_initialized = true;
 
 }
@@ -89,10 +89,10 @@ void TurnHandler::update(float pStep) {
 }
 
 void TurnHandler::HandlePlayerInput() { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		ToggleIsActive();
-		_lastPlayerInput = _timer;
-	}
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+	//	ToggleIsActive();
+	//	_lastPlayerInput = _timer;
+	//}
 }
 
 TurnHandler::~TurnHandler() {

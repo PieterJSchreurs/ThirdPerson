@@ -3,16 +3,15 @@
 
 #define MAX_LIGHTS 5
 
-uniform sampler2D diffuseTexture;
-in vec2 texCoord;
-
 uniform vec3 cameraPosition;
 
+uniform sampler2D diffuseTexture;
 uniform vec3 specularColor;
 uniform float shininess;
 
 in vec3 fPosition;
 in vec3 fNormal;
+in vec2 texCoord;
 
 uniform int lightAmount;
 
@@ -51,7 +50,6 @@ vec4 CalculateSpecularTerm(int index, float dist){
 	vec3 R = normalize(fPosition - lightPositions[index]) - (2.0f * normalize(fNormal) * dot(normalize(fPosition - lightPositions[index]), normalize(fNormal)));
 	vec3 V = normalize(cameraPosition - fPosition);
 	//Our reflection color
-
 	float specularEffect = pow(max(dot(R, V), 0.0f), shininess); //THIS DOES NOT SEEM CORRECT!!!!!!!!!
 
 	vec4 specularTerm = vec4(specularEffect * lightColors[index] * specularColor / (1.0f + 0.0f * dist + 1.0f * pow(dist, 2)), 1); 
@@ -68,7 +66,7 @@ vec4 CalculatePointLight(int index){
 	vec4 diffuseTerm = CalculateDiffuseTerm(index, dotResult, dist);
 	vec4 specularTerm = CalculateSpecularTerm(index, dist);
 
-	return ambientTerm + diffuseTerm + specularTerm;
+	return vec4(ambientTerm + diffuseTerm + specularTerm);
 }
 
 vec4 CalculateDirectionalLight(int index){
@@ -81,18 +79,13 @@ vec4 CalculateDirectionalLight(int index){
 	//Multiply our calculated color with the diffuseColor of the fragment to get the effect of our light on the fragment.
 	vec4 diffuseTerm = CalculateDiffuseTerm(index, dotResult, 0);
 
-	return ambientTerm + diffuseTerm;
+	return vec4(ambientTerm + diffuseTerm);
 }
 
 void main( void ) {
 	vec4 finalColor;
 	for(int i = 0; i < lightAmount; i++){
 		if (lightTypes[i] == 0) { //POINT LIGHT
-			//Calculate if the fragment is facing the light. If facing the light it will return a value between 0.0 and 1.0, otherwise it always returns 0.
-			float dotResult = max(dot(normalize(lightPositions[i] - fPosition), normalize(fNormal)), 0.0f);
-			//Store the distance from fragment to light.
-			float dist = length(lightPositions[i] - fPosition);
-
 			vec4 lightFrag = CalculatePointLight(i);
 
 			//Combine the ambient color with the diffuse color and the specular color to get our final result.
@@ -107,11 +100,12 @@ void main( void ) {
 	
 	
 		} else if (lightTypes[i] == 2) { //TODO: SPOTLIGHT
-			//finalColor += texture_color;
-	
-	
+			vec4 texture_color = texture(diffuseTexture,texCoord);
+			finalColor += texture_color;
+
 		} else { //FLAT DIFFUSE AS DEFAULT
-			//finalColor += texture_color;
+			vec4 texture_color = texture(diffuseTexture,texCoord);
+			finalColor += texture_color;
 		}
 	}
 	fragment_color = finalColor;

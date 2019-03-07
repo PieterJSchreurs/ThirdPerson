@@ -1,5 +1,4 @@
 //DIFFUSE COLOR FRAGMENT SHADER
-
 #version 330 // for glsl version (12 is for older versions , say opengl 2.1
 
 #define MAX_LIGHTS 5
@@ -99,8 +98,7 @@ void main( void ) {
 	
 		} else if (lightTypes[i] == 2) { //TODO: SPOTLIGHT
 			finalColor += vec4(diffuseColor, 1);
-	
-	
+		
 		} else { //FLAT DIFFUSE AS DEFAULT
 			finalColor += vec4(diffuseColor, 1);
 		}

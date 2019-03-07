@@ -195,25 +195,11 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	//AudioManager::getInstance().loadSound("characterSounds.wav");
 
-	//MESHES
-
-	//load a bunch of meshes we will be using throughout this demo
-	//each mesh only has to be loaded once, but can be used multiple times:
-	//F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
-	//Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
-	//Mesh* cubeMeshF = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
-	//Mesh* suzannaMeshS = Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth.obj");
-	//Mesh* coneMeshS = Mesh::load(config::MGE_MODEL_PATH + "cone_smooth.obj");
-	//Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
-	//Mesh* sphereMesh2S = Mesh::load(config::MGE_MODEL_PATH + "sphere2.obj");
-
-	//MATERIALS
-
-
 	//SCENE SETUP
 	//add camera first (it will be updated last)
-	Camera* camera = new Camera("camera", glm::vec3(0, 25, 12));
-	camera->rotate(glm::radians(-68.0f), glm::vec3(1, 0, 0));
+	Camera* camera = new Camera("camera", glm::vec3(13.5f, 18.5f, 13.5f));
+	camera->rotate(glm::radians(45.0f), glm::vec3(0, 1, 0));
+	camera->rotate(glm::radians(-55.0f), glm::vec3(1, 0, 0));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 
@@ -234,7 +220,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	AIController* myAIController = new AIController(_myGridGenerator->GetAIShips(), _myGridGenerator->GetPlayerShips(), _myGridGenerator, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myAIController);
 
-	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 5, 20, _world->getMainCamera());
+	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 30, 20, _world->getMainCamera());
 
 	UIHandler* uiHandler = new UIHandler(_window, myPlayerController, "UIHandler");
 	_world->add(uiHandler);

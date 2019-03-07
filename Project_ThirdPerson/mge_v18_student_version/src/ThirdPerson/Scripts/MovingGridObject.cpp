@@ -208,8 +208,6 @@ bool MovingGridObject::moveToTargetWaypoint()
 
 			if (glm::distance(glm::vec3(getLocalPosition().x, 0, getLocalPosition().z), glm::vec3(_currentNode->getLocalPosition().x, 0, _currentNode->getLocalPosition().z)) >= glm::distance(wayPointQueue[0]->getLocalPosition(), _currentNode->getLocalPosition())) {
 				targetNextWaypoint();
-				_enteredNewNode = true;
-				setLocalPosition(glm::vec3(_currentNode->getLocalPosition().x, getLocalPosition().y, _currentNode->getLocalPosition().z));
 			}
 			return true;
 		}
@@ -254,18 +252,19 @@ void MovingGridObject::SetOrientation(glm::vec2 pOrien, bool pInstant) {
 	}
 }
 void MovingGridObject::TurnOrientation(int pDir) {
+	int currentYEuler = glm::iround(getEulerAngles().y) % 360;
 	if (pDir > 0)
 	{
-		_targetEuler = glm::vec3(getEulerAngles().x, glm::iround(getEulerAngles().y + 90) % 360, getEulerAngles().z);
+		_targetEuler = glm::vec3(getEulerAngles().x, (currentYEuler + 90) % 360, getEulerAngles().z);
 	}
 	else {
-		if (getEulerAngles().y - 90 < 0)
+		if (currentYEuler - 90 < 0)
 		{
-			_targetEuler = glm::vec3(getEulerAngles().x, getEulerAngles().y + 270, getEulerAngles().z);
+			_targetEuler = glm::vec3(getEulerAngles().x, currentYEuler + 270, getEulerAngles().z);
 		}
 		else 
 		{
-			_targetEuler = glm::vec3(getEulerAngles().x, getEulerAngles().y - 90, getEulerAngles().z);
+			_targetEuler = glm::vec3(getEulerAngles().x, currentYEuler - 90, getEulerAngles().z);
 		}
 	}
 
@@ -294,6 +293,9 @@ void MovingGridObject::targetNextWaypoint()
 	_currentNode = wayPointQueue[0];
 	_currentNode->SetCurrentMovingObject(this);
 	wayPointQueue.erase(wayPointQueue.begin());
+
+	_enteredNewNode = true;
+	setLocalPosition(glm::vec3(_currentNode->getLocalPosition().x, getLocalPosition().y, _currentNode->getLocalPosition().z));
 }
 
 void MovingGridObject::resetPathFinder() {

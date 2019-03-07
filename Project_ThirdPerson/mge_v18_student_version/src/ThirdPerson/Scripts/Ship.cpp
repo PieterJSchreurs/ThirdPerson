@@ -26,6 +26,7 @@ void Ship::update(float pStep) {
 		if (_currentNode->GetHasStaticObject())
 		{
 			_currentNode->GetStaticObject()->DoAction(_isAI, _isBig);
+
 		}
 	}
 }

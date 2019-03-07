@@ -36,7 +36,7 @@ void AbstractGame::initialize() {
 
 void AbstractGame::_initializeWindow() {
 	std::cout << "Initializing window..." << std::endl;
-	_window = new sf::RenderWindow( sf::VideoMode(1600,900), "My Game!", sf::Style::Default , sf::ContextSettings(24,8,0,3,3));
+	_window = new sf::RenderWindow( sf::VideoMode(1920,1080), "My Game!", sf::Style::Default , sf::ContextSettings(24,8,0,3,3));
 	//_window->setVerticalSyncEnabled(true);
     std::cout << "Window initialized." << std::endl << std::endl;
 	//Place the mouse in the center of the window.
