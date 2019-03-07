@@ -219,7 +219,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	AIController* myAIController = new AIController(_myGridGenerator->GetAIShips(), _myGridGenerator->GetPlayerShips(), _myGridGenerator, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myAIController);
 
-	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 5, 20, _world->getMainCamera());
+	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 30, 20, _world->getMainCamera());
 
 	UIHandler* uiHandler = new UIHandler(_window, myPlayerController, "UIHandler");
 	_world->add(uiHandler);
