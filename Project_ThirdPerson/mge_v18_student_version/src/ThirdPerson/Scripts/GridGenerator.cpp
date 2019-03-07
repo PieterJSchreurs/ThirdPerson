@@ -13,6 +13,7 @@
 #include "mge/materials/ColorMaterial.hpp"
 #include "mge/materials/LitMaterial.h"
 #include "mge/materials/LitTextureMaterial.h"
+#include "mge/materials/TextureMaterial.hpp"
 #include "mge/materials/WaterMaterial.h"
 
 #include "ThirdPerson/config.hpp"
@@ -244,9 +245,9 @@ void GridGenerator::GenerateNodeGraph() {
 	_harborMaterials[5] = _harborMaterial6 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Middle_Right.png"), glm::vec3(1, 1, 1), 0.25f);
 	_harborMaterials[6] = _harborMaterial7 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Bottom_Right.png"), glm::vec3(1, 1, 1), 0.25f);
 
-	_mainShipMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Main_Ship.png"), glm::vec3(1, 1, 1), 0.25f);
-	_smallShipMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Small_Ship.png"), glm::vec3(1, 1, 1), 0.25f);
-	_enemyShipMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemy_Ship.png"), glm::vec3(1, 1, 1), 0.25f);
+	_mainShipMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Main_Ship.png"));
+	_smallShipMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Small_Ship.png"));
+	_enemyShipMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemy_Ship.png"));
 	_treasureIslandMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Treasure_Island.png"), glm::vec3(1, 1, 1), 0.25f);
 	AbstractMaterial* goalMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* dangerCubeMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "DangerCube.png"), glm::vec3(1, 1, 1), 0.25f);
@@ -482,6 +483,12 @@ void GridGenerator::GenerateNodeGraph() {
 			//_nodeCache[column][row] = node;
 			//node->SetGridX(column); //Every node keeps track of his own position in the grid.
 			//node->SetGridY(row);
+		}
+	}
+	//Add the glow cubes last, because transparent objects need to be added last to function correctly.
+	for (int column = 0; column < _tileWorld.columns(); column++) {
+		for (int row = 0; row < _tileWorld.rows(); row++) {
+			_nodeCache[_tileWorld.columns()-column-1][_tileWorld.rows()-row-1]->InitializeTileGlow(_cubeMeshDefault);
 		}
 	}
 }
