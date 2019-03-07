@@ -92,7 +92,12 @@ void PlayerController::update(float pStep) {
 void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
 	if (_isActive)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) || pKey == sf::Keyboard::Q) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			TurnHandler::getInstance().ToggleIsActive();
+			_lastPlayerInput = _timer;
+		}
+
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) || pKey == sf::Keyboard::Q) {
 			ToggleRangeIndicators(_currentShip, false);
 			_currentShip->TurnOrientation(1);
 			ToggleRangeIndicators(_currentShip, true);

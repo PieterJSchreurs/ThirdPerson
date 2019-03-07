@@ -274,7 +274,7 @@ void GridGenerator::GenerateNodeGraph() {
 				node->setMaterial(waterMaterial);
 				node->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				node->setMesh(_planeMeshDefault);
-				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0.675f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
+				node->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 1.0f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
 			}
 			else if (nmbr == 0) //Island tile at half height, add an inactive water tile at height 0
 			{
@@ -289,7 +289,7 @@ void GridGenerator::GenerateNodeGraph() {
 				inactiveNode->setMaterial(waterMaterial);
 				inactiveNode->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				inactiveNode->setMesh(_planeMeshDefault);
-				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0.675f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
+				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 1.0f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
 				_nodeWorld->AddInactiveNode(inactiveNode);
 			}
 			else if (nmbr == 1) //Harbor tile at half height, add an inactive water tile at height 0
@@ -305,7 +305,7 @@ void GridGenerator::GenerateNodeGraph() {
 				inactiveNode->setMaterial(waterMaterial);
 				inactiveNode->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 				inactiveNode->setMesh(_planeMeshDefault);
-				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 0.675f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
+				inactiveNode->setLocalPosition(glm::vec3(column * (_tileWorld.tileSize() * 2.0f + _tileGap), 1.0f, row * (_tileWorld.tileSize() * 2.0f + _tileGap)));
 				_nodeWorld->AddInactiveNode(inactiveNode);
 			}
 			else
