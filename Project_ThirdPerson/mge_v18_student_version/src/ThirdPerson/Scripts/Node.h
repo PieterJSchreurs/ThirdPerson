@@ -47,7 +47,7 @@ public:
 	}
 
 
-	Node(TerrainTypes pTerrainMod, Mesh* pGlowCube, bool pWalkable = true, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	Node(TerrainTypes pTerrainMod, bool pWalkable = true, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~Node();
 
 	float costCurrent = 0.0f;								//keep track of cost up to now
@@ -71,6 +71,7 @@ public:
 	StaticGridObject* GetStaticObject();
 	bool GetHasStaticObject();
 
+	void InitializeTileGlow(Mesh* pGlowCube);
 	void SetTileGlow(bool pToggle = true, std::string pTexture = "DangerCube.png");
 
 	TerrainTypes GetTerrainType();

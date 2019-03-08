@@ -55,6 +55,8 @@ void AIController::handleShipStartOfTurn(int pIndex) {
 			if (_enemyShips[i] == GetShipTarget(_myShips[pIndex]))
 			{
 				SetShipTarget(_myShips[pIndex], nullptr);
+				handleShipStartOfTurn(pIndex);
+				return;
 			}
 			continue;
 		}
