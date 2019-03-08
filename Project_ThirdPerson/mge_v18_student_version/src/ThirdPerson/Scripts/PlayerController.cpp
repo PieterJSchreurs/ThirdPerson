@@ -25,7 +25,7 @@ void PlayerController::ToggleIsActive() {
 	if (!_isActive)
 	{
 		_currentShip->setMaterial(_currentShip->GetBaseMaterial());
-		ToggleRangeIndicators(_currentShip, false);
+		//ToggleRangeIndicators(_currentShip, false);
 		TurnHandler::getInstance().ReduceTurnsLeft(1);
 		if (TurnHandler::getInstance().GetTurnsLeft() <= 0)
 		{
@@ -48,7 +48,7 @@ void PlayerController::ToggleIsActive() {
 		}
 		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
 		_currentShip->setMaterial(greenMaterial);
-		ToggleRangeIndicators(_currentShip, true);
+		//ToggleRangeIndicators(_currentShip, true);
 		for (int i = 0; i < _myShips.size(); i++)
 		{
 			_myShips[i]->HandleStartOfTurn();
@@ -65,7 +65,7 @@ void PlayerController::update(float pStep) {
 	{
 		if (!_rangeIndicatorsActive && _isActive)
 		{
-			ToggleRangeIndicators(_currentShip, true);
+			//ToggleRangeIndicators(_currentShip, true);
 		}
 		if (_timer - _lastPlayerInput >= _playerInputDelay)
 		{
@@ -75,7 +75,7 @@ void PlayerController::update(float pStep) {
 	else {
 		if (_rangeIndicatorsActive)
 		{
-			ToggleRangeIndicators(_currentShip, false);
+			//ToggleRangeIndicators(_currentShip, false);
 		}
 		_currentShip->moveToTargetWaypoint();
 	}
@@ -91,15 +91,15 @@ void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make 
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) || pKey == sf::Keyboard::Q) {
-			ToggleRangeIndicators(_currentShip, false);
+			//ToggleRangeIndicators(_currentShip, false);
 			_currentShip->TurnOrientation(1);
-			ToggleRangeIndicators(_currentShip, true);
+			//ToggleRangeIndicators(_currentShip, true);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) || pKey == sf::Keyboard::E) {
-			ToggleRangeIndicators(_currentShip, false);
+			//ToggleRangeIndicators(_currentShip, false);
 			_currentShip->TurnOrientation(-1);
-			ToggleRangeIndicators(_currentShip, true);
+			//ToggleRangeIndicators(_currentShip, true);
 			_lastPlayerInput = _timer;
 		}
 
@@ -153,7 +153,6 @@ int PlayerController::GetShipsAlive() {
 }
 void PlayerController::SelectNextShip(int pDir) {
 	_currentShip->setMaterial(_currentShip->GetBaseMaterial());
-	ToggleRangeIndicators(_currentShip, false);
 
 	_currentShipIndex += pDir; // -1
 	int valHolder = _myShips.size();
@@ -173,7 +172,7 @@ void PlayerController::SelectNextShip(int pDir) {
 	{
 		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
 		_currentShip->setMaterial(greenMaterial);
-		ToggleRangeIndicators(_currentShip, true);
+		//ToggleRangeIndicators(_currentShip, true);
 	}
 	else { //If the newly selected ship has already sunk, select the next available ship instead.
 		SelectNextShip(pDir);
@@ -193,82 +192,130 @@ void PlayerController::SelectShip(Ship* pShip)
 
 void PlayerController::ToggleRangeIndicators(Ship* pShip, bool pToggle) {
 	if (_isInFiringMode) {
-		_rangeIndicatorsActive = pToggle;
-		Node* centerNode = pShip->GetCurrentNode();
-		if (pShip->GetOrientation().x != 0)
-		{
-			//Loop from ship tile out to cannonrange upwards.
-			for (int i = centerNode->GetGridY() + 1; i <= centerNode->GetGridY() + pShip->GetCannonRange(); i++)
+		if ((_isHoveringLeft || _isHoveringRight) || !pToggle) {
+			_rangeIndicatorsActive = pToggle;
+			Node* centerNode = pShip->GetCurrentNode();
+			if (pShip->GetOrientation().x != 0)
 			{
-				if (i >= 0 && i < _gridGenerator->getGridHeight())
-				{
-					if (_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->GetWalkable())
+				if ((pShip->GetOrientation().x == 1 && _isHoveringRight) || (pShip->GetOrientation().x == -1 && _isHoveringLeft)) {
+					//Loop from ship tile out to cannonrange upwards.
+					for (int i = centerNode->GetGridY() + 1; i <= centerNode->GetGridY() + pShip->GetCannonRange(); i++)
 					{
-						_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->SetTileGlow(pToggle);
-						//TODO: Place danger cube.
-					}
-					else {
-						break;
+						if (i >= 0 && i < _gridGenerator->getGridHeight())
+						{
+							if (_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->GetWalkable())
+							{
+								_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->SetTileGlow(pToggle);
+								//TODO: Place danger cube.
+							}
+							else {
+								break;
+							}
+						}
+						else {
+							break;
+						}
 					}
 				}
 				else {
-					break;
+					//Loop from ship tile out to cannonrange downwards.
+					for (int i = centerNode->GetGridY() - 1; i >= centerNode->GetGridY() - pShip->GetCannonRange(); i--)
+					{
+						if (i >= 0 && i < _gridGenerator->getGridHeight())
+						{
+							if (_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->GetWalkable())
+							{
+								_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->SetTileGlow(pToggle);
+								//TODO: Place danger cube.
+							}
+							else {
+								break;
+							}
+						}
+						else {
+							break;
+						}
+					}
+					if (!pToggle) {
+						for (int i = centerNode->GetGridY() + 1; i <= centerNode->GetGridY() + pShip->GetCannonRange(); i++)
+						{
+							if (i >= 0 && i < _gridGenerator->getGridHeight())
+							{
+								if (_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->GetWalkable())
+								{
+									_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->SetTileGlow(pToggle);
+									//TODO: Place danger cube.
+								}
+								else {
+									break;
+								}
+							}
+							else {
+								break;
+							}
+						}
+					}
 				}
 			}
-			//Loop from ship tile out to cannonrange downwards.
-			for (int i = centerNode->GetGridY() - 1; i >= centerNode->GetGridY() - pShip->GetCannonRange(); i--)
-			{
-				if (i >= 0 && i < _gridGenerator->getGridHeight())
-				{
-					if (_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->GetWalkable())
+			else {
+				if ((pShip->GetOrientation().y == 1 && _isHoveringLeft) || (pShip->GetOrientation().y == -1 && _isHoveringRight)) {
+					//Loop from ship tile out to cannonrange to the right.
+					for (int i = centerNode->GetGridX() + 1; i <= centerNode->GetGridX() + pShip->GetCannonRange(); i++)
 					{
-						_gridGenerator->GetNodeAtTile(centerNode->GetGridX(), i)->SetTileGlow(pToggle);
-						//TODO: Place danger cube.
-					}
-					else {
-						break;
+						if (i >= 0 && i < _gridGenerator->getGridWidth())
+						{
+							if (_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->GetWalkable())
+							{
+								_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->SetTileGlow(pToggle);
+								//TODO: Place danger cube.
+							}
+							else {
+								break;
+							}
+						}
+						else {
+							break;
+						}
 					}
 				}
 				else {
-					break;
-				}
-			}
-		}
-		else {
-			//Loop from ship tile out to cannonrange to the right.
-			for (int i = centerNode->GetGridX() + 1; i <= centerNode->GetGridX() + pShip->GetCannonRange(); i++)
-			{
-				if (i >= 0 && i < _gridGenerator->getGridWidth())
-				{
-					if (_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->GetWalkable())
+					//Loop from ship tile out to cannonrange to the left.
+					for (int i = centerNode->GetGridX() - 1; i >= centerNode->GetGridX() - pShip->GetCannonRange(); i--)
 					{
-						_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->SetTileGlow(pToggle);
-						//TODO: Place danger cube.
+						if (i >= 0 && i < _gridGenerator->getGridWidth())
+						{
+							if (_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->GetWalkable())
+							{
+								_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->SetTileGlow(pToggle);
+								//TODO: Place danger cube.
+							}
+							else {
+								break;
+							}
+						}
+						else {
+							break;
+						}
 					}
-					else {
-						break;
+					if (!pToggle) {
+						for (int i = centerNode->GetGridX() + 1; i <= centerNode->GetGridX() + pShip->GetCannonRange(); i++)
+						{
+							if (i >= 0 && i < _gridGenerator->getGridWidth())
+							{
+								if (_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->GetWalkable())
+								{
+									_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->SetTileGlow(pToggle);
+									//TODO: Place danger cube.
+								}
+								else {
+									break;
+								}
+							}
+							else {
+								break;
+							}
+						}
 					}
-				}
-				else {
-					break;
-				}
-			}
-			//Loop from ship tile out to cannonrange to the left.
-			for (int i = centerNode->GetGridX() - 1; i >= centerNode->GetGridX() - pShip->GetCannonRange(); i--)
-			{
-				if (i >= 0 && i < _gridGenerator->getGridWidth())
-				{
-					if (_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->GetWalkable())
-					{
-						_gridGenerator->GetNodeAtTile(i, centerNode->GetGridY())->SetTileGlow(pToggle);
-						//TODO: Place danger cube.
-					}
-					else {
-						break;
-					}
-				}
-				else {
-					break;
 				}
 			}
 		}
@@ -296,5 +343,25 @@ PlayerController::~PlayerController() {
 
 void PlayerController::SetFiringMode(bool pToggle) {
 	_isInFiringMode = pToggle;
+	if (pToggle) {
+		if (_currentShip->GetActionsRemaining() > 0) {
+			_currentShip->ConsumeActionForMoves();
+		}
+		else
+		{
+			_isInFiringMode = false;
+		}
+	}
+}
+
+void PlayerController::SetHoveringMode(bool pToggleLeft, bool pToggleRight) {
+	_isHoveringLeft = pToggleLeft;
+	_isHoveringRight = pToggleRight;
+	if (_isHoveringLeft || _isHoveringRight) {
+		ToggleRangeIndicators(_currentShip, true);
+	}
+	else {
+		ToggleRangeIndicators(_currentShip, false);
+	}
 }
 

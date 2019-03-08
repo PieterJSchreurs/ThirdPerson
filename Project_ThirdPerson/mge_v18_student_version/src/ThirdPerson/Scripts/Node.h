@@ -59,7 +59,6 @@ public:
 	int GetGridX();
 	int GetGridY();
 
-	bool GetTileGlowBool();
 	bool GetWalkable();
 
 	void SetCurrentMovingObject(MovingGridObject* pObj);

@@ -173,7 +173,7 @@ void ThirdPerson::_update(float pStep) {
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
 
-		AudioManager::getInstance().playSound("characterSounds.wav");
+		//AudioManager::getInstance().playSound("characterSounds.wav");
 	}
 }
 
