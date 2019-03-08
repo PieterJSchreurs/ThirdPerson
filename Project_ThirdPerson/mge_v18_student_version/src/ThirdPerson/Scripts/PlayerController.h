@@ -28,6 +28,7 @@ public:
 	GridGenerator* GetGridGenerator();
 	void ToggleRangeIndicators(Ship* pShip, bool pToggle);
 	void SetFiringMode(bool pToggle);
+	void SetHoveringMode(bool pToggleLeft, bool pToggleRight);
 
 private:
 
@@ -43,6 +44,8 @@ private:
 	float _timer = 0;
 	const float _playerInputDelay = 0.5f;
 	float _lastPlayerInput = 0;
+	bool _isHoveringRight = false;
+	bool _isHoveringLeft = false;
 
 	bool _isActive = false;
 
