@@ -5,6 +5,7 @@
 #include "mge/core/Texture.hpp"
 #include "mge/materials/TextureMaterial.hpp"
 #include <SFML/Window/Keyboard.hpp>
+#include <stdlib.h> 
 
 
 MainMenu::MainMenu(ThirdPerson* pThirdPerson, sf::RenderWindow* pRenderWindow, std::vector<std::string> pFileNames, const std::string & aName, const glm::vec3 & aPosition) : GameObject(aName, aPosition), _thirdPerson(pThirdPerson), _renderWindow(pRenderWindow), _fileNames(pFileNames)
@@ -22,17 +23,7 @@ MainMenu::~MainMenu()
 
 void MainMenu::update(float pStep)
 {
-	glActiveTexture(GL_TEXTURE0);
-	_renderWindow->pushGLStates();
-	for each (sf::Sprite pSprite in _spritesToDraw)
-	{
-		_renderWindow->draw(pSprite);
-	}
-	for each (sf::Text pText in _texts)
-	{
-		_renderWindow->draw(pText);
-	}
-	_renderWindow->popGLStates();
+	DrawSprites();
 	if (!_isLevelLoading)
 	{
 		if (_timer - _lastPlayerInput >= _playerInputDelay)
@@ -102,6 +93,9 @@ void MainMenu::FillMainMenu()
 	{
 		std::cout << "Could not load texture" << std::endl;
 	}
+	_loadingScreenTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/LoadingScreen.png");
+	_loadingScreen.setTexture(_loadingScreenTexture);
+	_loadingScreen.setPosition(0, 0);
 
 	_backPlane.setTexture(_backPlaneTexture);
 	_levelSelectButton.setTexture(_levelSelectTexture);
@@ -112,6 +106,11 @@ void MainMenu::FillMainMenu()
 
 void MainMenu::LoadScene(std::string pString)
 {
+	_isLevelLoading = true;
+	_spritesToDraw.clear();
+	_spritesToDraw.push_back(_loadingScreen);
+	DrawSprites();
+
 	_thirdPerson->loadLevel(pString);
 
 	getParent()->remove(this);
@@ -132,14 +131,13 @@ void MainMenu::HandleClick()
 			{
 				//Find a better way to identify which sprite is clicked on.
 				//The returns are so that it doesn't crash.	
-				
+
 				for (int i = 0; i < _sprites.size(); i++)
 				{
-					if(spriteBounds == _sprites[i].getGlobalBounds())
+					if (spriteBounds == _sprites[i].getGlobalBounds())
 					{
 						//This is the one
 						std::string levelName = _texts[i].getString();
-						std::cout << levelName << std::endl;
 						LoadScene(levelName);
 						return;
 					}
@@ -155,6 +153,23 @@ void MainMenu::HandleClick()
 	}
 
 	_lastPlayerInput = _timer;
+}
+
+void MainMenu::DrawSprites()
+{
+	glActiveTexture(GL_TEXTURE0);
+	_renderWindow->pushGLStates();
+	for each (sf::Sprite pSprite in _spritesToDraw)
+	{
+		_renderWindow->draw(pSprite);
+	}
+	if (!_isLevelLoading) {
+		for each (sf::Text pText in _texts)
+		{
+			_renderWindow->draw(pText);
+		}
+	}
+	_renderWindow->popGLStates();
 }
 
 

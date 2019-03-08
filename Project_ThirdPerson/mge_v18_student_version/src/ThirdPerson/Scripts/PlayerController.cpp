@@ -149,7 +149,6 @@ void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make 
 
 void PlayerController::SelectNextShip(int pDir) {
 	_currentShip->setMaterial(_currentShip->GetBaseMaterial());
-	//ToggleRangeIndicators(_currentShip, false);
 
 	_currentShipIndex += pDir; // -1
 	int valHolder = _myShips.size();
@@ -194,7 +193,7 @@ void PlayerController::ToggleRangeIndicators(Ship* pShip, bool pToggle) {
 			Node* centerNode = pShip->GetCurrentNode();
 			if (pShip->GetOrientation().x != 0)
 			{
-				if ((pShip->GetOrientation().x == -1 && _isHoveringRight) || (pShip->GetOrientation().x == 1 && _isHoveringLeft)) {
+				if ((pShip->GetOrientation().x == 1 && _isHoveringRight) || (pShip->GetOrientation().x == -1 && _isHoveringLeft)) {
 					//Loop from ship tile out to cannonrange upwards.
 					for (int i = centerNode->GetGridY() + 1; i <= centerNode->GetGridY() + pShip->GetCannonRange(); i++)
 					{
@@ -255,7 +254,7 @@ void PlayerController::ToggleRangeIndicators(Ship* pShip, bool pToggle) {
 				}
 			}
 			else {
-				if ((pShip->GetOrientation().y == -1 && _isHoveringLeft) || (pShip->GetOrientation().y == 1 && _isHoveringRight)) {
+				if ((pShip->GetOrientation().y == 1 && _isHoveringLeft) || (pShip->GetOrientation().y == -1 && _isHoveringRight)) {
 					//Loop from ship tile out to cannonrange to the right.
 					for (int i = centerNode->GetGridX() + 1; i <= centerNode->GetGridX() + pShip->GetCannonRange(); i++)
 					{
@@ -340,6 +339,15 @@ PlayerController::~PlayerController() {
 
 void PlayerController::SetFiringMode(bool pToggle) {
 	_isInFiringMode = pToggle;
+	if (pToggle) {
+		if (_currentShip->GetActionsRemaining() > 0) {
+			_currentShip->ConsumeActionForMoves();
+		}
+		else
+		{
+			_isInFiringMode = false;
+		}
+	}
 }
 
 void PlayerController::SetHoveringMode(bool pToggleLeft, bool pToggleRight) {

@@ -488,7 +488,7 @@ void GridGenerator::GenerateNodeGraph() {
 	//Add the glow cubes last, because transparent objects need to be added last to function correctly.
 	for (int column = 0; column < _tileWorld.columns(); column++) {
 		for (int row = 0; row < _tileWorld.rows(); row++) {
-			_nodeCache[_tileWorld.columns()-column-1][_tileWorld.rows()-row-1]->InitializeTileGlow(_cubeMeshDefault);
+			_nodeCache[_tileWorld.columns() - column - 1][_tileWorld.rows() - row - 1]->InitializeTileGlow(_cubeMeshDefault);
 		}
 	}
 }
@@ -703,7 +703,12 @@ int GridGenerator::getGridHeight() {
 }
 
 Node* GridGenerator::GetNodeAtTile(int pColumn, int pRow) {
-	return _nodeCache[pColumn][pRow];
+	if ((pColumn >= 0 && pColumn < _gridWidth) && (pRow >= 0 && pRow < _gridHeight)) {
+		return _nodeCache[pColumn][pRow];
+	}
+	else {
+		return NULL;
+	}
 }
 
 std::vector<Node*> GridGenerator::GetAllNodesOfType(Node::TerrainTypes type)

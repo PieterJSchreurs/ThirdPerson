@@ -46,6 +46,8 @@ private:
 	bool _isBig = true;
 	float _radiusModel;
 
+	std::vector<GameObject*> _indicator;
+	GameObject* _actionIndicator;
 	GameObject* _myCannonball;
 	Mesh* _sphereMeshDefault;
 };

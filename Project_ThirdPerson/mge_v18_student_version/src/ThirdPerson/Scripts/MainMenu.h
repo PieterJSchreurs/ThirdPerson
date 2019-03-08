@@ -33,9 +33,13 @@ private:
 	sf::RenderWindow* _renderWindow;
 	ThirdPerson* _thirdPerson;
 
+	sf::Sprite _loadingScreen;
+	sf::Texture _loadingScreenTexture;
+
 	void HandleClick();
-	void MainMenu::LoadLevelSelect();
-	void MainMenu::LoadScene(std::string pString);
-	void MainMenu::FillMainMenu();
+	void LoadLevelSelect();
+	void LoadScene(std::string pString);
+	void FillMainMenu();
+	void DrawSprites();
 };
 #endif
