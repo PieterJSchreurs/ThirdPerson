@@ -5,6 +5,7 @@
 #include "mge/core/World.hpp"
 #include "ThirdPerson/Scripts/TurnHandler.h"
 #include <SFML/Window/Keyboard.hpp>
+#include "mge/core/Camera.hpp"
 
 AbstractGame::AbstractGame():_window(NULL),_renderer(NULL),_world(NULL), _fps(0)
 {
@@ -169,11 +170,12 @@ void AbstractGame::_processEvents()
                     exit = true;
                 }
                 break;
-            case sf::Event::Resized:
-                //would be better to move this to the renderer
-                //this version implements nonconstrained match viewport scaling
-                glViewport(0, 0, event.size.width, event.size.height);
-                break;
+			case sf::Event::Resized:
+				//would be better to move this to the renderer
+				//this version implements nonconstrained match viewport scaling
+				glViewport(0, 0, event.size.width, event.size.height);
+				_world->getMainCamera()->setProjection(glm::perspective(glm::radians(60.0f), (float)event.size.width / event.size.height, 0.1f, 1000.0f));
+				break;
 
             default:
                 break;

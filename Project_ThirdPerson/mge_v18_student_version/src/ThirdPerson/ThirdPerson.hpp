@@ -5,6 +5,8 @@
 class GridGenerator;
 
 class DebugHud;
+class UIHandler;
+class HudHandler;
 
 /**
  * An example subclass of AbstractGame showing how we can setup a scene.
@@ -52,7 +54,8 @@ class ThirdPerson : public AbstractGame
 
 	private:
 		DebugHud* _hud;                   //hud display
-
+		UIHandler* _myUIHandler;
+		HudHandler* _myHudHandler = nullptr;
 
         void _updateHud();
 		void InitializeMainMenu();

@@ -20,6 +20,8 @@ class Camera : public GameObject
 
 		virtual ~Camera();
 
+		void setProjection(glm::mat4 pProjectionMatrix);
+
         glm::mat4& getProjection();
 
 	private:
