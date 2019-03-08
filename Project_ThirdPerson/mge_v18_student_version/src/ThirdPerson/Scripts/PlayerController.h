@@ -23,13 +23,16 @@ public:
 	void ToggleIsActive();
 	bool GetIsActive();
 	int GetMovesRemaining();
-
+	glm::vec2 GetCurrentShipPosition();
+	Ship* GetCurrentShip();
+	GridGenerator* GetGridGenerator();
 	void ToggleRangeIndicators(Ship* pShip, bool pToggle);
+	void SetFiringMode(bool pToggle);
 
 private:
 
 	GridGenerator* _gridGenerator;
-
+	bool _isInFiringMode = false;
 	Ship* _currentShip;
 	int _currentShipIndex = 0;
 	void SelectNextShip(int pDir);

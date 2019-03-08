@@ -16,6 +16,8 @@ public:
 	virtual ~UIHandler();
 	virtual void update(float pStep);
 
+	void DrawMoveTile(int posX, int posY, bool pBool);
+
 private:
 	float _test = 0;
 	float _timer = 0;
@@ -23,6 +25,9 @@ private:
 	float _lastPlayerInput = 0;
 	bool _clickedMouse = false;
 	bool _isInShootingMode = false;
+	bool _placedMovementIndicator = false;
+	glm::vec2 _shipOrientation;
+	glm::vec2 _movementBoxPosition = glm::vec2(0, 0);
 
 	PlayerController* _playerController;
 

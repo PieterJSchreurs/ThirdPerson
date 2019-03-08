@@ -59,6 +59,7 @@ public:
 	int GetGridX();
 	int GetGridY();
 
+	bool GetTileGlowBool();
 	bool GetWalkable();
 
 	void SetCurrentMovingObject(MovingGridObject* pObj);
@@ -92,6 +93,7 @@ private:
 	int _y;
 
 	bool _walkable = true;
+	bool _isGlowCubeActive = false;
 
 	bool _occupied = false;
 	bool _hasStaticObject = false;

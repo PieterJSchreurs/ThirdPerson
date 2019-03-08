@@ -42,17 +42,17 @@ void UIHandler::InitializeUI()
 	_movementLeftText.setCharacterSize(35);
 	_movementLeftText.setFillColor(sf::Color(139, 69, 19));
 	_movementLeftText.setString("");
-	_movementLeftText.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) + 35, (_flagBackground.getTexture()->getSize().y / 2) - 30);
+	_movementLeftText.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) + 33, (_flagBackground.getTexture()->getSize().y / 2) - 30);
 
 	//Arrow top.
 	_arrowTop.setTexture(_arrowTopTextureArray);
 	_arrowTop.setTextureRect(sf::IntRect(0, 0, _arrowTopTextureArray.getSize().x / 5, _arrowTopTextureArray.getSize().y));
-	_arrowTop.setPosition(_renderWindow->getSize().x - (91 / 2 + _flagBackground.getTexture()->getSize().x / 2) + 40, (_flagBackground.getTexture()->getSize().y / 2) - 200);
+	_arrowTop.setPosition(_renderWindow->getSize().x - (91 / 2 + _flagBackground.getTexture()->getSize().x / 2) + 34, (_flagBackground.getTexture()->getSize().y / 2) - 200);
 	_spritesToDraw.push_back(_arrowTop);
 	//Arrow left	
 	_arrowLeft.setTexture(_arrowLeftTextureArray);
 	_arrowLeft.setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4), _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
-	_arrowLeft.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) - 150, (_flagBackground.getTexture()->getSize().y / 2) - 50);
+	_arrowLeft.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) - 145, (_flagBackground.getTexture()->getSize().y / 2) - 50);
 	_spritesToDraw.push_back(_arrowLeft);
 	//Arrow right	
 	_arrowRight.setTexture(_arrowRightTextureArray);
@@ -84,6 +84,8 @@ void UIHandler::InitializeUI()
 
 void UIHandler::update(float pStep)
 {
+	bool _isHovering = false;
+	_shipOrientation = _playerController->GetCurrentShip()->GetOrientation(); //Perhaps check if this can be more optimized if it lags too much.
 	SetPlayerText();
 	glm::vec2 mousePosOnScreen = glm::vec2(sf::Mouse::getPosition(*_renderWindow).x, sf::Mouse::getPosition(*_renderWindow).y);
 	_timer += pStep;
@@ -102,6 +104,7 @@ void UIHandler::update(float pStep)
 				if (!_isInShootingMode) {
 					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 						_clickedMouse = false;
+						DrawMoveTile(_shipOrientation.x, _shipOrientation.y, false);
 						_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 2, 0, (_arrowTopTextureArray.getSize().x) / 5, _arrowTopTextureArray.getSize().y));
 						_playerController->HandlePlayerInput(sf::Keyboard::W);
 						_lastPlayerInput = _timer;
@@ -109,6 +112,8 @@ void UIHandler::update(float pStep)
 					else {
 						if (_timer - _lastPlayerInput >= _playerInputDelay) {
 							_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 1, 0, (_arrowTopTextureArray.getSize().x) / 5, _arrowTopTextureArray.getSize().y));
+							_isHovering = true;
+							DrawMoveTile(_shipOrientation.x, _shipOrientation.y, true);
 						}
 					}
 				}
@@ -120,6 +125,7 @@ void UIHandler::update(float pStep)
 				if (!_isInShootingMode) {
 					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 						_clickedMouse = false;
+						DrawMoveTile(_shipOrientation.y, -_shipOrientation.x, false);
 						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
 						_playerController->HandlePlayerInput(sf::Keyboard::A);
 						_lastPlayerInput = _timer;
@@ -128,6 +134,8 @@ void UIHandler::update(float pStep)
 					else {
 						if (_timer - _lastPlayerInput >= _playerInputDelay) {
 							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+							DrawMoveTile(_shipOrientation.y, -_shipOrientation.x, true);
+							_isHovering = true;
 						}
 					}
 				}
@@ -141,6 +149,8 @@ void UIHandler::update(float pStep)
 					else {
 						if (_timer - _lastPlayerInput >= _playerInputDelay) {
 							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+							std::cout << "drawmovetile" << std::endl;
+
 						}
 					}
 				}
@@ -149,6 +159,7 @@ void UIHandler::update(float pStep)
 				if (!_isInShootingMode) {
 					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 						_clickedMouse = false;
+						DrawMoveTile(-_shipOrientation.y, _shipOrientation.x, false);
 						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
 						_playerController->HandlePlayerInput(sf::Keyboard::D);
 						_lastPlayerInput = _timer;
@@ -156,7 +167,9 @@ void UIHandler::update(float pStep)
 					}
 					else {
 						if (_timer - _lastPlayerInput >= _playerInputDelay) {
+							_isHovering = true;
 							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+							DrawMoveTile(-_shipOrientation.y, _shipOrientation.x, true);
 						}
 					}
 				}
@@ -164,12 +177,14 @@ void UIHandler::update(float pStep)
 					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
 						_playerController->HandlePlayerInput(sf::Keyboard::X);
+
 						_clickedMouse = false;
 						_lastPlayerInput = _timer;
 					}
 					else {
 						if (_timer - _lastPlayerInput >= _playerInputDelay) {
 							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+
 						}
 					}
 				}
@@ -218,10 +233,13 @@ void UIHandler::update(float pStep)
 					_lastPlayerInput = _timer;
 					if (_isInShootingMode) {
 						_isInShootingMode = false;
+						_playerController->ToggleRangeIndicators(_playerController->GetCurrentShip(), false);
+						_playerController->SetFiringMode(false);
 						_spritesToDraw[i].setTextureRect(sf::IntRect((_compassShootingTextureArray.getSize().x / 4) * 2, 0, _compassShootingTextureArray.getSize().x / 4, _compassShootingTextureArray.getSize().y));
 					}
 					else {
 						_isInShootingMode = true;
+						_playerController->SetFiringMode(true);
 						_spritesToDraw[i].setTextureRect(sf::IntRect((_compassShootingTextureArray.getSize().x / 4), 0, _compassShootingTextureArray.getSize().x / 4, _compassShootingTextureArray.getSize().y));
 					}
 				}
@@ -275,6 +293,10 @@ void UIHandler::update(float pStep)
 			if (_spritesToDraw[i].getTexture() == &_endTurnTextureArray) {
 				_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _endTurnTextureArray.getSize().x / 4, _endTurnTextureArray.getSize().y));
 			}
+			if (i == _spritesToDraw.size() - 1 && !_isHovering)
+			{
+				DrawMoveTile(_movementBoxPosition.x, _movementBoxPosition.y, false); //Reset if not hovering anymore.
+			}
 		}
 	}
 
@@ -295,8 +317,8 @@ void UIHandler::SetPlayerText()
 {
 	int turnsLeft = TurnHandler::getInstance().GetTurnsLeft();
 	int cannonBallsLeft = TurnHandler::getInstance().GetCannonballsLeft();
-	std::string text = "Turns \t:" + std::to_string(turnsLeft) + " / " + std::to_string(TurnHandler::getInstance().GetMaxValueTurns())
-		+ "\nShots left \t:" + std::to_string(cannonBallsLeft) + " / " + std::to_string(TurnHandler::getInstance().GetMaxValueShots());
+	std::string text = "Turns \t\t: " + std::to_string(turnsLeft) +
+		+"\nShots left \t: " + std::to_string(cannonBallsLeft);
 	int movesRemaining = _playerController->GetMovesRemaining();
 	//See if movesremaining is 0.
 	_movementLeftText.setString(std::to_string(movesRemaining));
@@ -305,6 +327,26 @@ void UIHandler::SetPlayerText()
 
 UIHandler::~UIHandler()
 {
+}
+
+void UIHandler::DrawMoveTile(int posX, int posY, bool pBool) { //The pos x and pos y is the difference between the currenthsip selected and the tile which needs to be highlighted.
+	if (pBool) {
+		if (!_placedMovementIndicator) {
+			if (_playerController->GetGridGenerator()->GetNodeAtTile(_playerController->GetCurrentShipPosition().x + posX, _playerController->GetCurrentShipPosition().y + posY)->GetWalkable() &&  !_playerController->GetGridGenerator()->GetNodeAtTile(_playerController->GetCurrentShipPosition().x + posX, _playerController->GetCurrentShipPosition().y + posY)->GetOccupied()) {
+				_playerController->GetGridGenerator()->GetNodeAtTile(_playerController->GetCurrentShipPosition().x + posX, _playerController->GetCurrentShipPosition().y + posY)->SetTileGlow(pBool, "MovementCube.png");
+				_placedMovementIndicator = true;
+				_movementBoxPosition = glm::vec2(posX, posY);
+			}
+		}
+	}
+	else {
+		if (_placedMovementIndicator) {
+			_playerController->GetGridGenerator()->GetNodeAtTile(_playerController->GetCurrentShipPosition().x + posX, _playerController->GetCurrentShipPosition().y + posY)->SetTileGlow(pBool, "MovementCube.png");
+			_placedMovementIndicator = false;
+		}
+	}
+
+
 }
 
 void UIHandler::fillTextures()

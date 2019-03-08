@@ -75,13 +75,25 @@ StaticGridObject* Node::GetStaticObject() {
 void Node::SetTileGlow(bool pToggle, std::string pTexture) {
 	if (pToggle)
 	{
+		_isGlowCubeActive = true;
 		add(_myGlowCube);
 		_myGlowCube->setLocalPosition(glm::vec3(0, -0.65f, 0));
 		AbstractMaterial* glowCubeMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + pTexture), glm::vec3(1, 1, 1), 0.25f);
 		_myGlowCube->setMaterial(glowCubeMaterial);
 	}
 	else {
+		_isGlowCubeActive = false;
 		remove(_myGlowCube);
+	}
+}
+
+bool Node::GetTileGlowBool()
+{
+	if (_isGlowCubeActive) {
+		return true;
+	}
+	else {
+		return false;
 	}
 }
 
