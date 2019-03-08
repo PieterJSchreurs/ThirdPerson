@@ -16,8 +16,6 @@ public:
 	virtual ~UIHandler();
 	virtual void update(float pStep);
 
-	void DrawMoveTile(int posX, int posY, bool pBool);
-
 private:
 	float _test = 0;
 	float _timer = 0;
@@ -26,6 +24,7 @@ private:
 	bool _clickedMouse = false;
 	bool _isInShootingMode = false;
 	bool _placedMovementIndicator = false;
+	bool _placedAttackIndicator = false;
 	glm::vec2 _shipOrientation;
 	glm::vec2 _movementBoxPosition = glm::vec2(0, 0);
 
@@ -64,6 +63,8 @@ private:
 	void InitializeUI();
 	void fillTextures();
 	void SetPlayerText();
+	void DrawFireTile(bool pToggleLeft, bool pToggleRight);
+	void DrawMoveTile(int posX, int posY, bool pBool);
 };
 
 #endif // UIHANDLER_HPP

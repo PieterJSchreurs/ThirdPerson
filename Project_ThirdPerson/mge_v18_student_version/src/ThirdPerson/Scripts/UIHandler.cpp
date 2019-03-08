@@ -149,8 +149,8 @@ void UIHandler::update(float pStep)
 					else {
 						if (_timer - _lastPlayerInput >= _playerInputDelay) {
 							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
-							std::cout << "drawmovetile" << std::endl;
-
+							_isHovering = true;
+							DrawFireTile(true, false);
 						}
 					}
 				}
@@ -184,6 +184,8 @@ void UIHandler::update(float pStep)
 					else {
 						if (_timer - _lastPlayerInput >= _playerInputDelay) {
 							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+							_isHovering = true;
+							DrawFireTile(false, true);
 
 						}
 					}
@@ -233,7 +235,6 @@ void UIHandler::update(float pStep)
 					_lastPlayerInput = _timer;
 					if (_isInShootingMode) {
 						_isInShootingMode = false;
-						_playerController->ToggleRangeIndicators(_playerController->GetCurrentShip(), false);
 						_playerController->SetFiringMode(false);
 						_spritesToDraw[i].setTextureRect(sf::IntRect((_compassShootingTextureArray.getSize().x / 4) * 2, 0, _compassShootingTextureArray.getSize().x / 4, _compassShootingTextureArray.getSize().y));
 					}
@@ -296,6 +297,7 @@ void UIHandler::update(float pStep)
 			if (i == _spritesToDraw.size() - 1 && !_isHovering)
 			{
 				DrawMoveTile(_movementBoxPosition.x, _movementBoxPosition.y, false); //Reset if not hovering anymore.
+				DrawFireTile(false, false);
 			}
 		}
 	}
@@ -329,10 +331,25 @@ UIHandler::~UIHandler()
 {
 }
 
+void UIHandler::DrawFireTile(bool pToggleLeft, bool pToggleRight) {
+	if (pToggleLeft || pToggleRight) {
+		if (!_placedAttackIndicator) {
+			_placedAttackIndicator = true;
+			_playerController->SetHoveringMode(pToggleLeft, pToggleRight);
+		}
+	}
+	else {
+		if (_placedAttackIndicator) {
+			_placedAttackIndicator = false;
+			_playerController->SetHoveringMode(pToggleLeft, pToggleRight);
+		}
+	}
+}
+
 void UIHandler::DrawMoveTile(int posX, int posY, bool pBool) { //The pos x and pos y is the difference between the currenthsip selected and the tile which needs to be highlighted.
 	if (pBool) {
 		if (!_placedMovementIndicator) {
-			if (_playerController->GetGridGenerator()->GetNodeAtTile(_playerController->GetCurrentShipPosition().x + posX, _playerController->GetCurrentShipPosition().y + posY)->GetWalkable() &&  !_playerController->GetGridGenerator()->GetNodeAtTile(_playerController->GetCurrentShipPosition().x + posX, _playerController->GetCurrentShipPosition().y + posY)->GetOccupied()) {
+			if (_playerController->GetGridGenerator()->GetNodeAtTile(_playerController->GetCurrentShipPosition().x + posX, _playerController->GetCurrentShipPosition().y + posY)->GetWalkable() && !_playerController->GetGridGenerator()->GetNodeAtTile(_playerController->GetCurrentShipPosition().x + posX, _playerController->GetCurrentShipPosition().y + posY)->GetOccupied()) {
 				_playerController->GetGridGenerator()->GetNodeAtTile(_playerController->GetCurrentShipPosition().x + posX, _playerController->GetCurrentShipPosition().y + posY)->SetTileGlow(pBool, "MovementCube.png");
 				_placedMovementIndicator = true;
 				_movementBoxPosition = glm::vec2(posX, posY);

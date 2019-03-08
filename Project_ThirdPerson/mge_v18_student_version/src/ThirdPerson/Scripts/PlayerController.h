@@ -28,6 +28,7 @@ public:
 	GridGenerator* GetGridGenerator();
 	void ToggleRangeIndicators(Ship* pShip, bool pToggle);
 	void SetFiringMode(bool pToggle);
+	void SetHoveringMode(bool pToggleLeft, bool pToggleRight);
 
 private:
 
@@ -36,6 +37,8 @@ private:
 	Ship* _currentShip;
 	int _currentShipIndex = 0;
 	void SelectNextShip(int pDir);
+	bool _isHoveringRight = false;
+	bool _isHoveringLeft = false;
 
 	std::vector<Ship*> _myShips;
 
