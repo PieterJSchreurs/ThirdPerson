@@ -121,10 +121,12 @@ void GameObject::rotateEulerAngles(glm::vec3 pRotation)
 	setEulerAngles(_rotation + pRotation);
 }
 
-void GameObject::rotateEulerTowards(glm::vec3 pRotation, float pSpeed, float pPrecision) { // 0,0,0		190,0,0
-
-	
-
+void GameObject::rotateEulerTowards(glm::vec3 pRotation, float pSpeed, bool pGradual, float pPrecision) { // 0,0,0		190,0,0
+	int gradualSwitch = 1;
+	if (!pGradual)
+	{
+		gradualSwitch = 0;
+	}
 	if (glm::abs(pRotation.x - getEulerAngles().x) > pPrecision) // 190 - 0 = 190
 	{
 		int fullCircleInverter = 360;
@@ -134,10 +136,10 @@ void GameObject::rotateEulerTowards(glm::vec3 pRotation, float pSpeed, float pPr
 		}
 		if (glm::abs(pRotation.x - getEulerAngles().x) < glm::abs((fullCircleInverter + pRotation.x) - getEulerAngles().x))
 		{
-			rotateEulerAngles(glm::vec3(0, (pRotation.x - getEulerAngles().x) * pSpeed, 0));
+			rotateEulerAngles(glm::vec3(0, (gradualSwitch * ((pRotation.x - getEulerAngles().x) * pSpeed)) + ((1- gradualSwitch) * pSpeed * glm::sign(pRotation.x - getEulerAngles().x)), 0));
 		}
 		else {
-			rotateEulerAngles(glm::vec3(0, ((fullCircleInverter + pRotation.x) - getEulerAngles().x) * pSpeed, 0));
+			rotateEulerAngles(glm::vec3(0, (gradualSwitch * (((fullCircleInverter + pRotation.x) - getEulerAngles().x) * pSpeed)) + ((1 - gradualSwitch) * pSpeed * glm::sign((fullCircleInverter + pRotation.x) - getEulerAngles().x)), 0));
 		}
 	}
 	else {
@@ -153,10 +155,10 @@ void GameObject::rotateEulerTowards(glm::vec3 pRotation, float pSpeed, float pPr
 		}
 		if (glm::abs(pRotation.y - getEulerAngles().y) < glm::abs((fullCircleInverter + pRotation.y) - getEulerAngles().y))
 		{
-			rotateEulerAngles(glm::vec3(0, (pRotation.y - getEulerAngles().y) * pSpeed, 0));
+			rotateEulerAngles(glm::vec3(0, (gradualSwitch * ((pRotation.y - getEulerAngles().y) * pSpeed)) + ((1 - gradualSwitch) * pSpeed * glm::sign(pRotation.y - getEulerAngles().y)), 0));
 		}
 		else {
-			rotateEulerAngles(glm::vec3(0, ((fullCircleInverter + pRotation.y) - getEulerAngles().y) * pSpeed, 0));
+			rotateEulerAngles(glm::vec3(0, (gradualSwitch * (((fullCircleInverter + pRotation.y) - getEulerAngles().y) * pSpeed)) + ((1 - gradualSwitch) * pSpeed * glm::sign((fullCircleInverter + pRotation.y) - getEulerAngles().y)), 0));
 		}
 	}
 	else {
@@ -172,10 +174,10 @@ void GameObject::rotateEulerTowards(glm::vec3 pRotation, float pSpeed, float pPr
 		}
 		if (glm::abs(pRotation.z - getEulerAngles().z) < glm::abs((fullCircleInverter + pRotation.z) - getEulerAngles().z))
 		{
-			rotateEulerAngles(glm::vec3(0, (pRotation.z - getEulerAngles().z) * pSpeed, 0));
+			rotateEulerAngles(glm::vec3(0, (gradualSwitch * ((pRotation.z - getEulerAngles().z) * pSpeed)) + ((1 - gradualSwitch) * pSpeed * glm::sign(pRotation.z - getEulerAngles().z)), 0));
 		}
 		else {
-			rotateEulerAngles(glm::vec3(0, ((fullCircleInverter + pRotation.z) - getEulerAngles().z) * pSpeed, 0));
+			rotateEulerAngles(glm::vec3(0, (gradualSwitch * (((fullCircleInverter + pRotation.z) - getEulerAngles().z) * pSpeed)) + ((1 - gradualSwitch) * pSpeed * glm::sign((fullCircleInverter + pRotation.z) - getEulerAngles().z)), 0));
 		}
 	}
 	else {

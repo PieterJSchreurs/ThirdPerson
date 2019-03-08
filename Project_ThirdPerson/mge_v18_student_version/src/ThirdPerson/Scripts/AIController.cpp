@@ -161,7 +161,7 @@ bool AIController::MakeShipShoot() {
 								{
 									std::cout << "Shooting in dir: 0-" << glm::sign(yDist) << std::endl;
 									_currentShip->ShootInDir(glm::vec2(0, glm::sign(yDist)), _gridGenerator);
-									EndShipTurn();
+									_currentShip->FlushActions();
 								}
 								else {
 									std::cout << "No actions left, waiting for next turn." << std::endl;
@@ -185,7 +185,7 @@ bool AIController::MakeShipShoot() {
 								{
 									std::cout << "Shooting in dir: " << glm::sign(xDist) << "-0" << std::endl;
 									_currentShip->ShootInDir(glm::vec2(glm::sign(xDist), 0), _gridGenerator);
-									EndShipTurn();
+									_currentShip->FlushActions();
 								}
 								else {
 									std::cout << "No actions left, waiting for next turn." << std::endl;

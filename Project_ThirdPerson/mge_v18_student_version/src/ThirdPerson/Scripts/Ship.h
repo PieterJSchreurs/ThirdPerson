@@ -22,7 +22,10 @@ public:
 
 	virtual void TurnOrientation(int pDir);
 
+	virtual void HandleDamaged();
 	virtual void DestroyObject();
+
+	void FlushActions();
 
 	int GetActionsRemaining();
 	int GetMovesRemaining();

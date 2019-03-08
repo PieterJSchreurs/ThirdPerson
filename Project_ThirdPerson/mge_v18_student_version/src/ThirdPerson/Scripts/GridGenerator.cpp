@@ -27,6 +27,13 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 {
 	_cubeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
 
+	_boardMesh = Mesh::load(config::MGE_MODEL_PATH + "Board.obj");
+	_candleMesh = Mesh::load(config::MGE_MODEL_PATH + "Candle.obj");
+	//_coin1Mesh = Mesh::load(config::MGE_MODEL_PATH + "coin.obj");
+	_coin2Mesh = Mesh::load(config::MGE_MODEL_PATH + "coin1.obj");
+	_knifeMesh = Mesh::load(config::MGE_MODEL_PATH + "Knife.obj");
+	_skullMesh = Mesh::load(config::MGE_MODEL_PATH + "Skull.obj");
+
 	_sandTilesFull[0] = _sandTileFull1 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_1.obj");
 	_sandTilesFull[1] = _sandTileFull2 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_2.obj");
 	_sandTilesFull[2] = _sandTileFull3 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_3.obj");
@@ -69,6 +76,52 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 	_mainShip = Mesh::load(config::MGE_MODEL_PATH + "Main_Ship.obj");
 	_smallShip = Mesh::load(config::MGE_MODEL_PATH + "Small_Ship.obj");
 	_enemyShip = Mesh::load(config::MGE_MODEL_PATH + "Enemy_Ship.obj");
+	_enemyDamagedShip = Mesh::load(config::MGE_MODEL_PATH + "Enemy_Ship_DMG.obj");
+
+	//TEXTURES
+	_boardMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Wood_HD.jpg"), glm::vec3(1, 1, 1), 0.25f);
+	_candleMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Candle.png"), glm::vec3(1, 1, 1), 0.25f);
+	//_coin1Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "coin.png"), glm::vec3(1, 1, 1), 0.25f);
+	_coin2Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "coin.png"), glm::vec3(1, 1, 1), 0.25f);
+	_knifeMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Knife.png"), glm::vec3(1, 1, 1), 0.25f);
+	_skullMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Skull.png"), glm::vec3(1, 1, 1), 0.25f);
+
+	_sandTileCornerMaterials[0] = _sandTileCornerMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Corner_1.png"), glm::vec3(1, 1, 1), 0.25f);
+	_sandTileCornerMaterials[1] = _sandTileCornerMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Corner_2.png"), glm::vec3(1, 1, 1), 0.25f);
+	_sandTileCornerMaterials[2] = _sandTileCornerMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Corner_3.png"), glm::vec3(1, 1, 1), 0.25f);
+	_sandTileStraightMaterials[0] = _sandTileStraightMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Straight_1.png"), glm::vec3(1, 1, 1), 0.25f);
+	_sandTileStraightMaterials[1] = _sandTileStraightMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Straight_2.png"), glm::vec3(1, 1, 1), 0.25f);
+	_sandTileStraightMaterials[2] = _sandTileStraightMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Straight_3.png"), glm::vec3(1, 1, 1), 0.25f);
+	_sandTileInvertedCornerMaterials[0] = _sandTileInvertedCornerMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Inverse_Corner_1.png"), glm::vec3(1, 1, 1), 0.25f);
+	_sandTileInvertedCornerMaterials[1] = _sandTileInvertedCornerMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Inverse_Corner_2.png"), glm::vec3(1, 1, 1), 0.25f);
+	_sandTileInvertedCornerMaterials[2] = _sandTileInvertedCornerMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Inverse_Corner_3.png"), glm::vec3(1, 1, 1), 0.25f);
+	_sandTileFullMaterials[0] = _sandTileFullMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_1.png"), glm::vec3(1, 1, 1), 0.25f);
+	_sandTileFullMaterials[1] = _sandTileFullMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_2.png"), glm::vec3(1, 1, 1), 0.25f);
+	_sandTileFullMaterials[2] = _sandTileFullMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_3.png"), glm::vec3(1, 1, 1), 0.25f);
+
+
+	_obstacleMaterials[0] = _obstacleMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_1.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[1] = _obstacleMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_2.png"), glm::vec3(1, 1, 1), 0.25f);
+	//_obstacleMaterials[2] = _obstacleMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_3.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[2] = _obstacleMaterial4 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_4.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[3] = _obstacleMaterial5 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_5.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[4] = _obstacleMaterial6 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_6.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[5] = _obstacleMaterial7 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_7.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[6] = _obstacleMaterial8 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_8.png"), glm::vec3(1, 1, 1), 0.25f);
+	_obstacleMaterials[7] = _obstacleMaterial9 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_9.png"), glm::vec3(1, 1, 1), 0.25f);
+
+	_harborMaterials[0] = _harborMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Bottom_Left.png"), glm::vec3(1, 1, 1), 0.25f);
+	_harborMaterials[1] = _harborMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Middle_Left.png"), glm::vec3(1, 1, 1), 0.25f);
+	_harborMaterials[2] = _harborMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Top_Left.png"), glm::vec3(1, 1, 1), 0.25f);
+	_harborMaterials[3] = _harborMaterial4 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Top_Middle.png"), glm::vec3(1, 1, 1), 0.25f);
+	_harborMaterials[4] = _harborMaterial5 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Top_Right.png"), glm::vec3(1, 1, 1), 0.25f);
+	_harborMaterials[5] = _harborMaterial6 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Middle_Right.png"), glm::vec3(1, 1, 1), 0.25f);
+	_harborMaterials[6] = _harborMaterial7 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Bottom_Right.png"), glm::vec3(1, 1, 1), 0.25f);
+
+	_mainShipMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Main_Ship.png"));
+	_smallShipMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Small_Ship.png"));
+	_enemyShipMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemy_Ship.png"));
+	_treasureIslandMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Treasure_Island.png"), glm::vec3(1, 1, 1), 0.25f);
 }
 
 void GridGenerator::SetGridValues(TileWorld* pTileWorld, const std::string& pFileName) {
@@ -78,7 +131,6 @@ void GridGenerator::SetGridValues(TileWorld* pTileWorld, const std::string& pFil
 }
 
 void GridGenerator::GenerateNodeGraph() {
-
 	char id;
 	char divider = ',';
 	char negative = '-';
@@ -206,49 +258,10 @@ void GridGenerator::GenerateNodeGraph() {
 		combiner.clear();
 	}
 
+	//TEMP TEXTURES
 	AbstractMaterial* normalMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* waterMaterial = new WaterMaterial(Texture::load(config::MGE_TEXTURE_PATH + "WaterTexture.png"));
 
-	AbstractMaterial* islandMaterialCorner = new LitMaterial(glm::vec3(0.75f, 0.75f, 0.75f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	_sandTileCornerMaterials[0] = _sandTileCornerMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Corner_1.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileCornerMaterials[1] = _sandTileCornerMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Corner_2.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileCornerMaterials[2] = _sandTileCornerMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Corner_3.png"), glm::vec3(1, 1, 1), 0.25f);
-	AbstractMaterial* islandMaterialStraight = new LitMaterial(glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	_sandTileStraightMaterials[0] = _sandTileStraightMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Straight_1.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileStraightMaterials[1] = _sandTileStraightMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Straight_2.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileStraightMaterials[2] = _sandTileStraightMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Straight_3.png"), glm::vec3(1, 1, 1), 0.25f);
-	AbstractMaterial* islandMaterialInverseCorner = new LitMaterial(glm::vec3(0.25f, 0.25f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	_sandTileInvertedCornerMaterials[0] = _sandTileInvertedCornerMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Inverse_Corner_1.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileInvertedCornerMaterials[1] = _sandTileInvertedCornerMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Inverse_Corner_2.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileInvertedCornerMaterials[2] = _sandTileInvertedCornerMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Inverse_Corner_3.png"), glm::vec3(1, 1, 1), 0.25f);
-	AbstractMaterial* islandMaterialFull = new LitMaterial(glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-	_sandTileFullMaterials[0] = _sandTileFullMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_1.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileFullMaterials[1] = _sandTileFullMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_2.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileFullMaterials[2] = _sandTileFullMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_3.png"), glm::vec3(1, 1, 1), 0.25f);
-
-
-	_obstacleMaterials[0] = _obstacleMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_1.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[1] = _obstacleMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_2.png"), glm::vec3(1, 1, 1), 0.25f);
-	//_obstacleMaterials[2] = _obstacleMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_3.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[2] = _obstacleMaterial4 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_4.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[3] = _obstacleMaterial5 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_5.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[4] = _obstacleMaterial6 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_6.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[5] = _obstacleMaterial7 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_7.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[6] = _obstacleMaterial8 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_8.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[7] = _obstacleMaterial9 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_9.png"), glm::vec3(1, 1, 1), 0.25f);
-
-	_harborMaterials[0] = _harborMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Bottom_Left.png"), glm::vec3(1, 1, 1), 0.25f);
-	_harborMaterials[1] = _harborMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Middle_Left.png"), glm::vec3(1, 1, 1), 0.25f);
-	_harborMaterials[2] = _harborMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Top_Left.png"), glm::vec3(1, 1, 1), 0.25f);
-	_harborMaterials[3] = _harborMaterial4 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Top_Middle.png"), glm::vec3(1, 1, 1), 0.25f);
-	_harborMaterials[4] = _harborMaterial5 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Top_Right.png"), glm::vec3(1, 1, 1), 0.25f);
-	_harborMaterials[5] = _harborMaterial6 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Middle_Right.png"), glm::vec3(1, 1, 1), 0.25f);
-	_harborMaterials[6] = _harborMaterial7 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Bottom_Right.png"), glm::vec3(1, 1, 1), 0.25f);
-
-	_mainShipMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Main_Ship.png"));
-	_smallShipMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Small_Ship.png"));
-	_enemyShipMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemy_Ship.png"));
-	_treasureIslandMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Treasure_Island.png"), glm::vec3(1, 1, 1), 0.25f);
 	AbstractMaterial* goalMaterial = new LitMaterial(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
 	AbstractMaterial* dangerCubeMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "DangerCube.png"), glm::vec3(1, 1, 1), 0.25f);
 
@@ -258,6 +271,50 @@ void GridGenerator::GenerateNodeGraph() {
 
 	//_tileWorld->setLocalPosition(glm::vec3(-_tileWorld.columns() * _tileWorld.tileSize() + (_tileWorld.tileSize()/1.5f), 0, -_tileWorld.rows() * _tileWorld.tileSize() + (_tileWorld.tileSize() / 1.5f)));
 	_tileWorld.add(_nodeWorld);
+
+	//BACKGROUND
+	GameObject* board = new GameObject("Board", glm::vec3(0, 0, 0));
+	board->setScale(glm::vec3(2, 2, 2));
+	board->setMesh(_boardMesh);
+	board->setMaterial(_boardMaterial);
+	_tileWorld.add(board);
+	board->setLocalPosition(glm::vec3(-_tileWorld.tileSize(), 1.0f, -_tileWorld.tileSize()));
+
+	GameObject* candle = new GameObject("Candle", glm::vec3(0, 0, 0));
+	candle->setScale(glm::vec3(2, 2, 2));
+	candle->setMesh(_candleMesh);
+	candle->setMaterial(_candleMaterial);
+	_tileWorld.add(candle);
+	candle->setLocalPosition(glm::vec3(-_tileWorld.tileSize(), 1.0f, -_tileWorld.tileSize()));
+
+	//GameObject* coin1 = new GameObject("Coin1", glm::vec3(0, 0, 0));
+	//coin1->setScale(glm::vec3(2, 2, 2));
+	//coin1->setMesh(_coin1Mesh);
+	//coin1->setMaterial(_coin1Material);
+	//_tileWorld.add(coin1);
+	//coin1->setLocalPosition(glm::vec3(-_tileWorld.tileSize(), 1.0f, -_tileWorld.tileSize()));
+
+	GameObject* coin2 = new GameObject("Coin2", glm::vec3(0, 0, 0));
+	coin2->setScale(glm::vec3(2, 2, 2));
+	coin2->setMesh(_coin2Mesh);
+	coin2->setMaterial(_coin2Material);
+	_tileWorld.add(coin2);
+	coin2->setLocalPosition(glm::vec3(-_tileWorld.tileSize(), 1.0f, -_tileWorld.tileSize()));
+
+	GameObject* knife = new GameObject("Knife", glm::vec3(0, 0, 0));
+	knife->setScale(glm::vec3(2, 2, 2));
+	knife->setMesh(_knifeMesh);
+	knife->setMaterial(_knifeMaterial);
+	_tileWorld.add(knife);
+	knife->setLocalPosition(glm::vec3(-_tileWorld.tileSize(), 1.0f, -_tileWorld.tileSize()));
+
+	GameObject* skull = new GameObject("Skull", glm::vec3(0, 0, 0));
+	skull->setScale(glm::vec3(2, 2, 2));
+	skull->setMesh(_skullMesh);
+	skull->setMaterial(_skullMaterial);
+	_tileWorld.add(skull);
+	skull->setLocalPosition(glm::vec3(-_tileWorld.tileSize(), 1.0f, -_tileWorld.tileSize()));
+
 
 	_gridWidth = _tileWorld.columns();
 	_gridHeight = _tileWorld.rows();
@@ -443,7 +500,7 @@ void GridGenerator::GenerateNodeGraph() {
 			}
 			else if (nmbr >= 12 && nmbr <= 15)
 			{
-				gridObj = new AIBigShip(_nodeCache[column][row], GetAllNodes(), "AIBigShip");
+				gridObj = new AIBigShip(_nodeCache[column][row], _enemyDamagedShip, GetAllNodes(), "AIBigShip");
 				Ship* shipRef = static_cast<Ship*>(gridObj);
 				if (nmbr == 12)
 				{

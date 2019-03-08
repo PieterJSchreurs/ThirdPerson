@@ -12,13 +12,14 @@ class DebugHud
 	public:
 		DebugHud( sf::RenderWindow * aWindow );
 		virtual ~DebugHud();
-		void draw();
+		virtual void draw();
 
 		void setDebugInfo (std::string pInfo, int xPos = 10, int yPos = 10);
 
-	private:
+	protected:
 		sf::RenderWindow * _window;
 
+	private:
         std::string _debugInfo;
 
         sf::Font _font;

@@ -43,7 +43,11 @@ void MovingGridObject::TakeDamage(int pDamage, float pDelay) {
 	}
 	else {
 		std::cout << "Object took " << pDamage << " damage. Object has " << _objectHealth << " health remaining." << std::endl;
+		HandleDamaged();
 	}
+}
+void MovingGridObject::HandleDamaged() {
+	//Apply any visual effects to the object in this overloaded function.
 }
 
 void MovingGridObject::DestroyObject() {
@@ -58,7 +62,7 @@ bool MovingGridObject::GetIsAlive() {
 void MovingGridObject::HandleRotation() {
 	if (getEulerAngles().y != _targetEuler.y)
 	{
-		rotateEulerTowards(glm::vec3(getEulerAngles().x, _targetEuler.y, getEulerAngles().z), _rotationSpeed);
+		rotateEulerTowards(glm::vec3(getEulerAngles().x, _targetEuler.y, getEulerAngles().z), _rotationSpeed); //3, false
 		if (glm::abs(getEulerAngles().y - _targetEuler.y) <= _snapThreshold)
 		{
 			setEulerAngles(_targetEuler);
@@ -183,28 +187,55 @@ bool MovingGridObject::moveToTargetWaypoint()
 				targetNextWaypoint();
 				return true;
 			}
+			
+			//std::cout << "Move direction: " << moveDir << std::endl;
 
-			translate(glm::vec4(moveDir * _speed, 1.0f) * getWorldTransform());
-
-			if (glm::abs(moveDir.x) > glm::abs(moveDir.z))
+			translate(glm::vec3(0, 0, _speed));
+			float test = glm::atan(-moveDir.z / moveDir.x) * (180.0f / 3.1416f);
+			//std::cout << "Angle before: " << test << std::endl;
+			if (moveDir.x < 0)
 			{
-				if (moveDir.x > 0)
-				{
-					SetOrientation(glm::vec2(1, 0));
-				}
-				else {
-					SetOrientation(glm::vec2(-1, 0));
-				}
+				test += 180;
 			}
-			else {
-				if (moveDir.z > 0)
-				{
-					SetOrientation(glm::vec2(0, 1));
-				}
-				else {
-					SetOrientation(glm::vec2(0, -1));
-				}
-			}
+			//if (test == 90 && moveDir.x < 0)
+			//{
+			//	test = -90;
+			//}
+			//std::cout << "Angle after: " << test << std::endl;
+			_targetEuler = glm::vec3(getEulerAngles().x, test+90, getEulerAngles().z);
+
+			//90 gets added to the angle.
+			//(0,1) = 0					atan = 90
+				//(+x, +y) = 0 to 90
+			//(1,0) = 90				atan = 0	
+				//(+x, -y) = 90 to 180				+180?
+			//(0,-1) = 180				atan = -90	
+				//(-x, -y) = 180 to 270
+			//(-1,0) = 270				atan = -0
+				//(-x, +y) = 270 to 360
+
+
+			//translate(glm::vec4(moveDir * _speed, 1.0f) * getWorldTransform());
+
+			//if (glm::abs(moveDir.x) > glm::abs(moveDir.z))
+			//{
+			//	if (moveDir.x > 0)
+			//	{
+			//		SetOrientation(glm::vec2(1, 0));
+			//	}
+			//	else {
+			//		SetOrientation(glm::vec2(-1, 0));
+			//	}
+			//}
+			//else {
+			//	if (moveDir.z > 0)
+			//	{
+			//		SetOrientation(glm::vec2(0, 1));
+			//	}
+			//	else {
+			//		SetOrientation(glm::vec2(0, -1));
+			//	}
+			//}
 
 			if (glm::distance(glm::vec3(getLocalPosition().x, 0, getLocalPosition().z), glm::vec3(_currentNode->getLocalPosition().x, 0, _currentNode->getLocalPosition().z)) >= glm::distance(wayPointQueue[0]->getLocalPosition(), _currentNode->getLocalPosition())) {
 				targetNextWaypoint();
@@ -289,6 +320,8 @@ void MovingGridObject::TurnOrientation(int pDir) {
 
 void MovingGridObject::targetNextWaypoint()
 {
+	SetOrientation(glm::vec2(wayPointQueue[0]->GetGridX() - _currentNode->GetGridX(), wayPointQueue[0]->GetGridY() - _currentNode->GetGridY()));
+
 	_currentNode->SetCurrentMovingObject(nullptr);
 	_currentNode = wayPointQueue[0];
 	_currentNode->SetCurrentMovingObject(this);
