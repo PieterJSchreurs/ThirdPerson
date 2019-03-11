@@ -11,6 +11,7 @@ public:
 	virtual ~BigShip();
 	virtual void update(float pStep);
 
+	virtual void HandleDamaged();
 private:
 
 };

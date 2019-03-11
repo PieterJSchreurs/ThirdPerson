@@ -165,6 +165,19 @@ private:
 	int _topLeftHarborIndex = -1;
 	int _prevHarborIndex = 0;
 
+	Mesh* _boardMesh;
+	Mesh* _candleMesh;
+	Mesh* _coin1Mesh;
+	Mesh* _coin2Mesh;
+	Mesh* _knifeMesh;
+	Mesh* _skullMesh;
+	AbstractMaterial* _boardMaterial;
+	AbstractMaterial* _candleMaterial;
+	AbstractMaterial* _coin1Material;
+	AbstractMaterial* _coin2Material;
+	AbstractMaterial* _knifeMaterial;
+	AbstractMaterial* _skullMaterial;
+
 	Mesh* _sandTilesFull[3];
 	Mesh* _sandTileFull1;
 	Mesh* _sandTileFull2;
@@ -244,6 +257,7 @@ private:
 	Mesh* _smallShip;
 	AbstractMaterial* _smallShipMaterial;
 	Mesh* _enemyShip;
+	Mesh* _enemyDamagedShip;
 	AbstractMaterial* _enemyShipMaterial;
 
 	Mesh* _cubeMeshDefault;

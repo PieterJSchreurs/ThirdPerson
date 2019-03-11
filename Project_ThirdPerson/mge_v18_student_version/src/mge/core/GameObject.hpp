@@ -32,7 +32,7 @@ class GameObject
 
 		void setEulerAngles(glm::vec3 pRotation);
 		void rotateEulerAngles(glm::vec3 pRotation);
-		void rotateEulerTowards(glm::vec3 pRotation, float pSpeed, float pPrecision = 3.0f);
+		void rotateEulerTowards(glm::vec3 pRotation, float pSpeed, bool pGradual = true, float pPrecision = 3.0f);
 		glm::vec3 getEulerAngles() const;
 
         //get the objects world position by combining transforms, SLOW use with care

@@ -93,6 +93,7 @@ private:
 	int _y;
 
 	bool _walkable = true;
+	bool _isGlowCubeActive = false;
 
 	bool _occupied = false;
 	bool _hasStaticObject = false;

@@ -9,6 +9,11 @@ void BigShip::update(float pStep) {
 	Ship::update(pStep);
 }
 
+void BigShip::HandleDamaged() {
+	Ship::HandleDamaged();
+	//Apply any visual effects to the object in this overloaded function.
+}
+
 //DESTRUCTOR___________________________________________________________
 BigShip::~BigShip() {
 }

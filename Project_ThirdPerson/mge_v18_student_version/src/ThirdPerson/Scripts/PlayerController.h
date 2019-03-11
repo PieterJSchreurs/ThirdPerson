@@ -23,22 +23,29 @@ public:
 	void ToggleIsActive();
 	bool GetIsActive();
 	int GetMovesRemaining();
-
+	glm::vec2 GetCurrentShipPosition();
+	Ship* GetCurrentShip();
+	GridGenerator* GetGridGenerator();
 	void ToggleRangeIndicators(Ship* pShip, bool pToggle);
+	void SetFiringMode(bool pToggle);
+	void SetHoveringMode(bool pToggleLeft, bool pToggleRight);
 
 private:
 
 	GridGenerator* _gridGenerator;
-
+	bool _isInFiringMode = false;
 	Ship* _currentShip;
 	int _currentShipIndex = 0;
 	void SelectNextShip(int pDir);
+	int GetShipsAlive();
 
 	std::vector<Ship*> _myShips;
 
 	float _timer = 0;
 	const float _playerInputDelay = 0.5f;
 	float _lastPlayerInput = 0;
+	bool _isHoveringRight = false;
+	bool _isHoveringLeft = false;
 
 	bool _isActive = false;
 

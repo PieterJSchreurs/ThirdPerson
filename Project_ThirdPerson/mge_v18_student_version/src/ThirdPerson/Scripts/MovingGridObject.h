@@ -26,6 +26,7 @@ public:
 
 	void SetObjectValues(int pHealth);
 	void TakeDamage(int pDamage, float pDelay = 0);
+	virtual void HandleDamaged();
 	virtual void DestroyObject();
 	bool GetIsAlive();
 protected:
@@ -40,10 +41,10 @@ private:
 	glm::vec2 _orientation = glm::vec2(1, 0);
 	glm::vec3 _targetEuler;
 	void HandleRotation();
-	float _rotationSpeed = 0.185f;
+	float _rotationSpeed = 0.075f;
 	float _snapThreshold = 3.0f;
 
-	float _speed = 0.05f;
+	float _speed = 0.01f;
 	std::vector<Node*> wayPointQueue;
 
 	std::vector<Node*> _todoList;

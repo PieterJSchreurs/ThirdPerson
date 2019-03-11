@@ -17,6 +17,20 @@ Ship::Ship(Node* pStartNode, std::vector<Node*> pAllNodes, bool pIsAI, bool pIsB
 
 	_sphereMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
 	//pStartNode->SetOccupied(true);
+	if (!pIsAI) {
+		for (int i = 0; i < 2; i++)
+		{
+			AbstractMaterial* actionIndicatorMaterial = new LitMaterial(glm::vec3(1, 1, 1), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+			_actionIndicator = new GameObject("ActionIndicator", glm::vec3(0, 0, 0));
+			_actionIndicator->setMesh(_sphereMeshDefault);
+			_actionIndicator->setMaterial(actionIndicatorMaterial);
+			_actionIndicator->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
+			add(_actionIndicator);
+			_actionIndicator->setLocalPosition(glm::vec3(0, 1, (i * 0.4f) - 0.2f));
+
+			_indicator.push_back(_actionIndicator);
+		}
+	}
 }
 
 void Ship::update(float pStep) {
@@ -91,6 +105,10 @@ void Ship::MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 void Ship::ConsumeActionForMoves() {
 	if (_actionsRemaining > 0) //Check if it has an action left over to consume
 	{
+		if (!_isAI) {
+			glm::vec3 currentPlace = _indicator[_actionsRemaining - 1]->getLocalPosition();
+			_indicator[_actionsRemaining - 1]->setLocalPosition(glm::vec3(currentPlace.x, -10, currentPlace.z)); // sets the things below the board, not a nice solution but it's okay.
+		}
 		_actionsRemaining--;
 		_movesRemaining = _movesPerAction;
 	}
@@ -98,7 +116,7 @@ void Ship::ConsumeActionForMoves() {
 }
 
 void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
-	if (!_shotThisTurn && _actionsRemaining > 0)
+	if (!_shotThisTurn && _movesRemaining > 0)
 	{
 		if (!_isAI)
 		{
@@ -106,13 +124,12 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 			{
 				TurnHandler::getInstance().ReduceCannonballsLeft(1);
 			}
-			else 
+			else
 			{
 				return;
 			}
 		}
 		_shotThisTurn = false;
-		_actionsRemaining--;
 		_movesRemaining = 0;
 
 		AbstractMaterial* cannonballMaterial = new LitMaterial(glm::vec3(0.25f, 0.25f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
@@ -141,7 +158,7 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 				else {
 					std::cout << "Cannon hit a wall." << std::endl;
 					_myCannonball->setBehaviour(new MoveBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), i*0.1f));
-					
+
 					return; //Hit a wall.
 				}
 				//FindPathTo(pGridGen->GetNodeAtTile(GetCurrentNode()->GetGridX() + 1, GetCurrentNode()->GetGridY())); //Get a path to the requested tile
@@ -160,7 +177,7 @@ void Ship::TurnOrientation(int pDir) {
 		MovingGridObject::TurnOrientation(pDir);
 		_movesRemaining--;
 	}
-	else if(_actionsRemaining > 0) {
+	else if (_actionsRemaining > 0) {
 		ConsumeActionForMoves();
 		TurnOrientation(pDir);
 	}
@@ -186,6 +203,10 @@ bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, g
 	return false;
 }
 
+void Ship::HandleDamaged() {
+	MovingGridObject::HandleDamaged();
+	//Apply any visual effects to the object in this overloaded function.
+}
 void Ship::DestroyObject() {
 	//TODO: Implement object destruction here.
 	setLocalPosition(glm::vec3(0, 5, 0)); //TODO: implement a proper ship death here.
@@ -207,8 +228,21 @@ void Ship::SetShipValues(int pShipHealth, int pMovesPerTurn, int pCannonRange, i
 }
 void Ship::HandleStartOfTurn() {
 	_actionsRemaining = _actionsPerTurn;
+	if (!_isAI) {
+		for (int i = 0; i < _indicator.size(); i++) //Reset action indicators.
+		{
+			glm::vec3 currentPlace = _indicator[i]->getLocalPosition();
+			_indicator[i]->setLocalPosition(glm::vec3(currentPlace.x, 1, currentPlace.z));
+		}
+	}
 	_movesRemaining = 0;
 	_shotThisTurn = false;
+}
+
+void Ship::FlushActions() {
+	_actionsRemaining = 0;
+	_movesRemaining = 0;
+	_shotThisTurn = true;
 }
 
 int Ship::GetActionsRemaining() {

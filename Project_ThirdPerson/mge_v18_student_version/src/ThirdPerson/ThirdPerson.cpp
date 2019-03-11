@@ -44,6 +44,7 @@
 #include "ThirdPerson/Scripts/AIController.h"
 #include "ThirdPerson/Scripts/MouseInputHandler.h"
 #include "ThirdPerson/Scripts/UIHandler.h"
+#include "ThirdPerson/Scripts/HudHandler.h"
 
 #include "ThirdPerson/config.hpp"
 #include "ThirdPerson/ThirdPerson.hpp"
@@ -165,10 +166,14 @@ void ThirdPerson::_update(float pStep) {
 		destroyLevel();
 		loadLevel();
 	}
+	if (_myHudHandler != nullptr)
+	{
+		_myHudHandler->update(pStep);
+	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
 
-		AudioManager::getInstance().playSound("characterSounds.wav");
+		//AudioManager::getInstance().playSound("characterSounds.wav");
 	}
 }
 
@@ -222,8 +227,9 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 30, 20, _world->getMainCamera());
 
-	UIHandler* uiHandler = new UIHandler(_window, myPlayerController, "UIHandler");
-	_world->add(uiHandler);
+	//UIHandler* uiHandler = new UIHandler(_window, myPlayerController, "UIHandler");
+	//_world->add(uiHandler);
+	_myHudHandler = new HudHandler(_window, myPlayerController);
 
 	MouseInputHandler* myMouseInputHandler = new MouseInputHandler(_window, _world, _myGridGenerator->GetPlayerShips(), myPlayerController, "", glm::vec3(0, 0, 0));
 	_world->add(myMouseInputHandler);
@@ -266,8 +272,15 @@ void ThirdPerson::_updateHud() {
     std::string debugInfo = "";
     debugInfo += std::string ("FPS:") + std::to_string((int)_fps)+"\n";
 
-    _hud->setDebugInfo(debugInfo, 375, 10);
-    _hud->draw();
+	_hud->setDebugInfo(debugInfo, _window->getSize().x/4, 10);
+	_hud->draw();
+
+
+	if (_myHudHandler != nullptr)
+	{
+		_myHudHandler->setDebugInfo();
+		_myHudHandler->draw();
+	}
 }
 
 ThirdPerson::~ThirdPerson()

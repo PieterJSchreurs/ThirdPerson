@@ -15,6 +15,7 @@ public:
 	UIHandler(sf::RenderWindow* pWindow, PlayerController* pPlayerController, const std::string & aName, const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~UIHandler();
 	virtual void update(float pStep);
+	void ResetMode();
 
 private:
 	float _test = 0;
@@ -23,6 +24,11 @@ private:
 	float _lastPlayerInput = 0;
 	bool _clickedMouse = false;
 	bool _isInShootingMode = false;
+	bool _isInMovingMode = false;
+	bool _placedMovementIndicator = false;
+	bool _placedAttackIndicator = false;
+	glm::vec2 _shipOrientation;
+	glm::vec2 _movementBoxPosition = glm::vec2(0, 0);
 
 	PlayerController* _playerController;
 
@@ -41,7 +47,10 @@ private:
 	sf::Texture _texturePlayerBackground;
 	sf::Texture _compassShootingTextureArray;
 	sf::Texture _endTurnTextureArray;
-	
+
+	sf::Texture _movementButtonTexture;
+	sf::Texture _attackButtonTexture;
+
 	sf::Texture _arrowTopTextureArray;
 	sf::Texture _arrowLeftTextureArray;
 	sf::Texture _arrowRightTextureArray;
@@ -55,10 +64,14 @@ private:
 	sf::Sprite _arrowRotateRight;
 	sf::Sprite _endTurn;
 	sf::Sprite _compassShooting;
+	sf::Sprite _movementButton;
+	sf::Sprite _attackButton;
 
 	void InitializeUI();
 	void fillTextures();
 	void SetPlayerText();
+	void DrawFireTile(bool pToggleLeft, bool pToggleRight);
+	void DrawMoveTile(int posX, int posY, bool pBool);
 };
 
 #endif // UIHANDLER_HPP

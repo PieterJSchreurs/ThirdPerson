@@ -6,10 +6,10 @@ GridObject::GridObject(Node* pStartNode, std::vector<Node*> pAllNodes, const std
 	setLocalPosition(glm::vec3(_currentNode->getLocalPosition().x + 0.1f, getLocalPosition().y, _currentNode->getLocalPosition().z));
 }
 
-void GridObject::setMaterial(AbstractMaterial* pMaterial)
+void GridObject::setMaterial(AbstractMaterial* pMaterial, bool pToggle)
 {
 	GameObject::setMaterial(pMaterial);
-	if (_myBaseMaterial == nullptr)
+	if (_myBaseMaterial == nullptr || pToggle)
 	{
 		//std::cout << "Does this work?" << std::endl;
 		_myBaseMaterial = getMaterial();
