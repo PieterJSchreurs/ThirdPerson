@@ -169,12 +169,14 @@ private:
 	Mesh* _candleMesh;
 	Mesh* _coin1Mesh;
 	Mesh* _coin2Mesh;
+	Mesh* _coin3Mesh;
 	Mesh* _knifeMesh;
 	Mesh* _skullMesh;
 	AbstractMaterial* _boardMaterial;
 	AbstractMaterial* _candleMaterial;
 	AbstractMaterial* _coin1Material;
 	AbstractMaterial* _coin2Material;
+	AbstractMaterial* _coin3Material;
 	AbstractMaterial* _knifeMaterial;
 	AbstractMaterial* _skullMaterial;
 
