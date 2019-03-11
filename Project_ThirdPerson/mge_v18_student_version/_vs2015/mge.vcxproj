@@ -172,6 +172,7 @@
     <ClInclude Include="..\src\mge\behaviours\AbstractBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\CameraMoveBehaviour.h" />
     <ClInclude Include="..\src\mge\behaviours\CameraOrbitBehaviour.h" />
+    <ClInclude Include="..\src\mge\behaviours\CannonballBehaviour.h" />
     <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\MoveBehaviour.h" />
     <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="..\src\ThirdPerson\config.hpp" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\AIBigShip.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\AIController.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\AmbientSoundPlayer.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\BigShip.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GoalObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GridGenerator.h" />
@@ -228,6 +230,7 @@
     <ClCompile Include="..\src\mge\behaviours\AbstractBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\CameraMoveBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\CameraOrbitBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\CannonballBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\MoveBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp" />
@@ -254,6 +257,7 @@
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\AIBigShip.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\AIController.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\AmbientSoundPlayer.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\BigShip.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\GoalObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\GridGenerator.cpp" />

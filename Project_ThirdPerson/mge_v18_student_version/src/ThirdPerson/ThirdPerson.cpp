@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <Windows.h>
-#include "mge/util/AudioManager.h"
 
 #include "glm.hpp"
 
@@ -15,6 +14,9 @@
 #include "mge/core/Light.hpp"
 #include "mge/core/Camera.hpp"
 #include "mge/core/GameObject.hpp"
+
+#include "mge/util/AudioManager.h"
+#include "ThirdPerson/Scripts/AmbientSoundPlayer.h"
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
@@ -170,11 +172,6 @@ void ThirdPerson::_update(float pStep) {
 	{
 		_myHudHandler->update(pStep);
 	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
-
-		//AudioManager::getInstance().playSound("characterSounds.wav");
-	}
 }
 
 void ThirdPerson::InitializeMainMenu()
@@ -220,6 +217,9 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	_myGridGenerator->GenerateNodeGraph();
 
+	AmbientSoundPlayer* myAmbientSoundPlayer = new AmbientSoundPlayer();
+	_world->add(myAmbientSoundPlayer);
+
 	PlayerController* myPlayerController = new PlayerController(_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myPlayerController);
 	AIController* myAIController = new AIController(_myGridGenerator->GetAIShips(), _myGridGenerator->GetPlayerShips(), _myGridGenerator, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
@@ -227,8 +227,6 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 30, 20, _world->getMainCamera());
 
-	//UIHandler* uiHandler = new UIHandler(_window, myPlayerController, "UIHandler");
-	//_world->add(uiHandler);
 	_myHudHandler = new HudHandler(_window, myPlayerController);
 
 	MouseInputHandler* myMouseInputHandler = new MouseInputHandler(_window, _world, _myGridGenerator->GetPlayerShips(), myPlayerController, "", glm::vec3(0, 0, 0));
@@ -249,18 +247,6 @@ void ThirdPerson::_initializeScene()
 {
 	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
 	InitializeMainMenu();
-	//std::cout << std::endl << "\t" << "List of level files" << std::endl;
-	//std::cout << "===================================" << std::endl;
-	//for (int i = 0; i < fileNames.size(); i++)
-	//{
-	//	std::cout << fileNames[i].substr(0, fileNames[i].length() - 14) << std::endl; //Removes the _BaseTiles.csv extension.
-	//}
-	//std::cout << "===================================" << std::endl << std::endl;
-
-	//std::cout << "Please type the file name of the level you want to load below, press enter to confirm." << std::endl;
-	//std::cin >> _fileName;
-
-	//loadLevel();
 }
 
 void ThirdPerson::_render() {

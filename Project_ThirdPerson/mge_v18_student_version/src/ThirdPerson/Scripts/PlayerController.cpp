@@ -1,6 +1,7 @@
 #include "ThirdPerson/Scripts/PlayerController.h"
 #include <SFML/Window/Keyboard.hpp>
 #include "ThirdPerson/Scripts/TurnHandler.h"
+#include "mge/util/AudioManager.h"
 
 #include "mge/materials/LitMaterial.h"
 
@@ -34,6 +35,8 @@ void PlayerController::ToggleIsActive() {
 	}
 	else
 	{
+		AudioManager::getInstance().playSound("StartPlayer.wav");
+
 		if (!_currentShip->GetIsAlive())
 		{
 			std::cout << "The current ship is dead." << std::endl;

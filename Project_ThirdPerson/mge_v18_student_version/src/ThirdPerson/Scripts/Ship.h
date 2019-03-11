@@ -51,7 +51,7 @@ private:
 
 	std::vector<GameObject*> _indicator;
 	GameObject* _actionIndicator;
-	GameObject* _myCannonball;
+	GameObject* _myCannonballs[3];
 	Mesh* _sphereMeshDefault;
 };
 
