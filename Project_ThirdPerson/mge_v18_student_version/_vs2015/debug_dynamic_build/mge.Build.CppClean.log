@@ -1,55 +1,3 @@
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\aicontroller.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\bigship.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\goalobject.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\gridgenerator.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\gridobject.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\mouseinputhandler.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\movinggridobject.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\node.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\nodeworld.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\playerbigship.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\playercontroller.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\playersmallship.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\ship.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\smallship.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\staticgridobject.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\tileworld.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\treasureobject.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\turnhandler.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\uihandler.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\thirdperson.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\abstractgame.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\camera.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\gameobject.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\light.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\mesh.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\renderer.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\shaderprogram.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\texture.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\world.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\abstractmaterial.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\colormaterial.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\litmaterial.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\littexturematerial.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\terrainmaterial.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\texturematerial.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\watermaterial.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\wobblingmaterial.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\mgedemo.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\debughud.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\aibigship.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\main.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\abstractbehaviour.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\cameramovebehaviour.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\cameraorbitbehaviour.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\keysbehaviour.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\movebehaviour.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\rotatingbehaviour.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\spawnerbehaviour.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\vc140.pdb
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\audiomanager.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\mainmenu.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\hudhandler.obj
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\litmaterial.obj
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\colormaterial.obj
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\abstractmaterial.obj
@@ -99,19 +47,16 @@ c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\smallship.obj
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\ship.obj
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\playersmallship.obj
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\playerbigship.obj
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_exe\mge.ilk
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_exe\mge.exe
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_exe\mge.pdb
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build/vcpkg.applocal.log
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_exe\lua.dll
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\mge.res
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\playercontroller.obj
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\mge.res
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\vc140.idb
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\vc141.idb
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\vc140.pdb
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\playerbigship.obj
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\vc141.pdb
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_exe\mge.exe
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_exe\mge.ilk
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_exe\mge.pdb
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build/vcpkg.applocal.log
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_exe\lua.dll
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\mge.res
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\vc141.idb
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\mge.tlog\cl.command.1.tlog
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\_vs2015\debug_dynamic_build\mge.tlog\cl.read.1.tlog

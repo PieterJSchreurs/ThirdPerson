@@ -52,6 +52,15 @@ void HudHandler::InitializeUI()
 	_movementLeftText.setString("");
 	_movementLeftText.setPosition((_window->getSize().x - _flagBackground.getTexture()->getSize().x / 2) + 35, (_flagBackground.getTexture()->getSize().y / 2) - 30);
 
+	//Movement Button
+	_movementButton.setTexture(_movementButtonTexture);
+	_movementButton.setPosition((_window->getSize().x - _flagBackground.getTexture()->getSize().x / 2) - 145, (_flagBackground.getTexture()->getSize().y / 2) - 225);
+	_spritesToDraw.push_back(_movementButton);
+
+	//Attack Button
+	_attackButton.setTexture(_attackButtonTexture);
+	_attackButton.setPosition((_window->getSize().x - _flagBackground.getTexture()->getSize().x / 2) + 125, (_flagBackground.getTexture()->getSize().y / 2) - 225);
+	_spritesToDraw.push_back(_attackButton);
 	//Arrow top.
 	_arrowTop.setTexture(_arrowTopTextureArray);
 	_arrowTop.setTextureRect(sf::IntRect(0, 0, _arrowTopTextureArray.getSize().x / 5, _arrowTopTextureArray.getSize().y));
@@ -101,10 +110,15 @@ void HudHandler::fillTextures()
 	_arrowRightTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/ArrowRightButtons.png");
 	_arrowRotateLeftTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/ArrowLeftCurveButtons.png");
 	_arrowRotateRightTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/ArrowRightCurveButtons.png");
+	_attackButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/ButtonFireNormal.png");
+	_movementButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/CompassButton.png");
 
 }
 
 void HudHandler::update(float pStep) {
+	bool _isHovering = false;
+	_shipOrientation = _playerController->GetCurrentShip()->GetOrientation(); //Perhaps check if this can be more optimized if it lags too much.
+	setDebugInfo();
 	glm::vec2 mousePosOnScreen = glm::vec2(sf::Mouse::getPosition(*_window).x, sf::Mouse::getPosition(*_window).y);
 	_timer += pStep;
 	if (_timer - _lastPlayerInput >= _playerInputDelay)
@@ -120,15 +134,20 @@ void HudHandler::update(float pStep) {
 		if ((mousePosOnScreen.x > spriteBounds.left && mousePosOnScreen.x < spriteBounds.left + spriteBounds.width) && (mousePosOnScreen.y > spriteBounds.top && mousePosOnScreen.y < spriteBounds.top + spriteBounds.height)) {
 			if (_spritesToDraw[i].getTexture() == &_arrowTopTextureArray) {
 				if (!_isInShootingMode) {
-					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-						_clickedMouse = false;
-						_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 2, 0, (_arrowTopTextureArray.getSize().x) / 5, _arrowTopTextureArray.getSize().y));
-						_playerController->HandlePlayerInput(sf::Keyboard::W);
-						_lastPlayerInput = _timer;
-					}
-					else {
-						if (_timer - _lastPlayerInput >= _playerInputDelay) {
-							_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 1, 0, (_arrowTopTextureArray.getSize().x) / 5, _arrowTopTextureArray.getSize().y));
+					if (_isInMovingMode) {
+						if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+							_clickedMouse = false;
+							DrawMoveTile(_shipOrientation.x, _shipOrientation.y, false);
+							_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 2, 0, (_arrowTopTextureArray.getSize().x) / 5, _arrowTopTextureArray.getSize().y));
+							_playerController->HandlePlayerInput(sf::Keyboard::W);
+							_lastPlayerInput = _timer;
+						}
+						else {
+							if (_timer - _lastPlayerInput >= _playerInputDelay) {
+								_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 1, 0, (_arrowTopTextureArray.getSize().x) / 5, _arrowTopTextureArray.getSize().y));
+								_isHovering = true;
+								DrawMoveTile(_shipOrientation.x, _shipOrientation.y, true);
+							}
 						}
 					}
 				}
@@ -138,16 +157,21 @@ void HudHandler::update(float pStep) {
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowLeftTextureArray) {
 				if (!_isInShootingMode) {
-					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-						_clickedMouse = false;
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
-						_playerController->HandlePlayerInput(sf::Keyboard::A);
-						_lastPlayerInput = _timer;
+					if (_isInMovingMode) {
+						if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+							_clickedMouse = false;
+							DrawMoveTile(_shipOrientation.y, -_shipOrientation.x, false);
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+							_playerController->HandlePlayerInput(sf::Keyboard::A);
+							_lastPlayerInput = _timer;
 
-					}
-					else {
-						if (_timer - _lastPlayerInput >= _playerInputDelay) {
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+						}
+						else {
+							if (_timer - _lastPlayerInput >= _playerInputDelay) {
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+								DrawMoveTile(_shipOrientation.y, -_shipOrientation.x, true);
+								_isHovering = true;
+							}
 						}
 					}
 				}
@@ -161,22 +185,29 @@ void HudHandler::update(float pStep) {
 					else {
 						if (_timer - _lastPlayerInput >= _playerInputDelay) {
 							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+							_isHovering = true;
+							DrawFireTile(true, false);
 						}
 					}
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowRightTextureArray) {
 				if (!_isInShootingMode) {
-					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-						_clickedMouse = false;
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
-						_playerController->HandlePlayerInput(sf::Keyboard::D);
-						_lastPlayerInput = _timer;
+					if (_isInMovingMode) {
+						if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+							_clickedMouse = false;
+							DrawMoveTile(-_shipOrientation.y, _shipOrientation.x, false);
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+							_playerController->HandlePlayerInput(sf::Keyboard::D);
+							_lastPlayerInput = _timer;
 
-					}
-					else {
-						if (_timer - _lastPlayerInput >= _playerInputDelay) {
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+						}
+						else {
+							if (_timer - _lastPlayerInput >= _playerInputDelay) {
+								_isHovering = true;
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+								DrawMoveTile(-_shipOrientation.y, _shipOrientation.x, true);
+							}
 						}
 					}
 				}
@@ -184,27 +215,33 @@ void HudHandler::update(float pStep) {
 					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
 						_playerController->HandlePlayerInput(sf::Keyboard::X);
+
 						_clickedMouse = false;
 						_lastPlayerInput = _timer;
 					}
 					else {
 						if (_timer - _lastPlayerInput >= _playerInputDelay) {
 							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+							_isHovering = true;
+							DrawFireTile(false, true);
+
 						}
 					}
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowRotateLeftTextureArray) {
 				if (!_isInShootingMode) {
-					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-						_clickedMouse = false;
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 4, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
-						_playerController->HandlePlayerInput(sf::Keyboard::Q);
-						_lastPlayerInput = _timer;
-					}
-					else {
-						if (_timer - _lastPlayerInput >= _playerInputDelay) {
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 3, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+					if (_isInMovingMode) {
+						if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+							_clickedMouse = false;
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 4, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+							_playerController->HandlePlayerInput(sf::Keyboard::Q);
+							_lastPlayerInput = _timer;
+						}
+						else {
+							if (_timer - _lastPlayerInput >= _playerInputDelay) {
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 3, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+							}
 						}
 					}
 				}
@@ -215,16 +252,18 @@ void HudHandler::update(float pStep) {
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowRotateRightTextureArray) {
 				if (!_isInShootingMode) {
-					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-						_clickedMouse = false;
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 4, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
-						_playerController->HandlePlayerInput(sf::Keyboard::E);
-						_lastPlayerInput = _timer;
+					if (_isInMovingMode) {
+						if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+							_clickedMouse = false;
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 4, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
+							_playerController->HandlePlayerInput(sf::Keyboard::E);
+							_lastPlayerInput = _timer;
 
-					}
-					else {
-						if (_timer - _lastPlayerInput >= _playerInputDelay) {
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 3, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
+						}
+						else {
+							if (_timer - _lastPlayerInput >= _playerInputDelay) {
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 3, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
+							}
 						}
 					}
 				}
@@ -232,24 +271,46 @@ void HudHandler::update(float pStep) {
 					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 1, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
 				}
 			}
-			if (_spritesToDraw[i].getTexture() == &_compassShootingTextureArray) {
+			/*if (_spritesToDraw[i].getTexture() == &_compassShootingTextureArray) {
 				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					_clickedMouse = false;
 					_lastPlayerInput = _timer;
 					if (_isInShootingMode) {
 						_isInShootingMode = false;
+						_playerController->SetFiringMode(false);
 						_spritesToDraw[i].setTextureRect(sf::IntRect((_compassShootingTextureArray.getSize().x / 4) * 2, 0, _compassShootingTextureArray.getSize().x / 4, _compassShootingTextureArray.getSize().y));
 					}
 					else {
 						_isInShootingMode = true;
+						_playerController->SetFiringMode(true);
 						_spritesToDraw[i].setTextureRect(sf::IntRect((_compassShootingTextureArray.getSize().x / 4), 0, _compassShootingTextureArray.getSize().x / 4, _compassShootingTextureArray.getSize().y));
 					}
+				}
+			}*/
+			if (_spritesToDraw[i].getTexture() == &_movementButtonTexture) {
+				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					_clickedMouse = false;
+					_isInShootingMode = false;
+					_isInMovingMode = true;
+					_playerController->SetFiringMode(false);
+					_lastPlayerInput = _timer;
+					_playerController->GetCurrentShip()->ConsumeActionForMoves();
+				}
+			}
+			if (_spritesToDraw[i].getTexture() == &_attackButtonTexture) {
+				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					_clickedMouse = false;
+					_isInMovingMode = false;
+					_lastPlayerInput = _timer;
+					_isInShootingMode = true;
+					_playerController->SetFiringMode(true);
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_endTurnTextureArray) {
 				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					_clickedMouse = false;
 					_spritesToDraw[i].setTextureRect(sf::IntRect((_endTurnTextureArray.getSize().x / 4) * 2, 0, (_endTurnTextureArray.getSize().x) / 4, _endTurnTextureArray.getSize().y));
+					ResetMode();
 					TurnHandler::getInstance().ToggleIsActive();
 					_lastPlayerInput = _timer;
 				}
@@ -263,7 +324,7 @@ void HudHandler::update(float pStep) {
 		//Reset if not hover
 		else {
 			if (_spritesToDraw[i].getTexture() == &_arrowTopTextureArray) {
-				if (!_isInShootingMode) {
+				if (!_isInShootingMode && _isInMovingMode) {
 					_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _arrowTopTextureArray.getSize().x / 5, _arrowTopTextureArray.getSize().y));
 				}
 				else {
@@ -277,7 +338,7 @@ void HudHandler::update(float pStep) {
 				_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4), _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowRotateLeftTextureArray) {
-				if (!_isInShootingMode) {
+				if (!_isInShootingMode && _isInMovingMode) {
 					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 2, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
 				}
 				else {
@@ -285,7 +346,7 @@ void HudHandler::update(float pStep) {
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowRotateRightTextureArray) {
-				if (!_isInShootingMode) {
+				if (!_isInShootingMode && _isInMovingMode) {
 					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 2, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
 				}
 				else {
@@ -295,10 +356,20 @@ void HudHandler::update(float pStep) {
 			if (_spritesToDraw[i].getTexture() == &_endTurnTextureArray) {
 				_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _endTurnTextureArray.getSize().x / 4, _endTurnTextureArray.getSize().y));
 			}
+			if (i == _spritesToDraw.size() - 1 && !_isHovering)
+			{
+				DrawMoveTile(_movementBoxPosition.x, _movementBoxPosition.y, false); //Reset if not hovering anymore.
+				DrawFireTile(false, false);
+			}
 		}
 	}
 }
 
+void HudHandler::ResetMode()
+{
+	_isInMovingMode = false;
+	_isInShootingMode = false;
+}
 HudHandler::~HudHandler()
 {
 	//dtor
@@ -328,4 +399,43 @@ void HudHandler::draw()
 		_window->draw(_movementLeftText);
 	}
 	_window->popGLStates();
+}
+
+void HudHandler::DrawFireTile(bool pToggleLeft, bool pToggleRight)
+{
+
+	if (pToggleLeft || pToggleRight) {
+		if (!_placedAttackIndicator) {
+			_placedAttackIndicator = true;
+			_playerController->SetHoveringMode(pToggleLeft, pToggleRight);
+		}
+	}
+	else {
+		if (_placedAttackIndicator) {
+			_placedAttackIndicator = false;
+			_playerController->SetHoveringMode(pToggleLeft, pToggleRight);
+		}
+	}
+}
+
+void HudHandler::DrawMoveTile(int posX, int posY, bool pBool) { //The pos x and pos y is the difference between the currenthsip selected and the tile which needs to be highlighted.
+	if (pBool) {
+		if (!_placedMovementIndicator) {
+			Node* _targetNode = _playerController->GetGridGenerator()->GetNodeAtTile(_playerController->GetCurrentShipPosition().x + posX, _playerController->GetCurrentShipPosition().y + posY);
+			if (_targetNode != NULL) {
+				if (_targetNode->GetWalkable() && !_targetNode->GetOccupied()) {
+					std::cout << "placing move cube" << std::endl;
+					_targetNode->SetTileGlow(pBool, "MovementCube.png");
+					_placedMovementIndicator = true;
+					_movementBoxPosition = glm::vec2(posX, posY);
+				}
+			}
+		}
+	}
+	else {
+		if (_placedMovementIndicator) {
+			_playerController->GetGridGenerator()->GetNodeAtTile(_playerController->GetCurrentShipPosition().x + posX, _playerController->GetCurrentShipPosition().y + posY)->SetTileGlow(pBool, "MovementCube.png");
+			_placedMovementIndicator = false;
+		}
+	}
 }

@@ -34,6 +34,10 @@ void MainMenu::update(float pStep)
 			}
 		}
 	}
+	else {
+		LoadScene(_levelSelected);
+	}
+
 	_timer += pStep;
 }
 
@@ -104,19 +108,23 @@ void MainMenu::FillMainMenu()
 	_spritesToDraw.push_back(_levelSelectButton);
 }
 
-void MainMenu::LoadScene(std::string pString)
-{
+void MainMenu::StartLoadingScene(std::string pString) {
 	_isLevelLoading = true;
 	_spritesToDraw.clear();
 	_spritesToDraw.push_back(_loadingScreen);
 	DrawSprites();
+	_levelSelected = pString;
+}
 
+void MainMenu::LoadScene(std::string pString)
+{
 	_thirdPerson->loadLevel(pString);
 
 	getParent()->remove(this);
 	delete this;
-
 }
+
+
 
 void MainMenu::HandleClick()
 {
@@ -138,7 +146,7 @@ void MainMenu::HandleClick()
 					{
 						//This is the one
 						std::string levelName = _texts[i].getString();
-						LoadScene(levelName);
+						StartLoadingScene(levelName);
 						return;
 					}
 				}

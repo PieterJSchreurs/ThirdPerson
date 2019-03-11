@@ -19,6 +19,7 @@ private:
 	float _lastPlayerInput = 0;
 	bool _levelSelectLoaded = false;
 	bool _isLevelLoading = false;
+	std::string _levelSelected;
 
 	std::vector<std::string> _fileNames;
 	sf::Font _font;
@@ -41,5 +42,6 @@ private:
 	void LoadScene(std::string pString);
 	void FillMainMenu();
 	void DrawSprites();
+	void StartLoadingScene(std::string pString);
 };
 #endif
