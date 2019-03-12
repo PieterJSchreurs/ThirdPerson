@@ -18,16 +18,76 @@ MainMenu::MainMenu(ThirdPerson* pThirdPerson, sf::RenderWindow* pWindow, std::ve
 	BindSpritesToTextures();
 	PositionSprites();
 	DrawMenuStyle(_currentMenuStyle);
+	_levelList.push_back(_chapter1Sprite);
+	_levelList.push_back(_chapter2Sprite);
+	_levelList.push_back(_chapter3Sprite);
+	_levelList.push_back(_chapter4Sprite);
+	_levelList.push_back(_chapter5Sprite);
+	_levelList.push_back(_chapter6Sprite);
+	_levelUnlocked.push_back(trueHolder);
+	for (int i = 1; i < _levelList.size(); i++)
+	{
+		_levelUnlocked.push_back(falseHolder);
+		UnlockLevel(i, false);
+	}
+	_loadingScreens.push_back(_loadingScreenChapture1Sprite);
+	_loadingScreens.push_back(_loadingScreenChapture2Sprite);
+	_loadingScreens.push_back(_loadingScreenChapture3Sprite);
+	_loadingScreens.push_back(_loadingScreenChapture4Sprite);
+	_loadingScreens.push_back(_loadingScreenChapture5Sprite);
+	_loadingScreens.push_back(_loadingScreenChapture6Sprite);
+	
 }
 
 MainMenu::~MainMenu()
 {
 }
 
+void MainMenu::UnlockLevel(int pIndex, bool pToggle) {
+	//Toggle you can lock and unlock level of your chosing.
+
+	if (!pToggle) {
+		ChangeSprite(&_levelList[pIndex], LOCKED, 4);
+		_levelUnlocked[pIndex] = falseHolder;
+	}
+	else {
+		ChangeSprite(&_levelList[pIndex], NORMAL, 4);
+		_levelUnlocked[pIndex] = trueHolder;
+	}
+
+}
+
 void MainMenu::update(float pStep)
 {
 	DrawSprites();
 	CheckForMouse();
+	if (_changeScene == true) {
+		DrawMenuStyle(_currentMenuStyle);
+	}
+	if (_timer - _lastPlayerInput >= _playerInputDelay) //Doesn't work perfectly, but ehhh...
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1)) {
+			UnlockLevel(0, !_levelUnlocked[0]);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F2)) {
+			UnlockLevel(1, !_levelUnlocked[1]);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3)) {
+			UnlockLevel(2, !_levelUnlocked[2]);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F4)) {
+			UnlockLevel(3, !_levelUnlocked[3]);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F5)) {
+			UnlockLevel(4, !_levelUnlocked[4]);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F6)) {
+			UnlockLevel(5, !_levelUnlocked[5]);
+		}
+		_lastPlayerInput = _timer;
+
+	}
+
 	if (_currentMenuStyle == SPLASH) {
 		if (_window->hasFocus() && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 			DrawMenuStyle(MAIN);
@@ -93,11 +153,30 @@ void MainMenu::CheckForMouse() {
 	glm::vec2 mousePosOnScreen = glm::vec2(sf::Mouse::getPosition(*_window).x, sf::Mouse::getPosition(*_window).y);
 	for (int i = 0; i < _spritesToDraw.size(); i++) {
 		sf::FloatRect spriteBounds = _spritesToDraw[i].getGlobalBounds();
-		if (_currentMenuStyle == MAIN) {
-			if (_spritesToDraw[i].getTexture() != &_backGroundBlurredTexture && _spritesToDraw[i].getTexture() != &_ropeTexture) {
+		if (_currentMenuStyle == MAIN && _changeScene == false) {
+			if (_spritesToDraw[i].getTexture() != &_backGroundNormalTexture && _spritesToDraw[i].getTexture() != &_ropeTexture && _spritesToDraw[i].getTexture() != &_splashScreenTitleTexture && _spritesToDraw[i].getTexture() != &_backGroundBlurredTexture) {
 				if ((mousePosOnScreen.x > spriteBounds.left && mousePosOnScreen.x < spriteBounds.left + spriteBounds.width) && (mousePosOnScreen.y > spriteBounds.top && mousePosOnScreen.y < spriteBounds.top + spriteBounds.height)) {
 					if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 						ChangeSprite(&_spritesToDraw[i], CLICK, 3);
+						if (_spritesToDraw[i].getTexture() == &_creditsButtonTexture) {
+							_currentMenuStyle = CREDIT;
+							_changeScene = true;
+							break;
+						}
+						if (_spritesToDraw[i].getTexture() == &_quitButtonTexture) {
+							_currentMenuStyle = QUIT;
+							_changeScene = true;
+							break;
+						}
+						if (_spritesToDraw[i].getTexture() == &_chapterButtonTexture) {
+							_currentMenuStyle = LEVELSELECT;
+							_changeScene = true;
+						}
+						if (_spritesToDraw[i].getTexture() == &_startButtonTexture) {
+							std::cout << "START LOADING CONTINUE" << std::endl;
+							StartLoadingScene("lvl1(lvl4)"); //HARDCODE CONTINUE BUTTON.
+							//break;
+						}
 					}
 					else {
 						ChangeSprite(&_spritesToDraw[i], HOVER, 3);
@@ -108,48 +187,169 @@ void MainMenu::CheckForMouse() {
 				}
 			}
 		}
-		if (_currentMenuStyle == CREDIT) {
-
+		if (_currentMenuStyle == CREDIT && _changeScene == false) {
+			if (_spritesToDraw[i].getTexture() == &_backButtonTexture) {
+				if ((mousePosOnScreen.x > spriteBounds.left && mousePosOnScreen.x < spriteBounds.left + spriteBounds.width) && (mousePosOnScreen.y > spriteBounds.top && mousePosOnScreen.y < spriteBounds.top + spriteBounds.height)) {
+					if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+						ChangeSprite(&_spritesToDraw[i], CLICK, 3);
+						_currentMenuStyle = MAIN;
+						_changeScene = true;
+						break;
+					}
+					else {
+						ChangeSprite(&_spritesToDraw[i], HOVER, 3);
+					}
+				}
+				else {
+					ChangeSprite(&_spritesToDraw[i], NORMAL, 3);
+				}
+			}
+		}
+		if (_currentMenuStyle == LEVELSELECT && _changeScene == false) {
+			if (_spritesToDraw[i].getTexture() != &_backGroundNormalTexture && _spritesToDraw[i].getTexture() != &_ropeTexture && _spritesToDraw[i].getTexture() != &_levelSelectTemplateTexture && _spritesToDraw[i].getTexture() != &_backGroundBlurredTexture && _spritesToDraw[i].getTexture() != &_chapterIndicatorTextTexture) {
+				if ((mousePosOnScreen.x > spriteBounds.left && mousePosOnScreen.x < spriteBounds.left + spriteBounds.width) && (mousePosOnScreen.y > spriteBounds.top && mousePosOnScreen.y < spriteBounds.top + spriteBounds.height)) {
+					if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+						if (_spritesToDraw[i].getTexture() == &_backButtonTexture) {
+							ChangeSprite(&_spritesToDraw[i], CLICK, 3);
+							_currentMenuStyle = MAIN;
+							_changeScene = true;
+							break;
+						}
+						if (_spritesToDraw[i].getTexture() == &_chapterArrowRightTexture || _spritesToDraw[i].getTexture() == &_chapterArrowLeftTexture) {
+							ChangeSprite(&_spritesToDraw[i], CLICK, 3);
+						}
+						if (_spritesToDraw[i].getTexture() == &_chapter1Texture || _spritesToDraw[i].getTexture() == &_chapter2Texture || _spritesToDraw[i].getTexture() == &_chapter3Texture || _spritesToDraw[i].getTexture() == &_chapter4Texture || _spritesToDraw[i].getTexture() == &_chapter5Texture || _spritesToDraw[i].getTexture() == &_chapter6Texture) {
+							if (IsLevelUnLocked(_spritesToDraw[i])) {
+								StartLoadingScene(GetLevelBySprite(_spritesToDraw[i]));
+							}
+						}
+					}
+					else {
+						if (_spritesToDraw[i].getTexture() == &_backButtonTexture || _spritesToDraw[i].getTexture() == &_chapterArrowLeftTexture || _spritesToDraw[i].getTexture() == &_chapterArrowRightTexture) {
+							ChangeSprite(&_spritesToDraw[i], HOVER, 3);
+						}
+						else {
+							if (_spritesToDraw[i].getTexture() == &_chapter1Texture || _spritesToDraw[i].getTexture() == &_chapter2Texture || _spritesToDraw[i].getTexture() == &_chapter3Texture || _spritesToDraw[i].getTexture() == &_chapter4Texture || _spritesToDraw[i].getTexture() == &_chapter5Texture || _spritesToDraw[i].getTexture() == &_chapter6Texture) {
+								if (IsLevelUnLocked(_spritesToDraw[i])) {
+									ChangeSprite(&_spritesToDraw[i], HOVER, 4);
+								}
+							}
+						}
+					}
+				}
+				else {
+					if (_spritesToDraw[i].getTexture() == &_backButtonTexture || _spritesToDraw[i].getTexture() == &_chapterArrowLeftTexture || _spritesToDraw[i].getTexture() == &_chapterArrowRightTexture) {
+						ChangeSprite(&_spritesToDraw[i], NORMAL, 3);
+					}
+					else {
+						ChangeSprite(&_spritesToDraw[i], NORMAL, 4);
+						if (_spritesToDraw[i].getTexture() == &_chapter1Texture || _spritesToDraw[i].getTexture() == &_chapter2Texture || _spritesToDraw[i].getTexture() == &_chapter3Texture || _spritesToDraw[i].getTexture() == &_chapter4Texture || _spritesToDraw[i].getTexture() == &_chapter5Texture || _spritesToDraw[i].getTexture() == &_chapter6Texture) {
+							if (!IsLevelUnLocked(_spritesToDraw[i])) {
+								ChangeSprite(&_spritesToDraw[i], LOCKED, 4);
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
 
-void MainMenu::DrawMenuStyle(MenuStyles pMenuStyle) {
-	_spritesToDraw.clear();
-	switch (pMenuStyle)
+std::string MainMenu::GetLevelBySprite(sf::Sprite pSprite) {
+	for (int i = 0; i < _levelList.size(); i++)
 	{
-	case SPLASH:
-		_currentMenuStyle = SPLASH;
-		_spritesToDraw.push_back(_backGroundNormalSprite);
-		_spritesToDraw.push_back(_splashScreenTitleSprite);
-		_spritesToDraw.push_back(_splashScreenAnyButtonSprite);
-		break;
-	case MAIN:
-		_currentMenuStyle = MAIN;
-		_spritesToDraw.push_back(_backGroundBlurredSprite);
-		_spritesToDraw.push_back(_ropeSprite);
-		_spritesToDraw.push_back(_startButtonSprite);
-		_spritesToDraw.push_back(_chapterButtonSprite);
-		_spritesToDraw.push_back(_creditsButtonSprite);
-		_spritesToDraw.push_back(_quitButtonSprite);
+		if (pSprite.getTexture() == _levelList[i].getTexture()) {
+			return _fileNames[i].substr(0, _fileNames[i].length() - 14);
+		}
+	}
 
-		break;
-	case CREDIT:
-		_currentMenuStyle = CREDIT;
-		break;
-	case LEVELSELECT:
-		_currentMenuStyle = LEVELSELECT;
-		break;
-	default:
-		break;
+	return "";
+}
+
+bool MainMenu::IsLevelUnLocked(sf::Sprite pSprite) {
+
+	for (int i = 0; i < _levelList.size(); i++)
+	{
+		if (_levelList[i].getTexture() == pSprite.getTexture()) {
+			return _levelUnlocked[i];
+		}
+	}
+	return true;
+}
+
+
+void MainMenu::DrawMenuStyle(MenuStyles pMenuStyle) {
+	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		_changeScene = false;
+		_spritesToDraw.clear();
+		switch (pMenuStyle)
+		{
+		case SPLASH:
+			_currentMenuStyle = SPLASH;
+			_spritesToDraw.push_back(_backGroundNormalSprite);
+			_spritesToDraw.push_back(_splashScreenTitleSprite);
+			_spritesToDraw.push_back(_splashScreenAnyButtonSprite);
+			break;
+		case MAIN:
+			_currentMenuStyle = MAIN;
+			_spritesToDraw.push_back(_backGroundNormalSprite);
+			_spritesToDraw.push_back(_ropeSprite);
+			_spritesToDraw.push_back(_splashScreenTitleSprite);
+			_spritesToDraw.push_back(_startButtonSprite);
+			_spritesToDraw.push_back(_chapterButtonSprite);
+			_spritesToDraw.push_back(_creditsButtonSprite);
+			_spritesToDraw.push_back(_quitButtonSprite);
+
+
+			break;
+		case CREDIT:
+			_currentMenuStyle = CREDIT;
+			_spritesToDraw.push_back(_backGroundBlurredSprite);
+			_spritesToDraw.push_back(_creditScreenSprite);
+			_spritesToDraw.push_back(_backButtonSprite);
+			break;
+		case LEVELSELECT:
+			_currentMenuStyle = LEVELSELECT;
+			_spritesToDraw.push_back(_backGroundBlurredSprite);
+			_spritesToDraw.push_back(_levelSelectTemplateSprite);
+			_spritesToDraw.push_back(_chapter1Sprite);
+			_spritesToDraw.push_back(_chapter2Sprite);
+			_spritesToDraw.push_back(_chapter3Sprite);
+			_spritesToDraw.push_back(_chapter4Sprite);
+			_spritesToDraw.push_back(_chapter5Sprite);
+			_spritesToDraw.push_back(_chapter6Sprite);
+			_spritesToDraw.push_back(_chapterIndicatorTextSprite);
+			_spritesToDraw.push_back(_chapterArrowLeftSprite);
+			_spritesToDraw.push_back(_chapterArrowRightSprite);
+			_spritesToDraw.push_back(_backButtonSprite);
+			break;
+		case QUIT:
+			_window->close();
+			break;
+		default:
+			break;
+		}
 	}
 }
 
 void MainMenu::StartLoadingScene(std::string pString) {
 	_isLevelLoading = true;
 	_spritesToDraw.clear();
-	_spritesToDraw.push_back(_loadingScreenChapture1Sprite);
-	DrawSprites();
+	_window->draw(_backGroundBlurredSprite);
+	for (int i = 0; i < _fileNames.size(); i++)
+	{
+		if (pString == _fileNames[i].substr(0, _fileNames[i].length() - 14)) {
+			_spritesToDraw.push_back(_loadingScreens[i]);
+			std::cout << "Loading level" << _spritesToDraw.size() << std::endl;
+		}
+	}
+	glActiveTexture(GL_TEXTURE0);
+	_window->pushGLStates();
+	_window->draw(_backGroundBlurredSprite);
+	_window->draw(_spritesToDraw[0]);
+	_window->popGLStates();
+
+	_window->display();
 	_levelSelected = pString;
 }
 
@@ -221,23 +421,42 @@ void MainMenu::FillTextures() {
 	_backGroundBlurredTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Background_DarkBlur.png");
 	_splashScreenTitleTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/SplashScreen_Title.png");
 	_splashScreenAnyButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/SplashScreen_PressAnyButton.png");
+	_levelSelectTemplateTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_ChaptersTemplate.png");
 
 	//Loading Screen
-	_loadingScreenChapture1Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/LoadingScreen.png");
-	_loadingScreenChapture2Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/LoadingScreen.png");
-	_loadingScreenChapture3Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/LoadingScreen.png");
-	_loadingScreenChapture4Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/LoadingScreen.png");
-	_loadingScreenChapture5Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/LoadingScreen.png");
-	_loadingScreenChapture6Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/LoadingScreen.png");
+	_loadingScreenChapture1Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Loading_Chapter1.png");
+	_loadingScreenChapture2Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Loading_Chapter2.png");
+	_loadingScreenChapture3Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Loading_Chapter3.png");
+	_loadingScreenChapture4Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Loading_Chapter4.png");
+	_loadingScreenChapture5Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Loading_Chapter5.png");
+	_loadingScreenChapture6Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Loading_Chapter6.png");
 
 	//Textures buttons
 	//Main Menu
 	_startButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_ButtonStart.png");
-	_chapterButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_ButtonChapters.png");
+	_chapterButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Chapter_SpriteSheet.png");
 	_continueButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_ButtonContinue.png");
-	_creditsButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_ButtonCredits.png");
+	_creditsButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_ButtonCredits3.png");
 	_quitButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_ButtonQuit.png");
 	_ropeTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Ropes.png");
+	_backButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_BackButton.png");
+
+	//Credits
+	_creditsScreenTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Credits.png");
+
+	//Load select
+	//Level Select
+	_chapter1Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_Chapters_ButtonChapter1.png");
+	_chapter2Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_Chapters_ButtonChapter2.png");
+	_chapter3Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_Chapters_ButtonChapter3.png");
+	_chapter4Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_Chapters_ButtonChapter4.png");
+	_chapter5Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_Chapters_ButtonChapter5.png");
+	_chapter6Texture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_Chapters_ButtonChapter6.png");
+	_chapterIndicatorTextTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_Chapters_1-6.png");
+
+	_chapterArrowLeftTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_Chapters_ArrowLeft.png");
+	_chapterArrowRightTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_Chapters_ArrowRight.png");
+
 }
 
 void MainMenu::BindSpritesToTextures() {
@@ -246,14 +465,16 @@ void MainMenu::BindSpritesToTextures() {
 	_backGroundBlurredSprite.setTexture(_backGroundBlurredTexture);
 	_splashScreenTitleSprite.setTexture(_splashScreenTitleTexture);
 	_splashScreenAnyButtonSprite.setTexture(_splashScreenAnyButtonTexture);
+	_creditScreenSprite.setTexture(_creditsScreenTexture);
+	_levelSelectTemplateSprite.setTexture(_levelSelectTemplateTexture);
 
 	//Loading Screen
-	/*_loadingScreenChapture1Sprite.setTexture(_loadingScreenChapture1Texture);
+	_loadingScreenChapture1Sprite.setTexture(_loadingScreenChapture1Texture);
 	_loadingScreenChapture2Sprite.setTexture(_loadingScreenChapture2Texture);
 	_loadingScreenChapture3Sprite.setTexture(_loadingScreenChapture3Texture);
 	_loadingScreenChapture4Sprite.setTexture(_loadingScreenChapture4Texture);
 	_loadingScreenChapture5Sprite.setTexture(_loadingScreenChapture5Texture);
-	_loadingScreenChapture6Sprite.setTexture(_loadingScreenChapture6Texture);*/
+	_loadingScreenChapture6Sprite.setTexture(_loadingScreenChapture6Texture);
 
 	//Sprites buttons
 	//Main Menu
@@ -263,6 +484,18 @@ void MainMenu::BindSpritesToTextures() {
 	_creditsButtonSprite.setTexture(_creditsButtonTexture);
 	_quitButtonSprite.setTexture(_quitButtonTexture);
 	_ropeSprite.setTexture(_ropeTexture);
+	_backButtonSprite.setTexture(_backButtonTexture);
+
+	_chapter1Sprite.setTexture(_chapter1Texture);
+	_chapter2Sprite.setTexture(_chapter2Texture);
+	_chapter3Sprite.setTexture(_chapter3Texture);
+	_chapter4Sprite.setTexture(_chapter4Texture);
+	_chapter5Sprite.setTexture(_chapter5Texture);
+	_chapter6Sprite.setTexture(_chapter6Texture);
+	_chapterIndicatorTextSprite.setTexture(_chapterIndicatorTextTexture);
+
+	_chapterArrowLeftSprite.setTexture(_chapterArrowLeftTexture);
+	_chapterArrowRightSprite.setTexture(_chapterArrowRightTexture);
 }
 
 void MainMenu::PositionSprites() {
@@ -270,9 +503,10 @@ void MainMenu::PositionSprites() {
 	_backGroundNormalSprite.setPosition(0, 0);
 	_backGroundBlurredSprite.setPosition(0, 0);
 	_splashScreenTitleSprite.setOrigin(_splashScreenTitleTexture.getSize().x / 2, _splashScreenTitleTexture.getSize().x / 2);
-	_splashScreenTitleSprite.setPosition(_window->getSize().x / 2, _window->getSize().y / 2);
+	_splashScreenTitleSprite.setPosition((_splashScreenTitleTexture.getSize().x / 2), (_window->getSize().y / 1.3f) - 200);
 	_splashScreenAnyButtonSprite.setOrigin(_splashScreenAnyButtonTexture.getSize().x / 2 + _splashScreenAnyButtonTexture.getSize().x, _splashScreenAnyButtonTexture.getSize().x / 2 + _splashScreenAnyButtonTexture.getSize().y);
-	_splashScreenAnyButtonSprite.setPosition(_window->getSize().x / 2 + _splashScreenAnyButtonTexture.getSize().x, _window->getSize().y / 2 + _splashScreenAnyButtonTexture.getSize().y + 500);
+	_splashScreenAnyButtonSprite.setPosition(_window->getSize().x / 2 + _splashScreenAnyButtonTexture.getSize().x, _window->getSize().y / 2 + _splashScreenAnyButtonTexture.getSize().y + 600);
+	_levelSelectTemplateSprite.setPosition(0, 0);
 
 	//Loading Screen
 	_loadingScreenChapture1Sprite.setPosition(0, 0);
@@ -282,17 +516,46 @@ void MainMenu::PositionSprites() {
 	_loadingScreenChapture5Sprite.setPosition(0, 0);
 	_loadingScreenChapture6Sprite.setPosition(0, 0);
 
+
 	//Sprites buttons
 	//Main Menu
 	_startButtonSprite.setTextureRect(sf::IntRect(0, 0, _startButtonTexture.getSize().x / 3, _startButtonTexture.getSize().y));
-	_startButtonSprite.setPosition(300, 200);
+	_startButtonSprite.setPosition(350, 390);
 	_chapterButtonSprite.setTextureRect(sf::IntRect(0, 0, _chapterButtonTexture.getSize().x / 3, _chapterButtonTexture.getSize().y));
-	_chapterButtonSprite.setPosition(300, 400);
+	_chapterButtonSprite.setPosition(375, 550);
 	_creditsButtonSprite.setTextureRect(sf::IntRect(0, 0, _creditsButtonTexture.getSize().x / 3, _creditsButtonTexture.getSize().y));
-	_creditsButtonSprite.setPosition(300, 600);
+	_creditsButtonSprite.setPosition(350, 725);
 	_quitButtonSprite.setTextureRect(sf::IntRect(0, 0, _quitButtonTexture.getSize().x / 3, _quitButtonTexture.getSize().y));
-	_quitButtonSprite.setPosition(300, 800);
-	_ropeSprite.setPosition(375, 175);
+	_quitButtonSprite.setPosition(350, 900);
+	_ropeSprite.setPosition(425, 350);
+
+	//Credits
+	_creditScreenSprite.setPosition(0, 0);
+	_backButtonSprite.setPosition(_window->getSize().x - (_backButtonTexture.getSize().x / 3) + 10, _window->getSize().y - (_backButtonTexture.getSize().y) - 10);
+
+	//Level Select
+	_chapter1Sprite.setTextureRect(sf::IntRect((_chapter1Texture.getSize().x / 4) * 3, 0, _chapter1Texture.getSize().x / 4, _chapter1Texture.getSize().y));
+	_chapter2Sprite.setTextureRect(sf::IntRect((_chapter1Texture.getSize().x / 4) * 3, 0, _chapter2Texture.getSize().x / 4, _chapter2Texture.getSize().y));
+	_chapter3Sprite.setTextureRect(sf::IntRect((_chapter1Texture.getSize().x / 4) * 3, 0, _chapter3Texture.getSize().x / 4, _chapter3Texture.getSize().y));
+	_chapter4Sprite.setTextureRect(sf::IntRect((_chapter1Texture.getSize().x / 4) * 3, 0, _chapter4Texture.getSize().x / 4, _chapter4Texture.getSize().y));
+	_chapter5Sprite.setTextureRect(sf::IntRect((_chapter1Texture.getSize().x / 4) * 3, 0, _chapter5Texture.getSize().x / 4, _chapter5Texture.getSize().y));
+	_chapter6Sprite.setTextureRect(sf::IntRect((_chapter1Texture.getSize().x / 4) * 3, 0, _chapter6Texture.getSize().x / 4, _chapter6Texture.getSize().y));
+
+	_chapterArrowRightSprite.setTextureRect(sf::IntRect(0, 0, _chapterArrowRightTexture.getSize().x / 3, _chapterArrowRightTexture.getSize().y));
+	_chapterArrowLeftSprite.setTextureRect(sf::IntRect(0, 0, _chapterArrowLeftTexture.getSize().x / 3, _chapterArrowLeftTexture.getSize().y));
+
+
+	_chapter1Sprite.setPosition(_levelSelectTemplateSprite.getPosition().x + 250, _levelSelectTemplateSprite.getPosition().y + 250);
+	_chapter2Sprite.setPosition(_levelSelectTemplateSprite.getPosition().x + 750, _levelSelectTemplateSprite.getPosition().y + 250);
+	_chapter3Sprite.setPosition(_levelSelectTemplateSprite.getPosition().x + 1250, _levelSelectTemplateSprite.getPosition().y + 250);
+	_chapter4Sprite.setPosition(_levelSelectTemplateSprite.getPosition().x + 250, _levelSelectTemplateSprite.getPosition().y + 550);
+	_chapter5Sprite.setPosition(_levelSelectTemplateSprite.getPosition().x + 750, _levelSelectTemplateSprite.getPosition().y + 550);
+	_chapter6Sprite.setPosition(_levelSelectTemplateSprite.getPosition().x + 1250, _levelSelectTemplateSprite.getPosition().y + 550);
+
+	_chapterIndicatorTextSprite.setPosition(900, 862);
+
+	_chapterArrowRightSprite.setPosition(1150, 858);
+	_chapterArrowLeftSprite.setPosition(650, 858);
 }
 
 void MainMenu::ChangeSprite(sf::Sprite* pSprite, ButtonStyle pButtonStyle, int pIndex) {
@@ -302,10 +565,13 @@ void MainMenu::ChangeSprite(sf::Sprite* pSprite, ButtonStyle pButtonStyle, int p
 		pSprite->setTextureRect(sf::IntRect(0, 0, pSprite->getTexture()->getSize().x / pIndex, pSprite->getTexture()->getSize().y));
 		break;
 	case HOVER:
-		pSprite->setTextureRect(sf::IntRect(pSprite->getTexture()->getSize().x / 3, 0, pSprite->getTexture()->getSize().x / 3, pSprite->getTexture()->getSize().y));
+		pSprite->setTextureRect(sf::IntRect(pSprite->getTexture()->getSize().x / pIndex, 0, pSprite->getTexture()->getSize().x / pIndex, pSprite->getTexture()->getSize().y));
 		break;
 	case CLICK:
-		pSprite->setTextureRect(sf::IntRect((pSprite->getTexture()->getSize().x / 3) * 2, 0, pSprite->getTexture()->getSize().x / pIndex, pSprite->getTexture()->getSize().y));
+		pSprite->setTextureRect(sf::IntRect((pSprite->getTexture()->getSize().x / pIndex) * 2, 0, pSprite->getTexture()->getSize().x / pIndex, pSprite->getTexture()->getSize().y));
+		break;
+	case LOCKED:
+		pSprite->setTextureRect(sf::IntRect((pSprite->getTexture()->getSize().x / pIndex) * 3, 0, pSprite->getTexture()->getSize().x / pIndex, pSprite->getTexture()->getSize().y));
 		break;
 	default:
 		break;
