@@ -289,6 +289,7 @@ void MovingGridObject::TurnOrientation(int pDir) {
 		_targetEuler = glm::vec3(getEulerAngles().x, (currentYEuler + 90) % 360, getEulerAngles().z);
 	}
 	else {
+		std::cout << "CurrentYEuler: " << currentYEuler << std::endl;
 		if (currentYEuler - 90 < 0)
 		{
 			_targetEuler = glm::vec3(getEulerAngles().x, currentYEuler + 270, getEulerAngles().z);
@@ -297,6 +298,7 @@ void MovingGridObject::TurnOrientation(int pDir) {
 		{
 			_targetEuler = glm::vec3(getEulerAngles().x, currentYEuler - 90, getEulerAngles().z);
 		}
+		std::cout << "TargetEuler: " << _targetEuler << std::endl;
 	}
 
 	if (_targetEuler.y == 0)

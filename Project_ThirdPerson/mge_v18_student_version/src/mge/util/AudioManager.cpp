@@ -25,7 +25,7 @@ void AudioManager::playSound(std::string pSoundFile, bool pLoop) {
 	sf::SoundBuffer* currentBuffer;
 
 	currentBuffer = loadSound(pSoundFile);
-
+	
 	std::cout << "Playing audio: " << pSoundFile << std::endl;
 
 	sf::Sound* newSound = new sf::Sound;
@@ -53,6 +53,40 @@ sf::SoundBuffer* AudioManager::loadSound(std::string pSoundFile) {
 	_allBuffers.push_back(SoundBufferDict(pSoundFile, newBuffer));
 	std::cout << "New audio buffer created for: " << pSoundFile << std::endl;
 	return newBuffer;
+}
+
+//NOT TESTED, COULD CONTAIN ERRORS!
+void AudioManager::stopSound(std::string pSoundFile) {
+	sf::SoundBuffer* currentBuffer = nullptr;
+	for (int i = 0; i < _allBuffers.size(); i++)
+	{
+		//If the requested sound file has been loaded in.
+		if (_allBuffers[i].first == pSoundFile) //A buffer with this sound file already exists, so we reuse it.
+		{
+			currentBuffer = _allBuffers[i].second;
+			break;
+		}
+	}
+	if (currentBuffer == nullptr)
+	{
+		return;
+	}
+
+	//Stop all sounds playing the requested audio file
+	for (int i = 0; i < _allSounds.size(); i++)
+	{
+		if (_allSounds[i]->getBuffer() == currentBuffer)
+		{
+			_allSounds[i]->stop();
+		}
+	}
+}
+//NOT TESTED, COULD CONTAIN ERRORS!
+void AudioManager::stopAllSounds() {
+	for (int i = 0; i < _allSounds.size(); i++)
+	{
+		_allSounds[i]->stop();
+	}
 }
 
 AudioManager::~AudioManager() {

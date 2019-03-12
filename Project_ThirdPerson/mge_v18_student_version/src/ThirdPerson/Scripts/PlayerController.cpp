@@ -10,17 +10,17 @@ PlayerController::PlayerController(std::vector<Ship*> pShips, GridGenerator* pGr
 	if (_myShips.size() > _currentShipIndex)
 	{
 		_currentShip = _myShips[_currentShipIndex];
-		SelectNextShip(1); //Switch ship once to apply the correct material._gridGenerator
+		SelectNextShip(1); //Switch ship once to apply the correct material.
 		std::cout << "Player has " << _myShips.size() << " ships." << std::endl;
 	}
 	else {
 		std::cout << "There were no ships passed into the PlayerController." << std::endl;
 	}
 
-	ToggleIsActive();
+	ToggleIsActive(false);
 }
 
-void PlayerController::ToggleIsActive() {
+void PlayerController::ToggleIsActive(bool pPlaySound) {
 	_lastPlayerInput = _timer;
 	_isActive = !_isActive;
 	if (!_isActive)
@@ -35,7 +35,10 @@ void PlayerController::ToggleIsActive() {
 	}
 	else
 	{
-		AudioManager::getInstance().playSound("StartPlayer.wav");
+		if (pPlaySound)
+		{
+			AudioManager::getInstance().playSound("StartPlayer.wav");
+		}
 
 		if (!_currentShip->GetIsAlive())
 		{
@@ -66,29 +69,25 @@ void PlayerController::update(float pStep) {
 	_timer += pStep;
 	if (!_currentShip->HasPath()) //If you current ship is still moving to its destination (TODO: Or is doing any other action), block player input that affects that ship.
 	{
-		if (!_rangeIndicatorsActive && _isActive)
-		{
-			//ToggleRangeIndicators(_currentShip, true);
-		}
 		if (_timer - _lastPlayerInput >= _playerInputDelay)
 		{
-			HandlePlayerInput(sf::Keyboard::Numpad0);
+			//HandlePlayerInput(sf::Keyboard::Numpad0);
 		}
 	}
 	else {
-		if (_rangeIndicatorsActive)
-		{
-			//ToggleRangeIndicators(_currentShip, false);
-		}
 		_currentShip->moveToTargetWaypoint();
 	}
 	GameObject::update(pStep);
 }
 
 void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
+	if (_timer - _lastPlayerInput < _playerInputDelay)
+	{
+		return;
+	}
 	if (_isActive)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || pKey == sf::Keyboard::Space) {
 			TurnHandler::getInstance().ToggleIsActive();
 			_lastPlayerInput = _timer;
 		}
@@ -122,11 +121,11 @@ void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make 
 			_lastPlayerInput = _timer;
 		}
 
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || pKey == sf::Keyboard::Left) {
 			SelectNextShip(-1);
 			_lastPlayerInput = _timer;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || pKey == sf::Keyboard::Right) {
 			SelectNextShip(1);
 			_lastPlayerInput = _timer;
 		}
@@ -188,8 +187,8 @@ void PlayerController::SelectShip(Ship* pShip)
 	//ToggleRangeIndicators(_currentShip, false);
 
 	_currentShip = pShip;
-	AbstractMaterial* purpleMaterial = new LitMaterial(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-	_currentShip->setMaterial(purpleMaterial);
+	AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+	_currentShip->setMaterial(greenMaterial);
 	//ToggleRangeIndicators(_currentShip, true);
 }
 
@@ -346,14 +345,8 @@ PlayerController::~PlayerController() {
 
 void PlayerController::SetFiringMode(bool pToggle) {
 	_isInFiringMode = pToggle;
-	if (pToggle) {
-		if (_currentShip->GetActionsRemaining() > 0) {
-			_currentShip->ConsumeActionForMoves();
-		}
-		else
-		{
-			_isInFiringMode = false;
-		}
+	if (_currentShip->GetActionsRemaining() <= 0) {
+		_isInFiringMode = false;
 	}
 }
 

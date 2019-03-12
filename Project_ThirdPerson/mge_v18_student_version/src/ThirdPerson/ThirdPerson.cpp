@@ -16,7 +16,9 @@
 #include "mge/core/GameObject.hpp"
 
 #include "mge/util/AudioManager.h"
+#include "ThirdPerson/Scripts/MeshManager.h"
 #include "ThirdPerson/Scripts/AmbientSoundPlayer.h"
+#include "ThirdPerson/Scripts/TutorialManager.h"
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
@@ -192,10 +194,12 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	{
 		_fileName = pFileName;
 	}
+	else {
+		std::cout << "The requested level to load was null, so the last loaded level will be reloaded or an error is thrown." << std::endl;
+	}
+
 
 	_world = new World();
-
-	//AudioManager::getInstance().loadSound("characterSounds.wav");
 
 	//SCENE SETUP
 	//add camera first (it will be updated last)
@@ -220,10 +224,21 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	AmbientSoundPlayer* myAmbientSoundPlayer = new AmbientSoundPlayer();
 	_world->add(myAmbientSoundPlayer);
 
-	PlayerController* myPlayerController = new PlayerController(_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+	PlayerController* myPlayerController;
+
+	if (_fileName == _tutorialLevel)
+	{
+		std::cout << "Player controller is a tutorial manager now." << std::endl;
+		myPlayerController = new TutorialManager(_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController");
+	}
+	else {
+		std::cout << "Using a normal player controller." << std::endl;
+		myPlayerController = new PlayerController(_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+	}
 	_world->add(myPlayerController);
 	AIController* myAIController = new AIController(_myGridGenerator->GetAIShips(), _myGridGenerator->GetPlayerShips(), _myGridGenerator, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myAIController);
+
 
 	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 30, 20, _world->getMainCamera());
 
@@ -245,6 +260,33 @@ void ThirdPerson::destroyLevel() {
 //build the game _world
 void ThirdPerson::_initializeScene()
 {
+	//Display a loading screen
+	glActiveTexture(GL_TEXTURE0);
+	_window->pushGLStates();
+
+	sf::Sprite loadingScreen;
+	sf::Texture pTexture;
+	pTexture.loadFromFile(config::MGE_TEXTURE_PATH + "MainLoadingScreen.png");
+	loadingScreen.setTexture(pTexture);
+	_window->draw(loadingScreen);
+	_window->popGLStates();
+
+	_window->display();
+
+
+	//PRE-LOAD ALL THE MESHES
+	for (int i = 0; i < _meshFileAmount; i++)
+	{
+		std::cout << "Mesh file: " << i+1 << "/" << _meshFileAmount << std::endl;
+		MeshManager::getInstance().getMesh(_allMeshFiles[i]);
+	}
+	//PRE-LOAD ALL THE AUDIO
+	for (int i = 0; i < _audioFileAmount; i++)
+	{
+		std::cout << "Audio file: " << i + 1 << "/" << _audioFileAmount << std::endl;
+		AudioManager::getInstance().loadSound(_allAudioFiles[i]);
+	}
+
 	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
 	InitializeMainMenu();
 }

@@ -41,7 +41,6 @@ class ThirdPerson : public AbstractGame
         virtual void initialize();
 
 	protected:
-
 	    //override so we can construct the actual scene
         virtual void _initializeScene();
 		void destroyLevel();
@@ -66,6 +65,84 @@ class ThirdPerson : public AbstractGame
 		void initializeGameplayValues();
 
 		std::string _fileName;
+		std::string _tutorialLevel = "lvl1(lvl4)";
+
+		const int _audioFileAmount = 22;
+		std::string _allAudioFiles[24] =
+		{
+			"Hover.wav",
+			"Click.wav",
+			"Seagul1.wav",
+			"Seagul2.wav",
+			"Seagul3.wav",
+			"Waves.wav",
+			"Wind.wav",
+			"CannonSplash.wav",
+			"EnemyShipCannon.wav",
+			"SmallShipCannon.wav",
+			"BigShipCannon.wav",
+			"Movement1.wav",
+			"Movement2.wav",
+			"Movement3.wav",
+			"Movement4.wav",
+			"Movement5.wav",
+			"StartLevel.wav",
+			"Treasure.wav",
+			"Harbour.wav",
+			"PlayerDetected.wav",
+			"Victory.wav",
+			"Defeat.wav",
+			"Kraken.wav",
+			"Story.wav"
+		};
+
+		const int _meshFileAmount = 43;
+		std::string _allMeshFiles[43] = 
+		{
+			"cube_flat.obj", 
+			"Board.obj", 
+			"Candle.obj",
+			"coin1.obj",
+			"coin2.obj" , 
+			"coin3.obj",
+			"Knife.obj",
+			"Skull.obj",
+			"Sand_Tile_1.obj",
+			"Sand_Tile_2.obj",
+			"Sand_Tile_3.obj",
+			"Sand_Tile_Inverse_Corner_1.obj",
+			"Sand_Tile_Inverse_Corner_2.obj",
+			"Sand_Tile_Inverse_Corner_3.obj",
+			"Sand_Tile_Straight_1.obj",
+			"Sand_Tile_Straight_2.obj",
+			"Sand_Tile_Straight_3.obj",
+			"Sand_Tile_Corner_1.obj",
+			"Sand_Tile_Corner_2.obj",
+			"Sand_Tile_Corner_3.obj",
+			"Harbour_Bottom_Left.obj",
+			"Harbour_Middle_Left.obj",
+			"Harbour_Top_Left.obj",
+			"Harbour_Top_Middle.obj",
+			"Harbour_Top_Right.obj",
+			"Harbour_Middle_Right.obj",
+			"Harbour_Bottom_Right.obj",
+			"Obstacle_1.obj",
+			"Obstacle_2.obj",
+			"Obstacle_3.obj",
+			"Obstacle_4.obj",
+			"Obstacle_5.obj",
+			"Obstacle_6.obj",
+			"Obstacle_7.obj",
+			"Obstacle_8.obj",
+			"Obstacle_9.obj",
+			"Treasure_Island.obj",
+			"plane_8192.obj",
+			"sphere_smooth.obj",
+			"Main_Ship.obj",
+			"Small_Ship.obj",
+			"Enemy_Ship.obj",
+			"Enemy_Ship_DMG.obj"
+		};
 };
 
 #endif // THIRDPERSON_HPP

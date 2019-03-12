@@ -271,7 +271,7 @@ void UIHandler::update(float pStep)
 					_isInMovingMode = true;
 					_playerController->SetFiringMode(false);
 					_lastPlayerInput = _timer;
-					_playerController->GetCurrentShip()->ConsumeActionForMoves();
+					//_playerController->GetCurrentShip()->ConsumeActionForMoves();
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_attackButtonTexture) {

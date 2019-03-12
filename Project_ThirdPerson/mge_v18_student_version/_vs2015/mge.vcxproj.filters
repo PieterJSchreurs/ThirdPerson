@@ -203,6 +203,12 @@
     <ClInclude Include="..\src\mge\behaviours\CannonballBehaviour.h">
       <Filter>MGE Source files\mge\behaviours</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\MeshManager.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\TutorialManager.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -363,6 +369,12 @@
     </ClCompile>
     <ClCompile Include="..\src\mge\behaviours\CannonballBehaviour.cpp">
       <Filter>MGE Source files\mge\behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\MeshManager.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\TutorialManager.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

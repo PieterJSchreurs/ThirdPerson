@@ -3,7 +3,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include "mge/util/AudioManager.h"
 
-CannonballBehaviour::CannonballBehaviour(float pMoveSpeed, glm::vec3 pMoveDirection, float pDestroyAfter, float pDelay, float pOffsetX, float pOffsetZ) : AbstractBehaviour(), _moveSpeed(pMoveSpeed), _moveDirection(pMoveDirection), _destroyAfter(pDestroyAfter), _startDelay(pDelay), _offsetX(pOffsetX), _offsetZ(pOffsetZ)
+CannonballBehaviour::CannonballBehaviour(std::string pFireSound, float pMoveSpeed, glm::vec3 pMoveDirection, float pDestroyAfter, float pDelay, float pOffsetX, float pOffsetZ) : AbstractBehaviour(), _fireSound(pFireSound), _moveSpeed(pMoveSpeed), _moveDirection(pMoveDirection), _destroyAfter(pDestroyAfter), _startDelay(pDelay), _offsetX(pOffsetX), _offsetZ(pOffsetZ)
 {
 	if (_startDelay == 0)
 	{
@@ -13,7 +13,7 @@ CannonballBehaviour::CannonballBehaviour(float pMoveSpeed, glm::vec3 pMoveDirect
 
 void CannonballBehaviour::StartMoving() {
 	_started = true;
-	AudioManager::getInstance().playSound("Click.wav");
+	AudioManager::getInstance().playSound(_fireSound);
 }
 
 CannonballBehaviour::~CannonballBehaviour()

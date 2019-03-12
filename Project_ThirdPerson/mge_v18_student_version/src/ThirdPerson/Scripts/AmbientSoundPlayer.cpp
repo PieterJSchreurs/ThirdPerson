@@ -9,15 +9,6 @@ AmbientSoundPlayer::AmbientSoundPlayer(const std::string& aName, const glm::vec3
 	_wavesSound = "Waves.wav";
 	_windSound = "Wind.wav";
 
-	AudioManager::getInstance().loadSound(_wavesSound);
-	AudioManager::getInstance().loadSound(_windSound);
-
-	AudioManager::getInstance().loadSound(_seagullSounds[0]);
-	AudioManager::getInstance().loadSound(_seagullSounds[1]);
-	AudioManager::getInstance().loadSound(_seagullSounds[2]);
-
-	AudioManager::getInstance().loadSound("CannonSplash.wav");
-
 	_isInitialized = true;
 
 	AudioManager::getInstance().playSound(_wavesSound, true);

@@ -27,6 +27,9 @@ public:
 	sf::SoundBuffer* loadSound(std::string pSoundFile);
 	void playSound(std::string pSoundFile, bool pLoop = false);
 
+	void stopSound(std::string pSoundFile);
+	void stopAllSounds();
+
 private:
 	AudioManager() {}
 

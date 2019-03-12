@@ -208,6 +208,7 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\GridObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\HudHandler.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\MainMenu.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\MeshManager.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\MouseInputHandler.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\MovingGridObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\Node.h" />
@@ -221,6 +222,7 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\TileWorld.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\TreasureObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\TurnHandler.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\TutorialManager.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\UIHandler.h" />
     <ClInclude Include="..\src\ThirdPerson\ThirdPerson.hpp" />
     <ClInclude Include="resource.h" />
@@ -264,6 +266,7 @@
     <ClCompile Include="..\src\ThirdPerson\Scripts\GridObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\HudHandler.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\MainMenu.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\MeshManager.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\MouseInputHandler.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\MovingGridObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\Node.cpp" />
@@ -277,6 +280,7 @@
     <ClCompile Include="..\src\ThirdPerson\Scripts\TileWorld.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\TreasureObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\TurnHandler.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\TutorialManager.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\UIHandler.cpp" />
     <ClCompile Include="..\src\ThirdPerson\ThirdPerson.cpp" />
   </ItemGroup>

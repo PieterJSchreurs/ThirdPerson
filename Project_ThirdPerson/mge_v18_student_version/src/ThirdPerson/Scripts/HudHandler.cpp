@@ -294,7 +294,7 @@ void HudHandler::update(float pStep) {
 					_isInMovingMode = true;
 					_playerController->SetFiringMode(false);
 					_lastPlayerInput = _timer;
-					_playerController->GetCurrentShip()->ConsumeActionForMoves();
+					//_playerController->GetCurrentShip()->ConsumeActionForMoves();
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_attackButtonTexture) {
@@ -310,8 +310,12 @@ void HudHandler::update(float pStep) {
 				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					_clickedMouse = false;
 					_spritesToDraw[i].setTextureRect(sf::IntRect((_endTurnTextureArray.getSize().x / 4) * 2, 0, (_endTurnTextureArray.getSize().x) / 4, _endTurnTextureArray.getSize().y));
-					ResetMode();
-					TurnHandler::getInstance().ToggleIsActive();
+					_playerController->HandlePlayerInput(sf::Keyboard::Space);
+					if (!_playerController->GetIsActive())
+					{
+						ResetMode();
+					}
+					//TurnHandler::getInstance().ToggleIsActive();
 					_lastPlayerInput = _timer;
 				}
 				else {

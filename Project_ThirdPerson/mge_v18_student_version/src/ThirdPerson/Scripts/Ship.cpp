@@ -8,6 +8,7 @@
 #include "mge/materials/LitMaterial.h"
 
 #include "mge/behaviours/CannonballBehaviour.h"
+#include "mge/util/AudioManager.h"
 
 #include "windows.h"
 
@@ -91,6 +92,7 @@ void Ship::MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 		if (HasPath()) //If a path to the tile was found (so if the requested tile was not occupied or not walkable)
 		{
 			_movesRemaining--; //The ship used one movement action
+			AudioManager::getInstance().playSound(_allMoveSounds[rand()%5]);
 		}
 	}
 	else { //If this ship has no moves remaining
@@ -116,7 +118,7 @@ void Ship::ConsumeActionForMoves() {
 }
 
 void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
-	if (!_shotThisTurn && _movesRemaining > 0)
+	if (!_shotThisTurn && _actionsRemaining > 0)
 	{
 		if (!_isAI)
 		{
@@ -131,6 +133,7 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 		}
 		_shotThisTurn = false;
 		_movesRemaining = 0;
+		_actionsRemaining--;
 
 		float speedMulti = 1.0f;
 		if (!_isBig)
@@ -147,7 +150,23 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 			_myCannonballs[i]->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
 			add(_myCannonballs[i]);
 			_myCannonballs[i]->setLocalPosition(glm::vec3(0, 0.5f, -0.25f + (0.25f*i)));
-			CannonballBehaviour* cannonballBehav = new CannonballBehaviour(500.0f*speedMulti, glm::vec3(pDir.x, 0, pDir.y), _cannonRange*(0.1f / speedMulti), 0.15f*i);
+			std::string fireSound = "Click.wav";
+			if (_isBig)
+			{
+				if (_isAI)
+				{
+					fireSound = "EnemyShipCannon.wav";
+				}
+				else {
+					fireSound = "BigShipCannon.wav";
+				}
+			}
+			else {
+				fireSound = "SmallShipCannon.wav";
+			}
+
+
+			CannonballBehaviour* cannonballBehav = new CannonballBehaviour(fireSound, 500.0f*speedMulti, glm::vec3(pDir.x, 0, pDir.y), _cannonRange*(0.1f / speedMulti), 0.15f*i);
 			_myCannonballs[i]->setBehaviour(cannonballBehav);
 		}
 
@@ -192,6 +211,10 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 }
 
 void Ship::TurnOrientation(int pDir) {
+	if (glm::iround(getEulerAngles().y) % 90 != 0)
+	{
+		return;
+	}
 	if (_movesRemaining > 0)
 	{
 		MovingGridObject::TurnOrientation(pDir);

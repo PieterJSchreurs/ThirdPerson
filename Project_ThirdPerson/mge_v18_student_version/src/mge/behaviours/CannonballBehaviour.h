@@ -12,7 +12,7 @@ class CannonballBehaviour : public AbstractBehaviour
 {
 public:
 	//move speed is in units per second, turnspeed in degrees per second
-	CannonballBehaviour(float pMoveSpeed = 1, glm::vec3 pMoveDirection = glm::vec3(0, 3, 0), float pDestroyAfter = 3, float pDelay = 0.0f, float pOffsetX = 0, float pOffsetZ = 0);
+	CannonballBehaviour(std::string pFireSound = "Click.wav", float pMoveSpeed = 1, glm::vec3 pMoveDirection = glm::vec3(0, 3, 0), float pDestroyAfter = 3, float pDelay = 0.0f, float pOffsetX = 0, float pOffsetZ = 0);
 	virtual ~CannonballBehaviour();
 	virtual void update(float pStep);
 
@@ -23,6 +23,8 @@ public:
 	void SetSpeed(float pSpeed);
 
 private:
+	std::string _fireSound;
+
 	float _startDelay = 0;
 	bool _started = false;
 
