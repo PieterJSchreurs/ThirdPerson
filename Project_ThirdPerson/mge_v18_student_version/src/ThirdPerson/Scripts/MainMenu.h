@@ -13,7 +13,30 @@ public:
 	virtual ~MainMenu();
 	virtual void update(float pStep);
 
+protected:
+	sf::RenderWindow * _window;
+
 private:
+	enum MenuStyles {
+		SPLASH,
+		MAIN,
+		LEVELSELECT,
+		CREDIT
+	};
+
+	enum ButtonStyle {
+		NORMAL,
+		HOVER,
+		CLICK
+	};
+
+	void FillTextures();
+	void BindSpritesToTextures();
+	void PositionSprites();
+	bool _isMainMenuInitialized;
+	
+	MenuStyles _currentMenuStyle = SPLASH;
+
 	float _timer = 0;
 	float _playerInputDelay = 0.5f;
 	float _lastPlayerInput = 0;
@@ -26,22 +49,71 @@ private:
 	sf::Text _levelText;
 	std::vector<sf::Sprite> _spritesToDraw;
 	std::vector<sf::Text> _texts;
-	std::vector<sf::Sprite> _sprites;
 	sf::Sprite _backPlane;
 	sf::Texture _levelSelectTexture;
 	sf::Sprite _levelSelectButton;
 	sf::Texture _backPlaneTexture;
-	sf::RenderWindow* _renderWindow;
 	ThirdPerson* _thirdPerson;
+	
+#pragma region Textures and sprites
+	//Sprites menus & backgrounds
+	sf::Sprite _backGroundNormalSprite;
+	sf::Sprite _backGroundBlurredSprite;
+	sf::Sprite _splashScreenTitleSprite;
+	sf::Sprite _splashScreenAnyButtonSprite;
 
-	sf::Sprite _loadingScreen;
-	sf::Texture _loadingScreenTexture;
+	//Loading Screen
+	sf::Sprite _loadingScreenChapture1Sprite;
+	sf::Sprite _loadingScreenChapture2Sprite;
+	sf::Sprite _loadingScreenChapture3Sprite;
+	sf::Sprite _loadingScreenChapture4Sprite;
+	sf::Sprite _loadingScreenChapture5Sprite;
+	sf::Sprite _loadingScreenChapture6Sprite;
+
+	//Sprites buttons
+	//Main Menu
+	sf::Sprite _startButtonSprite;
+	sf::Sprite _continueButtonSprite;
+	sf::Sprite _chapterButtonSprite;
+	sf::Sprite _creditsButtonSprite;
+	sf::Sprite _quitButtonSprite;
+	sf::Sprite _ropeSprite;
+
+	//Textures menus & backgrounds
+	sf::Texture _backGroundNormalTexture;
+	sf::Texture _backGroundBlurredTexture;
+	sf::Texture _splashScreenTitleTexture;
+	sf::Texture _splashScreenAnyButtonTexture;
+
+	//Loading Screen
+	sf::Texture _loadingScreenChapture1Texture;
+	sf::Texture _loadingScreenChapture2Texture;
+	sf::Texture _loadingScreenChapture3Texture;
+	sf::Texture _loadingScreenChapture4Texture;
+	sf::Texture _loadingScreenChapture5Texture;
+	sf::Texture _loadingScreenChapture6Texture;
+
+	//Textures buttons
+	//Main Menu
+	sf::Texture _startButtonTexture;
+	sf::Texture _continueButtonTexture;
+	sf::Texture _chapterButtonTexture;
+	sf::Texture _creditsButtonTexture;
+	sf::Texture _quitButtonTexture;
+	sf::Texture _ropeTexture;
+
+#pragma endregion
+
+	//Load Menu
 
 	void HandleClick();
 	void LoadLevelSelect();
 	void LoadScene(std::string pString);
-	void FillMainMenu();
 	void DrawSprites();
+	void DrawMenuStyle(MenuStyles pMenuStyle);
 	void StartLoadingScene(std::string pString);
+
+	void ChangeSprite(sf::Sprite* pSprite, ButtonStyle pButtonStyle, int pIndex);
+	void CheckForMouse();
 };
 #endif
