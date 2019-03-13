@@ -29,8 +29,9 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 
 	_boardMesh = Mesh::load(config::MGE_MODEL_PATH + "Board.obj");
 	_candleMesh = Mesh::load(config::MGE_MODEL_PATH + "Candle.obj");
-	//_coin1Mesh = Mesh::load(config::MGE_MODEL_PATH + "coin.obj");
-	_coin2Mesh = Mesh::load(config::MGE_MODEL_PATH + "coin1.obj");
+	_coin1Mesh = Mesh::load(config::MGE_MODEL_PATH + "coin1.obj");
+	_coin2Mesh = Mesh::load(config::MGE_MODEL_PATH + "coin2.obj");
+	_coin3Mesh = Mesh::load(config::MGE_MODEL_PATH + "coin3.obj");
 	_knifeMesh = Mesh::load(config::MGE_MODEL_PATH + "Knife.obj");
 	_skullMesh = Mesh::load(config::MGE_MODEL_PATH + "Skull.obj");
 
@@ -81,8 +82,9 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 	//TEXTURES
 	_boardMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Wood_HD.jpg"), glm::vec3(1, 1, 1), 0.25f);
 	_candleMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Candle.png"), glm::vec3(1, 1, 1), 0.25f);
-	//_coin1Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "coin.png"), glm::vec3(1, 1, 1), 0.25f);
-	_coin2Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "coin.png"), glm::vec3(1, 1, 1), 0.25f);
+	_coin1Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "coin1.png"), glm::vec3(1, 1, 1), 0.25f);
+	_coin2Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "coin2.png"), glm::vec3(1, 1, 1), 0.25f);
+	_coin3Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "coin3.png"), glm::vec3(1, 1, 1), 0.25f);
 	_knifeMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Knife.png"), glm::vec3(1, 1, 1), 0.25f);
 	_skullMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Skull.png"), glm::vec3(1, 1, 1), 0.25f);
 
@@ -287,12 +289,12 @@ void GridGenerator::GenerateNodeGraph() {
 	_tileWorld.add(candle);
 	candle->setLocalPosition(glm::vec3(-_tileWorld.tileSize(), 1.0f, -_tileWorld.tileSize()));
 
-	//GameObject* coin1 = new GameObject("Coin1", glm::vec3(0, 0, 0));
-	//coin1->setScale(glm::vec3(2, 2, 2));
-	//coin1->setMesh(_coin1Mesh);
-	//coin1->setMaterial(_coin1Material);
-	//_tileWorld.add(coin1);
-	//coin1->setLocalPosition(glm::vec3(-_tileWorld.tileSize(), 1.0f, -_tileWorld.tileSize()));
+	GameObject* coin1 = new GameObject("Coin1", glm::vec3(0, 0, 0));
+	coin1->setScale(glm::vec3(2, 2, 2));
+	coin1->setMesh(_coin1Mesh);
+	coin1->setMaterial(_coin1Material);
+	_tileWorld.add(coin1);
+	coin1->setLocalPosition(glm::vec3(-_tileWorld.tileSize(), 1.0f, -_tileWorld.tileSize()));
 
 	GameObject* coin2 = new GameObject("Coin2", glm::vec3(0, 0, 0));
 	coin2->setScale(glm::vec3(2, 2, 2));
@@ -300,6 +302,13 @@ void GridGenerator::GenerateNodeGraph() {
 	coin2->setMaterial(_coin2Material);
 	_tileWorld.add(coin2);
 	coin2->setLocalPosition(glm::vec3(-_tileWorld.tileSize(), 1.0f, -_tileWorld.tileSize()));
+
+	GameObject* coin3 = new GameObject("Coin3", glm::vec3(0, 0, 0));
+	coin3->setScale(glm::vec3(2, 2, 2));
+	coin3->setMesh(_coin3Mesh);
+	coin3->setMaterial(_coin3Material);
+	_tileWorld.add(coin3);
+	coin3->setLocalPosition(glm::vec3(-_tileWorld.tileSize(), 1.0f, -_tileWorld.tileSize()));
 
 	GameObject* knife = new GameObject("Knife", glm::vec3(0, 0, 0));
 	knife->setScale(glm::vec3(2, 2, 2));
