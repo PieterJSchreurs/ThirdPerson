@@ -176,14 +176,14 @@ void HudHandler::update(float pStep) {
 						if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 							_clickedMouse = false;
 							DrawMoveTile(_shipOrientation.y, -_shipOrientation.x, false);
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 4, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
 							_playerController->HandlePlayerInput(sf::Keyboard::A);
 							_lastPlayerInput = _timer;
 
 						}
 						else {
 							if (_timer - _lastPlayerInput >= _playerInputDelay) {
-								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
 								DrawMoveTile(_shipOrientation.y, -_shipOrientation.x, true);
 								_isHovering = true;
 							}
@@ -193,13 +193,13 @@ void HudHandler::update(float pStep) {
 				else {
 					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 						_playerController->HandlePlayerInput(sf::Keyboard::Z);
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
+						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 4, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
 						_clickedMouse = false;
 						_lastPlayerInput = _timer;
 					}
 					else {
 						if (_timer - _lastPlayerInput >= _playerInputDelay) {
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
 							_isHovering = true;
 							DrawFireTile(true, false);
 						}
@@ -212,7 +212,7 @@ void HudHandler::update(float pStep) {
 						if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 							_clickedMouse = false;
 							DrawMoveTile(-_shipOrientation.y, _shipOrientation.x, false);
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 4, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
 							_playerController->HandlePlayerInput(sf::Keyboard::D);
 							_lastPlayerInput = _timer;
 
@@ -220,7 +220,7 @@ void HudHandler::update(float pStep) {
 						else {
 							if (_timer - _lastPlayerInput >= _playerInputDelay) {
 								_isHovering = true;
-								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
 								DrawMoveTile(-_shipOrientation.y, _shipOrientation.x, true);
 							}
 						}
@@ -379,7 +379,7 @@ void HudHandler::update(float pStep) {
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowLeftTextureArray) {
-				if (_isInShootingMode && _isInMovingMode) {
+				if (_isInShootingMode || _isInMovingMode) {
 					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
 				}
 				else {
@@ -387,7 +387,7 @@ void HudHandler::update(float pStep) {
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowRightTextureArray) {
-				if (_isInShootingMode && _isInMovingMode) {
+				if (_isInShootingMode || _isInMovingMode) {
 					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
 				}
 				else {
