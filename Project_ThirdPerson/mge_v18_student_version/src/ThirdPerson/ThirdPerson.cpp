@@ -240,7 +240,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	_world->add(myAIController);
 
 
-	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 30, 20, _world->getMainCamera());
+	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 20, 10, _world->getMainCamera());
 
 	_myHudHandler = new HudHandler(_window, myPlayerController);
 
