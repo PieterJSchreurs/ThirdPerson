@@ -1,41 +1,99 @@
-﻿  MainMenu.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(28): warning C4018: '<': signed/unsigned mismatch
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(123): warning C4018: '<': signed/unsigned mismatch
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(131): warning C4018: '<': signed/unsigned mismatch
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(139): warning C4018: '<': signed/unsigned mismatch
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(144): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+﻿  HudHandler.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(48): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(154): warning C4018: '<': signed/unsigned mismatch
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(259): warning C4018: '<': signed/unsigned mismatch
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(271): warning C4018: '<': signed/unsigned mismatch
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(339): warning C4018: '<': signed/unsigned mismatch
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(378): warning C4018: '<': signed/unsigned mismatch
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(505): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(52): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(506): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(57): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(507): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(62): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(508): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(67): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(534): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(72): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
+          ]
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(77): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(82): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(87): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(92): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(125): warning C4018: '<': signed/unsigned mismatch
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(134): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(143): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(157): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(166): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(193): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(203): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(355): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(418): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(431): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
           ]
   mge.vcxproj -> C:\Users\piete\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe

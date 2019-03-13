@@ -42,14 +42,14 @@ private:
 	sf::Text _playerNameText;
 	sf::Text _movementLeftText;
 	sf::RenderWindow* _renderWindow;
+
 	std::vector<sf::Sprite> _spritesToDraw;
 	std::vector<sf::Sprite> _buttons;
 	sf::Sprite _flagBackground;
 	sf::Sprite _playerBackground;
 	sf::Sprite _playerIcon;
+	sf::Texture _hudBannerTexture;
 	sf::Texture _texturePlayerIcon;
-	sf::Texture _textureMoveBackground;
-	sf::Texture _texturePlayerBackground;
 	sf::Texture _compassShootingTextureArray;
 	sf::Texture _endTurnTextureArray;
 
@@ -62,6 +62,7 @@ private:
 	sf::Texture _arrowRotateLeftTextureArray;
 	sf::Texture _arrowRotateRightTextureArray;
 
+	sf::Sprite _hudBannerSprite;
 	sf::Sprite _arrowTop;
 	sf::Sprite _arrowLeft;
 	sf::Sprite _arrowRight;
