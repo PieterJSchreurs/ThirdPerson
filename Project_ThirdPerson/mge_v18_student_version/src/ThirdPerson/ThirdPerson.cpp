@@ -201,7 +201,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	//AudioManager::getInstance().loadSound("characterSounds.wav");
 
 	//SCENE SETUP
-	//add camera first (it will be updated last)
+	//add camera first (it will be updated last)_hud
 	Camera* camera = new Camera("camera", glm::vec3(13.5f, 18.5f, 13.5f));
 	camera->rotate(glm::radians(45.0f), glm::vec3(0, 1, 0));
 	camera->rotate(glm::radians(-55.0f), glm::vec3(1, 0, 0));
@@ -229,7 +229,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	//UIHandler* uiHandler = new UIHandler(_window, myPlayerController, "UIHandler");
 	//_world->add(uiHandler);
-	_myHudHandler = new HudHandler(_window, myPlayerController);
+	//_myHudHandler = new HudHandler(_window, myPlayerController);
 
 	MouseInputHandler* myMouseInputHandler = new MouseInputHandler(_window, _world, _myGridGenerator->GetPlayerShips(), myPlayerController, "", glm::vec3(0, 0, 0));
 	_world->add(myMouseInputHandler);

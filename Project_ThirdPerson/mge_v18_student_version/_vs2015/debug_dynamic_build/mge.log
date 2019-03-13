@@ -1,4 +1,14 @@
-﻿  AbstractGame.cpp
+﻿  ThirdPerson.cpp
 c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\mge\core\abstractgame.cpp(25): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(82): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(85): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(88): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(92): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(95): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(98): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(101): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(104): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(107): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(110): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(113): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
   mge.vcxproj -> C:\Users\Amadeo\Desktop\school\project third person\Git\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
