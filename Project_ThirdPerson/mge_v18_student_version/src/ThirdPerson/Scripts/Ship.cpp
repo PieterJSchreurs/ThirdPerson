@@ -34,14 +34,30 @@ Ship::Ship(Node* pStartNode, std::vector<Node*> pAllNodes, bool pIsAI, bool pIsB
 	}
 }
 
-void Ship::update(float pStep) {
-	MovingGridObject::update(pStep);
-	if (_enteredNewNode) {
-		_enteredNewNode = false;
-		if (_currentNode->GetHasStaticObject())
-		{
-			_currentNode->GetStaticObject()->DoAction(_isAI, _isBig);
+bool Ship::GetIsBig() {
+	return _isBig;
+}
 
+void Ship::update(float pStep) {
+	if (_isSinking)
+	{
+		rotateEulerAngles(glm::vec3(-0.5f, 0, 0));
+		setLocalPosition(getLocalPosition() + glm::vec3(0, -0.01f, 0));
+		if (getLocalPosition().y < -1.5f)
+		{
+			_isSinking = false;
+			setLocalPosition(glm::vec3(500, -500, 500)); //TODO: implement a proper ship death here.
+		}
+	}
+	else {
+		MovingGridObject::update(pStep);
+		if (_enteredNewNode) {
+			_enteredNewNode = false;
+			if (_currentNode->GetHasStaticObject())
+			{
+				_currentNode->GetStaticObject()->DoAction(_isAI, _isBig);
+
+			}
 		}
 	}
 }
@@ -130,6 +146,10 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 			{
 				return;
 			}
+			AudioManager::getInstance().playSound(_allShootSounds[rand()%11]);
+		}
+		else {
+			AudioManager::getInstance().playSound("CannonVoiceEnemy.wav");
 		}
 		_shotThisTurn = false;
 		_movesRemaining = 0;
@@ -189,6 +209,7 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 					for (int j = 0; j < 3; j++)
 					{
 						static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetDestroyAfter(i*(0.1f / speedMulti));
+						static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetImpactSound("ImpactSand.wav");
 					}
 					//cannonballBehav->SetDestroyAfter(_cannonRange*(0.1f / speedMulti));
 					//_myCannonballs[0]->setBehaviour(new CannonballBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), i*0.1f));
@@ -201,6 +222,7 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 				for (int j = 0; j < 3; j++)
 				{
 					static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetDestroyAfter(i*(0.1f / speedMulti));
+					static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetImpactSound("ImpactObstacles.wav");
 				}
 				//cannonballBehav->SetDestroyAfter(_cannonRange*(0.1f / speedMulti));
 				//_myCannonballs[0]->setBehaviour(new CannonballBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), i*0.1f));
@@ -251,8 +273,12 @@ void Ship::HandleDamaged() {
 	//Apply any visual effects to the object in this overloaded function.
 }
 void Ship::DestroyObject() {
-	//TODO: Implement object destruction here.
-	setLocalPosition(glm::vec3(0, 5, 0)); //TODO: implement a proper ship death here.
+	AudioManager::getInstance().playSound("SinkingShipCannon.wav");
+	if (_isAI)
+	{
+		AudioManager::getInstance().playSound("AbandonShipEnemy.wav");
+	}
+	_isSinking = true;
 	_currentNode->SetCurrentMovingObject(nullptr);
 	std::cout << "The ship at tile : " << _currentNode->GetGridX() << "-" << _currentNode->GetGridY() << " has sunk!" << std::endl;
 }

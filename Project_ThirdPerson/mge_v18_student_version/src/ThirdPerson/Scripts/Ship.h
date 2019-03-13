@@ -34,7 +34,11 @@ public:
 	int GetCannonRange();
 	int GetMovesPerAction();
 
+	bool GetIsBig();
+
 private:
+	bool _isSinking = false;
+
 	int _actionsPerTurn = 0;
 	int _actionsRemaining = 0;
 
@@ -60,6 +64,20 @@ private:
 		"Movement3.wav",
 		"Movement4.wav",
 		"Movement5.wav"
+	};
+
+	std::string _allShootSounds[11] = {
+		"CannonVoicePlayer1.wav",
+		"CannonVoicePlayer2.wav",
+		"CannonVoicePlayer3.wav",
+		"CannonVoicePlayer4.wav",
+		"CannonVoicePlayer5.wav",
+		"CannonVoicePlayer6.wav",
+		"CannonVoicePlayer7.wav",
+		"CannonVoicePlayer8.wav",
+		"CannonVoicePlayer9.wav",
+		"CannonVoicePlayer10.wav",
+		"CannonVoicePlayer11.wav"
 	};
 };
 
