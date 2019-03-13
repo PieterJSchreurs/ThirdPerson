@@ -67,8 +67,8 @@ class ThirdPerson : public AbstractGame
 		std::string _fileName;
 		std::string _tutorialLevel = "lvl1(lvl4)";
 
-		const int _audioFileAmount = 22;
-		std::string _allAudioFiles[24] =
+		const int _audioFileAmount = 42;
+		std::string _allAudioFiles[43] =
 		{
 			"Hover.wav",
 			"Click.wav",
@@ -86,18 +86,37 @@ class ThirdPerson : public AbstractGame
 			"Movement3.wav",
 			"Movement4.wav",
 			"Movement5.wav",
+			"StartPlayer.wav",
+			"StartEnemy.wav",
 			"StartLevel.wav",
 			"Treasure.wav",
 			"Harbour.wav",
 			"PlayerDetected.wav",
 			"Victory.wav",
 			"Defeat.wav",
+			"AbandonShipEnemy.wav",
+			"CannonVoiceEnemy.wav",
+			"CannonVoicePlayer1.wav",
+			"CannonVoicePlayer2.wav",
+			"CannonVoicePlayer3.wav",
+			"CannonVoicePlayer4.wav",
+			"CannonVoicePlayer5.wav",
+			"CannonVoicePlayer6.wav",
+			"CannonVoicePlayer7.wav",
+			"CannonVoicePlayer8.wav",
+			"CannonVoicePlayer9.wav",
+			"CannonVoicePlayer10.wav",
+			"CannonVoicePlayer11.wav",
+			"ImpactObstacles.wav",
+			"ImpactSand.wav",
+			"SinkingShipCannon.wav",
+			"SinkingShipKraken.wav",
 			"Kraken.wav",
 			"Story.wav"
 		};
 
-		const int _meshFileAmount = 43;
-		std::string _allMeshFiles[43] = 
+		const int _meshFileAmount = 44;
+		std::string _allMeshFiles[44] = 
 		{
 			"cube_flat.obj", 
 			"Board.obj", 
@@ -141,7 +160,8 @@ class ThirdPerson : public AbstractGame
 			"Main_Ship.obj",
 			"Small_Ship.obj",
 			"Enemy_Ship.obj",
-			"Enemy_Ship_DMG.obj"
+			"Enemy_Ship_DMG.obj",
+			"Kraken_Arm.obj"
 		};
 };
 

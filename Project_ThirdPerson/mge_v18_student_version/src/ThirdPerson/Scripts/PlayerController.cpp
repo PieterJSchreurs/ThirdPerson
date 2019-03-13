@@ -2,6 +2,8 @@
 #include <SFML/Window/Keyboard.hpp>
 #include "ThirdPerson/Scripts/TurnHandler.h"
 #include "mge/util/AudioManager.h"
+#include "ThirdPerson/Scripts/Kraken.h"
+#include "ThirdPerson/Scripts/PlayerBigShip.h"
 
 #include "mge/materials/LitMaterial.h"
 
@@ -21,6 +23,10 @@ PlayerController::PlayerController(std::vector<Ship*> pShips, GridGenerator* pGr
 }
 
 void PlayerController::ToggleIsActive(bool pPlaySound) {
+	if (_gameOver)
+	{
+		return;
+	}
 	_lastPlayerInput = _timer;
 	_isActive = !_isActive;
 	if (!_isActive)
@@ -31,6 +37,10 @@ void PlayerController::ToggleIsActive(bool pPlaySound) {
 		if (TurnHandler::getInstance().GetTurnsLeft() <= 0)
 		{
 			std::cout << "The player has run out of turns, so he lost!" << std::endl;
+			_gameOver = true;
+			TurnHandler::getInstance().ToggleIsActive();
+			Kraken* newKraken = new Kraken(GetBigShip());
+			GetBigShip()->add(newKraken);
 		}
 	}
 	else
@@ -65,7 +75,21 @@ bool PlayerController::GetIsActive() {
 	return _isActive;
 }
 
+Ship* PlayerController::GetBigShip() {
+	for (int i = 0; i < _myShips.size(); i++)
+	{
+		if (_myShips[i]->GetIsBig())
+		{
+			return _myShips[i];
+		}
+	}
+}
+
 void PlayerController::update(float pStep) {
+	if (_gameOver)
+	{
+		return;
+	}
 	_timer += pStep;
 	if (_currentShip->HasPath()) //If you current ship is still moving to its destination (TODO: Or is doing any other action), block player input that affects that ship.
 	{
@@ -75,6 +99,10 @@ void PlayerController::update(float pStep) {
 }
 
 void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
+	if (_gameOver)
+	{
+		return;
+	}
 	if (_currentShip->HasPath()) //If you current ship is still moving to its destination (TODO: Or is doing any other action), block player input that affects that ship.
 	{
 		return;

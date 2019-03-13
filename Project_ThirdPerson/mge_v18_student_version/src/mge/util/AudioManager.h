@@ -25,7 +25,7 @@ public:
 	void update(float pStep);
 
 	sf::SoundBuffer* loadSound(std::string pSoundFile);
-	void playSound(std::string pSoundFile, bool pLoop = false);
+	void playSound(std::string pSoundFile, float pVolume = 100.0f, float pPitchShift = 0.0f, bool pLoop = false);
 
 	void stopSound(std::string pSoundFile);
 	void stopAllSounds();

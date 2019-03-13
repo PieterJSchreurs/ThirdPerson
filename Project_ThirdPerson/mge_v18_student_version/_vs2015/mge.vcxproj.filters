@@ -209,6 +209,9 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\TutorialManager.h">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\Kraken.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -374,6 +377,9 @@
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ThirdPerson\Scripts\TutorialManager.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\Kraken.cpp">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClCompile>
   </ItemGroup>
