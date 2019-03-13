@@ -39,24 +39,21 @@ private:
 	sf::RenderWindow* _renderWindow;
 	std::vector<sf::Sprite> _spritesToDraw;
 	std::vector<sf::Sprite> _buttons;
-	sf::Sprite _flagBackground;
-	sf::Sprite _playerBackground;
-	sf::Sprite _playerIcon;
+
 	sf::Texture _texturePlayerIcon;
-	sf::Texture _textureMoveBackground;
-	sf::Texture _texturePlayerBackground;
+	sf::Texture _hudBannerTexture;
 	sf::Texture _compassShootingTextureArray;
 	sf::Texture _endTurnTextureArray;
-
 	sf::Texture _movementButtonTexture;
 	sf::Texture _attackButtonTexture;
-
 	sf::Texture _arrowTopTextureArray;
 	sf::Texture _arrowLeftTextureArray;
 	sf::Texture _arrowRightTextureArray;
 	sf::Texture _arrowRotateLeftTextureArray;
 	sf::Texture _arrowRotateRightTextureArray;
 
+	sf::Sprite _hudBannerSprite;
+	sf::Sprite _playerIcon;
 	sf::Sprite _arrowTop;
 	sf::Sprite _arrowLeft;
 	sf::Sprite _arrowRight;
