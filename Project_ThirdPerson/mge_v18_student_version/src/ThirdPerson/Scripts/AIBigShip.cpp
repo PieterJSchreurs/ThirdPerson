@@ -1,6 +1,7 @@
 #include "ThirdPerson/Scripts/AIBigShip.h"
 #include "mge/materials/LitTextureMaterial.h"
 #include "ThirdPerson/config.hpp"
+#include "ThirdPerson/Scripts/MeshManager.h"
 
 #include "mge/core/Texture.hpp"
 
@@ -16,8 +17,8 @@ void AIBigShip::update(float pStep) {
 void AIBigShip::HandleDamaged() {
 	BigShip::HandleDamaged();
 
-	AbstractMaterial* _damagedEnemyShipMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemy_Ship_DMG.png"), glm::vec3(1, 1, 1), 0.25f);
-	
+	AbstractMaterial* _damagedEnemyShipMaterial = MeshManager::getInstance().getMaterial("Enemy_Ship_DMG.png");
+
 	setMaterial(_damagedEnemyShipMaterial, true);
 	setMesh(_damagedShipMesh);
 	//Apply any visual effects to the object in this overloaded function.

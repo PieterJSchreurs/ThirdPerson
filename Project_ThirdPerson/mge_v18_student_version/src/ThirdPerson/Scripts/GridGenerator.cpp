@@ -16,6 +16,9 @@
 #include "mge/materials/TextureMaterial.hpp"
 #include "mge/materials/WaterMaterial.h"
 
+#include "ThirdPerson/Scripts/MeshManager.h"
+#include "mge/util/AudioManager.h"
+
 #include "ThirdPerson/config.hpp"
 
 #include <iostream>
@@ -25,105 +28,105 @@
 
 GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _fileName(pFileName), _tileWorld(pTileWorld)
 {
-	_cubeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
+	_cubeMeshDefault = MeshManager::getInstance().getMesh("cube_flat.obj");
 
-	_boardMesh = Mesh::load(config::MGE_MODEL_PATH + "Board.obj");
-	_candleMesh = Mesh::load(config::MGE_MODEL_PATH + "Candle.obj");
-	_coin1Mesh = Mesh::load(config::MGE_MODEL_PATH + "coin1.obj");
-	_coin2Mesh = Mesh::load(config::MGE_MODEL_PATH + "coin2.obj");
-	_coin3Mesh = Mesh::load(config::MGE_MODEL_PATH + "coin3.obj");
-	_knifeMesh = Mesh::load(config::MGE_MODEL_PATH + "Knife.obj");
-	_skullMesh = Mesh::load(config::MGE_MODEL_PATH + "Skull.obj");
+	_boardMesh = MeshManager::getInstance().getMesh("Board.obj");
+	_candleMesh = MeshManager::getInstance().getMesh("Candle.obj");
+	_coin1Mesh = MeshManager::getInstance().getMesh("coin1.obj");
+	_coin2Mesh = MeshManager::getInstance().getMesh("coin2.obj");
+	_coin3Mesh = MeshManager::getInstance().getMesh("coin3.obj");
+	_knifeMesh = MeshManager::getInstance().getMesh("Knife.obj");
+	_skullMesh = MeshManager::getInstance().getMesh("Skull.obj");
 
-	_sandTilesFull[0] = _sandTileFull1 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_1.obj");
-	_sandTilesFull[1] = _sandTileFull2 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_2.obj");
-	_sandTilesFull[2] = _sandTileFull3 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_3.obj");
+	_sandTilesFull[0] = _sandTileFull1 = MeshManager::getInstance().getMesh("Sand_Tile_1.obj");
+	_sandTilesFull[1] = _sandTileFull2 = MeshManager::getInstance().getMesh("Sand_Tile_2.obj");
+	_sandTilesFull[2] = _sandTileFull3 = MeshManager::getInstance().getMesh("Sand_Tile_3.obj");
 
-	_sandTilesInvertedCorner[0] = _sandTileInvertedCorner1 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Inverse_Corner_1.obj");
-	_sandTilesInvertedCorner[1] = _sandTileInvertedCorner2 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Inverse_Corner_2.obj");
-	_sandTilesInvertedCorner[2] = _sandTileInvertedCorner3 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Inverse_Corner_3.obj");
+	_sandTilesInvertedCorner[0] = _sandTileInvertedCorner1 = MeshManager::getInstance().getMesh("Sand_Tile_Inverse_Corner_1.obj");
+	_sandTilesInvertedCorner[1] = _sandTileInvertedCorner2 = MeshManager::getInstance().getMesh("Sand_Tile_Inverse_Corner_2.obj");
+	_sandTilesInvertedCorner[2] = _sandTileInvertedCorner3 = MeshManager::getInstance().getMesh("Sand_Tile_Inverse_Corner_3.obj");
 
-	_sandTilesStraight[0] = _sandTileStraight1 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Straight_1.obj");
-	_sandTilesStraight[1] = _sandTileStraight2 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Straight_2.obj");
-	_sandTilesStraight[2] = _sandTileStraight3 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Straight_3.obj");
+	_sandTilesStraight[0] = _sandTileStraight1 = MeshManager::getInstance().getMesh("Sand_Tile_Straight_1.obj");
+	_sandTilesStraight[1] = _sandTileStraight2 = MeshManager::getInstance().getMesh("Sand_Tile_Straight_2.obj");
+	_sandTilesStraight[2] = _sandTileStraight3 = MeshManager::getInstance().getMesh("Sand_Tile_Straight_3.obj");
 
-	_sandTilesCorner[0] = _sandTileCorner1 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Corner_1.obj");
-	_sandTilesCorner[1] = _sandTileCorner2 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Corner_2.obj");
-	_sandTilesCorner[2] = _sandTileCorner3 = Mesh::load(config::MGE_MODEL_PATH + "Sand_Tile_Corner_3.obj");
+	_sandTilesCorner[0] = _sandTileCorner1 = MeshManager::getInstance().getMesh("Sand_Tile_Corner_1.obj");
+	_sandTilesCorner[1] = _sandTileCorner2 = MeshManager::getInstance().getMesh("Sand_Tile_Corner_2.obj");
+	_sandTilesCorner[2] = _sandTileCorner3 = MeshManager::getInstance().getMesh("Sand_Tile_Corner_3.obj");
 
-	_harborTiles[0] = _harborTile1 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Bottom_Left.obj");
-	_harborTiles[1] = _harborTile2 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Middle_Left.obj");
-	_harborTiles[2] = _harborTile3 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Top_Left.obj");
-	_harborTiles[3] = _harborTile4 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Top_Middle.obj");
-	_harborTiles[4] = _harborTile5 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Top_Right.obj");
-	_harborTiles[5] = _harborTile6 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Middle_Right.obj");
-	_harborTiles[6] = _harborTile7 = Mesh::load(config::MGE_MODEL_PATH + "Harbour_Bottom_Right.obj");
+	_harborTiles[0] = _harborTile1 = MeshManager::getInstance().getMesh("Harbour_Bottom_Left.obj");
+	_harborTiles[1] = _harborTile2 = MeshManager::getInstance().getMesh("Harbour_Middle_Left.obj");
+	_harborTiles[2] = _harborTile3 = MeshManager::getInstance().getMesh("Harbour_Top_Left.obj");
+	_harborTiles[3] = _harborTile4 = MeshManager::getInstance().getMesh("Harbour_Top_Middle.obj");
+	_harborTiles[4] = _harborTile5 = MeshManager::getInstance().getMesh("Harbour_Top_Right.obj");
+	_harborTiles[5] = _harborTile6 = MeshManager::getInstance().getMesh("Harbour_Middle_Right.obj");
+	_harborTiles[6] = _harborTile7 = MeshManager::getInstance().getMesh("Harbour_Bottom_Right.obj");
 
-	_obstacleTiles[0] = _obstacleTile1 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_1.obj");
-	_obstacleTiles[1] = _obstacleTile2 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_2.obj");
-	//_obstacleTiles[2] = _obstacleTile3 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_3.obj");
-	_obstacleTiles[2] = _obstacleTile4 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_4.obj");
-	_obstacleTiles[3] = _obstacleTile5 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_5.obj");
-	_obstacleTiles[4] = _obstacleTile6 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_6.obj");
-	_obstacleTiles[5] = _obstacleTile7 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_7.obj");
-	_obstacleTiles[6] = _obstacleTile8 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_8.obj");
-	_obstacleTiles[7] = _obstacleTile9 = Mesh::load(config::MGE_MODEL_PATH + "Obstacle_9.obj");
+	_obstacleTiles[0] = _obstacleTile1 = MeshManager::getInstance().getMesh("Obstacle_1.obj");
+	_obstacleTiles[1] = _obstacleTile2 = MeshManager::getInstance().getMesh("Obstacle_2.obj");
+	//_obstacleTiles[2] = _obstacleTile3 = MeshManager::getInstance().getMesh( "Obstacle_3.obj");
+	_obstacleTiles[2] = _obstacleTile4 = MeshManager::getInstance().getMesh("Obstacle_4.obj");
+	_obstacleTiles[3] = _obstacleTile5 = MeshManager::getInstance().getMesh("Obstacle_5.obj");
+	_obstacleTiles[4] = _obstacleTile6 = MeshManager::getInstance().getMesh("Obstacle_6.obj");
+	_obstacleTiles[5] = _obstacleTile7 = MeshManager::getInstance().getMesh("Obstacle_7.obj");
+	_obstacleTiles[6] = _obstacleTile8 = MeshManager::getInstance().getMesh("Obstacle_8.obj");
+	_obstacleTiles[7] = _obstacleTile9 = MeshManager::getInstance().getMesh("Obstacle_9.obj");
 
-	_treasureIslandTile = Mesh::load(config::MGE_MODEL_PATH + "Treasure_Island.obj");
+	_treasureIslandTile = MeshManager::getInstance().getMesh("Treasure_Island.obj");
 
-	_planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj");
-	_sphereMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+	_planeMeshDefault = MeshManager::getInstance().getMesh("plane_8192.obj");
+	_sphereMeshDefault = MeshManager::getInstance().getMesh("sphere_smooth.obj");
 
-	_mainShip = Mesh::load(config::MGE_MODEL_PATH + "Main_Ship.obj");
-	_smallShip = Mesh::load(config::MGE_MODEL_PATH + "Small_Ship.obj");
-	_enemyShip = Mesh::load(config::MGE_MODEL_PATH + "Enemy_Ship.obj");
-	_enemyDamagedShip = Mesh::load(config::MGE_MODEL_PATH + "Enemy_Ship_DMG.obj");
-
+	_mainShip = MeshManager::getInstance().getMesh("Main_Ship.obj");
+	_smallShip = MeshManager::getInstance().getMesh("Small_Ship.obj");
+	_enemyShip = MeshManager::getInstance().getMesh("Enemy_Ship.obj");
+	_enemyDamagedShip = MeshManager::getInstance().getMesh("Enemy_Ship_DMG.obj");
+	
 	//TEXTURES
-	_boardMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Wood_HD.jpg"), glm::vec3(1, 1, 1), 0.25f);
-	_candleMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Candle.png"), glm::vec3(1, 1, 1), 0.25f);
-	_coin1Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "coin1.png"), glm::vec3(1, 1, 1), 0.25f);
-	_coin2Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "coin2.png"), glm::vec3(1, 1, 1), 0.25f);
-	_coin3Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "coin3.png"), glm::vec3(1, 1, 1), 0.25f);
-	_knifeMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Knife.png"), glm::vec3(1, 1, 1), 0.25f);
-	_skullMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Skull.png"), glm::vec3(1, 1, 1), 0.25f);
+	_boardMaterial = MeshManager::getInstance().getMaterial("Wood_HD.jpg");
+	_candleMaterial = MeshManager::getInstance().getMaterial("Candle.png");
+	_coin1Material = MeshManager::getInstance().getMaterial("coin1.png");
+	_coin2Material = MeshManager::getInstance().getMaterial("coin2.png");
+	_coin3Material = MeshManager::getInstance().getMaterial("coin3.png");
+	_knifeMaterial = MeshManager::getInstance().getMaterial("Knife.png");
+	_skullMaterial = MeshManager::getInstance().getMaterial("Skull.png");
 
-	_sandTileCornerMaterials[0] = _sandTileCornerMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Corner_1.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileCornerMaterials[1] = _sandTileCornerMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Corner_2.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileCornerMaterials[2] = _sandTileCornerMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Corner_3.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileStraightMaterials[0] = _sandTileStraightMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Straight_1.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileStraightMaterials[1] = _sandTileStraightMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Straight_2.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileStraightMaterials[2] = _sandTileStraightMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Straight_3.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileInvertedCornerMaterials[0] = _sandTileInvertedCornerMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Inverse_Corner_1.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileInvertedCornerMaterials[1] = _sandTileInvertedCornerMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Inverse_Corner_2.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileInvertedCornerMaterials[2] = _sandTileInvertedCornerMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_Inverse_Corner_3.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileFullMaterials[0] = _sandTileFullMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_1.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileFullMaterials[1] = _sandTileFullMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_2.png"), glm::vec3(1, 1, 1), 0.25f);
-	_sandTileFullMaterials[2] = _sandTileFullMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sand_Tile_3.png"), glm::vec3(1, 1, 1), 0.25f);
+	_sandTileCornerMaterials[0] = _sandTileCornerMaterial1 = MeshManager::getInstance().getMaterial("Sand_Tile_Corner_1.png");
+	_sandTileCornerMaterials[1] = _sandTileCornerMaterial2 = MeshManager::getInstance().getMaterial("Sand_Tile_Corner_2.png");
+	_sandTileCornerMaterials[2] = _sandTileCornerMaterial3 = MeshManager::getInstance().getMaterial("Sand_Tile_Corner_3.png");
+	_sandTileStraightMaterials[0] = _sandTileStraightMaterial1 = MeshManager::getInstance().getMaterial("Sand_Tile_Straight_1.png");
+	_sandTileStraightMaterials[1] = _sandTileStraightMaterial2 = MeshManager::getInstance().getMaterial("Sand_Tile_Straight_2.png");
+	_sandTileStraightMaterials[2] = _sandTileStraightMaterial3 = MeshManager::getInstance().getMaterial("Sand_Tile_Straight_3.png");
+	_sandTileInvertedCornerMaterials[0] = _sandTileInvertedCornerMaterial1 = MeshManager::getInstance().getMaterial("Sand_Tile_Inverse_Corner_1.png");
+	_sandTileInvertedCornerMaterials[1] = _sandTileInvertedCornerMaterial2 = MeshManager::getInstance().getMaterial("Sand_Tile_Inverse_Corner_2.png");
+	_sandTileInvertedCornerMaterials[2] = _sandTileInvertedCornerMaterial3 = MeshManager::getInstance().getMaterial("Sand_Tile_Inverse_Corner_3.png");
+	_sandTileFullMaterials[0] = _sandTileFullMaterial1 = MeshManager::getInstance().getMaterial("Sand_Tile_1.png");
+	_sandTileFullMaterials[1] = _sandTileFullMaterial2 = MeshManager::getInstance().getMaterial("Sand_Tile_2.png");
+	_sandTileFullMaterials[2] = _sandTileFullMaterial3 = MeshManager::getInstance().getMaterial("Sand_Tile_3.png");
 
+	_obstacleMaterials[0] = _obstacleMaterial1 = MeshManager::getInstance().getMaterial("Obstacle_1.png");
+	_obstacleMaterials[1] = _obstacleMaterial2 = MeshManager::getInstance().getMaterial("Obstacle_2.png");
+	//_obstacleMaterials[2] = _obstacleMaterial3 = MeshManager::getInstance().getMaterial("Obstacle_3.png");
+	_obstacleMaterials[2] = _obstacleMaterial4 = MeshManager::getInstance().getMaterial("Obstacle_4.png");
+	_obstacleMaterials[3] = _obstacleMaterial5 = MeshManager::getInstance().getMaterial("Obstacle_5.png");
+	_obstacleMaterials[4] = _obstacleMaterial6 = MeshManager::getInstance().getMaterial("Obstacle_6.png");
+	_obstacleMaterials[5] = _obstacleMaterial7 = MeshManager::getInstance().getMaterial("Obstacle_7.png");
+	_obstacleMaterials[6] = _obstacleMaterial8 = MeshManager::getInstance().getMaterial("Obstacle_8.png");
+	_obstacleMaterials[7] = _obstacleMaterial9 = MeshManager::getInstance().getMaterial("Obstacle_9.png");
 
-	_obstacleMaterials[0] = _obstacleMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_1.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[1] = _obstacleMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_2.png"), glm::vec3(1, 1, 1), 0.25f);
-	//_obstacleMaterials[2] = _obstacleMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_3.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[2] = _obstacleMaterial4 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_4.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[3] = _obstacleMaterial5 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_5.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[4] = _obstacleMaterial6 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_6.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[5] = _obstacleMaterial7 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_7.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[6] = _obstacleMaterial8 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_8.png"), glm::vec3(1, 1, 1), 0.25f);
-	_obstacleMaterials[7] = _obstacleMaterial9 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Obstacle_9.png"), glm::vec3(1, 1, 1), 0.25f);
+	_harborMaterials[0] = _harborMaterial1 = MeshManager::getInstance().getMaterial("Harbour_Bottom_Left.png");
+	_harborMaterials[1] = _harborMaterial2 = MeshManager::getInstance().getMaterial("Harbour_Middle_Left.png");
+	_harborMaterials[2] = _harborMaterial3 = MeshManager::getInstance().getMaterial("Harbour_Top_Left.png");
+	_harborMaterials[3] = _harborMaterial4 = MeshManager::getInstance().getMaterial("Harbour_Top_Middle.png");
+	_harborMaterials[4] = _harborMaterial5 = MeshManager::getInstance().getMaterial("Harbour_Top_Right.png");
+	_harborMaterials[5] = _harborMaterial6 = MeshManager::getInstance().getMaterial("Harbour_Middle_Right.png");
+	_harborMaterials[6] = _harborMaterial7 = MeshManager::getInstance().getMaterial("Harbour_Bottom_Right.png");
 
-	_harborMaterials[0] = _harborMaterial1 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Bottom_Left.png"), glm::vec3(1, 1, 1), 0.25f);
-	_harborMaterials[1] = _harborMaterial2 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Middle_Left.png"), glm::vec3(1, 1, 1), 0.25f);
-	_harborMaterials[2] = _harborMaterial3 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Top_Left.png"), glm::vec3(1, 1, 1), 0.25f);
-	_harborMaterials[3] = _harborMaterial4 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Top_Middle.png"), glm::vec3(1, 1, 1), 0.25f);
-	_harborMaterials[4] = _harborMaterial5 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Top_Right.png"), glm::vec3(1, 1, 1), 0.25f);
-	_harborMaterials[5] = _harborMaterial6 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Middle_Right.png"), glm::vec3(1, 1, 1), 0.25f);
-	_harborMaterials[6] = _harborMaterial7 = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Harbour_Bottom_Right.png"), glm::vec3(1, 1, 1), 0.25f);
-
-	_mainShipMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Main_Ship.png"));
-	_smallShipMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Small_Ship.png"));
-	_enemyShipMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemy_Ship.png"));
-	_treasureIslandMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Treasure_Island.png"), glm::vec3(1, 1, 1), 0.25f);
+	_mainShipMaterial = MeshManager::getInstance().getMaterial("Main_Ship.png");
+	_smallShipMaterial = MeshManager::getInstance().getMaterial("Small_Ship.png");
+	_enemyShipMaterial = MeshManager::getInstance().getMaterial("Enemy_Ship.png");
+	MeshManager::getInstance().getMaterial("Enemy_Ship_DMG.png"); //Just pre-load it, we dont need it.
+	_treasureIslandMaterial = MeshManager::getInstance().getMaterial("Treasure_Island.png");
 }
 
 void GridGenerator::SetGridValues(TileWorld* pTileWorld, const std::string& pFileName) {
@@ -557,6 +560,9 @@ void GridGenerator::GenerateNodeGraph() {
 			_nodeCache[_tileWorld.columns() - column - 1][_tileWorld.rows() - row - 1]->InitializeTileGlow(_cubeMeshDefault);
 		}
 	}
+
+	AudioManager::getInstance().playSound("StartLevel.wav");
+
 }
 
 void GridGenerator::DestroyNodeGraph() {

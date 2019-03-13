@@ -51,8 +51,16 @@ private:
 
 	std::vector<GameObject*> _indicator;
 	GameObject* _actionIndicator;
-	GameObject* _myCannonball;
+	GameObject* _myCannonballs[3];
 	Mesh* _sphereMeshDefault;
+
+	std::string _allMoveSounds[5] = {
+		"Movement1.wav",
+		"Movement2.wav",
+		"Movement3.wav",
+		"Movement4.wav",
+		"Movement5.wav"
+	};
 };
 
 #endif // SHIP_HPP

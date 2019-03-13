@@ -29,7 +29,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Dynamic|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'" Label="Configuration">
@@ -172,6 +172,7 @@
     <ClInclude Include="..\src\mge\behaviours\AbstractBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\CameraMoveBehaviour.h" />
     <ClInclude Include="..\src\mge\behaviours\CameraOrbitBehaviour.h" />
+    <ClInclude Include="..\src\mge\behaviours\CannonballBehaviour.h" />
     <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\MoveBehaviour.h" />
     <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp" />
@@ -200,12 +201,14 @@
     <ClInclude Include="..\src\ThirdPerson\config.hpp" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\AIBigShip.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\AIController.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\AmbientSoundPlayer.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\BigShip.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GoalObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GridGenerator.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\GridObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\HudHandler.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\MainMenu.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\MeshManager.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\MouseInputHandler.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\MovingGridObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\Node.h" />
@@ -219,6 +222,7 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\TileWorld.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\TreasureObject.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\TurnHandler.h" />
+    <ClInclude Include="..\src\ThirdPerson\Scripts\TutorialManager.h" />
     <ClInclude Include="..\src\ThirdPerson\Scripts\UIHandler.h" />
     <ClInclude Include="..\src\ThirdPerson\ThirdPerson.hpp" />
     <ClInclude Include="resource.h" />
@@ -228,6 +232,7 @@
     <ClCompile Include="..\src\mge\behaviours\AbstractBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\CameraMoveBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\CameraOrbitBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\CannonballBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\MoveBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp" />
@@ -254,12 +259,14 @@
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\AIBigShip.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\AIController.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\AmbientSoundPlayer.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\BigShip.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\GoalObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\GridGenerator.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\GridObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\HudHandler.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\MainMenu.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\MeshManager.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\MouseInputHandler.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\MovingGridObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\Node.cpp" />
@@ -273,6 +280,7 @@
     <ClCompile Include="..\src\ThirdPerson\Scripts\TileWorld.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\TreasureObject.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\TurnHandler.cpp" />
+    <ClCompile Include="..\src\ThirdPerson\Scripts\TutorialManager.cpp" />
     <ClCompile Include="..\src\ThirdPerson\Scripts\UIHandler.cpp" />
     <ClCompile Include="..\src\ThirdPerson\ThirdPerson.cpp" />
   </ItemGroup>

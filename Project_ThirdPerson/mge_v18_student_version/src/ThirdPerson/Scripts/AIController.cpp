@@ -3,6 +3,7 @@
 
 #include "mge/materials/LitMaterial.h"
 #include "ThirdPerson/Scripts/TurnHandler.h"
+#include "mge/util/AudioManager.h"
 
 AIController::AIController(std::vector<Ship*> pMyShips, std::vector<Ship*> pEnemyShips, GridGenerator* pGridGen, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _myShips(pMyShips), _enemyShips(pEnemyShips), _gridGenerator(pGridGen)
 {
@@ -25,6 +26,7 @@ void AIController::ToggleIsActive() {
 	}
 	else
 	{
+		AudioManager::getInstance().playSound("StartEnemy.wav");
 		if (!_currentShip->GetIsAlive())
 		{
 			if (GetShipsAlive() > 0) //If there is at least 1 ship still alive, select the next available ship.
@@ -87,6 +89,7 @@ void AIController::handleShipStartOfTurn(int pIndex) {
 				}
 			}
 			else { //If it had no target yet.
+				AudioManager::getInstance().playSound("PlayerDetected.wav");
 				shipTarget = _enemyShips[i]; //Target the newly found ship.
 				SetShipTarget(_myShips[pIndex], _enemyShips[i]);
 			}

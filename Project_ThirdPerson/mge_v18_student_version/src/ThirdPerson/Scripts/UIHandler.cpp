@@ -26,67 +26,62 @@ void UIHandler::InitializeUI()
 	_turnText.setPosition(10, 300);
 
 	//Background
-	_playerBackground.setTexture(_texturePlayerBackground);
-	_playerBackground.setPosition(0, 0);
-	_spritesToDraw.push_back(_playerBackground);
+	_hudBannerSprite.setTexture(_hudBannerTexture);
+	_spritesToDraw.push_back(_hudBannerSprite);
 	//Player icon	
 	_playerIcon.setTexture(_texturePlayerIcon);
 	_playerIcon.setPosition(50, 100);
 	_spritesToDraw.push_back(_playerIcon);
-	//Movement background
-	_flagBackground.setTexture(_textureMoveBackground);
-	_flagBackground.setPosition(_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x, 0);
-	_spritesToDraw.push_back(_flagBackground);
 	//Movement left text
 	_movementLeftText.setFont(_font);
 	_movementLeftText.setCharacterSize(35);
 	_movementLeftText.setFillColor(sf::Color(139, 69, 19));
 	_movementLeftText.setString("");
-	_movementLeftText.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) + 33, (_flagBackground.getTexture()->getSize().y / 2) - 30);
+	_movementLeftText.setPosition( 33, _renderWindow->getSize().x - 50);
 
 	//Movement Button
 	_movementButton.setTexture(_movementButtonTexture);
-	_movementButton.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) - 145, (_flagBackground.getTexture()->getSize().y / 2) - 225);
+	_movementButton.setPosition(_renderWindow->getSize().x - 83, 25);
 	_spritesToDraw.push_back(_movementButton);
 
 	//Attack Button
 	_attackButton.setTexture(_attackButtonTexture);
-	_attackButton.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) + 125, (_flagBackground.getTexture()->getSize().y / 2) - 225);
+	_attackButton.setPosition(_renderWindow->getSize().x - 353, 4);
 	_spritesToDraw.push_back(_attackButton);
 	//Arrow top.
 	_arrowTop.setTexture(_arrowTopTextureArray);
 	_arrowTop.setTextureRect(sf::IntRect(0, 0, _arrowTopTextureArray.getSize().x / 5, _arrowTopTextureArray.getSize().y));
-	_arrowTop.setPosition(_renderWindow->getSize().x - (91 / 2 + _flagBackground.getTexture()->getSize().x / 2) + 34, (_flagBackground.getTexture()->getSize().y / 2) - 200);
+	_arrowTop.setPosition(_renderWindow->getSize().x - 307, 50);
 	_spritesToDraw.push_back(_arrowTop);
 	//Arrow left	
 	_arrowLeft.setTexture(_arrowLeftTextureArray);
 	_arrowLeft.setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4), _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
-	_arrowLeft.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) - 145, (_flagBackground.getTexture()->getSize().y / 2) - 50);
+	_arrowLeft.setPosition(_renderWindow->getSize().x - 110, 200);
 	_spritesToDraw.push_back(_arrowLeft);
 	//Arrow right	
 	_arrowRight.setTexture(_arrowRightTextureArray);
 	_arrowRight.setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4), _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
-	_arrowRight.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) + 80, (_flagBackground.getTexture()->getSize().y / 2) - 50);
+	_arrowRight.setPosition(_renderWindow->getSize().x - 308, 200);
 	_spritesToDraw.push_back(_arrowRight);
 	//Arrow rotation left	
 	_arrowRotateLeft.setTexture(_arrowRotateLeftTextureArray);
 	_arrowRotateLeft.setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 2, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
-	_arrowRotateLeft.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) - 95, (_flagBackground.getTexture()->getSize().y / 2) - 150);
+	_arrowRotateLeft.setPosition(_renderWindow->getSize().x - 133, 100);
 	_spritesToDraw.push_back(_arrowRotateLeft);
 	//Arrow rotation right	
 	_arrowRotateRight.setTexture(_arrowRotateRightTextureArray);
 	_arrowRotateRight.setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 2, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
-	_arrowRotateRight.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) + 100, (_flagBackground.getTexture()->getSize().y / 2) - 150);
+	_arrowRotateRight.setPosition( _renderWindow->getSize().x - 328, 100);
 	_spritesToDraw.push_back(_arrowRotateRight);
 	//Compass
 	_compassShooting.setTexture(_compassShootingTextureArray);
 	_compassShooting.setTextureRect(sf::IntRect((_compassShootingTextureArray.getSize().x / 4) * 2, 0, _compassShootingTextureArray.getSize().x / 4, _compassShootingTextureArray.getSize().y));
-	_compassShooting.setPosition((_renderWindow->getSize().x - _flagBackground.getTexture()->getSize().x / 2) - 10, (_flagBackground.getTexture()->getSize().y / 2) - 60);
+	_compassShooting.setPosition(_renderWindow->getSize().x - 218, 190);
 	_spritesToDraw.push_back(_compassShooting);
 	//Endturn
 	_endTurn.setTexture(_endTurnTextureArray);
 	_endTurn.setTextureRect(sf::IntRect(0, 0, _endTurnTextureArray.getSize().x / 4, _endTurnTextureArray.getSize().y));
-	_endTurn.setPosition(_renderWindow->getSize().x - (_flagBackground.getTexture()->getSize().x / 2) - 60, (_flagBackground.getTexture()->getSize().y / 2) + 150);
+	_endTurn.setPosition(_renderWindow->getSize().x - 168, 400);
 	_spritesToDraw.push_back(_endTurn);
 }
 
@@ -271,7 +266,7 @@ void UIHandler::update(float pStep)
 					_isInMovingMode = true;
 					_playerController->SetFiringMode(false);
 					_lastPlayerInput = _timer;
-					_playerController->GetCurrentShip()->ConsumeActionForMoves();
+					//_playerController->GetCurrentShip()->ConsumeActionForMoves();
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_attackButtonTexture) {
@@ -418,8 +413,7 @@ void UIHandler::DrawMoveTile(int posX, int posY, bool pBool) { //The pos x and p
 void UIHandler::fillTextures()
 {
 	_texturePlayerIcon.loadFromFile(config::MGE_TEXTURE_PATH + "UI/IconPlayer.png");
-	_textureMoveBackground.loadFromFile(config::MGE_TEXTURE_PATH + "UI/FlagMovement.png");
-	_texturePlayerBackground.loadFromFile(config::MGE_TEXTURE_PATH + "UI/FlagPlayer.png");
+	_hudBannerTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/HUD_Banners.png");
 	_compassShootingTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/CompassShootingMovementButton.png");
 	_endTurnTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/EndTurnSprites.png");
 
@@ -430,5 +424,4 @@ void UIHandler::fillTextures()
 	_arrowRotateRightTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/ArrowRightCurveButtons.png");
 	_attackButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/ButtonFireNormal.png");
 	_movementButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/CompassButton.png");
-
 }

@@ -7,7 +7,8 @@
 #include "mge/core/Texture.hpp"
 #include "mge/materials/LitMaterial.h"
 
-#include "mge/behaviours/MoveBehaviour.h"
+#include "mge/behaviours/CannonballBehaviour.h"
+#include "mge/util/AudioManager.h"
 
 #include "windows.h"
 
@@ -91,6 +92,7 @@ void Ship::MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 		if (HasPath()) //If a path to the tile was found (so if the requested tile was not occupied or not walkable)
 		{
 			_movesRemaining--; //The ship used one movement action
+			AudioManager::getInstance().playSound(_allMoveSounds[rand()%5]);
 		}
 	}
 	else { //If this ship has no moves remaining
@@ -116,7 +118,7 @@ void Ship::ConsumeActionForMoves() {
 }
 
 void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
-	if (!_shotThisTurn && _movesRemaining > 0)
+	if (!_shotThisTurn && _actionsRemaining > 0)
 	{
 		if (!_isAI)
 		{
@@ -131,15 +133,42 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 		}
 		_shotThisTurn = false;
 		_movesRemaining = 0;
+		_actionsRemaining--;
+
+		float speedMulti = 1.0f;
+		if (!_isBig)
+		{
+			speedMulti = 0.5f;
+		}
 
 		AbstractMaterial* cannonballMaterial = new LitMaterial(glm::vec3(0.25f, 0.25f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-		_myCannonball = new GameObject("Cannonball", glm::vec3(0, 0, 0));
-		_myCannonball->setMesh(_sphereMeshDefault);
-		_myCannonball->setMaterial(cannonballMaterial);
-		_myCannonball->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
-		add(_myCannonball);
-		_myCannonball->setLocalPosition(glm::vec3(0, 0.5f, 0));
-		_myCannonball->setBehaviour(new MoveBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), _cannonRange*0.1f));
+		for (int i = 0; i < 3; i++)
+		{
+			_myCannonballs[i] = new GameObject("Cannonball", glm::vec3(0, 0, 0));
+			_myCannonballs[i]->setMesh(_sphereMeshDefault);
+			_myCannonballs[i]->setMaterial(cannonballMaterial);
+			_myCannonballs[i]->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
+			add(_myCannonballs[i]);
+			_myCannonballs[i]->setLocalPosition(glm::vec3(0, 0.5f, -0.25f + (0.25f*i)));
+			std::string fireSound = "Click.wav";
+			if (_isBig)
+			{
+				if (_isAI)
+				{
+					fireSound = "EnemyShipCannon.wav";
+				}
+				else {
+					fireSound = "BigShipCannon.wav";
+				}
+			}
+			else {
+				fireSound = "SmallShipCannon.wav";
+			}
+
+
+			CannonballBehaviour* cannonballBehav = new CannonballBehaviour(fireSound, 500.0f*speedMulti, glm::vec3(pDir.x, 0, pDir.y), _cannonRange*(0.1f / speedMulti), 0.15f*i);
+			_myCannonballs[i]->setBehaviour(cannonballBehav);
+		}
 
 		for (int i = 1; i <= _cannonRange; i++)
 		{
@@ -152,19 +181,29 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 					if (targetNode->GetOccupied())
 					{
 						std::cout << "YARR ME MATEYS WE HIT A SHIP!" << std::endl;
-						targetNode->GetCurrentMovingObject()->TakeDamage(_cannonDamage, i*0.1f);
+						targetNode->GetCurrentMovingObject()->TakeDamage(_cannonDamage, _cannonRange*(0.1f / speedMulti));
 					}
 				}
 				else {
 					std::cout << "Cannon hit a wall." << std::endl;
-					_myCannonball->setBehaviour(new MoveBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), i*0.1f));
+					for (int j = 0; j < 3; j++)
+					{
+						static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetDestroyAfter(i*(0.1f / speedMulti));
+					}
+					//cannonballBehav->SetDestroyAfter(_cannonRange*(0.1f / speedMulti));
+					//_myCannonballs[0]->setBehaviour(new CannonballBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), i*0.1f));
 
 					return; //Hit a wall.
 				}
 				//FindPathTo(pGridGen->GetNodeAtTile(GetCurrentNode()->GetGridX() + 1, GetCurrentNode()->GetGridY())); //Get a path to the requested tile
 			}
 			else {
-				_myCannonball->setBehaviour(new MoveBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), i*0.1f));
+				for (int j = 0; j < 3; j++)
+				{
+					static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetDestroyAfter(i*(0.1f / speedMulti));
+				}
+				//cannonballBehav->SetDestroyAfter(_cannonRange*(0.1f / speedMulti));
+				//_myCannonballs[0]->setBehaviour(new CannonballBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), i*0.1f));
 				return; //Reached the end of the grid.
 			}
 		}
@@ -172,6 +211,10 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 }
 
 void Ship::TurnOrientation(int pDir) {
+	if (glm::iround(getEulerAngles().y) % 90 != 0)
+	{
+		return;
+	}
 	if (_movesRemaining > 0)
 	{
 		MovingGridObject::TurnOrientation(pDir);

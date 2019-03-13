@@ -299,6 +299,14 @@ void MovingGridObject::TurnOrientation(int pDir) {
 		}
 	}
 
+	if (pDir)
+	{
+		_orientation = glm::vec2(-_orientation.y, _orientation.x);
+	}
+	else {
+		_orientation = glm::vec2(_orientation.y, -_orientation.x);
+	}
+
 	if (_targetEuler.y == 0)
 	{
 		_orientation = glm::vec2(0, 1);

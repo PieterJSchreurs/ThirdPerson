@@ -197,6 +197,18 @@
     <ClInclude Include="..\src\ThirdPerson\Scripts\HudHandler.h">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\AmbientSoundPlayer.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\CannonballBehaviour.h">
+      <Filter>MGE Source files\mge\behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\MeshManager.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ThirdPerson\Scripts\TutorialManager.h">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -350,6 +362,18 @@
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ThirdPerson\Scripts\HudHandler.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\AmbientSoundPlayer.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\CannonballBehaviour.cpp">
+      <Filter>MGE Source files\mge\behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\MeshManager.cpp">
+      <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThirdPerson\Scripts\TutorialManager.cpp">
       <Filter>MGE Source files\ThirdPerson\Scripts</Filter>
     </ClCompile>
   </ItemGroup>
