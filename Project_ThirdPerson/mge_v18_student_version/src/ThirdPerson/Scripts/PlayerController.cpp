@@ -67,20 +67,18 @@ bool PlayerController::GetIsActive() {
 
 void PlayerController::update(float pStep) {
 	_timer += pStep;
-	if (!_currentShip->HasPath()) //If you current ship is still moving to its destination (TODO: Or is doing any other action), block player input that affects that ship.
+	if (_currentShip->HasPath()) //If you current ship is still moving to its destination (TODO: Or is doing any other action), block player input that affects that ship.
 	{
-		if (_timer - _lastPlayerInput >= _playerInputDelay)
-		{
-			//HandlePlayerInput(sf::Keyboard::Numpad0);
-		}
-	}
-	else {
 		_currentShip->moveToTargetWaypoint();
 	}
 	GameObject::update(pStep);
 }
 
 void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make sure only one input is read at a time, it sometimes breaks if you do.
+	if (_currentShip->HasPath()) //If you current ship is still moving to its destination (TODO: Or is doing any other action), block player input that affects that ship.
+	{
+		return;
+	}
 	if (_timer - _lastPlayerInput < _playerInputDelay)
 	{
 		return;
