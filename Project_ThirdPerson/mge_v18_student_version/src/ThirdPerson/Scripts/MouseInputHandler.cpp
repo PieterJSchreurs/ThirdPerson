@@ -29,23 +29,34 @@ void MouseInputHandler::HandleClick()
 {
 	glm::vec3 mouseRay = calculateMouseRay();
 	glm::vec3 rotations = _camera->getEulerAngles();
-	//std::cout << "rotations \t :"<< rotations << std::endl;
-	float yPosCam = _camera->getLocalPosition().y;
-	float zPosCam = _camera->getLocalPosition().z;
-	//std::cout << zPosCam <<" " << yPosCam << std::endl;
+	float yPosCam = _camera->getWorldPosition().y;
+	float zPosCam = _camera->getWorldPosition().z;
+	float xPosCam = _camera->getWorldPosition().x;
 	int x = 0;
 	for each (Ship* pShip in _ships)
 	{
-		float lengthToMiddle = sqrt((zPosCam * zPosCam) + (yPosCam * yPosCam));
-		if (pShip->CheckIfClicked(mouseRay , lengthToMiddle, x, rotations))
+		float lengthToMiddle = 26.6f;
+		//float lengthToMiddle = (xPosCam * xPosCam) + (yPosCam * yPosCam) + (zPosCam * zPosCam);
+		if (pShip->CheckIfClicked(mouseRay , lengthToMiddle, x, rotations, _camera->getWorldPosition()))
 		{
 			_playerController->SelectShip(pShip);
 		}
 		x++;
-		//std::cout << "This are the coordinates scaled up \t:" << mouseRay * _camera->getLocalPosition().y << std::endl;
+
+		//glLineWidth(2.5);
+		//glColor3f(1.0, 0.0, 0.0);
+		//glBegin(GL_LINES);
+		////glVertex3f(0, 0, 0);
+		//glVertex3f(xPosCam, yPosCam, zPosCam);
+		//glVertex3f(mouseRay.x, mouseRay.y, mouseRay.z);
+		///*glVertex3f(pCameraPosition.x, pCameraPosition.y, pCameraPosition.z);
+		//glVertex3f(myPosition.x, myPosition.y, myPosition.z);*/
+		//glEnd();
+
+		std::cout << "Coordinates ship \t:" << pShip->getWorldPosition() << std::endl;
+		//std::cout << "This are the coordinates scaled up \t:" << mouseRay << std::endl;
 	}
 	_lastPlayerInput = _timer;
-
 }
 
 
@@ -62,7 +73,7 @@ glm::vec3 MouseInputHandler::calculateMouseRay()
 glm::vec2  MouseInputHandler::getNormalizedDeviceCoords(float pMouseX, float pMouseY)
 {
 	float mouseX = (2.0f * pMouseX) / _renderWindow->getSize().x - 1.0f;
-	float mouseY = (2.0f * pMouseY) / _renderWindow->getSize().y - 1.0f;
+	float mouseY = 1.0f - (2.0f * pMouseY) / _renderWindow->getSize().y;
 	return glm::vec2(mouseX, mouseY);
 }
 

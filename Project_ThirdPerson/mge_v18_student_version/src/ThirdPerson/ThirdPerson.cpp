@@ -165,8 +165,8 @@ void ThirdPerson::_update(float pStep) {
 		TurnHandler::getInstance().update(pStep);
 	}
 	AudioManager::getInstance().update(pStep);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) { //Restart the current level (TODO: Garbage collection is not correct, memory is not freed correctly.)
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O) && _window->hasFocus()) { //Restart the current level (TODO: Garbage collection is not correct, memory is not freed correctly.)
 		destroyLevel();
 		loadLevel();
 	}

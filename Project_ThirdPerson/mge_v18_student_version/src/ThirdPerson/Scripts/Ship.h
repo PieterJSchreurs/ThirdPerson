@@ -17,7 +17,7 @@ public:
 	void ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen);
 
 	void SetShipValues(int pShipHealth, int pMovesPerTurn, int pCannonRange, int pCannonDamage, int pActionsPerTurn = 2);
-	bool CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, glm::vec3 pEulerAngles);
+	bool CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, glm::vec3 pEulerAngles, glm::vec3 pCameraPosition);
 	virtual void HandleStartOfTurn();
 
 	virtual void TurnOrientation(int pDir);

@@ -32,6 +32,7 @@ private:
 	bool _isInMovingMode = false;
 	bool _placedMovementIndicator = false;
 	bool _placedAttackIndicator = false;
+	bool _isGamePaused = false;
 	glm::vec2 _shipOrientation;
 	glm::vec2 _movementBoxPosition = glm::vec2(0, 0);
 
@@ -52,6 +53,7 @@ private:
 	sf::Texture _texturePlayerIcon;
 	sf::Texture _compassShootingTextureArray;
 	sf::Texture _endTurnTextureArray;
+	sf::Texture _pauseButtonTexture;
 
 	sf::Texture _movementButtonTexture;
 	sf::Texture _attackButtonTexture;
@@ -61,6 +63,12 @@ private:
 	sf::Texture _arrowRightTextureArray;
 	sf::Texture _arrowRotateLeftTextureArray;
 	sf::Texture _arrowRotateRightTextureArray;
+
+	sf::Texture _menuButtonTexture;
+	sf::Texture _resumeButtonTexture;
+	sf::Texture _retryButtonTexture;
+	sf::Texture _pauseMenuBackgroundTexture;
+
 
 	sf::Sprite _hudBannerSprite;
 	sf::Sprite _arrowTop;
@@ -72,12 +80,19 @@ private:
 	sf::Sprite _compassShooting;
 	sf::Sprite _movementButton;
 	sf::Sprite _attackButton;
+	sf::Sprite _pauseButtonSprite;
+	sf::Sprite _menuButtonSprite;
+	sf::Sprite _resumeButtonSprite;
+	sf::Sprite _retryButtonSprite;
+	sf::Sprite _pauseMenuBackgroundSprite;
+
 
 	void InitializeUI();
 	void fillTextures();
 	void SetPlayerText();
 	void DrawFireTile(bool pToggleLeft, bool pToggleRight);
 	void DrawMoveTile(int posX, int posY, bool pBool);
+	void pauseGame();
 
 
 	HudHandler(const HudHandler&);

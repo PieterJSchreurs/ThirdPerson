@@ -6,7 +6,7 @@
 
 #include "mge/core/Texture.hpp"
 #include "mge/materials/LitMaterial.h"
-
+#include "mge/materials/TextureMaterial.hpp"
 #include "mge/behaviours/CannonballBehaviour.h"
 #include "mge/util/AudioManager.h"
 
@@ -21,11 +21,14 @@ Ship::Ship(Node* pStartNode, std::vector<Node*> pAllNodes, bool pIsAI, bool pIsB
 	if (!pIsAI) {
 		for (int i = 0; i < 2; i++)
 		{
-			AbstractMaterial* actionIndicatorMaterial = new LitMaterial(glm::vec3(1, 1, 1), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+			//AbstractMaterial* actionIndicatorMaterial = new LitMaterial(glm::vec3(1, 1, 1), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+			AbstractMaterial* actionIndicatorDot = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "UI/HUD_ActionDot.png"));
 			_actionIndicator = new GameObject("ActionIndicator", glm::vec3(0, 0, 0));
+
 			_actionIndicator->setMesh(_sphereMeshDefault);
-			_actionIndicator->setMaterial(actionIndicatorMaterial);
+			_actionIndicator->setMaterial(actionIndicatorDot);
 			_actionIndicator->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
+			_actionIndicator->rotate(glm::radians(-90.0f), glm::vec3(-1, 0, 0));
 			add(_actionIndicator);
 			_actionIndicator->setLocalPosition(glm::vec3(0, 1, (i * 0.4f) - 0.2f));
 
@@ -226,7 +229,7 @@ void Ship::TurnOrientation(int pDir) {
 	}
 }
 
-bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, glm::vec3 pEulerAngles)
+bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, glm::vec3 pEulerAngles, glm::vec3 pCameraPosition)
 {
 	//std::cout << "This is the incoming coordinate" << pCoordinates << "\t This is the scale" << pScale << std::endl;
 	//This is slow, change it later.
@@ -235,9 +238,16 @@ bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, g
 	_radiusModel = 1.5f;
 	pCoordinates.z = -pCoordinates.z;
 
-	//float scaledClick = pScale / pCoordinates.z;
-	//pCoordinates.z /= scaledClick;
-	//std::cout << pNumber << "Coordinates clicked \t:" << pCoordinates << "\t\t Position" << myPosition << std::endl;
+	std::cout << "Camera pos" << pCameraPosition << "Mouse pos" << pCoordinates <<  std::endl;
+	glm::vec3 worldPos = pCameraPosition + pCoordinates;
+	std::cout << "world pos \t :" << worldPos;
+	
+	/*glm::vec3 mouseRayTotal = pCoordinates * pScale;
+	glm::vec3 mouseRayTotalScaledToY = mouseRayTotal / mouseRayTotal.y;
+	std::cout << "Mouse ray total scaled \t:" << mouseRayTotalScaledToY << std::endl;
+	glm::vec3 worldPos = pCameraPosition - mouseRayTotalScaledToY;
+	std::cout << "End ray coordinates \t: " << worldPos << std::endl;*/
+
 	if ((myPosition.x + _radiusModel > pCoordinates.x && myPosition.x - _radiusModel < pCoordinates.x) && (myPosition.z + _radiusModel > pCoordinates.z && myPosition.z - _radiusModel < pCoordinates.z))
 	{
 		std::cout << "clicked on \t:" << _name << std::endl;
