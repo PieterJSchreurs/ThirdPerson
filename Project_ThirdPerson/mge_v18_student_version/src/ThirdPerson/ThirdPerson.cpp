@@ -242,13 +242,10 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 30, 20, _world->getMainCamera());
 
-<<<<<<< HEAD
+
 	//UIHandler* uiHandler = new UIHandler(_window, myPlayerController, "UIHandler");
 	//_world->add(uiHandler);
-	//_myHudHandler = new HudHandler(_window, myPlayerController);
-=======
 	_myHudHandler = new HudHandler(_window, myPlayerController);
->>>>>>> a4c0f199132b8b53b88b2cca91893701d4600e7e
 
 	MouseInputHandler* myMouseInputHandler = new MouseInputHandler(_window, _world, _myGridGenerator->GetPlayerShips(), myPlayerController, "", glm::vec3(0, 0, 0));
 	_world->add(myMouseInputHandler);
