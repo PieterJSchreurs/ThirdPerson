@@ -7,6 +7,11 @@
 #include <SFML/Window/Keyboard.hpp>
 #include "mge/core/Camera.hpp"
 
+	#include <windows.h>
+
+
+#include "wtypes.h"
+
 AbstractGame::AbstractGame():_window(NULL),_renderer(NULL),_world(NULL), _fps(0)
 {
     //ctor
@@ -36,7 +41,16 @@ void AbstractGame::initialize() {
 
 void AbstractGame::_initializeWindow() {
 	std::cout << "Initializing window..." << std::endl;
-	_window = new sf::RenderWindow( sf::VideoMode(1920,1080), "My Game!", sf::Style::Fullscreen , sf::ContextSettings(24,8,5,3,3));
+
+	SetProcessDPIAware();
+	int width;
+	int height;
+	if (WIN32) {
+		width = (int)GetSystemMetrics(SM_CXSCREEN);
+		height = (int)GetSystemMetrics(SM_CYSCREEN);
+	}
+
+	_window = new sf::RenderWindow( sf::VideoMode(width, height), "My Game!", sf::Style::Fullscreen , sf::ContextSettings(24,8,5,3,3));
 	//_window->setVerticalSyncEnabled(true);
     std::cout << "Window initialized." << std::endl << std::endl;
 	//Place the mouse in the center of the window.
