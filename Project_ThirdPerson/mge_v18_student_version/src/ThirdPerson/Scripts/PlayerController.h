@@ -32,6 +32,9 @@ public:
 
 protected:
 	void SelectNextShip(int pDir);
+	float _timer = 0;
+	const float _playerInputDelay = 0.5f;
+	float _lastPlayerInput = 0;
 
 private:
 
@@ -41,14 +44,14 @@ private:
 	int _currentShipIndex = 0;
 	int GetShipsAlive();
 
-	std::vector<Ship*> _myShips;
+	Ship* GetBigShip();
 
-	float _timer = 0;
-	const float _playerInputDelay = 0.5f;
-	float _lastPlayerInput = 0;
+	std::vector<Ship*> _myShips;
 
 	bool _isHoveringRight = false;
 	bool _isHoveringLeft = false;
+
+	bool _gameOver = false;
 
 	bool _isActive = false;
 

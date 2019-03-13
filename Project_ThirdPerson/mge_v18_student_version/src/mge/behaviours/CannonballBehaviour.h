@@ -22,8 +22,11 @@ public:
 	void SetDestroyAfter(float pTime);
 	void SetSpeed(float pSpeed);
 
+	void SetImpactSound(std::string pImpactSound);
+
 private:
 	std::string _fireSound;
+	std::string _impactSound = "CannonSplash.wav";
 
 	float _startDelay = 0;
 	bool _started = false;

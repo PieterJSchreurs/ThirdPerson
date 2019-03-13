@@ -13,7 +13,7 @@ CannonballBehaviour::CannonballBehaviour(std::string pFireSound, float pMoveSpee
 
 void CannonballBehaviour::StartMoving() {
 	_started = true;
-	AudioManager::getInstance().playSound(_fireSound);
+	AudioManager::getInstance().playSound(_fireSound, 25.0f, 0.25f);
 }
 
 CannonballBehaviour::~CannonballBehaviour()
@@ -23,6 +23,10 @@ CannonballBehaviour::~CannonballBehaviour()
 void CannonballBehaviour::setOwner(GameObject* pOwner) {
 	AbstractBehaviour::setOwner(pOwner);
 	_startY = _owner->getLocalPosition().y;
+}
+
+void CannonballBehaviour::SetImpactSound(std::string pImpactSound) {
+	_impactSound = pImpactSound;
 }
 
 void CannonballBehaviour::update(float pStep)
@@ -39,7 +43,7 @@ void CannonballBehaviour::update(float pStep)
 
 	if (_timer - _startDelay >= _destroyAfter)
 	{
-		AudioManager::getInstance().playSound("CannonSplash.wav");
+		AudioManager::getInstance().playSound(_impactSound, 40.0f, 0.25f);
 		_owner->getParent()->remove(_owner); //TODO: How do i delete these properly?
 		delete _owner;
 		//delete this;

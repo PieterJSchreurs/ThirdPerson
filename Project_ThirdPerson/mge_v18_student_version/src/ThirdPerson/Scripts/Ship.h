@@ -17,7 +17,7 @@ public:
 	void ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen);
 
 	void SetShipValues(int pShipHealth, int pMovesPerTurn, int pCannonRange, int pCannonDamage, int pActionsPerTurn = 2);
-	bool CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, glm::vec3 pEulerAngles);
+	bool CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, glm::vec3 pEulerAngles, glm::vec3 pCameraPosition);
 	virtual void HandleStartOfTurn();
 
 	virtual void TurnOrientation(int pDir);
@@ -34,7 +34,11 @@ public:
 	int GetCannonRange();
 	int GetMovesPerAction();
 
+	bool GetIsBig();
+
 private:
+	bool _isSinking = false;
+
 	int _actionsPerTurn = 0;
 	int _actionsRemaining = 0;
 
@@ -60,6 +64,20 @@ private:
 		"Movement3.wav",
 		"Movement4.wav",
 		"Movement5.wav"
+	};
+
+	std::string _allShootSounds[11] = {
+		"CannonVoicePlayer1.wav",
+		"CannonVoicePlayer2.wav",
+		"CannonVoicePlayer3.wav",
+		"CannonVoicePlayer4.wav",
+		"CannonVoicePlayer5.wav",
+		"CannonVoicePlayer6.wav",
+		"CannonVoicePlayer7.wav",
+		"CannonVoicePlayer8.wav",
+		"CannonVoicePlayer9.wav",
+		"CannonVoicePlayer10.wav",
+		"CannonVoicePlayer11.wav"
 	};
 };
 

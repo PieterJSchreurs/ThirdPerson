@@ -21,7 +21,7 @@ void AudioManager::update(float pStep) {
 	}
 }
 
-void AudioManager::playSound(std::string pSoundFile, bool pLoop) {
+void AudioManager::playSound(std::string pSoundFile, float pVolume, float pPitchShift, bool pLoop) {
 	sf::SoundBuffer* currentBuffer;
 
 	currentBuffer = loadSound(pSoundFile);
@@ -32,6 +32,8 @@ void AudioManager::playSound(std::string pSoundFile, bool pLoop) {
 	_allSounds.push_back(newSound);
 	newSound->setBuffer(*currentBuffer);
 	newSound->setLoop(pLoop);
+	newSound->setVolume(pVolume);
+	newSound->setPitch(1 + (pPitchShift * (((rand()%201)-100.0f)/100.0f)));
 
 	newSound->play();
 }

@@ -6,7 +6,7 @@
 
 #include "mge/core/Texture.hpp"
 #include "mge/materials/LitMaterial.h"
-
+#include "mge/materials/TextureMaterial.hpp"
 #include "mge/behaviours/CannonballBehaviour.h"
 #include "mge/util/AudioManager.h"
 
@@ -21,11 +21,14 @@ Ship::Ship(Node* pStartNode, std::vector<Node*> pAllNodes, bool pIsAI, bool pIsB
 	if (!pIsAI) {
 		for (int i = 0; i < 2; i++)
 		{
-			AbstractMaterial* actionIndicatorMaterial = new LitMaterial(glm::vec3(1, 1, 1), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+			//AbstractMaterial* actionIndicatorMaterial = new LitMaterial(glm::vec3(1, 1, 1), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
+			AbstractMaterial* actionIndicatorDot = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "UI/HUD_ActionDot.png"));
 			_actionIndicator = new GameObject("ActionIndicator", glm::vec3(0, 0, 0));
+
 			_actionIndicator->setMesh(_sphereMeshDefault);
-			_actionIndicator->setMaterial(actionIndicatorMaterial);
+			_actionIndicator->setMaterial(actionIndicatorDot);
 			_actionIndicator->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
+			_actionIndicator->rotate(glm::radians(-90.0f), glm::vec3(-1, 0, 0));
 			add(_actionIndicator);
 			_actionIndicator->setLocalPosition(glm::vec3(0, 1, (i * 0.4f) - 0.2f));
 
@@ -34,14 +37,30 @@ Ship::Ship(Node* pStartNode, std::vector<Node*> pAllNodes, bool pIsAI, bool pIsB
 	}
 }
 
-void Ship::update(float pStep) {
-	MovingGridObject::update(pStep);
-	if (_enteredNewNode) {
-		_enteredNewNode = false;
-		if (_currentNode->GetHasStaticObject())
-		{
-			_currentNode->GetStaticObject()->DoAction(_isAI, _isBig);
+bool Ship::GetIsBig() {
+	return _isBig;
+}
 
+void Ship::update(float pStep) {
+	if (_isSinking)
+	{
+		rotateEulerAngles(glm::vec3(-0.5f, 0, 0));
+		setLocalPosition(getLocalPosition() + glm::vec3(0, -0.01f, 0));
+		if (getLocalPosition().y < -1.5f)
+		{
+			_isSinking = false;
+			setLocalPosition(glm::vec3(500, -500, 500)); //TODO: implement a proper ship death here.
+		}
+	}
+	else {
+		MovingGridObject::update(pStep);
+		if (_enteredNewNode) {
+			_enteredNewNode = false;
+			if (_currentNode->GetHasStaticObject())
+			{
+				_currentNode->GetStaticObject()->DoAction(_isAI, _isBig);
+
+			}
 		}
 	}
 }
@@ -130,6 +149,10 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 			{
 				return;
 			}
+			AudioManager::getInstance().playSound(_allShootSounds[rand()%11]);
+		}
+		else {
+			AudioManager::getInstance().playSound("CannonVoiceEnemy.wav");
 		}
 		_shotThisTurn = false;
 		_movesRemaining = 0;
@@ -189,6 +212,7 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 					for (int j = 0; j < 3; j++)
 					{
 						static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetDestroyAfter(i*(0.1f / speedMulti));
+						static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetImpactSound("ImpactSand.wav");
 					}
 					//cannonballBehav->SetDestroyAfter(_cannonRange*(0.1f / speedMulti));
 					//_myCannonballs[0]->setBehaviour(new CannonballBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), i*0.1f));
@@ -201,6 +225,7 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 				for (int j = 0; j < 3; j++)
 				{
 					static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetDestroyAfter(i*(0.1f / speedMulti));
+					static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetImpactSound("ImpactObstacles.wav");
 				}
 				//cannonballBehav->SetDestroyAfter(_cannonRange*(0.1f / speedMulti));
 				//_myCannonballs[0]->setBehaviour(new CannonballBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), i*0.1f));
@@ -226,7 +251,7 @@ void Ship::TurnOrientation(int pDir) {
 	}
 }
 
-bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, glm::vec3 pEulerAngles)
+bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, glm::vec3 pEulerAngles, glm::vec3 pCameraPosition)
 {
 	//std::cout << "This is the incoming coordinate" << pCoordinates << "\t This is the scale" << pScale << std::endl;
 	//This is slow, change it later.
@@ -235,9 +260,16 @@ bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, g
 	_radiusModel = 1.5f;
 	pCoordinates.z = -pCoordinates.z;
 
-	//float scaledClick = pScale / pCoordinates.z;
-	//pCoordinates.z /= scaledClick;
-	//std::cout << pNumber << "Coordinates clicked \t:" << pCoordinates << "\t\t Position" << myPosition << std::endl;
+	std::cout << "Camera pos" << pCameraPosition << "Mouse pos" << pCoordinates <<  std::endl;
+	glm::vec3 worldPos = pCameraPosition + pCoordinates;
+	std::cout << "world pos \t :" << worldPos;
+	
+	/*glm::vec3 mouseRayTotal = pCoordinates * pScale;
+	glm::vec3 mouseRayTotalScaledToY = mouseRayTotal / mouseRayTotal.y;
+	std::cout << "Mouse ray total scaled \t:" << mouseRayTotalScaledToY << std::endl;
+	glm::vec3 worldPos = pCameraPosition - mouseRayTotalScaledToY;
+	std::cout << "End ray coordinates \t: " << worldPos << std::endl;*/
+
 	if ((myPosition.x + _radiusModel > pCoordinates.x && myPosition.x - _radiusModel < pCoordinates.x) && (myPosition.z + _radiusModel > pCoordinates.z && myPosition.z - _radiusModel < pCoordinates.z))
 	{
 		std::cout << "clicked on \t:" << _name << std::endl;
@@ -251,8 +283,12 @@ void Ship::HandleDamaged() {
 	//Apply any visual effects to the object in this overloaded function.
 }
 void Ship::DestroyObject() {
-	//TODO: Implement object destruction here.
-	setLocalPosition(glm::vec3(0, 5, 0)); //TODO: implement a proper ship death here.
+	AudioManager::getInstance().playSound("SinkingShipCannon.wav");
+	if (_isAI)
+	{
+		AudioManager::getInstance().playSound("AbandonShipEnemy.wav");
+	}
+	_isSinking = true;
 	_currentNode->SetCurrentMovingObject(nullptr);
 	std::cout << "The ship at tile : " << _currentNode->GetGridX() << "-" << _currentNode->GetGridY() << " has sunk!" << std::endl;
 }

@@ -29,9 +29,8 @@ void HudHandler::InitializeUI()
 	_playerNameText.setPosition(80, 10);
 	_turnText.setFont(_font);
 	_turnText.setCharacterSize(35);
-	_turnText.setFillColor(sf::Color(139, 69, 19));
-	_turnText.setString("Turns: 10/10 \nShots: 2/2 \nTreasure: 1/1");
-	_turnText.setPosition(10, 300);
+	_turnText.setFillColor(sf::Color(117, 88, 57));
+	_turnText.setPosition(100, 300);
 
 	//Background
 	_hudBannerSprite.setTexture(_hudBannerTexture);
@@ -50,25 +49,27 @@ void HudHandler::InitializeUI()
 	//Movement Button
 	_movementButton.setTexture(_movementButtonTexture);
 	_movementButton.setPosition(_window->getSize().x - 325, 25);
+	_movementButton.setTextureRect(sf::IntRect(0, 0, _movementButtonTexture.getSize().x, _movementButtonTexture.getSize().y / 5));
 	_spritesToDraw.push_back(_movementButton);
 
 	//Attack Button
 	_attackButton.setTexture(_attackButtonTexture);
 	_attackButton.setPosition(_window->getSize().x - 100, 25);
+	_attackButton.setTextureRect(sf::IntRect(0, 0, _attackButtonTexture.getSize().x, _attackButtonTexture.getSize().y / 5));
 	_spritesToDraw.push_back(_attackButton);
 	//Arrow top.
 	_arrowTop.setTexture(_arrowTopTextureArray);
 	_arrowTop.setTextureRect(sf::IntRect(0, 0, _arrowTopTextureArray.getSize().x / 5, _arrowTopTextureArray.getSize().y));
-	_arrowTop.setPosition(_window->getSize().x - 200, 50);
+	_arrowTop.setPosition(_window->getSize().x - 210, 50);
 	_spritesToDraw.push_back(_arrowTop);
 	//Arrow left	
 	_arrowLeft.setTexture(_arrowLeftTextureArray);
-	_arrowLeft.setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4), _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+	_arrowLeft.setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5), _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
 	_arrowLeft.setPosition(_window->getSize().x - 320, 200);
 	_spritesToDraw.push_back(_arrowLeft);
 	//Arrow right	
 	_arrowRight.setTexture(_arrowRightTextureArray);
-	_arrowRight.setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4), _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+	_arrowRight.setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5), _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
 	_arrowRight.setPosition(_window->getSize().x - 120, 200);
 	_spritesToDraw.push_back(_arrowRight);
 	//Arrow rotation left	
@@ -83,30 +84,50 @@ void HudHandler::InitializeUI()
 	_spritesToDraw.push_back(_arrowRotateRight);
 	//Compass
 	_compassShooting.setTexture(_compassShootingTextureArray);
-	_compassShooting.setTextureRect(sf::IntRect((_compassShootingTextureArray.getSize().x / 4) * 2, 0, _compassShootingTextureArray.getSize().x / 4, _compassShootingTextureArray.getSize().y));
-	_compassShooting.setPosition(_window->getSize().x - 218, 190);
+	//_compassShooting.setTextureRect(sf::IntRect((_compassShootingTextureArray.getSize().x / 4) * 2, 0, _compassShootingTextureArray.getSize().x / 4, _compassShootingTextureArray.getSize().y));
+	_compassShooting.setPosition(_window->getSize().x - 200, 190);
 	_spritesToDraw.push_back(_compassShooting);
 	//Endturn
 	_endTurn.setTexture(_endTurnTextureArray);
 	_endTurn.setTextureRect(sf::IntRect(0, 0, _endTurnTextureArray.getSize().x / 4, _endTurnTextureArray.getSize().y));
 	_endTurn.setPosition(_window->getSize().x - _endTurnTextureArray.getSize().x / 4, 400);
 	_spritesToDraw.push_back(_endTurn);
+	//Pause Button
+	_pauseButtonSprite.setTexture(_pauseButtonTexture);
+	_pauseButtonSprite.setTextureRect(sf::IntRect(0, 0, _pauseButtonTexture.getSize().x / 3, _pauseButtonTexture.getSize().y));
+	_pauseButtonSprite.setPosition(_window->getSize().x - (_pauseButtonTexture.getSize().x / 3), 900);
+	_spritesToDraw.push_back(_pauseButtonSprite);
+
+	//Pause menu
+	_menuButtonSprite.setTexture(_menuButtonTexture);
+	_menuButtonSprite.setPosition(_window->getSize().x / 2,300);
+	_resumeButtonSprite.setTexture(_resumeButtonTexture);
+	_resumeButtonSprite.setPosition(_window->getSize().x / 2, 600);
+	_retryButtonSprite.setTexture(_retryButtonTexture);
+	_retryButtonSprite.setPosition(_window->getSize().x / 2, 900);
+	_pauseMenuBackgroundSprite.setTexture(_pauseMenuBackgroundTexture);
+	_pauseMenuBackgroundSprite.setPosition(0, 0);
 }
 void HudHandler::fillTextures()
 {
 	_texturePlayerIcon.loadFromFile(config::MGE_TEXTURE_PATH + "UI/IconPlayer.png");
 	_hudBannerTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/HUD_Banners.png");
-	_compassShootingTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/CompassShootingMovementButton.png");
+	_compassShootingTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/CompassButton.png");
 	_endTurnTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/EndTurnSprites.png");
+	_pauseButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/PauseButtonSprites.png");
 
 	_arrowTopTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/ArrowUpButtons.png");
-	_arrowLeftTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/ArrowLeftButtons.png");
-	_arrowRightTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/ArrowRightButtons.png");
+	_arrowLeftTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/HUD_Compass_ArrowLeft.png");
+	_arrowRightTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/HUD_Compass_ArrowRight.png");
 	_arrowRotateLeftTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/ArrowLeftCurveButtons.png");
 	_arrowRotateRightTextureArray.loadFromFile(config::MGE_TEXTURE_PATH + "UI/ArrowRightCurveButtons.png");
-	_attackButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/ButtonFireNormal.png");
-	_movementButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/CompassButton.png");
+	_attackButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/HUD_Button_Shooting.png");
+	_movementButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/HUD_Button_Movement.png");
 
+	_menuButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/HUD_ButtonMenu.png");
+	_retryButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/HUD_ButtonRetry.png");
+	_resumeButtonTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/HUD_ButtonResume.png");
+	_pauseMenuBackgroundTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/PauseTitleLayout.png");
 }
 
 void HudHandler::update(float pStep) {
@@ -155,14 +176,14 @@ void HudHandler::update(float pStep) {
 						if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 							_clickedMouse = false;
 							DrawMoveTile(_shipOrientation.y, -_shipOrientation.x, false);
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 4, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
 							_playerController->HandlePlayerInput(sf::Keyboard::A);
 							_lastPlayerInput = _timer;
 
 						}
 						else {
 							if (_timer - _lastPlayerInput >= _playerInputDelay) {
-								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
 								DrawMoveTile(_shipOrientation.y, -_shipOrientation.x, true);
 								_isHovering = true;
 							}
@@ -172,13 +193,13 @@ void HudHandler::update(float pStep) {
 				else {
 					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 						_playerController->HandlePlayerInput(sf::Keyboard::Z);
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 4, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
 						_clickedMouse = false;
 						_lastPlayerInput = _timer;
 					}
 					else {
 						if (_timer - _lastPlayerInput >= _playerInputDelay) {
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 3, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
 							_isHovering = true;
 							DrawFireTile(true, false);
 						}
@@ -191,7 +212,7 @@ void HudHandler::update(float pStep) {
 						if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 							_clickedMouse = false;
 							DrawMoveTile(-_shipOrientation.y, _shipOrientation.x, false);
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 4, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
 							_playerController->HandlePlayerInput(sf::Keyboard::D);
 							_lastPlayerInput = _timer;
 
@@ -199,7 +220,7 @@ void HudHandler::update(float pStep) {
 						else {
 							if (_timer - _lastPlayerInput >= _playerInputDelay) {
 								_isHovering = true;
-								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
 								DrawMoveTile(-_shipOrientation.y, _shipOrientation.x, true);
 							}
 						}
@@ -207,7 +228,7 @@ void HudHandler::update(float pStep) {
 				}
 				else {
 					if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+						_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
 						_playerController->HandlePlayerInput(sf::Keyboard::X);
 
 						_clickedMouse = false;
@@ -215,7 +236,7 @@ void HudHandler::update(float pStep) {
 					}
 					else {
 						if (_timer - _lastPlayerInput >= _playerInputDelay) {
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
 							_isHovering = true;
 							DrawFireTile(false, true);
 
@@ -283,20 +304,28 @@ void HudHandler::update(float pStep) {
 			}*/
 			if (_spritesToDraw[i].getTexture() == &_movementButtonTexture) {
 				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_movementButtonTexture.getSize().y / 5) * 2, _movementButtonTexture.getSize().x, _movementButtonTexture.getSize().y / 5));
 					_clickedMouse = false;
 					_isInShootingMode = false;
 					_isInMovingMode = true;
 					_playerController->SetFiringMode(false);
 					_lastPlayerInput = _timer;
 				}
+				else {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_movementButtonTexture.getSize().y / 5), _movementButtonTexture.getSize().x, _movementButtonTexture.getSize().y / 5));
+				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_attackButtonTexture) {
 				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_attackButtonTexture.getSize().y / 5) * 2, _attackButtonTexture.getSize().x, _attackButtonTexture.getSize().y / 5));
 					_clickedMouse = false;
 					_isInMovingMode = false;
 					_lastPlayerInput = _timer;
 					_isInShootingMode = true;
 					_playerController->SetFiringMode(true);
+				}
+				else {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_attackButtonTexture.getSize().y / 5), _attackButtonTexture.getSize().x, _attackButtonTexture.getSize().y / 5));
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_endTurnTextureArray) {
@@ -317,6 +346,27 @@ void HudHandler::update(float pStep) {
 					}
 				}
 			}
+			if (_spritesToDraw[i].getTexture() == &_pauseButtonTexture) {
+				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					_clickedMouse = false;
+					pauseGame();
+					_spritesToDraw[i].setTextureRect(sf::IntRect((_pauseButtonTexture.getSize().x / 3) * 2, 0, _pauseButtonTexture.getSize().x / 3, _pauseButtonTexture.getSize().y));
+					break;
+				}
+				else {
+					_spritesToDraw[i].setTextureRect(sf::IntRect((_pauseButtonTexture.getSize().x / 3), 0, _pauseButtonTexture.getSize().x / 3, _pauseButtonTexture.getSize().y));
+				}
+			}
+			if (_spritesToDraw[i].getTexture() == &_resumeButtonTexture) {
+				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					_clickedMouse = false;
+					pauseGame();
+					_spritesToDraw[i].setTextureRect(sf::IntRect((_pauseButtonTexture.getSize().x / 3) * 2, 0, _pauseButtonTexture.getSize().x / 3, _pauseButtonTexture.getSize().y));
+				}
+				else {
+					_spritesToDraw[i].setTextureRect(sf::IntRect((_pauseButtonTexture.getSize().x / 3), 0, _pauseButtonTexture.getSize().x / 3, _pauseButtonTexture.getSize().y));
+				}
+			}
 		}
 		//Reset if not hover
 		else {
@@ -329,10 +379,20 @@ void HudHandler::update(float pStep) {
 				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowLeftTextureArray) {
-				_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 4), _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 4));
+				if (_isInShootingMode || _isInMovingMode) {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
+				}
+				else {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 1, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
+				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowRightTextureArray) {
-				_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 4), _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 4));
+				if (_isInShootingMode || _isInMovingMode) {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
+				}
+				else {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 1, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
+				}
 			}
 			if (_spritesToDraw[i].getTexture() == &_arrowRotateLeftTextureArray) {
 				if (!_isInShootingMode && _isInMovingMode) {
@@ -352,6 +412,20 @@ void HudHandler::update(float pStep) {
 			}
 			if (_spritesToDraw[i].getTexture() == &_endTurnTextureArray) {
 				_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _endTurnTextureArray.getSize().x / 4, _endTurnTextureArray.getSize().y));
+			}
+			if (_spritesToDraw[i].getTexture() == &_movementButtonTexture) {
+				//std::cout << "not hovering or clicking" << std::endl;
+				_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _movementButtonTexture.getSize().x, _movementButtonTexture.getSize().y / 5));
+			}
+			if (_spritesToDraw[i].getTexture() == &_attackButtonTexture) {
+				//std::cout << "not hovering or clicking" << std::endl;
+				_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _movementButtonTexture.getSize().x, _movementButtonTexture.getSize().y / 5));
+			}
+			if (_spritesToDraw[i].getTexture() == &_pauseButtonTexture) {
+				_spritesToDraw[i].setTextureRect(sf::IntRect((_pauseButtonTexture.getSize().x / 3) * 2, 0, _pauseButtonTexture.getSize().x / 3, _pauseButtonTexture.getSize().y));
+			}
+			if (_spritesToDraw[i].getTexture() == &_resumeButtonTexture) {
+				_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _resumeButtonTexture.getSize().x / 3, _resumeButtonTexture.getSize().y));
 			}
 			if (i == _spritesToDraw.size() - 1 && !_isHovering)
 			{
@@ -375,8 +449,8 @@ HudHandler::~HudHandler()
 void HudHandler::setDebugInfo() {
 	int turnsLeft = TurnHandler::getInstance().GetTurnsLeft();
 	int cannonBallsLeft = TurnHandler::getInstance().GetCannonballsLeft();
-	std::string text = "Turns \t:" + std::to_string(turnsLeft) + " / " + std::to_string(TurnHandler::getInstance().GetMaxValueTurns())
-		+ "\nShots left \t:" + std::to_string(cannonBallsLeft) + " / " + std::to_string(TurnHandler::getInstance().GetMaxValueShots());
+	std::string text = std::to_string(turnsLeft) + " / " + std::to_string(TurnHandler::getInstance().GetMaxValueTurns())
+		+ "\n\n" + std::to_string(cannonBallsLeft) + " / " + std::to_string(TurnHandler::getInstance().GetMaxValueShots());
 	int movesRemaining = _playerController->GetMovesRemaining();
 	//See if movesremaining is 0.
 	_movementLeftText.setString(std::to_string(movesRemaining));
@@ -435,4 +509,34 @@ void HudHandler::DrawMoveTile(int posX, int posY, bool pBool) { //The pos x and 
 			_placedMovementIndicator = false;
 		}
 	}
+}
+
+void HudHandler::pauseGame() {
+	if (!_isGamePaused) {
+		_spritesToDraw.clear();
+		_isGamePaused = true;
+		//Draw pause stuff.
+		_spritesToDraw.push_back(_menuButtonSprite);
+		_spritesToDraw.push_back(_resumeButtonSprite);
+		_spritesToDraw.push_back(_retryButtonSprite);
+		_spritesToDraw.push_back(_pauseMenuBackgroundSprite);
+	}
+	else {
+		_spritesToDraw.clear();
+		_isGamePaused = false;
+		//Refill UI
+		_spritesToDraw.push_back(_hudBannerSprite);
+		_spritesToDraw.push_back(_playerIcon);
+		_spritesToDraw.push_back(_movementButton);
+		_spritesToDraw.push_back(_attackButton);
+		_spritesToDraw.push_back(_arrowTop);
+		_spritesToDraw.push_back(_arrowLeft);
+		_spritesToDraw.push_back(_arrowRight);
+		_spritesToDraw.push_back(_arrowRotateLeft);
+		_spritesToDraw.push_back(_arrowRotateRight);
+		_spritesToDraw.push_back(_compassShooting);
+		_spritesToDraw.push_back(_endTurn);
+		_spritesToDraw.push_back(_pauseButtonSprite);
+	}
+
 }
