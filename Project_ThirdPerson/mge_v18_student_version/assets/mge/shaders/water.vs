@@ -28,7 +28,7 @@ void main( void ){
 	//pos = vertex + normal * (sin((time/100000.0f)*(worldPos.x))*sin((time/100000.0f)*(worldPos.z)))/8.0f;//wrong way of doing this
 	//pos = vertex + (normal*0.1) * (sin((time/600.0f)+worldPos.x)+cos((time/600.0f)+worldPos.z)/20.0f);//attempt 2
 //	pos = vertex + (normal*0.05) * (sin((time/300.0f)+worldPos.x)+cos((time/300.0f)+worldPos.z)/20.0f);//attempt 3
-		pos = vertex + (normal*0.05) * (sin((time/600.0f)+worldPos.x)+cos((time/300.0f)+worldPos.z)/20.0f);//attempt 4
+		pos = vertex + (normal*0.045) * (sin((time/600.0f)+worldPos.x)+cos((time/300.0f)+worldPos.z)/20.0f);//attempt 4
 
 //	if(pulse < pulseAmount/2.0f) { //If the vertex got assigned a number in the first half of the total pulseAmount.
 //		pos = vertex + normal * ((pulse / (pulseAmount/2.0f)) * pulseDist); //Pulse the vertex outwards. The higher the number, the further it pulses outwards. (goes from neutral to fully extended)
