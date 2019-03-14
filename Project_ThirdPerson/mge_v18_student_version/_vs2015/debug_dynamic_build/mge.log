@@ -11,8 +11,5 @@ c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_ve
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(111): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(114): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(117): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-  AmbientSoundPlayer.cpp
-  Generating Code...
-  LINK : debug_dynamic_exe/mge.exe not found or not built by the last incremental link; performing full link
   mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
   mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)

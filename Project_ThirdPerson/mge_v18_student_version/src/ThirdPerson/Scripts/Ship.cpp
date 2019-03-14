@@ -165,33 +165,29 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 		}
 
 		AbstractMaterial* cannonballMaterial = new LitMaterial(glm::vec3(0.25f, 0.25f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-		for (int i = 0; i < 3; i++)
+		_myCannonball = new GameObject("Cannonball", glm::vec3(0, 0, 0));
+		_myCannonball->setMesh(_sphereMeshDefault);
+		_myCannonball->setMaterial(cannonballMaterial);
+		_myCannonball->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
+		add(_myCannonball);
+		_myCannonball->setLocalPosition(glm::vec3(0, 0.5f, 0));
+		std::string fireSound = "Click.wav";
+		if (_isBig)
 		{
-			_myCannonballs[i] = new GameObject("Cannonball", glm::vec3(0, 0, 0));
-			_myCannonballs[i]->setMesh(_sphereMeshDefault);
-			_myCannonballs[i]->setMaterial(cannonballMaterial);
-			_myCannonballs[i]->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
-			add(_myCannonballs[i]);
-			_myCannonballs[i]->setLocalPosition(glm::vec3(0, 0.5f, -0.25f + (0.25f*i)));
-			std::string fireSound = "Click.wav";
-			if (_isBig)
+			if (_isAI)
 			{
-				if (_isAI)
-				{
-					fireSound = "EnemyShipCannon.wav";
-				}
-				else {
-					fireSound = "BigShipCannon.wav";
-				}
+				fireSound = "EnemyShipCannon.wav";
 			}
 			else {
-				fireSound = "SmallShipCannon.wav";
+				fireSound = "BigShipCannon.wav";
 			}
-
-
-			CannonballBehaviour* cannonballBehav = new CannonballBehaviour(fireSound, 500.0f*speedMulti, glm::vec3(pDir.x, 0, pDir.y), _cannonRange*(0.1f / speedMulti), 0.15f*i);
-			_myCannonballs[i]->setBehaviour(cannonballBehav);
 		}
+		else {
+			fireSound = "SmallShipCannon.wav";
+		}
+
+		CannonballBehaviour* cannonballBehav = new CannonballBehaviour(fireSound, 500.0f*speedMulti, glm::vec3(pDir.x, 0, pDir.y), _cannonRange*(0.1f / speedMulti));
+		_myCannonball->setBehaviour(cannonballBehav);
 
 		for (int i = 1; i <= _cannonRange; i++)
 		{
@@ -209,11 +205,8 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 				}
 				else {
 					std::cout << "Cannon hit a wall." << std::endl;
-					for (int j = 0; j < 3; j++)
-					{
-						static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetDestroyAfter(i*(0.1f / speedMulti));
-						static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetImpactSound("ImpactSand.wav");
-					}
+					static_cast<CannonballBehaviour*>(_myCannonball->getBehaviour())->SetDestroyAfter(i*(0.1f / speedMulti));
+					static_cast<CannonballBehaviour*>(_myCannonball->getBehaviour())->SetImpactSound("ImpactSand.wav");
 					//cannonballBehav->SetDestroyAfter(_cannonRange*(0.1f / speedMulti));
 					//_myCannonballs[0]->setBehaviour(new CannonballBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), i*0.1f));
 
@@ -222,11 +215,8 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 				//FindPathTo(pGridGen->GetNodeAtTile(GetCurrentNode()->GetGridX() + 1, GetCurrentNode()->GetGridY())); //Get a path to the requested tile
 			}
 			else {
-				for (int j = 0; j < 3; j++)
-				{
-					static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetDestroyAfter(i*(0.1f / speedMulti));
-					static_cast<CannonballBehaviour*>(_myCannonballs[j]->getBehaviour())->SetImpactSound("ImpactObstacles.wav");
-				}
+				static_cast<CannonballBehaviour*>(_myCannonball->getBehaviour())->SetDestroyAfter(i*(0.1f / speedMulti));
+				static_cast<CannonballBehaviour*>(_myCannonball->getBehaviour())->SetImpactSound("ImpactObstacles.wav");
 				//cannonballBehav->SetDestroyAfter(_cannonRange*(0.1f / speedMulti));
 				//_myCannonballs[0]->setBehaviour(new CannonballBehaviour(500.0f, glm::vec3(pDir.x, 0, pDir.y), i*0.1f));
 				return; //Reached the end of the grid.

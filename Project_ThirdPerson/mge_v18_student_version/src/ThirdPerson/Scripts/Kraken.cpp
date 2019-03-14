@@ -52,7 +52,7 @@ void Kraken::update(float pStep) {
 			_targetShip->GetCurrentNode()->add(this);
 			setEulerAngles(_targetShip->getEulerAngles());
 			setScale(glm::vec3(2, 2, 2));
-			setLocalPosition(glm::vec3(0, ((_targetY + 1.5f) - getWorldPosition().y), 0));
+			setLocalPosition(glm::vec3(0, ((_targetY + 1.25f) - getWorldPosition().y), 0));
 			std::cout << "Target Y: " << _targetY << std::endl;
 		}
 
