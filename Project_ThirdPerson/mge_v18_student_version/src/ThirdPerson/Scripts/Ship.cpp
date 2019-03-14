@@ -26,8 +26,8 @@ Ship::Ship(Node* pStartNode, std::vector<Node*> pAllNodes, bool pIsAI, bool pIsB
 			_actionIndicator = new GameObject("ActionIndicator", glm::vec3(0, 0, 0));
 			_actionIndicator->setMesh(MeshManager::getInstance().getMesh("actionCoin.obj"));
 			_actionIndicator->setMaterial(MeshManager::getInstance().getMaterial("coin1.png"));
-			_actionIndicator->rotate(glm::radians(-90.0f), glm::vec3(-1, 0, 0));
-			//_actionIndicator->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
+			//_actionIndicator->rotate(glm::radians(-90.0f), glm::vec3(-1, 0, 0));
+			_actionIndicator->setScale(glm::vec3(3, 3, 3));
 			add(_actionIndicator);
 			_actionIndicator->setLocalPosition(glm::vec3(0, 1, (i * 0.4f) - 0.2f));
 
@@ -110,7 +110,7 @@ void Ship::MoveShipInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 		if (HasPath()) //If a path to the tile was found (so if the requested tile was not occupied or not walkable)
 		{
 			_movesRemaining--; //The ship used one movement action
-			AudioManager::getInstance().playSound(_allMoveSounds[rand()%5]);
+			AudioManager::getInstance().playSound(_allMoveSounds[rand() % 5]);
 		}
 	}
 	else { //If this ship has no moves remaining
@@ -148,7 +148,7 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 			{
 				return;
 			}
-			AudioManager::getInstance().playSound(_allShootSounds[rand()%11]);
+			AudioManager::getInstance().playSound(_allShootSounds[rand() % 11]);
 		}
 		else {
 			AudioManager::getInstance().playSound("CannonVoiceEnemy.wav");
@@ -249,10 +249,10 @@ bool Ship::CheckIfClicked(glm::vec3 pCoordinates, float pScale, float pNumber, g
 	_radiusModel = 1.5f;
 	pCoordinates.z = -pCoordinates.z;
 
-	std::cout << "Camera pos" << pCameraPosition << "Mouse pos" << pCoordinates <<  std::endl;
+	std::cout << "Camera pos" << pCameraPosition << "Mouse pos" << pCoordinates << std::endl;
 	glm::vec3 worldPos = pCameraPosition + pCoordinates;
 	std::cout << "world pos \t :" << worldPos;
-	
+
 	/*glm::vec3 mouseRayTotal = pCoordinates * pScale;
 	glm::vec3 mouseRayTotalScaledToY = mouseRayTotal / mouseRayTotal.y;
 	std::cout << "Mouse ray total scaled \t:" << mouseRayTotalScaledToY << std::endl;
@@ -318,6 +318,7 @@ int Ship::GetActionsRemaining() {
 }
 int Ship::GetMovesRemaining() {
 	return _movesRemaining;
+
 }
 
 int Ship::GetCannonRange() {

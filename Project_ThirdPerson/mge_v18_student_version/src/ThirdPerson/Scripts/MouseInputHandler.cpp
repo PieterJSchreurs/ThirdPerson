@@ -28,6 +28,9 @@ void MouseInputHandler::update(float pStep)
 
 void MouseInputHandler::HandleClick()
 {
+	float yPosCam = _camera->getWorldPosition().y;
+	float zPosCam = _camera->getWorldPosition().z;
+	float xPosCam = _camera->getWorldPosition().x;
 	sf::Vector2u windowSize = _renderWindow->getSize();
 	//first get mouse position, which will be between (0,0) and (windowSize.x, windowSize.y)
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(*_renderWindow);
@@ -38,7 +41,7 @@ void MouseInputHandler::HandleClick()
 	);
 
 	//calculate plane distance
-	float verticalFOV = 45.0f;  //taken from Camera.hpp
+	float verticalFOV = 45;  //taken from Camera.hpp
 	float distance = (windowSize.y / 2) / tan(glm::radians(verticalFOV / 2.0f));
 
 	glm::vec4 ray = glm::vec4(
@@ -65,6 +68,17 @@ void MouseInputHandler::HandleClick()
 		glm::vec3 perpendicular = cameraToSphere - parallel;
 		//and get its distance
 		float distance = glm::length(perpendicular);
+
+		//glLineWidth(2.5);
+		//glColor3f(1.0, 0.0, 0.0);
+		//glBegin(GL_LINES);
+		//glVertex3f(0, 0, 0);
+		//glVertex3f(xPosCam, yPosCam, zPosCam);
+		//glVertex3f(0, 0, 0);
+		//glVertex3f(cameraToSphere.x, cameraToSphere.y, cameraToSphere.z);
+		///*glVertex3f(pCameraPosition.x, pCameraPosition.y, pCameraPosition.z);
+		//glVertex3f(myPosition.x, myPosition.y, myPosition.z);*/
+		//glEnd();
 
 		//I know the shere radius is 1, this needs to be replaced with collider radius
 		if (distance <= 1.5f) {

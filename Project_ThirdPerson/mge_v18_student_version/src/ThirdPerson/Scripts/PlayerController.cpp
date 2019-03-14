@@ -67,8 +67,8 @@ void PlayerController::ToggleIsActive(bool pPlaySound) {
 				return;
 			}
 		}
-		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-		_currentShip->setMaterial(greenMaterial);
+		//AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+		//_currentShip->setMaterial(greenMaterial);
 		//ToggleRangeIndicators(_currentShip, true);
 		for (int i = 0; i < _myShips.size(); i++)
 		{
@@ -137,16 +137,19 @@ void PlayerController::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make 
 		}
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || pKey == sf::Keyboard::W) {
+			_currentShip->GetCurrentNode()->SetTileGlow(false);
 			glm::vec2 directionVec = _currentShip->GetOrientation();
 			_currentShip->MoveShipInDir(directionVec, _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || pKey == sf::Keyboard::A) {
+			_currentShip->GetCurrentNode()->SetTileGlow(false);
 			glm::vec2 directionVec = _currentShip->GetOrientation();
 			_currentShip->MoveShipInDir(glm::vec2(directionVec.y, -directionVec.x), _gridGenerator);
 			_lastPlayerInput = _timer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || pKey == sf::Keyboard::D) {
+			_currentShip->GetCurrentNode()->SetTileGlow(false);
 			glm::vec2 directionVec = _currentShip->GetOrientation();
 			_currentShip->MoveShipInDir(glm::vec2(-directionVec.y, directionVec.x), _gridGenerator);
 			_lastPlayerInput = _timer;
@@ -203,8 +206,8 @@ void PlayerController::SelectNextShip(int pDir) {
 
 	if (_currentShip->GetIsAlive()) //If the newly selected ship is alive, all is good
 	{
-		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-		_currentShip->setMaterial(greenMaterial);
+		//AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+		//_currentShip->setMaterial(greenMaterial);
 		//ToggleRangeIndicators(_currentShip, true);
 	}
 	else { //If the newly selected ship has already sunk, select the next available ship instead.
@@ -214,12 +217,14 @@ void PlayerController::SelectNextShip(int pDir) {
 
 void PlayerController::SelectShip(Ship* pShip)
 {
-	_currentShip->setMaterial(_currentShip->GetBaseMaterial());
+	_currentShip->GetCurrentNode()->SetTileGlow(false, "BlueCube.png");
+	//_currentShip->setMaterial(_currentShip->GetBaseMaterial());
 	//ToggleRangeIndicators(_currentShip, false);
 
 	_currentShip = pShip;
-	AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-	_currentShip->setMaterial(greenMaterial);
+	//AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+	//_currentShip->setMaterial(greenMaterial);
+	_currentShip->GetCurrentNode()->SetTileGlow(true, "BlueCube.png");
 	//ToggleRangeIndicators(_currentShip, true);
 }
 

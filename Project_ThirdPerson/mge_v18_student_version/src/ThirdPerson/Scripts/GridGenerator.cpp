@@ -84,7 +84,7 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 	_enemyDamagedShip = MeshManager::getInstance().getMesh("Enemy_Ship_DMG.obj");
 	
 	//TEXTURES
-	_boardMaterial = MeshManager::getInstance().getMaterial("Wood_HD.jpg");
+	_boardMaterial = MeshManager::getInstance().getMaterial("Wood_HD.png");
 	_candleMaterial = MeshManager::getInstance().getMaterial("Candle.png");
 	_coin1Material = MeshManager::getInstance().getMaterial("coin1.png");
 	_coin2Material = MeshManager::getInstance().getMaterial("coin2.png");

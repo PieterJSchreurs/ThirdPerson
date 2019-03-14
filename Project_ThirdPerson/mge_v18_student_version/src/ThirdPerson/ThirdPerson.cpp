@@ -167,8 +167,7 @@ void ThirdPerson::_update(float pStep) {
 	AudioManager::getInstance().update(pStep);
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O) && _window->hasFocus()) { //Restart the current level (TODO: Garbage collection is not correct, memory is not freed correctly.)
-		destroyLevel();
-		loadLevel();
+		RestartLevel();
 	}
 	if (_myHudHandler != nullptr)
 	{
@@ -176,8 +175,20 @@ void ThirdPerson::_update(float pStep) {
 	}
 }
 
+void ThirdPerson::RestartLevel() {
+	destroyLevel();
+	loadLevel();
+}
+
+void ThirdPerson::GoToMainMenu() {
+	destroyLevel(); 
+	_initializeScene();
+}
+
 void ThirdPerson::InitializeMainMenu()
 {
+	_world = new World();
+
 	Camera* camera = new Camera("camera", glm::vec3(0, 0, 0));
 	camera->rotate(glm::radians(0.0f), glm::vec3(0, 0, 0));
 	_world->add(camera);
@@ -245,7 +256,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	//UIHandler* uiHandler = new UIHandler(_window, myPlayerController, "UIHandler");
 	//_world->add(uiHandler);
-	_myHudHandler = new HudHandler(_window, myPlayerController);
+	_myHudHandler = new HudHandler(_window, myPlayerController, this);
 
 	MouseInputHandler* myMouseInputHandler = new MouseInputHandler(_window, _world, _myGridGenerator->GetPlayerShips(), myPlayerController, "", glm::vec3(0, 0, 0));
 	_world->add(myMouseInputHandler);
@@ -257,12 +268,16 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 void ThirdPerson::destroyLevel() {
 	_myGridGenerator->DestroyNodeGraph();
+	delete _myHudHandler;
 	delete _world;
 }
 
 //build the game _world
 void ThirdPerson::_initializeScene()
 {
+	if (_world == nullptr) {
+		_world = new World();
+	}
 	//Display a loading screen
 	glActiveTexture(GL_TEXTURE0);
 	_window->pushGLStates();
@@ -307,7 +322,7 @@ void ThirdPerson::_updateHud() {
 	_hud->draw();
 
 
-	if (_myHudHandler != nullptr)
+	if (_myHudHandler != nullptr && _world != nullptr)
 	{
 		_myHudHandler->setDebugInfo();
 		_myHudHandler->draw();

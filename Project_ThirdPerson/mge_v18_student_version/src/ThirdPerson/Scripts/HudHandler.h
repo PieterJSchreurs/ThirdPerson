@@ -2,6 +2,7 @@
 #define HUDHANDLER_HPP
 
 #include <SFML/Graphics.hpp>
+#include "ThirdPerson/ThirdPerson.hpp"
 #include "ThirdPerson/Scripts/PlayerController.h"
 #include <iostream>
 
@@ -11,7 +12,7 @@
 class HudHandler
 {
 public:
-	HudHandler(sf::RenderWindow * aWindow, PlayerController* pPlayerController);
+	HudHandler(sf::RenderWindow * aWindow, PlayerController* pPlayerController, ThirdPerson* pThirdPerson);
 	virtual ~HudHandler();
 	void draw();
 
@@ -33,11 +34,12 @@ private:
 	bool _placedMovementIndicator = false;
 	bool _placedAttackIndicator = false;
 	bool _isGamePaused = false;
+	bool _destroyingWorld = false;
 	glm::vec2 _shipOrientation;
 	glm::vec2 _movementBoxPosition = glm::vec2(0, 0);
 
 	PlayerController* _playerController;
-
+	ThirdPerson* _thirdPerson;
 	sf::Font _font;
 	sf::Text _turnText;
 	sf::Text _playerNameText;
@@ -85,6 +87,11 @@ private:
 	sf::Sprite _resumeButtonSprite;
 	sf::Sprite _retryButtonSprite;
 	sf::Sprite _pauseMenuBackgroundSprite;
+	sf::Sprite _treasurePickUpSprite;
+	
+
+	//Resolution screen
+	sf::Sprite _;
 
 
 	void InitializeUI();
