@@ -20,7 +20,11 @@ PlayerController::PlayerController(std::vector<Ship*> pShips, GridGenerator* pGr
 		std::cout << "There were no ships passed into the PlayerController." << std::endl;
 	}
 
-	ToggleIsActive(false);
+	ToggleIsActive();
+}
+
+bool PlayerController::GetGameover() {
+	return _gameOver;
 }
 
 void PlayerController::ToggleIsActive(bool pPlaySound) {

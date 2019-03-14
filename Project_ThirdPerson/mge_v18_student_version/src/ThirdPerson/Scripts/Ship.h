@@ -55,7 +55,7 @@ private:
 
 	std::vector<GameObject*> _indicator;
 	GameObject* _actionIndicator;
-	GameObject* _myCannonballs[3];
+	GameObject* _myCannonball;
 	Mesh* _sphereMeshDefault;
 
 	std::string _allMoveSounds[5] = {

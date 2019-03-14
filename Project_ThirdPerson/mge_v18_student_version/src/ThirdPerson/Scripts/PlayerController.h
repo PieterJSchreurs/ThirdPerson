@@ -30,6 +30,8 @@ public:
 	void SetFiringMode(bool pToggle);
 	void SetHoveringMode(bool pToggleLeft, bool pToggleRight);
 
+	bool GetGameover();
+
 protected:
 	void SelectNextShip(int pDir);
 	float _timer = 0;
