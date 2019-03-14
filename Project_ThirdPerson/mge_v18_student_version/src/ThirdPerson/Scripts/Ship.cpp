@@ -171,6 +171,10 @@ void Ship::ShootInDir(glm::vec2 pDir, GridGenerator* pGridGen) {
 		add(_myCannonball);
 		_myCannonball->setLocalPosition(glm::vec3(0, 0.5f, 0));
 		std::string fireSound = "Click.wav";
+		if (!_isAI) {
+			glm::vec3 currentPlace = _indicator[_actionsRemaining - 1]->getLocalPosition();
+			_indicator[_actionsRemaining - 1]->setLocalPosition(glm::vec3(currentPlace.x, -10, currentPlace.z)); // sets the things below the board, not a nice solution but it's okay.
+		}
 		if (_isBig)
 		{
 			if (_isAI)

@@ -15,6 +15,7 @@ void GoalObject::DoAction(bool pIsAI, bool pIsBig) {
 		AudioManager::getInstance().playSound("Harbour.wav");
 		std::cout << "PLAYER FINISHED THE LEVEL!" << std::endl;
 		//TODO: Finish the level.
+		//_levelWon = true;
 	}
 }
 

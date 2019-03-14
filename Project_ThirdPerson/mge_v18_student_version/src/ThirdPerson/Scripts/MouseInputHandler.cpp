@@ -59,9 +59,10 @@ void MouseInputHandler::HandleClick()
 	for (Ship* pShip : _ships)
 	{
 
-
+		glm::vec3 worldPos = pShip->getWorldPosition();
+		//worldPos = glm::vec3(worldPos.x, worldPos.y, worldPos.z + 2);
 		//get the vector from camera to object
-		glm::vec3 cameraToSphere(pShip->getWorldPosition() - _world->getMainCamera()->getWorldPosition());
+		glm::vec3 cameraToSphere(worldPos - _world->getMainCamera()->getWorldPosition());
 		//project that vector onto the ray so we have the part of cameraToSphere along the ray
 		glm::vec3 parallel = glm::dot(cameraToSphere, rayWorld) * rayWorld;
 		//subtract that part from the vector to get the vector parallel to our ray

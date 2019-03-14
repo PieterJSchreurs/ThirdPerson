@@ -35,6 +35,7 @@ private:
 	bool _placedAttackIndicator = false;
 	bool _isGamePaused = false;
 	bool _destroyingWorld = false;
+	bool _gameoverScreen = false;
 	glm::vec2 _shipOrientation;
 	glm::vec2 _movementBoxPosition = glm::vec2(0, 0);
 
@@ -44,6 +45,7 @@ private:
 	sf::Text _turnText;
 	sf::Text _playerNameText;
 	sf::Text _movementLeftText;
+	sf::Text _cannonballLeftText;
 	sf::RenderWindow* _renderWindow;
 
 	std::vector<sf::Sprite> _spritesToDraw;
@@ -71,6 +73,15 @@ private:
 	sf::Texture _retryButtonTexture;
 	sf::Texture _pauseMenuBackgroundTexture;
 
+	sf::Texture _resolutionScreenLossTexture;
+	sf::Texture _resolutionScreenWinTexture;
+	sf::Texture _resolutionScreenMenuTexture;
+	sf::Texture _resolutionScreenRetryTexture;
+	sf::Texture _resolutionScreenNextTexture;
+	sf::Texture _iconOctopusTexture;
+	sf::Texture _iconShipTexture;
+	sf::Texture _iconTreasureTexture;
+
 
 	sf::Sprite _hudBannerSprite;
 	sf::Sprite _arrowTop;
@@ -91,7 +102,14 @@ private:
 	
 
 	//Resolution screen
-	sf::Sprite _;
+	sf::Sprite _resolutionScreenLossSprite;
+	sf::Sprite _resolutionScreenWinSprite;
+	sf::Sprite _resolutionScreenMenuSprite;
+	sf::Sprite _resolutionScreenRetrySprite;
+	sf::Sprite _resolutionScreenNextSprite;
+	sf::Sprite _iconOctopusSprite;
+	sf::Sprite _iconShipSprite;
+	sf::Sprite _iconTreasureSprite;
 
 
 	void InitializeUI();
@@ -100,7 +118,7 @@ private:
 	void DrawFireTile(bool pToggleLeft, bool pToggleRight);
 	void DrawMoveTile(int posX, int posY, bool pBool);
 	void pauseGame();
-
+	void GameResolution();
 
 	HudHandler(const HudHandler&);
 	HudHandler& operator=(const HudHandler&);
