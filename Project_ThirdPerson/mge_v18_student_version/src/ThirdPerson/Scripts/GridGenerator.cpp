@@ -454,9 +454,9 @@ void GridGenerator::GenerateNodeGraph() {
 			{
 				gridObj = new GoalObject(_nodeCache[column][row], GetAllNodes(), "GoalObject");
 				//node = new Node(Node::TerrainTypes::plain, "Node");
-				gridObj->setMaterial(goalMaterial);
-				gridObj->setMesh(_sphereMeshDefault);
-				gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
+				//gridObj->setMaterial(goalMaterial);
+				//gridObj->setMesh(_sphereMeshDefault);
+				//gridObj->scale(glm::vec3(_tileWorld.tileSize(), _tileWorld.tileSize(), _tileWorld.tileSize()));
 			}
 			else if (nmbr >= 4 && nmbr <= 7)
 			{

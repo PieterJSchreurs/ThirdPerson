@@ -245,7 +245,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	//UIHandler* uiHandler = new UIHandler(_window, myPlayerController, "UIHandler");
 	//_world->add(uiHandler);
-	_myHudHandler = new HudHandler(_window, myPlayerController);
+	//_myHudHandler = new HudHandler(_window, myPlayerController);
 
 	MouseInputHandler* myMouseInputHandler = new MouseInputHandler(_window, _world, _myGridGenerator->GetPlayerShips(), myPlayerController, "", glm::vec3(0, 0, 0));
 	_world->add(myMouseInputHandler);
