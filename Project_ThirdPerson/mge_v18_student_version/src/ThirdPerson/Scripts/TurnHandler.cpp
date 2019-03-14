@@ -37,15 +37,22 @@ bool TurnHandler::GetIsInitialized()
 
 void TurnHandler::ToggleIsActive() {
 	_playerController->ToggleIsActive();
-	_AIController->ToggleIsActive();
+	if (!_playerController->GetGameover())
+	{
+		_AIController->ToggleIsActive();
+	}
+
 	if (_playerController->GetIsActive())
 	{
 		AbstractMaterial* PlayerMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Player_Turn.png"));
 		_turnIndicator->setMaterial(PlayerMaterial);
 	}
-	else {
+	else if (_AIController->GetIsActive()) {
 		AbstractMaterial* AIMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "AI_Turn.png"));
 		_turnIndicator->setMaterial(AIMaterial);
+	}
+	else {
+		return;
 	}
 	_turnIndicator->setParent(_camera);
 	_turnIndicatorActivate = _timer;

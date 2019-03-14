@@ -89,7 +89,6 @@ void AIController::handleShipStartOfTurn(int pIndex) {
 				}
 			}
 			else { //If it had no target yet.
-				AudioManager::getInstance().playSound("PlayerDetected.wav");
 				shipTarget = _enemyShips[i]; //Target the newly found ship.
 				SetShipTarget(_myShips[pIndex], _enemyShips[i]);
 			}
