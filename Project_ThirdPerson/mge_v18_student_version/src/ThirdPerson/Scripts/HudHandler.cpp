@@ -710,3 +710,24 @@ void HudHandler::GameResolution() {
 		_spritesToDraw.push_back(_pauseButtonSprite);
 	}
 }
+
+void HudHandler::enableTutorial() {
+	//Tutorial
+	_tutorialTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/TutorialSprites.png");
+	_tutorialSprite.setTexture(_tutorialTexture);
+	_tutorialSprite.setTextureRect(sf::IntRect(0, 0, _tutorialTexture.getSize().x / 4, _tutorialTexture.getSize().y / 8));
+	_tutorialSprite.setScale(0.8f, 0.8f);
+	_tutorialSprite.setPosition(_window->getSize().x - ((_tutorialTexture.getSize().x / 4) * _tutorialSprite.getScale().x), _window->getSize().y * 0.475f);
+	_spritesToDraw.push_back(_tutorialSprite);
+}
+void HudHandler::handleTutorial(int pIndex) {
+	for (int i = 0; i < _spritesToDraw.size(); i++)
+	{
+		if (_spritesToDraw[i].getTexture() == &_tutorialTexture) {
+			std::cout << "Updating the tutorial sprite." << std::endl;
+
+			_spritesToDraw[i].setTextureRect(sf::IntRect((pIndex % 4) * (_tutorialTexture.getSize().x / 4), glm::floor(pIndex / 4) * (_tutorialTexture.getSize().y / 8), _tutorialTexture.getSize().x / 4, _tutorialTexture.getSize().y / 8));
+			break;
+		}
+	}
+}

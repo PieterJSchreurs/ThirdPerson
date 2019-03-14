@@ -8,23 +8,24 @@
 #include "ThirdPerson/Scripts/PlayerController.h"
 #include <SFML/Graphics.hpp>
 
+class HudHandler;
+
 class TutorialManager : public PlayerController
 {
 public:
 
-	TutorialManager(std::vector<Ship*> pShips, GridGenerator* pGridGen, sf::RenderWindow* pWindow, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	TutorialManager(std::vector<Ship*> pShips, GridGenerator* pGridGen, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~TutorialManager();
 	virtual void update(float pStep);
 	virtual void SelectShip(Ship* pShip);
 	virtual void HandlePlayerInput(sf::Keyboard::Key pKey);
 
+	void SetHudHandler(HudHandler* pHudHandler);
+
 private:
-	sf::RenderWindow* _window;
+	HudHandler* _hudHandler = nullptr;
 
 	int _currentTutorialIndex = 0;
-
-	sf::Sprite _tutorialSprite;
-	sf::Texture _tutorialTexture;
 
 	int _currentTutorialKeyIndex = 0;
 	const int _tutorialKeyCount = 43;

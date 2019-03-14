@@ -237,7 +237,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	if (_fileName == _tutorialLevel)
 	{
 		std::cout << "Player controller is a tutorial manager now." << std::endl;
-		myPlayerController = new TutorialManager(_myGridGenerator->GetPlayerShips(), _myGridGenerator, _window, "PlayerController");
+		myPlayerController = new TutorialManager(_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController");
 	}
 	else {
 		std::cout << "Using a normal player controller." << std::endl;
@@ -256,6 +256,10 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	//UIHandler* uiHandler = new UIHandler(_window, myPlayerController, "UIHandler");
 	//_world->add(uiHandler);
 	_myHudHandler = new HudHandler(_window, myPlayerController, this);
+	if (_fileName == _tutorialLevel)
+	{
+		static_cast<TutorialManager*>(myPlayerController)->SetHudHandler(_myHudHandler);
+	}
 
 	MouseInputHandler* myMouseInputHandler = new MouseInputHandler(_window, _world, _myGridGenerator->GetPlayerShips(), myPlayerController, "", glm::vec3(0, 0, 0));
 	_world->add(myMouseInputHandler);

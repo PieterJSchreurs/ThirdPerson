@@ -6,9 +6,11 @@
 
 #include "mge/materials/LitMaterial.h"
 
+#include "ThirdPerson/Scripts/HudHandler.h"
+
 #include "ThirdPerson/config.hpp"
 
-TutorialManager::TutorialManager(std::vector<Ship*> pShips, GridGenerator* pGridGen, sf::RenderWindow* pWindow, const std::string& aName, const glm::vec3& aPosition) : PlayerController(pShips, pGridGen, aName, aPosition), _window(pWindow)
+TutorialManager::TutorialManager(std::vector<Ship*> pShips, GridGenerator* pGridGen, const std::string& aName, const glm::vec3& aPosition) : PlayerController(pShips, pGridGen, aName, aPosition)
 {
 	AudioManager::getInstance().stopSound("StartPlayer.wav");
 	//Pre-load all the tutorial sounds.
@@ -17,17 +19,15 @@ TutorialManager::TutorialManager(std::vector<Ship*> pShips, GridGenerator* pGrid
 		AudioManager::getInstance().loadSound(_allTutorialSounds[i].second);
 	}
 
-	//TODO: Move this to hudhandler
-	_tutorialTexture.loadFromFile(config::MGE_TEXTURE_PATH + "UI/TutorialSprites.png");
-	_tutorialSprite.setTexture(_tutorialTexture);
-	_tutorialSprite.setTextureRect(sf::IntRect(0, 0, _tutorialTexture.getSize().x / 4, _tutorialTexture.getSize().y / 8));
-	_tutorialSprite.setScale(0.8f, 0.8f);
-	_tutorialSprite.setPosition(_window->getSize().x - ((_tutorialTexture.getSize().x / 4) * _tutorialSprite.getScale().x), _window->getSize().y * 0.475f);
-
 	SelectNextShip(-1); //Select your big ship.
 	AudioManager::getInstance().playSound("StartPlayer.wav");
 	_lastPlayerInput = -5000.0f;
 	HandlePlayerInput(sf::Keyboard::Numpad0);
+}
+
+void TutorialManager::SetHudHandler(HudHandler* pHudHandler) {
+	_hudHandler = pHudHandler;
+	_hudHandler->enableTutorial();
 }
 
 void TutorialManager::update(float pStep) {
@@ -37,12 +37,6 @@ void TutorialManager::update(float pStep) {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		HandlePlayerInput(sf::Keyboard::Numpad0); 
 	}
-	
-	glActiveTexture(GL_TEXTURE0);
-	_window->pushGLStates();
-	_window->draw(_tutorialSprite);
-	_window->popGLStates();
-	_window->display();
 }
 
 void TutorialManager::SelectShip(Ship* pShip)
@@ -119,7 +113,11 @@ void TutorialManager::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make s
 		//TODO: MOVE THIS TO HUDHANDLER
 		if (_tutorialSprites[_currentTutorialSpriteIndex] == _currentTutorialIndex)
 		{
-			_tutorialSprite.setTextureRect(sf::IntRect((_currentTutorialSpriteIndex % 4) * (_tutorialTexture.getSize().x / 4), glm::floor(_currentTutorialSpriteIndex / 4) * (_tutorialTexture.getSize().y / 8), _tutorialTexture.getSize().x / 4, _tutorialTexture.getSize().y / 8));
+			if (_hudHandler != nullptr)
+			{
+				_hudHandler->handleTutorial(_currentTutorialSpriteIndex);
+			}
+			//_tutorialSprite.setTextureRect(sf::IntRect((_currentTutorialSpriteIndex % 4) * (_tutorialTexture.getSize().x / 4), glm::floor(_currentTutorialSpriteIndex / 4) * (_tutorialTexture.getSize().y / 8), _tutorialTexture.getSize().x / 4, _tutorialTexture.getSize().y / 8));
 			_currentTutorialSpriteIndex++;
 		}
 	}

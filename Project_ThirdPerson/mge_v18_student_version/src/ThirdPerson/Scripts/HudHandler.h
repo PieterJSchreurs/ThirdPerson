@@ -20,6 +20,9 @@ public:
 	void ResetMode();
 	void setDebugInfo();
 
+	void handleTutorial(int pIndex);
+	void enableTutorial();
+
 protected:
 	sf::RenderWindow * _window;
 
@@ -110,6 +113,10 @@ private:
 	sf::Sprite _iconOctopusSprite;
 	sf::Sprite _iconShipSprite;
 	sf::Sprite _iconTreasureSprite;
+
+	//Tutorial
+	sf::Sprite _tutorialSprite;
+	sf::Texture _tutorialTexture;
 
 
 	void InitializeUI();
