@@ -99,7 +99,16 @@ void PlayerController::update(float pStep) {
 	if (_currentShip->HasPath()) //If you current ship is still moving to its destination (TODO: Or is doing any other action), block player input that affects that ship.
 	{
 		_currentShip->moveToTargetWaypoint();
+		_currentShip->GetCurrentNode()->SetTileGlow(false, "BlueCube.png");
+		_isTileGlowing = false;
 	}
+	else {
+		if (!_isTileGlowing) {
+			_currentShip->GetCurrentNode()->SetTileGlow(true, "BlueCube.png");
+			_isTileGlowing = true;
+		}
+	}
+
 	GameObject::update(pStep);
 }
 
@@ -218,15 +227,19 @@ void PlayerController::SelectNextShip(int pDir) {
 void PlayerController::SelectShip(Ship* pShip)
 {
 	_currentShip->GetCurrentNode()->SetTileGlow(false, "BlueCube.png");
+	_currentShip = pShip;
+	_isTileGlowing = false;
 	//_currentShip->setMaterial(_currentShip->GetBaseMaterial());
 	//ToggleRangeIndicators(_currentShip, false);
 
-	_currentShip = pShip;
+	
 	//AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
 	//_currentShip->setMaterial(greenMaterial);
-	_currentShip->GetCurrentNode()->SetTileGlow(true, "BlueCube.png");
+	
 	//ToggleRangeIndicators(_currentShip, true);
 }
+
+
 
 void PlayerController::ToggleRangeIndicators(Ship* pShip, bool pToggle) {
 	if (_isInFiringMode) {

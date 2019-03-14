@@ -2,6 +2,7 @@
 #define GRIDGENERATOR_HPP
 
 #include "glm.hpp"
+#include "ThirdPerson/ThirdPerson.hpp"
 #include "ThirdPerson/Scripts/Ship.h"
 #include "ThirdPerson/Scripts/Node.h"
 #include "ThirdPerson/Scripts/NodeWorld.h"
@@ -15,7 +16,7 @@
 class GridGenerator : public GameObject
 {
 public:
-	GridGenerator(TileWorld& pTileWorld, const std::string& pFileName, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	GridGenerator(ThirdPerson* pThirdPerson, TileWorld& pTileWorld, const std::string& pFileName, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~GridGenerator();
 
 	void SetGridValues(TileWorld* pTileWorld, const std::string& pFileName);
@@ -31,6 +32,7 @@ public:
 
 	int getGridWidth();
 	int getGridHeight();
+	ThirdPerson* _thirdPerson;
 
 	std::vector<Ship*> GetPlayerShips();
 	std::vector<Ship*> GetAIShips();
@@ -54,6 +56,7 @@ private:
 		bool _northWest = false;
 
 		bool _tiles[8] = { _north, _northEast, _east, _southEast, _south, _southWest, _west, _northWest };
+		
 
 		glm::vec2 _direction = glm::vec2(0, 0);
 		int _directionIndex = 0;

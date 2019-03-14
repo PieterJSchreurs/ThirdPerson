@@ -26,7 +26,7 @@
 #include <sstream>
 
 
-GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _fileName(pFileName), _tileWorld(pTileWorld)
+GridGenerator::GridGenerator(ThirdPerson* pThirdPerson, TileWorld& pTileWorld,  const std::string& pFileName, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _fileName(pFileName), _tileWorld(pTileWorld), _thirdPerson(pThirdPerson)
 {
 	_cubeMeshDefault = MeshManager::getInstance().getMesh("cube_flat.obj");
 
@@ -446,7 +446,7 @@ void GridGenerator::GenerateNodeGraph() {
 			int nmbr = entityTiles[row * _tileWorld.rows() + column];
 			if (nmbr == 2)
 			{
-				gridObj = new TreasureObject(_nodeCache[column][row], GetAllNodes(), "TreasureObject");
+				gridObj = new TreasureObject(_thirdPerson,_nodeCache[column][row], GetAllNodes(), "TreasureObject");
 				//node = new Node(Node::TerrainTypes::plain, "Node");
 				gridObj->setMaterial(_treasureIslandMaterial);
 				gridObj->setMesh(_treasureIslandTile);
@@ -454,7 +454,7 @@ void GridGenerator::GenerateNodeGraph() {
 			}
 			else if (nmbr == 3)
 			{
-				gridObj = new GoalObject(_nodeCache[column][row], GetAllNodes(), "GoalObject");
+				gridObj = new GoalObject(_thirdPerson,_nodeCache[column][row], GetAllNodes(), "GoalObject");
 				//node = new Node(Node::TerrainTypes::plain, "Node");
 				//gridObj->setMaterial(goalMaterial);
 				//gridObj->setMesh(_sphereMeshDefault);

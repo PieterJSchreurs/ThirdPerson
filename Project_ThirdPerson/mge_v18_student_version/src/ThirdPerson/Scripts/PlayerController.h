@@ -29,7 +29,7 @@ public:
 	void ToggleRangeIndicators(Ship* pShip, bool pToggle);
 	void SetFiringMode(bool pToggle);
 	void SetHoveringMode(bool pToggleLeft, bool pToggleRight);
-
+	bool _isTileGlowing = false;
 	bool GetGameover();
 
 protected:

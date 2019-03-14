@@ -38,8 +38,8 @@ void AIController::ToggleIsActive() {
 				return;
 			}
 		}
-		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-		_currentShip->setMaterial(greenMaterial);
+		//AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+		//_currentShip->setMaterial(greenMaterial);
 		_turnsHandled = 0;
 		for (int i = 0; i < _myShips.size(); i++)
 		{
@@ -389,8 +389,8 @@ void AIController::SelectNextShip(int pDir) {
 
 	if (_currentShip->GetIsAlive()) //If the newly selected ship is alive, all is good
 	{
-		AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-		_currentShip->setMaterial(greenMaterial);
+		//AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
+		//_currentShip->setMaterial(greenMaterial);
 	}
 	else { //If the newly selected ship has already sunk, select the next available ship instead.
 		SelectNextShip(pDir);

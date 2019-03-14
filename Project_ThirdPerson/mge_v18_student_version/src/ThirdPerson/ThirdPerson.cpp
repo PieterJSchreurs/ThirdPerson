@@ -54,7 +54,7 @@
 #include "ThirdPerson/ThirdPerson.hpp"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
-ThirdPerson::ThirdPerson():AbstractGame (),_hud(0)
+ThirdPerson::ThirdPerson() :AbstractGame(), _hud(0)
 {
 
 }
@@ -62,10 +62,10 @@ ThirdPerson::ThirdPerson():AbstractGame (),_hud(0)
 void ThirdPerson::initialize() {
 	initializeGameplayValues();
 
-    //setup the core part
-    AbstractGame::initialize();
+	//setup the core part
+	AbstractGame::initialize();
 
-    //setup the custom part so we can display some text
+	//setup the custom part so we can display some text
 	std::cout << "Initializing HUD" << std::endl;
 	_hud = new DebugHud(_window);
 	std::cout << "HUD initialized." << std::endl << std::endl;
@@ -80,10 +80,10 @@ void ThirdPerson::initializeGameplayValues() {
 
 	luaL_loadfile(lua, file.c_str());												//Load the file
 	lua_call(lua, 0, 0);															//Initialize all the values in the file
-	
+
 	//Get all the constant gameplay values from our lua file, and store them in a GameplayValues object.
 	lua_getglobal(lua, "gridWidth");
-	_gameplayValues._gridWidth = lua_tonumber(lua, -1);																		
+	_gameplayValues._gridWidth = lua_tonumber(lua, -1);
 	lua_pop(lua, 1);
 	lua_getglobal(lua, "gridHeight");
 	_gameplayValues._gridHeight = lua_tonumber(lua, -1);
@@ -91,7 +91,7 @@ void ThirdPerson::initializeGameplayValues() {
 	lua_getglobal(lua, "tileSize");
 	_gameplayValues._tileSize = lua_tonumber(lua, -1);
 	lua_pop(lua, 1);
-	
+
 	lua_getglobal(lua, "bigShipSpeed");
 	_gameplayValues._bigShipSpeed = lua_tonumber(lua, -1);
 	lua_pop(lua, 1);
@@ -136,7 +136,7 @@ std::vector<std::string> getAllFileNamesInFolder(std::string folder)
 {
 	std::vector<std::string> names;
 	std::string search_path = folder + "/*.*";
-	
+
 	WIN32_FIND_DATA fd;
 
 	std::wstring stemp = s2ws(search_path);
@@ -165,7 +165,7 @@ void ThirdPerson::_update(float pStep) {
 		TurnHandler::getInstance().update(pStep);
 	}
 	AudioManager::getInstance().update(pStep);
-	
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O) && _window->hasFocus()) { //Restart the current level (TODO: Garbage collection is not correct, memory is not freed correctly.)
 		RestartLevel();
 	}
@@ -181,19 +181,21 @@ void ThirdPerson::RestartLevel() {
 }
 
 void ThirdPerson::GoToMainMenu() {
-	destroyLevel(); 
+	destroyLevel();
 	_initializeScene();
 }
 
 void ThirdPerson::InitializeMainMenu()
 {
-	_world = new World();
+	if (_world == nullptr) {
+		_world = new World();
+	}
 
 	Camera* camera = new Camera("camera", glm::vec3(0, 0, 0));
 	camera->rotate(glm::radians(0.0f), glm::vec3(0, 0, 0));
 	_world->add(camera);
 	_world->setMainCamera(camera);
-	
+
 	std::vector<std::string> fileNames = getAllFileNamesInFolder(config::MGE_BASETILES_PATH);
 	MainMenu* mainMenu = new MainMenu(this, _window, fileNames, "MainMenu");
 	_world->add(mainMenu);
@@ -224,7 +226,7 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	_world->add(myTileWorld);
 	if (_myGridGenerator == nullptr)
 	{
-		_myGridGenerator = new GridGenerator(*myTileWorld, _fileName);
+		_myGridGenerator = new GridGenerator(this, *myTileWorld, _fileName);
 	}
 	else {
 		_myGridGenerator->SetGridValues(myTileWorld, _fileName);
@@ -298,7 +300,7 @@ void ThirdPerson::_initializeScene()
 	//PRE-LOAD ALL THE MESHES
 	for (int i = 0; i < _meshFileAmount; i++)
 	{
-		std::cout << "Mesh file: " << i+1 << "/" << _meshFileAmount << std::endl;
+		std::cout << "Mesh file: " << i + 1 << "/" << _meshFileAmount << std::endl;
 		MeshManager::getInstance().getMesh(_allMeshFiles[i]);
 	}
 	//PRE-LOAD ALL THE AUDIO
@@ -313,15 +315,15 @@ void ThirdPerson::_initializeScene()
 }
 
 void ThirdPerson::_render() {
-    AbstractGame::_render();
-    _updateHud();
+	AbstractGame::_render();
+	_updateHud();
 }
 
 void ThirdPerson::_updateHud() {
-    std::string debugInfo = "";
-    debugInfo += std::string ("FPS:") + std::to_string((int)_fps)+"\n";
+	std::string debugInfo = "";
+	debugInfo += std::string("FPS:") + std::to_string((int)_fps) + "\n";
 
-	_hud->setDebugInfo(debugInfo, _window->getSize().x/4, 10);
+	_hud->setDebugInfo(debugInfo, _window->getSize().x / 4, 10);
 	_hud->draw();
 
 
@@ -336,3 +338,22 @@ ThirdPerson::~ThirdPerson()
 {
 	//dtor
 }
+
+//I have reached the goal, go to resolution screen.
+void ThirdPerson::ReachedGoal() {
+	AudioManager::getInstance().playSound("Victory.wav");
+	_myHudHandler->HasFinishedTheLevel(true);
+}
+
+void ThirdPerson::KilledAllShips() {
+	_myHudHandler->KilledAllShips();
+}
+
+void ThirdPerson::HasAllTreasure() {
+	_myHudHandler->AddTreasure();
+}
+
+
+
+
+

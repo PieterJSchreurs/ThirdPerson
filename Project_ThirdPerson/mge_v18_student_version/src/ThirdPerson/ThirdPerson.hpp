@@ -41,6 +41,10 @@ class ThirdPerson : public AbstractGame
 		void GoToMainMenu();
         //override initialize so we can add a DebugHud
         virtual void initialize();
+		HudHandler* GetHudHandler();
+		void ReachedGoal();
+		void KilledAllShips();
+		void HasAllTreasure();
 
 	protected:
 	    //override so we can construct the actual scene

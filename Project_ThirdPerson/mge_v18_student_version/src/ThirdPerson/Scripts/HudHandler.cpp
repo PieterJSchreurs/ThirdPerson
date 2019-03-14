@@ -44,7 +44,7 @@ void HudHandler::InitializeUI()
 	_playerIcon.setTexture(_texturePlayerIcon);
 	_playerIcon.setTextureRect(sf::IntRect(0, 0, _texturePlayerIcon.getSize().x / 2, _texturePlayerIcon.getSize().y));
 	_playerIcon.setPosition(50, 100);
-	_spritesToDraw.push_back(_playerIcon);
+	//_spritesToDraw.push_back(_playerIcon);
 	//Movement left text
 	_movementLeftText.setFont(_font);
 	_movementLeftText.setCharacterSize(35);
@@ -52,6 +52,11 @@ void HudHandler::InitializeUI()
 	_movementLeftText.setString("");
 	_movementLeftText.setPosition(_window->getSize().x - 162, 208);
 
+	_UIIconTreasure.setTexture(_iconTreasureTexture);
+	_UIIconTreasure.setTextureRect(sf::IntRect(0, 0, _iconTreasureTexture.getSize().x / 2, _iconTreasureTexture.getSize().y));
+	_UIIconTreasure.setPosition(45, 435);
+	_UIIconTreasure.setScale(0.5f, 0.5f);
+	
 	//Movement Button
 	_movementButton.setTexture(_movementButtonTexture);
 	_movementButton.setPosition(_window->getSize().x - 325, 25);
@@ -96,7 +101,7 @@ void HudHandler::InitializeUI()
 	//Endturn
 	_endTurn.setTexture(_endTurnTextureArray);
 	_endTurn.setTextureRect(sf::IntRect(0, 0, _endTurnTextureArray.getSize().x / 4, _endTurnTextureArray.getSize().y));
-	_endTurn.setPosition(_window->getSize().x - _endTurnTextureArray.getSize().x / 4, 400);
+	_endTurn.setPosition((_window->getSize().x - _endTurnTextureArray.getSize().x / 4) - 35, 325);
 	_spritesToDraw.push_back(_endTurn);
 	//Pause Button
 	_pauseButtonSprite.setTexture(_pauseButtonTexture);
@@ -106,11 +111,11 @@ void HudHandler::InitializeUI()
 
 	//Pause menu
 	_menuButtonSprite.setTexture(_menuButtonTexture);
-	_menuButtonSprite.setPosition((_window->getSize().x / 2) - (_menuButtonTexture.getSize().x / 6), 400);
+	_menuButtonSprite.setPosition((_window->getSize().x / 2) - (_menuButtonTexture.getSize().x / 6), 420);
 	_resumeButtonSprite.setTexture(_resumeButtonTexture);
-	_resumeButtonSprite.setPosition((_window->getSize().x / 2) - (_resumeButtonTexture.getSize().x / 6), 550);
+	_resumeButtonSprite.setPosition((_window->getSize().x / 2) - (_resumeButtonTexture.getSize().x / 6), 585);
 	_retryButtonSprite.setTexture(_retryButtonTexture);
-	_retryButtonSprite.setPosition((_window->getSize().x / 2) - (_retryButtonTexture.getSize().x / 6), 700);
+	_retryButtonSprite.setPosition((_window->getSize().x / 2) - (_retryButtonTexture.getSize().x / 6), 750);
 	_pauseMenuBackgroundSprite.setTexture(_pauseMenuBackgroundTexture);
 	_pauseMenuBackgroundSprite.setPosition(0, 0);
 
@@ -131,11 +136,11 @@ void HudHandler::InitializeUI()
 	_resolutionScreenNextSprite.setPosition((_window->getSize().x / 7) * 5, _window->getSize().y - 200);
 	_resolutionScreenNextSprite.setTextureRect(sf::IntRect(0, 0, _resolutionScreenNextTexture.getSize().x / 3, _resolutionScreenNextTexture.getSize().y));
 	_iconOctopusSprite.setPosition(((_window->getSize().x / 8) * 2) - 10, _window->getSize().y - 650);
-	_iconOctopusSprite.setTextureRect(sf::IntRect(0, 0, _iconShipTexture.getSize().x / 2, _iconShipTexture.getSize().y));
+	_iconOctopusSprite.setTextureRect(sf::IntRect(_iconShipTexture.getSize().x / 2, 0, _iconShipTexture.getSize().x / 2, _iconShipTexture.getSize().y));
 	_iconShipSprite.setPosition(((_window->getSize().x / 8) * 4) - 105, _window->getSize().y - 650);
-	_iconShipSprite.setTextureRect(sf::IntRect(0, 0, _iconShipTexture.getSize().x / 2, _iconShipTexture.getSize().y));
+	_iconShipSprite.setTextureRect(sf::IntRect(_iconShipTexture.getSize().x / 2, 0, _iconShipTexture.getSize().x / 2, _iconShipTexture.getSize().y));
 	_iconTreasureSprite.setPosition(((_window->getSize().x / 8) * 5) - 10, _window->getSize().y - 650);
-	_iconTreasureSprite.setTextureRect(sf::IntRect(0, 0, _iconShipTexture.getSize().x / 2, _iconShipTexture.getSize().y));
+	_iconTreasureSprite.setTextureRect(sf::IntRect(_iconShipTexture.getSize().x / 2, 0, _iconShipTexture.getSize().x / 2, _iconShipTexture.getSize().y));
 }
 void HudHandler::fillTextures()
 {
@@ -181,10 +186,10 @@ void HudHandler::update(float pStep) {
 			{
 				_clickedMouse = true;
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+			/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
 				GameResolution();
 				_lastPlayerInput = _timer;
-			}
+			}*/
 		}
 		for (int i = 0; i < _spritesToDraw.size(); i++) {
 			sf::FloatRect spriteBounds = _spritesToDraw[i].getGlobalBounds();
@@ -240,6 +245,7 @@ void HudHandler::update(float pStep) {
 								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 4, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
 								_clickedMouse = false;
 								_lastPlayerInput = _timer;
+								break;
 							}
 							else {
 								if (_timer - _lastPlayerInput >= _playerInputDelay) {
@@ -272,15 +278,16 @@ void HudHandler::update(float pStep) {
 						}
 						else {
 							if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 4, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
 								_playerController->HandlePlayerInput(sf::Keyboard::X);
 
 								_clickedMouse = false;
 								_lastPlayerInput = _timer;
+								break;
 							}
 							else {
 								if (_timer - _lastPlayerInput >= _playerInputDelay) {
-									_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
+									_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 3, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
 									_isHovering = true;
 									DrawFireTile(false, true);
 
@@ -317,7 +324,7 @@ void HudHandler::update(float pStep) {
 									_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 4, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
 									_playerController->HandlePlayerInput(sf::Keyboard::E);
 									_lastPlayerInput = _timer;
-
+									break;
 								}
 								else {
 									if (_timer - _lastPlayerInput >= _playerInputDelay) {
@@ -354,6 +361,7 @@ void HudHandler::update(float pStep) {
 							_isInMovingMode = true;
 							_playerController->SetFiringMode(false);
 							_lastPlayerInput = _timer;
+
 						}
 						else {
 							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_movementButtonTexture.getSize().y / 5), _movementButtonTexture.getSize().x, _movementButtonTexture.getSize().y / 5));
@@ -518,7 +526,7 @@ void HudHandler::update(float pStep) {
 							std::cout << "go to main menu" << std::endl;
 							_spritesToDraw[i].setTextureRect(sf::IntRect((_resolutionScreenMenuTexture.getSize().x / 3) * 2, 0, _resolutionScreenMenuTexture.getSize().x / 3, _resolutionScreenRetryTexture.getSize().y));
 							_destroyingWorld = true;
-							GameResolution();
+							GameResolution(false);
 							_spritesToDraw.clear();
 							_thirdPerson->GoToMainMenu();
 							break;
@@ -532,14 +540,14 @@ void HudHandler::update(float pStep) {
 							_clickedMouse = false;
 							_spritesToDraw[i].setTextureRect(sf::IntRect((_resolutionScreenRetryTexture.getSize().x / 3) * 2, 0, _resolutionScreenRetryTexture.getSize().x / 3, _resolutionScreenRetryTexture.getSize().y));
 							_lastPlayerInput = _timer;
-							GameResolution();
+							GameResolution(false);
 							_spritesToDraw.clear();
 							_thirdPerson->RestartLevel();
-							
+
 							break;
 						}
 						else {
-							_spritesToDraw[i].setTextureRect(sf::IntRect(_resolutionScreenRetryTexture.getSize().x / 3 , 0, _resolutionScreenRetryTexture.getSize().x / 3, _resolutionScreenRetryTexture.getSize().y));
+							_spritesToDraw[i].setTextureRect(sf::IntRect(_resolutionScreenRetryTexture.getSize().x / 3, 0, _resolutionScreenRetryTexture.getSize().x / 3, _resolutionScreenRetryTexture.getSize().y));
 						}
 					}
 				}
@@ -602,11 +610,13 @@ void HudHandler::draw()
 				_window->draw(_turnText);
 				_window->draw(_playerNameText);
 				_window->draw(_cannonballLeftText);
+				_window->draw(_playerIcon);
 				if (_isInMovingMode) {
 					_window->draw(_movementLeftText);
 				}
 			}
 		}
+		_window->draw(_turnText);
 		_window->popGLStates();
 	}
 }
@@ -680,14 +690,27 @@ void HudHandler::pauseGame() {
 
 }
 
-void HudHandler::GameResolution() {
+void HudHandler::GameResolution(bool pWin) {
 	_spritesToDraw.clear();
 	if (!_gameoverScreen) {
 		_gameoverScreen = true;
-
-		//if(win) { _spritestodraw.push_back(win) } else { }
-		//_resolutionScreenLossSprite.setTexture(_resolutionScreenLossTexture);
-		_spritesToDraw.push_back(_resolutionScreenWinSprite);
+		_turnText.setPosition(1920 / 2, (1080 / 2) + 200);
+		if (_hasFinishedTheLevel) {
+			_iconOctopusSprite.setTextureRect(sf::IntRect(0, 0, _iconOctopusTexture.getSize().x / 2, _iconOctopusTexture.getSize().y));
+		
+		}
+		if (_hasKilledAllShips) {
+			_iconShipSprite.setTextureRect(sf::IntRect(0, 0, _iconShipTexture.getSize().x / 2, _iconShipTexture.getSize().y));
+		}
+		if (_hasPickupTreasure) {
+			_iconTreasureSprite.setTextureRect(sf::IntRect(0, 0, _iconTreasureTexture.getSize().x / 2, _iconTreasureTexture.getSize().y));
+		}
+		if (pWin) { 
+			_spritesToDraw.push_back(_resolutionScreenWinSprite);
+		}
+		else {
+			_spritesToDraw.push_back(_resolutionScreenLossSprite);
+		}
 		_spritesToDraw.push_back(_resolutionScreenMenuSprite);
 		_spritesToDraw.push_back(_resolutionScreenRetrySprite);
 		_spritesToDraw.push_back(_iconOctopusSprite);
@@ -709,6 +732,21 @@ void HudHandler::GameResolution() {
 		_spritesToDraw.push_back(_endTurn);
 		_spritesToDraw.push_back(_pauseButtonSprite);
 	}
+}
+
+void HudHandler::AddTreasure() {
+	_hasPickupTreasure = true;
+	_spritesToDraw.push_back(_UIIconTreasure);
+}
+
+void HudHandler::KilledAllShips() {
+	_hasKilledAllShips = true;
+}
+
+void HudHandler::HasFinishedTheLevel(bool pWin) {
+
+	_hasFinishedTheLevel = true;
+	GameResolution(pWin);
 }
 
 void HudHandler::enableTutorial() {

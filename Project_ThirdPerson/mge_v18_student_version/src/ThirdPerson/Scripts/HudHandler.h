@@ -22,6 +22,9 @@ public:
 
 	void handleTutorial(int pIndex);
 	void enableTutorial();
+	void AddTreasure();
+	void KilledAllShips();
+	void HasFinishedTheLevel(bool pWin);
 
 protected:
 	sf::RenderWindow * _window;
@@ -39,6 +42,10 @@ private:
 	bool _isGamePaused = false;
 	bool _destroyingWorld = false;
 	bool _gameoverScreen = false;
+	bool _hasPickupTreasure = false;
+	bool _hasKilledAllShips = false;
+	bool _hasFinishedTheLevel = false;
+
 	glm::vec2 _shipOrientation;
 	glm::vec2 _movementBoxPosition = glm::vec2(0, 0);
 
@@ -113,6 +120,7 @@ private:
 	sf::Sprite _iconOctopusSprite;
 	sf::Sprite _iconShipSprite;
 	sf::Sprite _iconTreasureSprite;
+	sf::Sprite _UIIconTreasure;
 
 	//Tutorial
 	sf::Sprite _tutorialSprite;
@@ -125,7 +133,7 @@ private:
 	void DrawFireTile(bool pToggleLeft, bool pToggleRight);
 	void DrawMoveTile(int posX, int posY, bool pBool);
 	void pauseGame();
-	void GameResolution();
+	void GameResolution(bool pWin);
 
 	HudHandler(const HudHandler&);
 	HudHandler& operator=(const HudHandler&);
