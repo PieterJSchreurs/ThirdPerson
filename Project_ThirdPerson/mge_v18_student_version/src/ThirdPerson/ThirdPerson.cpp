@@ -232,15 +232,12 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 
 	_myGridGenerator->GenerateNodeGraph();
 
-	AmbientSoundPlayer* myAmbientSoundPlayer = new AmbientSoundPlayer();
-	_world->add(myAmbientSoundPlayer);
-
 	PlayerController* myPlayerController;
 
 	if (_fileName == _tutorialLevel)
 	{
 		std::cout << "Player controller is a tutorial manager now." << std::endl;
-		myPlayerController = new TutorialManager(_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController");
+		myPlayerController = new TutorialManager(_myGridGenerator->GetPlayerShips(), _myGridGenerator, _window, "PlayerController");
 	}
 	else {
 		std::cout << "Using a normal player controller." << std::endl;
@@ -250,6 +247,8 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	AIController* myAIController = new AIController(_myGridGenerator->GetAIShips(), _myGridGenerator->GetPlayerShips(), _myGridGenerator, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	_world->add(myAIController);
 
+	AmbientSoundPlayer* myAmbientSoundPlayer = new AmbientSoundPlayer();
+	_world->add(myAmbientSoundPlayer);
 
 	TurnHandler::getInstance().SetValues(myPlayerController, myAIController, 20, 10, _world->getMainCamera());
 

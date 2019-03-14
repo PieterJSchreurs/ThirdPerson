@@ -276,10 +276,12 @@ void Ship::HandleDamaged() {
 	//Apply any visual effects to the object in this overloaded function.
 }
 void Ship::DestroyObject() {
-	AudioManager::getInstance().playSound("SinkingShipCannon.wav");
+	AudioManager::getInstance().stopSound("SinkingShipCannon.wav");
+	AudioManager::getInstance().playSound("SinkingShipCannon.wav", 75.0f);
 	if (_isAI)
 	{
-		AudioManager::getInstance().playSound("AbandonShipEnemy.wav");
+		AudioManager::getInstance().stopSound("AbandonShipEnemy.wav");
+		AudioManager::getInstance().playSound("AbandonShipEnemy.wav", 100.0f);
 	}
 	_isSinking = true;
 	_currentNode->SetCurrentMovingObject(nullptr);

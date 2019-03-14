@@ -17,7 +17,7 @@ public:
 	PlayerController(std::vector<Ship*> pShips, GridGenerator* pGridGen, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~PlayerController();
 	virtual void update(float pStep);
-	void SelectShip(Ship* pShip);
+	virtual void SelectShip(Ship* pShip);
 	virtual void HandlePlayerInput(sf::Keyboard::Key pKey);
 
 	void ToggleIsActive(bool pPlaySound = true);
@@ -37,18 +37,18 @@ protected:
 	float _timer = 0;
 	const float _playerInputDelay = 0.5f;
 	float _lastPlayerInput = 0;
+	std::vector<Ship*> _myShips;
+	int _currentShipIndex = 0;
 
 private:
 
 	GridGenerator* _gridGenerator;
 	bool _isInFiringMode = false;
 	Ship* _currentShip;
-	int _currentShipIndex = 0;
 	int GetShipsAlive();
 
 	Ship* GetBigShip();
 
-	std::vector<Ship*> _myShips;
 
 	bool _isHoveringRight = false;
 	bool _isHoveringLeft = false;
