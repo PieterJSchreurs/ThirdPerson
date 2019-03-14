@@ -83,7 +83,7 @@ void WaterMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMa
 
 	glUniform1i(_aTime, clock()); //These floats control the primary color of the checkerboard.
 								  //pass in a precalculate mvp matrix (see texture material for the opposite)
-	glm::vec4 waterColor = glm::vec4((61/255.0f), (161/255.0f), (165/255.0f), 1.0f);
+	glm::vec4 waterColor = glm::vec4((74/255.0f), (155/255.0f), (129/255.0f), 1.0f);
 	glUniform4fv(_aWaterColor, 1, glm::value_ptr(waterColor));
 	glm::vec4 waterFoamColor = glm::vec4(0.5f, 0.5f, 0.5f, 0.5f);
 	glUniform4fv(_aWaterFoamColor, 1, glm::value_ptr(waterFoamColor));

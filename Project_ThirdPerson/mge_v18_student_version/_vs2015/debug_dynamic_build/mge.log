@@ -1,4 +1,5 @@
 ﻿  ThirdPerson.cpp
+<<<<<<< HEAD
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(86): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(89): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
@@ -12,3 +13,18 @@ c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(114): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
 c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(117): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
   mge.vcxproj -> C:\Users\piete\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
+=======
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(124): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(86): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(89): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(92): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(96): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(99): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(102): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(105): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(108): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(111): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(114): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+c:\users\amadeo\desktop\school\project third person\git\project_thirdperson\mge_v18_student_version\src\thirdperson\thirdperson.cpp(117): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
+  mge.vcxproj -> C:\Users\Amadeo\Desktop\school\project third person\Git\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
+>>>>>>> 10580773faef9b480c80158564d79668b6bd0d37
