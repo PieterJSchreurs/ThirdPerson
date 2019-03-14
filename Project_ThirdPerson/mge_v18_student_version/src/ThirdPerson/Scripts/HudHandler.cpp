@@ -236,6 +236,7 @@ void HudHandler::update(float pStep) {
 						}
 						else {
 							if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+								std::cout << "Breakpoint" << std::endl;
 								_playerController->HandlePlayerInput(sf::Keyboard::Z);
 								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 4, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
 								_clickedMouse = false;
@@ -448,54 +449,220 @@ void HudHandler::update(float pStep) {
 				else {
 					if (_spritesToDraw[i].getTexture() == &_arrowTopTextureArray) {
 						if (!_isInShootingMode && _isInMovingMode) {
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _arrowTopTextureArray.getSize().x / 5, _arrowTopTextureArray.getSize().y));
+							if (_movementButtonHighlighted)
+							{
+								_movementButtonHighlighted = false;
+							}
+							if (_topArrowHighlighted)
+							{
+								_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 4, 0, _arrowTopTextureArray.getSize().x / 5, _arrowTopTextureArray.getSize().y));
+							}
+							else {
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _arrowTopTextureArray.getSize().x / 5, _arrowTopTextureArray.getSize().y));
+							}
 						}
 						else {
 							_spritesToDraw[i].setTextureRect(sf::IntRect((_arrowTopTextureArray.getSize().x / 5) * 3, 0, (_arrowTopTextureArray.getSize().x) / 5, _arrowTopTextureArray.getSize().y));
+							if (_topArrowHighlighted && !_movementButtonHighlighted)
+							{
+								_movementButtonHighlighted = true;
+							}
 						}
 					}
 					if (_spritesToDraw[i].getTexture() == &_arrowLeftTextureArray) {
-						if (_isInShootingMode || _isInMovingMode) {
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
+						if (_isInShootingMode) {
+							if (_leftAttackArrowHighlighted)
+							{
+								if (_attackButtonHighlighted)
+								{
+									_attackButtonHighlighted = false;
+								}
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
+							}
+							else if (_leftArrowHighlighted)
+							{
+								if (!_movementButtonHighlighted)
+								{
+									_movementButtonHighlighted = true;
+								}
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
+							}
+							else {
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
+							}
+						}
+						else if (_isInMovingMode) {
+							if (_leftAttackArrowHighlighted)
+							{
+								if (!_attackButtonHighlighted)
+								{
+									_attackButtonHighlighted = true;
+								}
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
+							}
+							else if (_leftArrowHighlighted)
+							{
+								if (_movementButtonHighlighted)
+								{
+									_movementButtonHighlighted = false;
+								}
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
+							}
+							else {
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 2, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
+							}
 						}
 						else {
+							if (_leftAttackArrowHighlighted)
+							{
+								if (!_attackButtonHighlighted)
+								{
+									_attackButtonHighlighted = true;
+								}
+							}
+							else if (_leftArrowHighlighted)
+							{
+								if (!_movementButtonHighlighted)
+								{
+									_movementButtonHighlighted = true;
+								}
+							}
 							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowLeftTextureArray.getSize().y / 5) * 1, _arrowLeftTextureArray.getSize().x, _arrowLeftTextureArray.getSize().y / 5));
 						}
 					}
 					if (_spritesToDraw[i].getTexture() == &_arrowRightTextureArray) {
-						if (_isInShootingMode || _isInMovingMode) {
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
+						if (_isInShootingMode) {
+							if (_rightAttackArrowHighlighted)
+							{
+								if (_attackButtonHighlighted)
+								{
+									_attackButtonHighlighted = false;
+								}
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
+							}
+							else if (_rightArrowHighlighted)
+							{
+								if (!_movementButtonHighlighted)
+								{
+									_movementButtonHighlighted = true;
+								}
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
+							}
+							else {
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
+							}
+						}
+						else if (_isInMovingMode) {
+							if (_rightAttackArrowHighlighted)
+							{
+								if (!_attackButtonHighlighted)
+								{
+									_attackButtonHighlighted = true;
+								}
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
+							}
+							else if (_rightArrowHighlighted)
+							{
+								if (_movementButtonHighlighted)
+								{
+									_movementButtonHighlighted = false;
+								}
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
+							}
+							else {
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 2, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
+							}
 						}
 						else {
+							if (_rightAttackArrowHighlighted)
+							{
+								if (!_attackButtonHighlighted)
+								{
+									_attackButtonHighlighted = true;
+								}
+							}
+							else if (_rightArrowHighlighted)
+							{
+								if (!_movementButtonHighlighted)
+								{
+									_movementButtonHighlighted = true;
+								}
+							}
 							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRightTextureArray.getSize().y / 5) * 1, _arrowRightTextureArray.getSize().x, _arrowRightTextureArray.getSize().y / 5));
 						}
 					}
 					if (_spritesToDraw[i].getTexture() == &_arrowRotateLeftTextureArray) {
 						if (!_isInShootingMode && _isInMovingMode) {
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 2, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+							if (_rotateLeftArrowHighlighted)
+							{
+								if (_movementButtonHighlighted)
+								{
+									_movementButtonHighlighted = false;
+								}
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+							}
+							else {
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 2, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+							}
 						}
 						else {
 							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateLeftTextureArray.getSize().y / 5) * 1, _arrowRotateLeftTextureArray.getSize().x, _arrowRotateLeftTextureArray.getSize().y / 5));
+							if (_rotateLeftArrowHighlighted && !_movementButtonHighlighted)
+							{
+								_movementButtonHighlighted = true;
+							}
 						}
 					}
 					if (_spritesToDraw[i].getTexture() == &_arrowRotateRightTextureArray) {
 						if (!_isInShootingMode && _isInMovingMode) {
-							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 2, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
+							if (_rotateRightArrowHighlighted)
+							{
+								if (_movementButtonHighlighted)
+								{
+									_movementButtonHighlighted = false;
+								}
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
+							}
+							else {
+								_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 2, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
+							}
 						}
 						else {
 							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_arrowRotateRightTextureArray.getSize().y / 5) * 1, _arrowRotateRightTextureArray.getSize().x, _arrowRotateRightTextureArray.getSize().y / 5));
+							if (_rotateRightArrowHighlighted && !_movementButtonHighlighted)
+							{
+								_movementButtonHighlighted = true;
+							}
 						}
 					}
 					if (_spritesToDraw[i].getTexture() == &_endTurnTextureArray) {
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _endTurnTextureArray.getSize().x / 4, _endTurnTextureArray.getSize().y));
+						if (_endTurnHighlighted)
+						{
+							_spritesToDraw[i].setTextureRect(sf::IntRect((_endTurnTextureArray.getSize().x / 4) * 3, 0, _endTurnTextureArray.getSize().x / 4, _endTurnTextureArray.getSize().y));
+						}
+						else {
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _endTurnTextureArray.getSize().x / 4, _endTurnTextureArray.getSize().y));
+						}
 					}
 					if (_spritesToDraw[i].getTexture() == &_movementButtonTexture) {
-						//std::cout << "not hovering or clicking" << std::endl;
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _movementButtonTexture.getSize().x, _movementButtonTexture.getSize().y / 5));
+						if (_movementButtonHighlighted)
+						{
+							//_spritesToDraw[i].setTextureRect(sf::IntRect((_endTurnTextureArray.getSize().x / 4) * 3, 0, _endTurnTextureArray.getSize().x / 4, _endTurnTextureArray.getSize().y));
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_movementButtonTexture.getSize().y / 5) * 4, _movementButtonTexture.getSize().x, _movementButtonTexture.getSize().y / 5));
+						}
+						else {
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _movementButtonTexture.getSize().x, _movementButtonTexture.getSize().y / 5));
+						}
 					}
 					if (_spritesToDraw[i].getTexture() == &_attackButtonTexture) {
-						//std::cout << "not hovering or clicking" << std::endl;
-						_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _movementButtonTexture.getSize().x, _movementButtonTexture.getSize().y / 5));
+						if (_attackButtonHighlighted)
+						{
+							//_spritesToDraw[i].setTextureRect(sf::IntRect((_endTurnTextureArray.getSize().x / 4) * 3, 0, _endTurnTextureArray.getSize().x / 4, _endTurnTextureArray.getSize().y));
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_attackButtonTexture.getSize().y / 5) * 4, _attackButtonTexture.getSize().x, _attackButtonTexture.getSize().y / 5));
+						}
+						else {
+							_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _attackButtonTexture.getSize().x, _attackButtonTexture.getSize().y / 5));
+						}
 					}
 					if (_spritesToDraw[i].getTexture() == &_pauseButtonTexture) {
 						_spritesToDraw[i].setTextureRect(sf::IntRect((_pauseButtonTexture.getSize().x / 3) * 2, 0, _pauseButtonTexture.getSize().x / 3, _pauseButtonTexture.getSize().y));
@@ -720,14 +887,111 @@ void HudHandler::enableTutorial() {
 	_tutorialSprite.setPosition(_window->getSize().x - ((_tutorialTexture.getSize().x / 4) * _tutorialSprite.getScale().x), _window->getSize().y * 0.475f);
 	_spritesToDraw.push_back(_tutorialSprite);
 }
-void HudHandler::handleTutorial(int pIndex) {
-	for (int i = 0; i < _spritesToDraw.size(); i++)
+void HudHandler::handleTutorial(int pIndex, sf::Keyboard::Key pKey) {
+	//Check all the sprites to draw
+	if (pIndex >= 0)
 	{
-		if (_spritesToDraw[i].getTexture() == &_tutorialTexture) {
-			std::cout << "Updating the tutorial sprite." << std::endl;
-
-			_spritesToDraw[i].setTextureRect(sf::IntRect((pIndex % 4) * (_tutorialTexture.getSize().x / 4), glm::floor(pIndex / 4) * (_tutorialTexture.getSize().y / 8), _tutorialTexture.getSize().x / 4, _tutorialTexture.getSize().y / 8));
-			break;
+		for (int i = 0; i < _spritesToDraw.size(); i++)
+		{
+			//Find the tutorial sprite
+			if (_spritesToDraw[i].getTexture() == &_tutorialTexture) {
+				std::cout << "Updating the tutorial sprite." << std::endl;
+				//Update the tutorial sprite
+				_spritesToDraw[i].setTextureRect(sf::IntRect((pIndex % 4) * (_tutorialTexture.getSize().x / 4), glm::floor(pIndex / 4) * (_tutorialTexture.getSize().y / 8), _tutorialTexture.getSize().x / 4, _tutorialTexture.getSize().y / 8));
+				break;
+			}
 		}
+	}
+
+	_topArrowHighlighted = false;
+	_leftArrowHighlighted = false;
+	_rightArrowHighlighted = false;
+	_leftAttackArrowHighlighted = false;
+	_rightAttackArrowHighlighted = false;
+	_rotateLeftArrowHighlighted = false;
+	_rotateRightArrowHighlighted = false;
+	_movementButtonHighlighted = false;
+	_attackButtonHighlighted = false;
+	_endTurnHighlighted = false;
+
+	//If this tutorial step requires a button press
+	if (pKey != sf::Keyboard::Numpad0)
+	{
+		if (pKey == sf::Keyboard::Q)
+		{
+			_rotateLeftArrowHighlighted = true;
+		} 
+		else if (pKey == sf::Keyboard::W)
+		{
+			_topArrowHighlighted = true;
+		}
+		else if (pKey == sf::Keyboard::E)
+		{
+			_rotateRightArrowHighlighted = true;
+		}
+		else if (pKey == sf::Keyboard::A)
+		{
+			_leftArrowHighlighted = true;
+		}
+		else if (pKey == sf::Keyboard::D)
+		{
+			_rightArrowHighlighted = true;
+		}
+		else if (pKey == sf::Keyboard::Z)
+		{
+			_leftAttackArrowHighlighted = true;
+		}
+		else if (pKey == sf::Keyboard::X)
+		{
+			_rightAttackArrowHighlighted = true;
+		}
+		else if (pKey == sf::Keyboard::Space)
+		{
+			_endTurnHighlighted = true;
+		}
+		else if (pKey == sf::Keyboard::R)
+		{
+			_movementButtonHighlighted = true;
+		}
+		else if (pKey == sf::Keyboard::T)
+		{
+			_attackButtonHighlighted = true;
+		}
+
+		//Check which button is requested.
+		//for (int i = 0; i < _hudButtonsCount; i++)
+		//{
+		//	//If this is the one
+		//	if (_allHudButtons[i].first == pKey)
+		//	{
+		//		//Find the corresponding spriteToDraw linked to the requested key
+		//		for (int i = 0; i < _spritesToDraw.size(); i++)
+		//		{
+		//			//If this is the button we are looking for.
+		//			if (_spritesToDraw[i].getTexture() == &_allHudButtons[i].second) {
+		//				if (&_allHudButtons[i].second == &_endTurnTextureArray)
+		//				{
+		//					_spritesToDraw[i].setTextureRect(sf::IntRect((_tutorialTexture.getSize().x / 4) * 3, 0, _spritesToDraw[i].getTexture()->getSize().x / 4, _spritesToDraw[i].getTexture()->getSize().y));
+		//					_endTurnHighlighted = true;
+		//				}
+		//				else if (&_allHudButtons[i].second == &_arrowTopTextureArray)
+		//				{
+		//					_spritesToDraw[i].setTextureRect(sf::IntRect((_tutorialTexture.getSize().x / 5) * 4, 0, _spritesToDraw[i].getTexture()->getSize().x / 5, _spritesToDraw[i].getTexture()->getSize().y));
+		//					_topArrowHighlighted = true;
+		//				}
+		//				else if(&_allHudButtons[i].second == &_movementButtonTexture || &_allHudButtons[i].second == &_attackButtonTexture)
+		//				{
+		//					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_tutorialTexture.getSize().y / 5) * 4, _spritesToDraw[i].getTexture()->getSize().x, _spritesToDraw[i].getTexture()->getSize().y / 5));
+		//				}
+		//				else
+		//				{
+		//					_spritesToDraw[i].setTextureRect(sf::IntRect(0, 0, _spritesToDraw[i].getTexture()->getSize().x, _spritesToDraw[i].getTexture()->getSize().y / 5));
+		//				}
+		//				break;
+		//			}
+		//		}
+		//		break;
+		//	}
+		//}
 	}
 }
