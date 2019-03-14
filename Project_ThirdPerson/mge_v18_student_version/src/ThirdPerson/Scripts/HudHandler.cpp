@@ -469,6 +469,7 @@ void HudHandler::draw()
 	if (!_isInShootingMode) {
 		_window->draw(_movementLeftText);
 	}
+
 	_window->popGLStates();
 }
 

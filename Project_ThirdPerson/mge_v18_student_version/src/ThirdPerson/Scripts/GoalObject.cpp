@@ -12,7 +12,6 @@ void GoalObject::update(float pStep) {
 
 void GoalObject::DoAction(bool pIsAI, bool pIsBig) {
 	if (!pIsAI && pIsBig) { //If one of the player's big ships triggered this object.
-		AudioManager::getInstance().playSound("Harbour.wav");
 		std::cout << "PLAYER FINISHED THE LEVEL!" << std::endl;
 		//TODO: Finish the level.
 	}
