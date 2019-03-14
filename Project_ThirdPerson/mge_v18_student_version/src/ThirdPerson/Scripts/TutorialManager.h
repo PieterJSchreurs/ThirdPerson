@@ -7,10 +7,6 @@
 #include "ThirdPerson/Scripts/GridGenerator.h"
 #include "ThirdPerson/Scripts/PlayerController.h"
 
-/**
-* Exercise for the student: implement the Light class...
-* Imagine things like setLightType, setLightIntensity, setFalloffAngle etc, see the corresponding lectures
-*/
 class TutorialManager : public PlayerController
 {
 public:

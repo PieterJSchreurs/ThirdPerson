@@ -1,0 +1,113 @@
+﻿  main.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\abstractgame.hpp(4): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  AbstractBehaviour.cpp
+  CameraMoveBehaviour.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  CameraOrbitBehaviour.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  CannonballBehaviour.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  KeysBehaviour.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  MoveBehaviour.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  RotatingBehaviour.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  SpawnerBehaviour.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  AbstractGame.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\abstractgame.hpp(4): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  Camera.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  GameObject.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  Light.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  Mesh.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\mesh.hpp(5): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Renderer.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\renderer.hpp(4): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  ShaderProgram.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\shaderprogram.hpp(4): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Texture.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\texture.cpp(4): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  World.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  AbstractMaterial.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  ColorMaterial.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  Compiling...
+  LitMaterial.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  LitTextureMaterial.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  TerrainMaterial.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  TextureMaterial.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  WaterMaterial.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  WobblingMaterial.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  MGEDemo.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  AudioManager.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  DebugHud.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\util\debughud.cpp(4): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  AIBigShip.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  AIController.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  AmbientSoundPlayer.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  BigShip.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  GoalObject.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  GridGenerator.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  GridObject.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  HudHandler.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(4): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Kraken.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  MainMenu.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(2): fatal error C1083: Cannot open include file: 'SFML/Graphics/Rect.hpp': No such file or directory
+  MeshManager.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  Compiling...
+  MouseInputHandler.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  MovingGridObject.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  Node.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  NodeWorld.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  PlayerBigShip.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  PlayerController.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  PlayerSmallShip.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  Ship.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  SmallShip.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  StaticGridObject.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  TileWorld.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  TreasureObject.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  TurnHandler.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  TutorialManager.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  UIHandler.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  ThirdPerson.cpp
+c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
