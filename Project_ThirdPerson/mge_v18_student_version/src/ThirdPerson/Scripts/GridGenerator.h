@@ -172,6 +172,7 @@ private:
 	Mesh* _coin3Mesh;
 	Mesh* _knifeMesh;
 	Mesh* _skullMesh;
+	Mesh* _actionCoinMesh;
 	AbstractMaterial* _boardMaterial;
 	AbstractMaterial* _candleMaterial;
 	AbstractMaterial* _coin1Material;
@@ -179,6 +180,7 @@ private:
 	AbstractMaterial* _coin3Material;
 	AbstractMaterial* _knifeMaterial;
 	AbstractMaterial* _skullMaterial;
+	AbstractMaterial* _actionCoinMaterial;
 
 	Mesh* _sandTilesFull[3];
 	Mesh* _sandTileFull1;

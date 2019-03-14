@@ -37,6 +37,7 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 	_coin3Mesh = MeshManager::getInstance().getMesh("coin3.obj");
 	_knifeMesh = MeshManager::getInstance().getMesh("Knife.obj");
 	_skullMesh = MeshManager::getInstance().getMesh("Skull.obj");
+	_actionCoinMesh = MeshManager::getInstance().getMesh("actionCoin.obj");
 
 	_sandTilesFull[0] = _sandTileFull1 = MeshManager::getInstance().getMesh("Sand_Tile_1.obj");
 	_sandTilesFull[1] = _sandTileFull2 = MeshManager::getInstance().getMesh("Sand_Tile_2.obj");
@@ -90,6 +91,7 @@ GridGenerator::GridGenerator(TileWorld& pTileWorld, const std::string& pFileName
 	_coin3Material = MeshManager::getInstance().getMaterial("coin3.png");
 	_knifeMaterial = MeshManager::getInstance().getMaterial("Knife.png");
 	_skullMaterial = MeshManager::getInstance().getMaterial("Skull.png");
+	_actionCoinMaterial = MeshManager::getInstance().getMaterial("coin1.png");
 
 	_sandTileCornerMaterials[0] = _sandTileCornerMaterial1 = MeshManager::getInstance().getMaterial("Sand_Tile_Corner_1.png");
 	_sandTileCornerMaterials[1] = _sandTileCornerMaterial2 = MeshManager::getInstance().getMaterial("Sand_Tile_Corner_2.png");

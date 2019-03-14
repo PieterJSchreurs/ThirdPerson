@@ -115,8 +115,8 @@ class ThirdPerson : public AbstractGame
 			"Story.wav"
 		};
 
-		const int _meshFileAmount = 44;
-		std::string _allMeshFiles[44] = 
+		const int _meshFileAmount = 45;
+		std::string _allMeshFiles[45] = 
 		{
 			"cube_flat.obj", 
 			"Board.obj", 
@@ -126,6 +126,7 @@ class ThirdPerson : public AbstractGame
 			"coin3.obj",
 			"Knife.obj",
 			"Skull.obj",
+			"actionCoin.obj",
 			"Sand_Tile_1.obj",
 			"Sand_Tile_2.obj",
 			"Sand_Tile_3.obj",

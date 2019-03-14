@@ -349,8 +349,8 @@ void HudHandler::update(float pStep) {
 			if (_spritesToDraw[i].getTexture() == &_pauseButtonTexture) {
 				if (_clickedMouse && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					_clickedMouse = false;
-					pauseGame();
 					_spritesToDraw[i].setTextureRect(sf::IntRect((_pauseButtonTexture.getSize().x / 3) * 2, 0, _pauseButtonTexture.getSize().x / 3, _pauseButtonTexture.getSize().y));
+					pauseGame();
 					break;
 				}
 				else {

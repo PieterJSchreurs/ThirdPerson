@@ -9,6 +9,7 @@
 #include "mge/materials/TextureMaterial.hpp"
 #include "mge/behaviours/CannonballBehaviour.h"
 #include "mge/util/AudioManager.h"
+#include "ThirdPerson/Scripts/MeshManager.h"
 
 #include "windows.h"
 
@@ -22,13 +23,11 @@ Ship::Ship(Node* pStartNode, std::vector<Node*> pAllNodes, bool pIsAI, bool pIsB
 		for (int i = 0; i < 2; i++)
 		{
 			//AbstractMaterial* actionIndicatorMaterial = new LitMaterial(glm::vec3(1, 1, 1), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f);
-			AbstractMaterial* actionIndicatorDot = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "UI/HUD_ActionDot.png"));
 			_actionIndicator = new GameObject("ActionIndicator", glm::vec3(0, 0, 0));
-
-			_actionIndicator->setMesh(_sphereMeshDefault);
-			_actionIndicator->setMaterial(actionIndicatorDot);
-			_actionIndicator->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
+			_actionIndicator->setMesh(MeshManager::getInstance().getMesh("actionCoin.obj"));
+			_actionIndicator->setMaterial(MeshManager::getInstance().getMaterial("coin1.png"));
 			_actionIndicator->rotate(glm::radians(-90.0f), glm::vec3(-1, 0, 0));
+			//_actionIndicator->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
 			add(_actionIndicator);
 			_actionIndicator->setLocalPosition(glm::vec3(0, 1, (i * 0.4f) - 0.2f));
 
