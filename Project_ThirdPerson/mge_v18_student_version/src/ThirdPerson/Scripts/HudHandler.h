@@ -20,7 +20,7 @@ public:
 	void ResetMode();
 	void setDebugInfo();
 
-	void handleTutorial(int pIndex);
+	void handleTutorial(int pIndex = -1, sf::Keyboard::Key pKey = sf::Keyboard::Numpad0);
 	void enableTutorial();
 	void AddTreasure();
 	void KilledAllShips();
@@ -125,6 +125,34 @@ private:
 	//Tutorial
 	sf::Sprite _tutorialSprite;
 	sf::Texture _tutorialTexture;
+
+	using KeyToTextureDict = std::pair<sf::Keyboard::Key, sf::Texture>;
+	const int _hudButtonsCount = 10;
+	KeyToTextureDict _allHudButtons[10] = {
+		{ sf::Keyboard::W, _arrowTopTextureArray },
+		{ sf::Keyboard::A, _arrowLeftTextureArray },
+		{ sf::Keyboard::D, _arrowRightTextureArray },
+		{ sf::Keyboard::Q, _arrowRotateLeftTextureArray },
+		{ sf::Keyboard::E, _arrowRotateRightTextureArray },
+
+		{ sf::Keyboard::Z, _arrowLeftTextureArray },
+		{ sf::Keyboard::X, _arrowRightTextureArray },
+
+		{ sf::Keyboard::R, _movementButtonTexture },
+		{ sf::Keyboard::T, _attackButtonTexture },
+		{ sf::Keyboard::Space, _endTurnTextureArray }
+	};
+
+	bool _topArrowHighlighted = false;
+	bool _leftArrowHighlighted = false;
+	bool _rightArrowHighlighted = false;
+	bool _leftAttackArrowHighlighted = false;
+	bool _rightAttackArrowHighlighted = false;
+	bool _rotateLeftArrowHighlighted = false;
+	bool _rotateRightArrowHighlighted = false;
+	bool _movementButtonHighlighted = false;
+	bool _attackButtonHighlighted = false;
+	bool _endTurnHighlighted = false;
 
 
 	void InitializeUI();

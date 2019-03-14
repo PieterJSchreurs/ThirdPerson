@@ -110,12 +110,32 @@ void TutorialManager::HandlePlayerInput(sf::Keyboard::Key pKey) { //NOTE: Make s
 			//Go to the next sound
 			_currentTutorialSoundIndex++;
 		}
+
+		if (_hudHandler != nullptr)
+		{
+			sf::Keyboard::Key tempKey = sf::Keyboard::Numpad0;
+			//If this step requires a button press.
+			if (_currentTutorialIndex == _allTutorialKeys[_currentTutorialKeyIndex].first)
+			{
+				//Tell the hudhandler to handle that.
+				tempKey = _allTutorialKeys[_currentTutorialKeyIndex].second;
+			}
+			_hudHandler->handleTutorial(-1, tempKey);
+		}
+
 		//TODO: MOVE THIS TO HUDHANDLER
 		if (_tutorialSprites[_currentTutorialSpriteIndex] == _currentTutorialIndex)
 		{
 			if (_hudHandler != nullptr)
 			{
-				_hudHandler->handleTutorial(_currentTutorialSpriteIndex);
+				sf::Keyboard::Key tempKey = sf::Keyboard::Numpad0;
+				//If this step requires a button press.
+				if (_currentTutorialIndex == _allTutorialKeys[_currentTutorialKeyIndex].first)
+				{
+					//Tell the hudhandler to handle that.
+					tempKey = _allTutorialKeys[_currentTutorialKeyIndex].second;
+				}
+				_hudHandler->handleTutorial(_currentTutorialSpriteIndex, tempKey);
 			}
 			//_tutorialSprite.setTextureRect(sf::IntRect((_currentTutorialSpriteIndex % 4) * (_tutorialTexture.getSize().x / 4), glm::floor(_currentTutorialSpriteIndex / 4) * (_tutorialTexture.getSize().y / 8), _tutorialTexture.getSize().x / 4, _tutorialTexture.getSize().y / 8));
 			_currentTutorialSpriteIndex++;
