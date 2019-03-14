@@ -11,11 +11,12 @@ public:
 
 	virtual ~GoalObject();
 	virtual void update(float pStep);
-	bool fireOnce = false;
 	virtual void DoAction(bool pIsAI, bool pIsBig = true);
 
 private:
 	ThirdPerson* _thirdPerson;
+	bool _isCubeInitialized = false;
+	bool fireOnce = false;
 };
 
 #endif // GOALOBJECT_HPP

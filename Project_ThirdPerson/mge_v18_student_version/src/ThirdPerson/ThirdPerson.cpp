@@ -187,9 +187,6 @@ void ThirdPerson::GoToMainMenu() {
 
 void ThirdPerson::InitializeMainMenu()
 {
-	if (_world == nullptr) {
-		_world = new World();
-	}
 
 	Camera* camera = new Camera("camera", glm::vec3(0, 0, 0));
 	camera->rotate(glm::radians(0.0f), glm::vec3(0, 0, 0));

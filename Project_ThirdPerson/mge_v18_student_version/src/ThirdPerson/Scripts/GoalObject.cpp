@@ -8,6 +8,10 @@ GoalObject::GoalObject(ThirdPerson* pThirdPerson, Node* pStartNode, std::vector<
 
 void GoalObject::update(float pStep) {
 	GameObject::update(pStep);
+	if (!_isCubeInitialized) {
+		_isCubeInitialized = true;
+		this->GetCurrentNode()->SetTileGlow(true, "YellowCube.png");
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num9)) {
 		DoAction(false, true);
 	}
