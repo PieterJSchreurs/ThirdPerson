@@ -14,7 +14,7 @@ class TutorialManager : public PlayerController
 {
 public:
 
-	TutorialManager(std::vector<Ship*> pShips, GridGenerator* pGridGen, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	TutorialManager(ThirdPerson* pThirdPerson, std::vector<Ship*> pShips, GridGenerator* pGridGen, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~TutorialManager();
 	virtual void update(float pStep);
 	virtual void SelectShip(Ship* pShip);
@@ -24,7 +24,7 @@ public:
 
 private:
 	HudHandler* _hudHandler = nullptr;
-
+	ThirdPerson* _thirdPerson = nullptr;
 	int _currentTutorialIndex = 0;
 
 	int _currentTutorialKeyIndex = 0;

@@ -5,13 +5,14 @@
 #include "ThirdPerson/Scripts/Node.h"
 #include "mge/core/GameObject.hpp"
 #include "lua.hpp"
+#include "ThirdPerson/ThirdPerson.hpp"
 #include "mge/materials/AbstractMaterial.hpp"
 #include "ThirdPerson/Scripts/Ship.h"
 
 class Kraken : public GameObject
 {
 public:
-	Kraken(Ship* pTargetShip, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	Kraken(ThirdPerson* pThirdPerson, Ship* pTargetShip, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 
 	virtual ~Kraken();
 	virtual void update(float pStep);
@@ -20,6 +21,7 @@ private:
 	float _timer = 0;
 	float _prevSound = 0;
 	float _soundInterval = 22.5f;
+	ThirdPerson* _thirdPerson;
 
 	float _tentacleAppearDelay = 18.5f;
 	bool _tentacleAppeared = false;

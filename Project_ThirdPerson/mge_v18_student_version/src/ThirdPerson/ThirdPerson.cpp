@@ -166,9 +166,6 @@ void ThirdPerson::_update(float pStep) {
 	}
 	AudioManager::getInstance().update(pStep);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O) && _window->hasFocus()) { //Restart the current level (TODO: Garbage collection is not correct, memory is not freed correctly.)
-		RestartLevel();
-	}
 	if (_myHudHandler != nullptr)
 	{
 		_myHudHandler->update(pStep);
@@ -187,7 +184,7 @@ void ThirdPerson::GoToMainMenu() {
 
 void ThirdPerson::InitializeMainMenu()
 {
-
+	_world = new World();
 	Camera* camera = new Camera("camera", glm::vec3(0, 0, 0));
 	camera->rotate(glm::radians(0.0f), glm::vec3(0, 0, 0));
 	_world->add(camera);
@@ -236,11 +233,11 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	if (_fileName == _tutorialLevel)
 	{
 		std::cout << "Player controller is a tutorial manager now." << std::endl;
-		myPlayerController = new TutorialManager(_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController");
+		myPlayerController = new TutorialManager(this ,_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController");
 	}
 	else {
 		std::cout << "Using a normal player controller." << std::endl;
-		myPlayerController = new PlayerController(_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+		myPlayerController = new PlayerController(this ,_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	}
 	_world->add(myPlayerController);
 	AIController* myAIController = new AIController(_myGridGenerator->GetAIShips(), _myGridGenerator->GetPlayerShips(), _myGridGenerator, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
@@ -277,9 +274,7 @@ void ThirdPerson::destroyLevel() {
 //build the game _world
 void ThirdPerson::_initializeScene()
 {
-	if (_world == nullptr) {
-		_world = new World();
-	}
+
 	//Display a loading screen
 	glActiveTexture(GL_TEXTURE0);
 	_window->pushGLStates();
@@ -340,6 +335,11 @@ ThirdPerson::~ThirdPerson()
 void ThirdPerson::ReachedGoal() {
 	AudioManager::getInstance().playSound("Victory.wav");
 	_myHudHandler->HasFinishedTheLevel(true);
+}
+
+void ThirdPerson::Defeat() {
+	AudioManager::getInstance().playSound("Defeat.wav");
+	_myHudHandler->HasFinishedTheLevel(false);
 }
 
 void ThirdPerson::KilledAllShips() {

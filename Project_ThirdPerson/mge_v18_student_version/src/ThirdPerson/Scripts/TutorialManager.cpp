@@ -10,7 +10,7 @@
 
 #include "ThirdPerson/config.hpp"
 
-TutorialManager::TutorialManager(std::vector<Ship*> pShips, GridGenerator* pGridGen, const std::string& aName, const glm::vec3& aPosition) : PlayerController(pShips, pGridGen, aName, aPosition)
+TutorialManager::TutorialManager(ThirdPerson* pThirdPerson, std::vector<Ship*> pShips, GridGenerator* pGridGen, const std::string& aName, const glm::vec3& aPosition) : PlayerController(pThirdPerson, pShips, pGridGen, aName, aPosition)
 {
 	AudioManager::getInstance().stopSound("StartPlayer.wav");
 	//Pre-load all the tutorial sounds.

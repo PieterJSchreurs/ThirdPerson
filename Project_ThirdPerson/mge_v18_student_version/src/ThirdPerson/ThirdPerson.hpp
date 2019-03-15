@@ -45,6 +45,7 @@ class ThirdPerson : public AbstractGame
 		void ReachedGoal();
 		void KilledAllShips();
 		void HasAllTreasure();
+		void Defeat();
 
 	protected:
 	    //override so we can construct the actual scene
