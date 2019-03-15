@@ -36,7 +36,8 @@ void PlayerController::ToggleIsActive(bool pPlaySound) {
 	_isActive = !_isActive;
 	if (!_isActive)
 	{
-		_currentShip->setMaterial(_currentShip->GetBaseMaterial());
+		_currentShip->GetCurrentNode()->SetTileGlow(false, "BlueCube.png");
+		_isTileGlowing = false;
 		//ToggleRangeIndicators(_currentShip, false);
 		TurnHandler::getInstance().ReduceTurnsLeft(1);
 		if (TurnHandler::getInstance().GetTurnsLeft() <= 0)
@@ -67,9 +68,7 @@ void PlayerController::ToggleIsActive(bool pPlaySound) {
 				return;
 			}
 		}
-		//AbstractMaterial* greenMaterial = new LitMaterial(glm::vec3(0.0f, 0.75f, 0.25f), glm::vec3(1.0f, 1.0f, 1.0f), 20.0f); //Normal lit color material
-		//_currentShip->setMaterial(greenMaterial);
-		//ToggleRangeIndicators(_currentShip, true);
+
 		for (int i = 0; i < _myShips.size(); i++)
 		{
 			_myShips[i]->HandleStartOfTurn();
@@ -103,7 +102,7 @@ void PlayerController::update(float pStep) {
 		_isTileGlowing = false;
 	}
 	else {
-		if (!_isTileGlowing) {
+		if (!_isTileGlowing && _isActive) {
 			_currentShip->GetCurrentNode()->SetTileGlow(true, "BlueCube.png");
 			_isTileGlowing = true;
 		}
@@ -197,7 +196,6 @@ int PlayerController::GetShipsAlive() {
 	return alive;
 }
 void PlayerController::SelectNextShip(int pDir) {
-	_currentShip->setMaterial(_currentShip->GetBaseMaterial());
 
 	_currentShipIndex += pDir; // -1
 	int valHolder = _myShips.size();
@@ -402,7 +400,7 @@ void PlayerController::SetFiringMode(bool pToggle) {
 void PlayerController::SetHoveringMode(bool pToggleLeft, bool pToggleRight) {
 	_isHoveringLeft = pToggleLeft;
 	_isHoveringRight = pToggleRight;
-	if (_isHoveringLeft || _isHoveringRight) {
+	if ((_isHoveringLeft || _isHoveringRight) && !_currentShip->HasPath()) {
 		ToggleRangeIndicators(_currentShip, true);
 	}
 	else {
