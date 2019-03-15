@@ -1,113 +1,184 @@
 ﻿  main.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\abstractgame.hpp(4): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
   AbstractBehaviour.cpp
   CameraMoveBehaviour.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   CameraOrbitBehaviour.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+..\src\mge\behaviours\CameraOrbitBehaviour.cpp(73): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+..\src\mge\behaviours\CameraOrbitBehaviour.cpp(74): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   CannonballBehaviour.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   KeysBehaviour.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   MoveBehaviour.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   RotatingBehaviour.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   SpawnerBehaviour.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+..\src\mge\behaviours\SpawnerBehaviour.cpp(30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   AbstractGame.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\abstractgame.hpp(4): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\mge\core\AbstractGame.cpp(30): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Camera.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   GameObject.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   Light.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   Mesh.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\mesh.hpp(5): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
   Renderer.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\renderer.hpp(4): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
   ShaderProgram.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\shaderprogram.hpp(4): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
   Texture.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\core\texture.cpp(4): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
   World.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   AbstractMaterial.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   ColorMaterial.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   Compiling...
   LitMaterial.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   LitTextureMaterial.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   TerrainMaterial.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   TextureMaterial.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   WaterMaterial.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   WobblingMaterial.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   MGEDemo.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   AudioManager.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+..\src\mge\util\AudioManager.cpp(10): warning C4018: '<': signed/unsigned mismatch
+..\src\mge\util\AudioManager.cpp(42): warning C4018: '<': signed/unsigned mismatch
+..\src\mge\util\AudioManager.cpp(63): warning C4018: '<': signed/unsigned mismatch
+..\src\mge\util\AudioManager.cpp(78): warning C4018: '<': signed/unsigned mismatch
+..\src\mge\util\AudioManager.cpp(88): warning C4018: '<': signed/unsigned mismatch
   DebugHud.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\mge\util\debughud.cpp(4): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+..\src\mge\util\DebugHud.cpp(35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   AIBigShip.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   AIController.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\AIController.cpp(10): warning C4018: '>': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\AIController.cpp(44): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\AIController.cpp(53): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\AIController.cpp(315): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\AIController.cpp(327): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\AIController.cpp(401): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\AIController.cpp(411): warning C4018: '<': signed/unsigned mismatch
   AmbientSoundPlayer.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   BigShip.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   GoalObject.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   GridGenerator.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\GridGenerator.cpp(165): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\GridGenerator.cpp(188): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\GridGenerator.cpp(225): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\GridGenerator.cpp(248): warning C4018: '<': signed/unsigned mismatch
   GridObject.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+..\src\ThirdPerson\Scripts\GridObject.cpp(44): warning C4305: 'initializing': truncation from '__int64' to 'float'
+..\src\ThirdPerson\Scripts\GridObject.cpp(46): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\GridObject.cpp(48): warning C4305: '=': truncation from '__int64' to 'float'
+..\src\ThirdPerson\Scripts\GridObject.cpp(50): warning C4018: '<': signed/unsigned mismatch
   HudHandler.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(4): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(63): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(69): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(75): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(80): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(85): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(90): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(95): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(100): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(105): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(110): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(115): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(117): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(119): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(133): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(135): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(137): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(139): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(141): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(143): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(191): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\HudHandler.cpp(202): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(210): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(232): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(241): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(281): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(290): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(785): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(921): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(934): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(1042): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\HudHandler.cpp(1048): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
   Kraken.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   MainMenu.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(2): fatal error C1083: Cannot open include file: 'SFML/Graphics/Rect.hpp': No such file or directory
+..\src\ThirdPerson\Scripts\MainMenu.cpp(28): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(122): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(130): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(138): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(143): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(153): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(258): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(270): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(337): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(375): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(502): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(503): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(504): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(505): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(531): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
   MeshManager.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+..\src\ThirdPerson\Scripts\MeshManager.cpp(10): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MeshManager.cpp(27): warning C4018: '<': signed/unsigned mismatch
   Compiling...
   MouseInputHandler.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\MouseInputHandler.cpp(99): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MouseInputHandler.cpp(115): warning C4244: 'initializing': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MouseInputHandler.cpp(116): warning C4244: 'initializing': conversion from 'unsigned int' to 'float', possible loss of data
   MovingGridObject.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   Node.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+..\src\ThirdPerson\Scripts\Node.cpp(124): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\Node.cpp(139): warning C4018: '<': signed/unsigned mismatch
   NodeWorld.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+..\src\ThirdPerson\Scripts\NodeWorld.cpp(30): warning C4018: '<': signed/unsigned mismatch
   PlayerBigShip.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   PlayerController.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\PlayerController.cpp(13): warning C4018: '>': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\PlayerController.cpp(72): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\PlayerController.cpp(83): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\PlayerController.cpp(189): warning C4018: '<': signed/unsigned mismatch
   PlayerSmallShip.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   Ship.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\Ship.cpp(200): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\Ship.cpp(306): warning C4018: '<': signed/unsigned mismatch
   SmallShip.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   StaticGridObject.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   TileWorld.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
   TreasureObject.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   TurnHandler.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   TutorialManager.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\TutorialManager.cpp(44): warning C4018: '<': signed/unsigned mismatch
   UIHandler.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(40): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(44): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(49): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(59): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(64): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(69): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(74): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(79): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(84): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(103): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\UIHandler.cpp(112): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(121): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(135): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(144): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(171): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(181): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(333): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(392): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\UIHandler.cpp(405): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   ThirdPerson.cpp
-c:\users\piete\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\glm.hpp(8): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Generating code
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(767): warning C4715: 'GridGenerator::GetCorrectHarborIndex': not all control paths return a value
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(90): warning C4715: 'PlayerController::GetBigShip': not all control paths return a value
+  All 2878 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\release_dynamic_exe/mge.exe
+  mge.vcxproj -> release_dynamic_exe/mge.pdb (Full PDB)

@@ -1,4 +1,28 @@
-﻿  HudHandler.cpp
+﻿  ThirdPerson.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  PlayerController.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(13): warning C4018: '>': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(72): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(83): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(189): warning C4018: '<': signed/unsigned mismatch
+  MainMenu.cpp
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(29): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(123): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(131): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(139): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(144): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(154): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(259): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(271): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(338): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(377): warning C4018: '<': signed/unsigned mismatch
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(504): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(505): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(506): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(507): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\mainmenu.cpp(533): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  HudHandler.cpp
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(63): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
@@ -32,5 +56,8 @@ c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_ve
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(934): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(1042): warning C4018: '<': signed/unsigned mismatch
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\hudhandler.cpp(1048): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  Generating Code...
+c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(90): warning C4715: 'PlayerController::GetBigShip': not all control paths return a value
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\debug_dynamic_exe/mge.exe
   mge.vcxproj -> debug_dynamic_exe/mge.pdb (Full PDB)
