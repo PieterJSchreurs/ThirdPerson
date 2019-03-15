@@ -71,7 +71,9 @@ void MainMenu::update(float pStep)
 {
 	DrawSprites();
 	CheckForMouse();
-	CheckForNarrative();
+	if (_currentMenuStyle == SPLASH) {
+		CheckForNarrative();
+	}
 	if (_changeScene == true) {
 		DrawMenuStyle(_currentMenuStyle);
 	}
@@ -269,6 +271,7 @@ void MainMenu::CheckForNarrative() {
 			_spritesToDraw.clear();
 			_spritesToDraw.push_back(_backgroundNarrativeSprite);
 			_spritesToDraw.push_back(_narrativeTextSprite);
+			AudioManager::getInstance().stopAllSounds();
 			AudioManager::getInstance().playSound("Story.wav");
 			_isNarrativeActive = true;
 		}
@@ -278,6 +281,7 @@ void MainMenu::CheckForNarrative() {
 		if (_isNarrativeActive) {
 			_isNarrativeActive = false;
 			AudioManager::getInstance().stopSound("Story.wav");
+			AudioManager::getInstance().playSound("MainMenuSong.wav");
 			_spritesToDraw.clear();
 			_spritesToDraw.push_back(_backGroundNormalSprite);
 			_spritesToDraw.push_back(_splashScreenTitleSprite);
@@ -452,11 +456,12 @@ void MainMenu::DrawSprites()
 
 			if (_timer2 > 8.5) {
 				if (_spritesToDraw[i].getTexture() == &_narrativeTextTexture) {
-					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_narrativeTextTexture.getSize().y / 6) * _indexNarrative, _narrativeTextTexture.getSize().x, _narrativeTextTexture.getSize().y / 6));
-					
-					if (_indexNarrative < 6) {
+					if (_indexNarrative < 5) {
 						_indexNarrative += 1;
 					}
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_narrativeTextTexture.getSize().y / 6) * _indexNarrative, _narrativeTextTexture.getSize().x, _narrativeTextTexture.getSize().y / 6));
+
+
 					_timer2 = 0;
 				}
 			}
@@ -626,6 +631,7 @@ void MainMenu::ChangeSprite(sf::Sprite* pSprite, ButtonStyle pButtonStyle, int p
 		break;
 	case CLICK:
 		pSprite->setTextureRect(sf::IntRect((pSprite->getTexture()->getSize().x / pIndex) * 2, 0, pSprite->getTexture()->getSize().x / pIndex, pSprite->getTexture()->getSize().y));
+		AudioManager::getInstance().playSound("Click.wav");
 		break;
 	case LOCKED:
 		pSprite->setTextureRect(sf::IntRect((pSprite->getTexture()->getSize().x / pIndex) * 3, 0, pSprite->getTexture()->getSize().x / pIndex, pSprite->getTexture()->getSize().y));
