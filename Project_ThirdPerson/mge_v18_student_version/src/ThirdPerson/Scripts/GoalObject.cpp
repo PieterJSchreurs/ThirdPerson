@@ -12,9 +12,6 @@ void GoalObject::update(float pStep) {
 		_isCubeInitialized = true;
 		this->GetCurrentNode()->SetTileGlow(true, "YellowCube.png");
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num9)) {
-		DoAction(false, true);
-	}
 }
 
 void GoalObject::DoAction(bool pIsAI, bool pIsBig) {

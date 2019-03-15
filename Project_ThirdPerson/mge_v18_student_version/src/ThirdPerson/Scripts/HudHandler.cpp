@@ -392,6 +392,7 @@ void HudHandler::update(float pStep) {
 							}
 							//TurnHandler::getInstance().ToggleIsActive();
 							_lastPlayerInput = _timer;
+							break;
 						}
 						else {
 							if (_timer - _lastPlayerInput >= _playerInputDelay) {
@@ -783,7 +784,9 @@ void HudHandler::draw()
 				}
 			}
 		}
-		_window->draw(_turnText);
+		if (!_isGamePaused) {
+			_window->draw(_turnText);
+		}
 		_window->popGLStates();
 	}
 }
@@ -861,10 +864,9 @@ void HudHandler::GameResolution(bool pWin) {
 	_spritesToDraw.clear();
 	if (!_gameoverScreen) {
 		_gameoverScreen = true;
-		_turnText.setPosition(1920 / 2, (1080 / 2) + 200);
-		if (_hasFinishedTheLevel) {
+		_turnText.setPosition(1920 / 2 + 10, (1080 / 2) + 195);
+		if (pWin) {
 			_iconOctopusSprite.setTextureRect(sf::IntRect(0, 0, _iconOctopusTexture.getSize().x / 2, _iconOctopusTexture.getSize().y));
-		
 		}
 		if (_hasKilledAllShips) {
 			_iconShipSprite.setTextureRect(sf::IntRect(0, 0, _iconShipTexture.getSize().x / 2, _iconShipTexture.getSize().y));

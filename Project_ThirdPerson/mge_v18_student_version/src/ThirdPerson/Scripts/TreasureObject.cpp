@@ -9,9 +9,7 @@ TreasureObject::TreasureObject(ThirdPerson* pThirdPerson, Node* pStartNode, std:
 
 void TreasureObject::update(float pStep) {
 	GameObject::update(pStep);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num0)) {
-		DoAction(false, true);
-	}
+	
 }
 
 void TreasureObject::DoAction(bool pIsAI, bool pIsBig) {

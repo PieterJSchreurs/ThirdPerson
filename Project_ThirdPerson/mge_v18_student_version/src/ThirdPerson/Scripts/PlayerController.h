@@ -2,6 +2,7 @@
 #define PLAYERCONTROLLER_HPP
 
 #include "glm.hpp"
+#include "ThirdPerson/ThirdPerson.hpp"
 #include "ThirdPerson/Scripts/GridGenerator.h"
 #include <SFML/Window/Keyboard.hpp>
 #include "mge/core/GameObject.hpp"
@@ -14,7 +15,7 @@ class PlayerController : public GameObject
 {
 public:
 
-	PlayerController(std::vector<Ship*> pShips, GridGenerator* pGridGen, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
+	PlayerController(ThirdPerson* pThirdPerson, std::vector<Ship*> pShips, GridGenerator* pGridGen, const std::string& aName = "", const glm::vec3& aPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~PlayerController();
 	virtual void update(float pStep);
 	virtual void SelectShip(Ship* pShip);
@@ -43,10 +44,11 @@ protected:
 private:
 
 	GridGenerator* _gridGenerator;
+	ThirdPerson* _thirdPerson;
 	bool _isInFiringMode = false;
 	Ship* _currentShip;
 	int GetShipsAlive();
-
+	void OutOfMoves();
 	Ship* GetBigShip();
 
 

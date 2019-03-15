@@ -2,7 +2,7 @@
 #include "mge/util/AudioManager.h"
 #include "ThirdPerson/Scripts/MeshManager.h"
 
-Kraken::Kraken(Ship* pTargetShip, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _targetShip(pTargetShip)
+Kraken::Kraken(ThirdPerson* pThirdPerson, Ship* pTargetShip, const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _targetShip(pTargetShip), _thirdPerson(pThirdPerson)
 {
 	_krakenSound = "Kraken.wav";
 	_shipSinkKrakenSound = "SinkingShipKraken.wav";
@@ -70,7 +70,7 @@ void Kraken::update(float pStep) {
 			{
 				getParent()->remove(this);
 				//TODO: Load resolution screen here after sound is finished.
-				delete this;
+				_thirdPerson->Defeat();
 			}
 		}
 	}
