@@ -8,11 +8,13 @@ AmbientSoundPlayer::AmbientSoundPlayer(const std::string& aName, const glm::vec3
 	_seagullSounds[2] = "Seagul3.wav";
 	_wavesSound = "Waves.wav";
 	_windSound = "Wind.wav";
+	_backgroundMusic = "";
 
 	_isInitialized = true;
 
 	AudioManager::getInstance().playSound(_wavesSound, 100.0f, 0.0f, true);
 	AudioManager::getInstance().playSound(_windSound, 100.0f, 0.0f, true);
+	AudioManager::getInstance().playSound(_backgroundMusic, 100.0f, 0.0f, true);
 }
 
 void AmbientSoundPlayer::update(float pStep) {

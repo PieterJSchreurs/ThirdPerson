@@ -27,6 +27,7 @@ private:
 	std::string _seagullSounds[3];
 	std::string _wavesSound;
 	std::string _windSound;
+	std::string _backgroundMusic;
 
 };
 

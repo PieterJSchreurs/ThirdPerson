@@ -205,7 +205,7 @@ int PlayerController::GetShipsAlive() {
 	return alive;
 }
 void PlayerController::SelectNextShip(int pDir) {
-
+	_currentShip->GetCurrentNode()->SetTileGlow(false, "BlueCube.png");
 	_currentShipIndex += pDir; // -1
 	int valHolder = _myShips.size();
 
@@ -219,6 +219,8 @@ void PlayerController::SelectNextShip(int pDir) {
 	}
 
 	_currentShip = _myShips[_currentShipIndex];
+	_currentShip->GetCurrentNode()->SetTileGlow(true, "BlueCube.png");
+	_isTileGlowing = true;
 
 	if (_currentShip->GetIsAlive()) //If the newly selected ship is alive, all is good
 	{
@@ -415,5 +417,21 @@ void PlayerController::SetHoveringMode(bool pToggleLeft, bool pToggleRight) {
 	else {
 		ToggleRangeIndicators(_currentShip, false);
 	}
+}
+
+Ship* PlayerController::GetNextShip(int pDir) {
+	int tempShipIndex = _currentShipIndex;
+	tempShipIndex += pDir;
+	int valHolder = _myShips.size();
+
+	if (tempShipIndex >= valHolder)
+	{
+		tempShipIndex = tempShipIndex % valHolder;
+	}
+	else if (tempShipIndex < 0)
+	{
+		tempShipIndex = valHolder + tempShipIndex;
+	}
+	return _myShips[tempShipIndex];
 }
 

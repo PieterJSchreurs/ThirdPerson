@@ -7,6 +7,7 @@
 #include "mge/util/AudioManager.h"
 #include <SFML/Window/Keyboard.hpp>
 #include <stdlib.h> 
+#include "mge/util/AudioManager.h"
 
 
 MainMenu::MainMenu(ThirdPerson* pThirdPerson, sf::RenderWindow* pWindow, std::vector<std::string> pFileNames, const std::string & aName, const glm::vec3 & aPosition) : GameObject(aName, aPosition), _thirdPerson(pThirdPerson), _window(pWindow), _fileNames(pFileNames)

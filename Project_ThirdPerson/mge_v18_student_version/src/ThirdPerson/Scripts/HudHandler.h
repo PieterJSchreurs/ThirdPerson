@@ -143,6 +143,8 @@ private:
 		{ sf::Keyboard::Space, _endTurnTextureArray }
 	};
 
+	sf::Texture* _currentlyHovering;
+
 	bool _topArrowHighlighted = false;
 	bool _leftArrowHighlighted = false;
 	bool _rightArrowHighlighted = false;

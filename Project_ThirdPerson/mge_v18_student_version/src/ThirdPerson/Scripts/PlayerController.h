@@ -33,6 +33,8 @@ public:
 	bool _isTileGlowing = false;
 	bool GetGameover();
 
+	Ship* GetNextShip(int pDir);
+
 protected:
 	void SelectNextShip(int pDir);
 	float _timer = 0;

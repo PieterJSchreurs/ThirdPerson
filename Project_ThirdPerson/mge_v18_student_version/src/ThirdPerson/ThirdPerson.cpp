@@ -73,51 +73,51 @@ void ThirdPerson::initialize() {
 
 void ThirdPerson::initializeGameplayValues() {
 
-	lua_State* lua = luaL_newstate();												//Initialize our lua thread.
-	luaL_openlibs(lua);																//Load the standard libraries
+	//lua_State* lua = luaL_newstate();												//Initialize our lua thread.
+	//luaL_openlibs(lua);																//Load the standard libraries
 
 	std::string file = config::MGE_LUA_PATH + "GameplayValues.lua";					//Store the file path
 
-	luaL_loadfile(lua, file.c_str());												//Load the file
-	lua_call(lua, 0, 0);															//Initialize all the values in the file
+	//luaL_loadfile(lua, file.c_str());												//Load the file
+	//lua_call(lua, 0, 0);															//Initialize all the values in the file
 
 	//Get all the constant gameplay values from our lua file, and store them in a GameplayValues object.
-	lua_getglobal(lua, "gridWidth");
-	_gameplayValues._gridWidth = lua_tonumber(lua, -1);
-	lua_pop(lua, 1);
-	lua_getglobal(lua, "gridHeight");
-	_gameplayValues._gridHeight = lua_tonumber(lua, -1);
-	lua_pop(lua, 1);
-	lua_getglobal(lua, "tileSize");
-	_gameplayValues._tileSize = lua_tonumber(lua, -1);
-	lua_pop(lua, 1);
+	//lua_getglobal(lua, "gridWidth");
+	_gameplayValues._gridWidth = 12;// lua_tonumber(lua, -1);
+	//lua_pop(lua, 1);
+	//lua_getglobal(lua, "gridHeight");
+	_gameplayValues._gridHeight = 12;// lua_tonumber(lua, -1);
+	//lua_pop(lua, 1);
+	//lua_getglobal(lua, "tileSize");
+	_gameplayValues._tileSize = 1.0f;// lua_tonumber(lua, -1);
+	//lua_pop(lua, 1);
 
-	lua_getglobal(lua, "bigShipSpeed");
-	_gameplayValues._bigShipSpeed = lua_tonumber(lua, -1);
-	lua_pop(lua, 1);
-	lua_getglobal(lua, "bigShipRange");
-	_gameplayValues._bigShipRange = lua_tonumber(lua, -1);
-	lua_pop(lua, 1);
-	lua_getglobal(lua, "bigShipDamage");
-	_gameplayValues._bigShipDamage = lua_tonumber(lua, -1);
-	lua_pop(lua, 1);
-	lua_getglobal(lua, "bigShipHealth");
-	_gameplayValues._bigShipHealth = lua_tonumber(lua, -1);
-	lua_pop(lua, 1);
-	lua_getglobal(lua, "smallShipSpeed");
-	_gameplayValues._smallShipSpeed = lua_tonumber(lua, -1);
-	lua_pop(lua, 1);
-	lua_getglobal(lua, "smallShipRange");
-	_gameplayValues._smallShipRange = lua_tonumber(lua, -1);
-	lua_pop(lua, 1);
-	lua_getglobal(lua, "smallShipDamage");
-	_gameplayValues._smallShipDamage = lua_tonumber(lua, -1);
-	lua_pop(lua, 1);
-	lua_getglobal(lua, "smallShipHealth");
-	_gameplayValues._smallShipHealth = lua_tonumber(lua, -1);
-	lua_pop(lua, 1);
+	//lua_getglobal(lua, "bigShipSpeed");
+//	_gameplayValues._bigShipSpeed = lua_tonumber(lua, -1);
+//	//lua_pop(lua, 1);
+//	//lua_getglobal(lua, "bigShipRange");
+//	_gameplayValues._bigShipRange = lua_tonumber(lua, -1);
+//	//lua_pop(lua, 1);
+//	//lua_getglobal(lua, "bigShipDamage");
+//	_gameplayValues._bigShipDamage = lua_tonumber(lua, -1);
+//	//lua_pop(lua, 1);
+//	//lua_getglobal(lua, "bigShipHealth");
+//	_gameplayValues._bigShipHealth = lua_tonumber(lua, -1);
+//	//lua_pop(lua, 1);
+//	//lua_getglobal(lua, "smallShipSpeed");
+//	_gameplayValues._smallShipSpeed = lua_tonumber(lua, -1);
+////	lua_pop(lua, 1);
+//	//lua_getglobal(lua, "smallShipRange");
+//	_gameplayValues._smallShipRange = lua_tonumber(lua, -1);
+//	//lua_pop(lua, 1);
+//	//lua_getglobal(lua, "smallShipDamage");
+//	_gameplayValues._smallShipDamage = lua_tonumber(lua, -1);
+//	//lua_pop(lua, 1);
+//	//lua_getglobal(lua, "smallShipHealth");
+//	_gameplayValues._smallShipHealth = lua_tonumber(lua, -1);
+	//lua_pop(lua, 1);
 
-	lua_close(lua);
+	//lua_close(lua);
 }
 
 std::wstring s2ws(const std::string& s)

@@ -3,6 +3,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include "mge/core/Texture.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+#include "mge/materials/LitTextureMaterial.h"
 #include "ThirdPerson/config.hpp"
 
 
@@ -44,11 +45,11 @@ void TurnHandler::ToggleIsActive() {
 
 	if (_playerController->GetIsActive())
 	{
-		AbstractMaterial* PlayerMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Player_Turn.png"));
+		AbstractMaterial* PlayerMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Player_Turn2.png"), glm::vec3(1, 1, 1), 0.25f);
 		_turnIndicator->setMaterial(PlayerMaterial);
 	}
 	else if (_AIController->GetIsActive()) {
-		AbstractMaterial* AIMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "AI_Turn.png"));
+		AbstractMaterial* AIMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "AI_Turn2.png"), glm::vec3(1, 1, 1), 0.25f);
 		_turnIndicator->setMaterial(AIMaterial);
 	}
 	else {
