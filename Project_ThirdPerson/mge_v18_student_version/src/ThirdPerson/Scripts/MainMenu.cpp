@@ -43,10 +43,14 @@ MainMenu::MainMenu(ThirdPerson* pThirdPerson, sf::RenderWindow* pWindow, std::ve
 	_loadingScreens.push_back(_loadingScreenChapture4Sprite);
 	_loadingScreens.push_back(_loadingScreenChapture5Sprite);
 	_loadingScreens.push_back(_loadingScreenChapture6Sprite);
+
+
+	AudioManager::getInstance().playSound("MainMenuSong.wav", 100.0f, 0.0f, true);
 }
 
 MainMenu::~MainMenu()
 {
+	AudioManager::getInstance().stopSound("MainMenuSong.wav");
 }
 
 void MainMenu::UnlockLevel(int pIndex, bool pToggle) {

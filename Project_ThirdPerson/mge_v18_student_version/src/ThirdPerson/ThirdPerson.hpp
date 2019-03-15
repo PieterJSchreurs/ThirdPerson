@@ -83,8 +83,8 @@ class ThirdPerson : public AbstractGame
 		std::string _fileName;
 		std::string _tutorialLevel = "lvl1(lvl4)";
 
-		const int _audioFileAmount = 42;
-		std::string _allAudioFiles[43] =
+		const int _audioFileAmount = 45;
+		std::string _allAudioFiles[45] =
 		{
 			"Hover.wav",
 			"Click.wav",
@@ -128,7 +128,9 @@ class ThirdPerson : public AbstractGame
 			"SinkingShipCannon.wav",
 			"SinkingShipKraken.wav",
 			"Kraken.wav",
-			"Story.wav"
+			"Story.wav",
+			"MainMenuSong.wav",
+			"Game_Music.wav"
 		};
 
 		const int _meshFileAmount = 45;

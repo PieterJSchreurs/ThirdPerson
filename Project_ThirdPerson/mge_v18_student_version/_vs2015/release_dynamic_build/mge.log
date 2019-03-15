@@ -95,25 +95,27 @@ C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_ve
 ..\src\ThirdPerson\Scripts\HudHandler.cpp(785): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 ..\src\ThirdPerson\Scripts\HudHandler.cpp(921): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 ..\src\ThirdPerson\Scripts\HudHandler.cpp(934): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-..\src\ThirdPerson\Scripts\HudHandler.cpp(1042): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\HudHandler.cpp(1048): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+..\src\ThirdPerson\Scripts\HudHandler.cpp(1043): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\HudHandler.cpp(1049): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
   Kraken.cpp
   MainMenu.cpp
-..\src\ThirdPerson\Scripts\MainMenu.cpp(28): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(122): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(130): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(138): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(143): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-..\src\ThirdPerson\Scripts\MainMenu.cpp(153): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(258): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(270): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(337): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(375): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(502): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-..\src\ThirdPerson\Scripts\MainMenu.cpp(503): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-..\src\ThirdPerson\Scripts\MainMenu.cpp(504): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-..\src\ThirdPerson\Scripts\MainMenu.cpp(505): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-..\src\ThirdPerson\Scripts\MainMenu.cpp(531): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(30): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(86): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(131): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(139): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(147): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(152): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(162): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(292): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(304): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(371): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(409): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(449): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(560): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(561): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(562): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(563): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(590): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
   MeshManager.cpp
 ..\src\ThirdPerson\Scripts\MeshManager.cpp(10): warning C4018: '<': signed/unsigned mismatch
 ..\src\ThirdPerson\Scripts\MeshManager.cpp(27): warning C4018: '<': signed/unsigned mismatch
@@ -135,7 +137,8 @@ C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_ve
 ..\src\ThirdPerson\Scripts\PlayerController.cpp(13): warning C4018: '>': signed/unsigned mismatch
 ..\src\ThirdPerson\Scripts\PlayerController.cpp(72): warning C4018: '<': signed/unsigned mismatch
 ..\src\ThirdPerson\Scripts\PlayerController.cpp(83): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\PlayerController.cpp(189): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\PlayerController.cpp(111): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\PlayerController.cpp(198): warning C4018: '<': signed/unsigned mismatch
   PlayerSmallShip.cpp
   Ship.cpp
 C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
@@ -178,7 +181,7 @@ C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_ve
   Generating code
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(767): warning C4715: 'GridGenerator::GetCorrectHarborIndex': not all control paths return a value
 c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(90): warning C4715: 'PlayerController::GetBigShip': not all control paths return a value
-  All 2878 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 2880 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\release_dynamic_exe/mge.exe
   mge.vcxproj -> release_dynamic_exe/mge.pdb (Full PDB)

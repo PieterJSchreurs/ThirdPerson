@@ -8,7 +8,7 @@ AmbientSoundPlayer::AmbientSoundPlayer(const std::string& aName, const glm::vec3
 	_seagullSounds[2] = "Seagul3.wav";
 	_wavesSound = "Waves.wav";
 	_windSound = "Wind.wav";
-	_backgroundMusic = "";
+	_backgroundMusic = "Game_Music.wav";
 
 	_isInitialized = true;
 
@@ -36,6 +36,9 @@ void AmbientSoundPlayer::PlayAmbientSound() {
 
 //DESTRUCTOR___________________________________________________________
 AmbientSoundPlayer::~AmbientSoundPlayer() {
+	AudioManager::getInstance().stopSound(_wavesSound);
+	AudioManager::getInstance().stopSound(_windSound);
+	AudioManager::getInstance().stopSound(_backgroundMusic);
 }
 
 
