@@ -8,7 +8,7 @@
 
 #include "mge/materials/LitMaterial.h"
 
-PlayerController::PlayerController(std::vector<Ship*> pShips, GridGenerator* pGridGen,  const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _myShips(pShips), _gridGenerator(pGridGen)
+PlayerController::PlayerController(ThirdPerson* pThirdPerson, std::vector<Ship*> pShips, GridGenerator* pGridGen,  const std::string& aName, const glm::vec3& aPosition) : GameObject(aName, aPosition), _myShips(pShips), _gridGenerator(pGridGen), _thirdPerson(pThirdPerson)
 {
 	if (_myShips.size() > _currentShipIndex)
 	{
@@ -45,7 +45,7 @@ void PlayerController::ToggleIsActive(bool pPlaySound) {
 			std::cout << "The player has run out of turns, so he lost!" << std::endl;
 			_gameOver = true;
 			TurnHandler::getInstance().ToggleIsActive();
-			Kraken* newKraken = new Kraken(GetBigShip());
+			Kraken* newKraken = new Kraken(_thirdPerson ,GetBigShip());
 			GetBigShip()->add(newKraken);
 		}
 	}
