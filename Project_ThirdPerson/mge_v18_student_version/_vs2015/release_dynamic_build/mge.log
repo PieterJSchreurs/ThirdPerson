@@ -1,46 +1,4 @@
-﻿  main.cpp
-  AbstractBehaviour.cpp
-  CameraMoveBehaviour.cpp
-  CameraOrbitBehaviour.cpp
-..\src\mge\behaviours\CameraOrbitBehaviour.cpp(73): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-..\src\mge\behaviours\CameraOrbitBehaviour.cpp(74): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  CannonballBehaviour.cpp
-  KeysBehaviour.cpp
-  MoveBehaviour.cpp
-  RotatingBehaviour.cpp
-  SpawnerBehaviour.cpp
-..\src\mge\behaviours\SpawnerBehaviour.cpp(30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  AbstractGame.cpp
-C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-..\src\mge\core\AbstractGame.cpp(30): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Camera.cpp
-  GameObject.cpp
-  Light.cpp
-  Mesh.cpp
-  Renderer.cpp
-  ShaderProgram.cpp
-  Texture.cpp
-  World.cpp
-  AbstractMaterial.cpp
-  ColorMaterial.cpp
-  Compiling...
-  LitMaterial.cpp
-  LitTextureMaterial.cpp
-  TerrainMaterial.cpp
-  TextureMaterial.cpp
-  WaterMaterial.cpp
-  WobblingMaterial.cpp
-  MGEDemo.cpp
-  AudioManager.cpp
-..\src\mge\util\AudioManager.cpp(10): warning C4018: '<': signed/unsigned mismatch
-..\src\mge\util\AudioManager.cpp(42): warning C4018: '<': signed/unsigned mismatch
-..\src\mge\util\AudioManager.cpp(63): warning C4018: '<': signed/unsigned mismatch
-..\src\mge\util\AudioManager.cpp(78): warning C4018: '<': signed/unsigned mismatch
-..\src\mge\util\AudioManager.cpp(88): warning C4018: '<': signed/unsigned mismatch
-  DebugHud.cpp
-..\src\mge\util\DebugHud.cpp(35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  AIBigShip.cpp
-  AIController.cpp
+﻿  AIController.cpp
 C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 ..\src\ThirdPerson\Scripts\AIController.cpp(10): warning C4018: '>': signed/unsigned mismatch
 ..\src\ThirdPerson\Scripts\AIController.cpp(44): warning C4018: '<': signed/unsigned mismatch
@@ -49,8 +7,6 @@ C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_ve
 ..\src\ThirdPerson\Scripts\AIController.cpp(327): warning C4018: '<': signed/unsigned mismatch
 ..\src\ThirdPerson\Scripts\AIController.cpp(401): warning C4018: '<': signed/unsigned mismatch
 ..\src\ThirdPerson\Scripts\AIController.cpp(411): warning C4018: '<': signed/unsigned mismatch
-  AmbientSoundPlayer.cpp
-  BigShip.cpp
   GoalObject.cpp
   GridGenerator.cpp
 C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
@@ -58,11 +14,6 @@ C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_ve
 ..\src\ThirdPerson\Scripts\GridGenerator.cpp(188): warning C4018: '<': signed/unsigned mismatch
 ..\src\ThirdPerson\Scripts\GridGenerator.cpp(225): warning C4018: '<': signed/unsigned mismatch
 ..\src\ThirdPerson\Scripts\GridGenerator.cpp(248): warning C4018: '<': signed/unsigned mismatch
-  GridObject.cpp
-..\src\ThirdPerson\Scripts\GridObject.cpp(44): warning C4305: 'initializing': truncation from '__int64' to 'float'
-..\src\ThirdPerson\Scripts\GridObject.cpp(46): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\GridObject.cpp(48): warning C4305: '=': truncation from '__int64' to 'float'
-..\src\ThirdPerson\Scripts\GridObject.cpp(50): warning C4018: '<': signed/unsigned mismatch
   HudHandler.cpp
 C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 ..\src\ThirdPerson\Scripts\HudHandler.cpp(54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
@@ -116,22 +67,11 @@ C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_ve
 ..\src\ThirdPerson\Scripts\MainMenu.cpp(562): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
 ..\src\ThirdPerson\Scripts\MainMenu.cpp(563): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
 ..\src\ThirdPerson\Scripts\MainMenu.cpp(590): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  MeshManager.cpp
-..\src\ThirdPerson\Scripts\MeshManager.cpp(10): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MeshManager.cpp(27): warning C4018: '<': signed/unsigned mismatch
-  Compiling...
   MouseInputHandler.cpp
 C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 ..\src\ThirdPerson\Scripts\MouseInputHandler.cpp(99): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 ..\src\ThirdPerson\Scripts\MouseInputHandler.cpp(115): warning C4244: 'initializing': conversion from 'unsigned int' to 'float', possible loss of data
 ..\src\ThirdPerson\Scripts\MouseInputHandler.cpp(116): warning C4244: 'initializing': conversion from 'unsigned int' to 'float', possible loss of data
-  MovingGridObject.cpp
-  Node.cpp
-..\src\ThirdPerson\Scripts\Node.cpp(124): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\Node.cpp(139): warning C4018: '<': signed/unsigned mismatch
-  NodeWorld.cpp
-..\src\ThirdPerson\Scripts\NodeWorld.cpp(30): warning C4018: '<': signed/unsigned mismatch
-  PlayerBigShip.cpp
   PlayerController.cpp
 C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 ..\src\ThirdPerson\Scripts\PlayerController.cpp(13): warning C4018: '>': signed/unsigned mismatch
@@ -139,14 +79,10 @@ C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_ve
 ..\src\ThirdPerson\Scripts\PlayerController.cpp(83): warning C4018: '<': signed/unsigned mismatch
 ..\src\ThirdPerson\Scripts\PlayerController.cpp(111): warning C4018: '<': signed/unsigned mismatch
 ..\src\ThirdPerson\Scripts\PlayerController.cpp(198): warning C4018: '<': signed/unsigned mismatch
-  PlayerSmallShip.cpp
   Ship.cpp
 C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 ..\src\ThirdPerson\Scripts\Ship.cpp(200): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 ..\src\ThirdPerson\Scripts\Ship.cpp(306): warning C4018: '<': signed/unsigned mismatch
-  SmallShip.cpp
-  StaticGridObject.cpp
-  TileWorld.cpp
   TreasureObject.cpp
 C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   TurnHandler.cpp
@@ -178,10 +114,14 @@ C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_ve
 ..\src\ThirdPerson\Scripts\UIHandler.cpp(405): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   ThirdPerson.cpp
 C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  main.cpp
+  AbstractGame.cpp
+C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+..\src\mge\core\AbstractGame.cpp(30): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Generating code
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\gridgenerator.cpp(767): warning C4715: 'GridGenerator::GetCorrectHarborIndex': not all control paths return a value
-c:\users\harry kamp\documents\thirdperson\project_thirdperson\mge_v18_student_version\src\thirdperson\scripts\playercontroller.cpp(90): warning C4715: 'PlayerController::GetBigShip': not all control paths return a value
-  All 2880 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  1 of 2880 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    43 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\release_dynamic_exe/mge.exe
   mge.vcxproj -> release_dynamic_exe/mge.pdb (Full PDB)

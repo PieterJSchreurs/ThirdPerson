@@ -23,7 +23,7 @@ void TurnHandler::SetValues(PlayerController* pPlayerController, AIController* p
 	_planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
 	_turnIndicator = new GameObject("Turn indicator");
 	_turnIndicator->setMesh(_planeMeshDefault);
-	_turnIndicator->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
+	_turnIndicator->setScale(glm::vec3(0.1f, 0.062f, 0.1f));
 	_turnIndicator->rotate(glm::radians(-90.0f), glm::vec3(-1, 0, 0));
 	_camera->add(_turnIndicator);
 	_turnIndicator->setLocalPosition(glm::vec3(0, 0.45f, -1.0f));
