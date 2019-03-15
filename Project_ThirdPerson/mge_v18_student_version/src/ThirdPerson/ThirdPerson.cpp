@@ -170,6 +170,30 @@ void ThirdPerson::_update(float pStep) {
 	{
 		_myHudHandler->update(pStep);
 	}
+
+	if (_timer - _lastPlayerInput >= _playerInputDelay) //Doesn't work perfectly, but ehhh...
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1)) {
+			//
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F2)) {
+			_isChapter2Unlocked = !_isChapter2Unlocked;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3)) {
+			_isChapter3Unlocked = !_isChapter3Unlocked;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F4)) {
+			_isChapter4Unlocked = !_isChapter4Unlocked;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F5)) {
+			_isChapter5Unlocked = !_isChapter5Unlocked;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F6)) {
+			_isChapter6Unlocked = !_isChapter6Unlocked;
+		}
+		_lastPlayerInput = _timer;
+	}
+	_timer += pStep;
 }
 
 void ThirdPerson::RestartLevel() {
@@ -182,6 +206,30 @@ void ThirdPerson::GoToMainMenu() {
 	_initializeScene();
 }
 
+bool ThirdPerson::IsChapterUnlocked(int pIndex) {
+	switch (pIndex) {
+	case 0:
+		return true;
+	case 1:
+		return _isChapter2Unlocked;
+			break;
+	case 2:
+		return _isChapter3Unlocked;
+		break;
+	case 3:
+		return _isChapter4Unlocked;
+		break;
+	case 4:
+		return _isChapter5Unlocked;
+		break;
+	case 5:
+		return _isChapter6Unlocked;
+		break;
+		default: 
+			return true;
+			break;
+	}
+}
 void ThirdPerson::InitializeMainMenu()
 {
 	_world = new World();
@@ -233,11 +281,11 @@ void ThirdPerson::loadLevel(std::string pFileName) {
 	if (_fileName == _tutorialLevel)
 	{
 		std::cout << "Player controller is a tutorial manager now." << std::endl;
-		myPlayerController = new TutorialManager(this ,_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController");
+		myPlayerController = new TutorialManager(this, _myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController");
 	}
 	else {
 		std::cout << "Using a normal player controller." << std::endl;
-		myPlayerController = new PlayerController(this ,_myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
+		myPlayerController = new PlayerController(this, _myGridGenerator->GetPlayerShips(), _myGridGenerator, "PlayerController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
 	}
 	_world->add(myPlayerController);
 	AIController* myAIController = new AIController(_myGridGenerator->GetAIShips(), _myGridGenerator->GetPlayerShips(), _myGridGenerator, "AIController"); //TODO: Should load the turn amount and cannonball amount from somewhere.
@@ -333,6 +381,30 @@ ThirdPerson::~ThirdPerson()
 
 //I have reached the goal, go to resolution screen.
 void ThirdPerson::ReachedGoal() {
+	//Unlock next level.
+	if (!_isChapter2Unlocked) {
+		_isChapter2Unlocked = !_isChapter2Unlocked;
+	}
+	else {
+		if (!_isChapter3Unlocked) {
+			_isChapter3Unlocked = !_isChapter3Unlocked;
+		}
+		else {
+			if (!_isChapter4Unlocked) {
+				_isChapter4Unlocked = !_isChapter4Unlocked;
+			}
+			else {
+				if (!_isChapter5Unlocked) {
+					_isChapter5Unlocked = !_isChapter5Unlocked;
+				}
+				else {
+					if (!_isChapter6Unlocked) {
+						_isChapter6Unlocked = !_isChapter6Unlocked;
+					}
+				}
+			}
+		}
+	}
 	AudioManager::getInstance().playSound("Victory.wav");
 	_myHudHandler->HasFinishedTheLevel(true);
 }

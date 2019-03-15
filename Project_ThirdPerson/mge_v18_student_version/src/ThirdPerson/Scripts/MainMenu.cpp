@@ -4,6 +4,7 @@
 #include "ThirdPerson/config.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+#include "mge/util/AudioManager.h"
 #include <SFML/Window/Keyboard.hpp>
 #include <stdlib.h> 
 
@@ -27,7 +28,12 @@ MainMenu::MainMenu(ThirdPerson* pThirdPerson, sf::RenderWindow* pWindow, std::ve
 	_levelUnlocked.push_back(trueHolder);
 	for (int i = 1; i < _levelList.size(); i++)
 	{
-		_levelUnlocked.push_back(falseHolder);
+		if (_thirdPerson->IsChapterUnlocked(i)) {
+			_levelUnlocked.push_back(trueHolder);
+		}
+		else {
+			_levelUnlocked.push_back(falseHolder);
+		}
 		UnlockLevel(i, false);
 	}
 	_loadingScreens.push_back(_loadingScreenChapture1Sprite);
@@ -60,30 +66,28 @@ void MainMenu::update(float pStep)
 {
 	DrawSprites();
 	CheckForMouse();
+	CheckForNarrative();
 	if (_changeScene == true) {
 		DrawMenuStyle(_currentMenuStyle);
 	}
-	if (_timer - _lastPlayerInput >= _playerInputDelay) //Doesn't work perfectly, but ehhh...
+	if (_window->hasFocus() && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1)) {
-			UnlockLevel(0, !_levelUnlocked[0]);
+		_timer = _lastPlayerInput;
+	}
+	if (_isNarrativeActive) {
+		_timer2 += pStep;
+	}
+
+	for (int i = 1; i < _levelList.size(); i++)
+	{
+		if (_thirdPerson->IsChapterUnlocked(i)) {
+			//_levelUnlocked[i] = trueHolder;
+			UnlockLevel(i, true);
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F2)) {
-			UnlockLevel(1, !_levelUnlocked[1]);
+		else {
+			//_levelUnlocked[i] = falseHolder;
+			UnlockLevel(i, false);
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3)) {
-			UnlockLevel(2, !_levelUnlocked[2]);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F4)) {
-			UnlockLevel(3, !_levelUnlocked[3]);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F5)) {
-			UnlockLevel(4, !_levelUnlocked[4]);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F6)) {
-			UnlockLevel(5, !_levelUnlocked[5]);
-		}
-		_lastPlayerInput = _timer;
 
 	}
 
@@ -254,6 +258,31 @@ void MainMenu::CheckForMouse() {
 	}
 }
 
+void MainMenu::CheckForNarrative() {
+	if (_timer - _lastPlayerInput >= 15) {
+		if (!_isNarrativeActive) {
+			_spritesToDraw.clear();
+			_spritesToDraw.push_back(_backgroundNarrativeSprite);
+			_spritesToDraw.push_back(_narrativeTextSprite);
+			AudioManager::getInstance().playSound("Story.wav");
+			_isNarrativeActive = true;
+		}
+	}
+	else {
+		//quit out of narrative.
+		if (_isNarrativeActive) {
+			_isNarrativeActive = false;
+			AudioManager::getInstance().stopSound("Story.wav");
+			_spritesToDraw.clear();
+			_spritesToDraw.push_back(_backGroundNormalSprite);
+			_spritesToDraw.push_back(_splashScreenTitleSprite);
+			_spritesToDraw.push_back(_splashScreenAnyButtonSprite);
+			_timer2 = 0;
+		}
+
+	}
+}
+
 std::string MainMenu::GetLevelBySprite(sf::Sprite pSprite) {
 	for (int i = 0; i < _levelList.size(); i++)
 	{
@@ -399,14 +428,33 @@ void MainMenu::DrawSprites()
 {
 	glActiveTexture(GL_TEXTURE0);
 	_window->pushGLStates();
-	for each (sf::Sprite pSprite in _spritesToDraw)
-	{
-		_window->draw(pSprite);
-	}
-	if (!_isLevelLoading) {
-		for each (sf::Text pText in _texts)
+	if (!_isNarrativeActive) {
+		for each (sf::Sprite pSprite in _spritesToDraw)
 		{
-			_window->draw(pText);
+			_window->draw(pSprite);
+		}
+		if (!_isLevelLoading) {
+			for each (sf::Text pText in _texts)
+			{
+				_window->draw(pText);
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < _spritesToDraw.size(); i++)
+		{
+			_window->draw(_spritesToDraw[i]);
+
+			if (_timer2 > 8.5) {
+				if (_spritesToDraw[i].getTexture() == &_narrativeTextTexture) {
+					_spritesToDraw[i].setTextureRect(sf::IntRect(0, (_narrativeTextTexture.getSize().y / 6) * _indexNarrative, _narrativeTextTexture.getSize().x, _narrativeTextTexture.getSize().y / 6));
+					
+					if (_indexNarrative < 6) {
+						_indexNarrative += 1;
+					}
+					_timer2 = 0;
+				}
+			}
 		}
 	}
 	_window->popGLStates();
@@ -454,9 +502,14 @@ void MainMenu::FillTextures() {
 	_chapterArrowLeftTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_Chapters_ArrowLeft.png");
 	_chapterArrowRightTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Menu/Menu_Chapters_ArrowRight.png");
 
+	//Narrative
+	_narrativeTextTexture.loadFromFile(config::MGE_TEXTURE_PATH + "NarrativeSprite.png");
+	_backgroundNarrativeTexture.loadFromFile(config::MGE_TEXTURE_PATH + "NarrativeBackground.png");
 }
 
 void MainMenu::BindSpritesToTextures() {
+	_narrativeTextSprite.setTexture(_narrativeTextTexture);
+	_backgroundNarrativeSprite.setTexture(_backgroundNarrativeTexture);
 	//Sprites menus & backgrounds
 	_backGroundNormalSprite.setTexture(_backGroundNormalTexture);
 	_backGroundBlurredSprite.setTexture(_backGroundBlurredTexture);
@@ -513,7 +566,8 @@ void MainMenu::PositionSprites() {
 	_loadingScreenChapture5Sprite.setPosition(0, 0);
 	_loadingScreenChapture6Sprite.setPosition(0, 0);
 
-
+	_narrativeTextSprite.setPosition(400, 500);
+	_narrativeTextSprite.setTextureRect(sf::IntRect(0, 0, _narrativeTextTexture.getSize().x, _narrativeTextTexture.getSize().y / 6));
 	//Sprites buttons
 	//Main Menu
 	_continueButtonSprite.setTextureRect(sf::IntRect(0, 0, _startButtonTexture.getSize().x / 3, _startButtonTexture.getSize().y));
@@ -531,7 +585,7 @@ void MainMenu::PositionSprites() {
 	_backButtonSprite.setPosition(_window->getSize().x - (_backButtonTexture.getSize().x / 3) + 10, _window->getSize().y - (_backButtonTexture.getSize().y) - 10);
 
 	//Level Select
-	
+
 
 	_chapter1Sprite.setTextureRect(sf::IntRect((_chapter1Texture.getSize().x / 4) * 0, 0, _chapter1Texture.getSize().x / 4, _chapter1Texture.getSize().y));
 	_chapter2Sprite.setTextureRect(sf::IntRect((_chapter1Texture.getSize().x / 4) * 3, 0, _chapter2Texture.getSize().x / 4, _chapter2Texture.getSize().y));

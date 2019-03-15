@@ -47,6 +47,8 @@ class ThirdPerson : public AbstractGame
 		void HasAllTreasure();
 		void Defeat();
 
+		bool IsChapterUnlocked(int pIndex);
+
 	protected:
 	    //override so we can construct the actual scene
         virtual void _initializeScene();
@@ -65,7 +67,14 @@ class ThirdPerson : public AbstractGame
 
         void _updateHud();
 		void InitializeMainMenu();
-		
+		bool _isChapter2Unlocked = false;
+		bool _isChapter3Unlocked = false;
+		bool _isChapter4Unlocked = false;
+		bool _isChapter5Unlocked = false;
+		bool _isChapter6Unlocked = false;
+		float _timer = 0;
+		float _playerInputDelay = 0.5f;
+		float _lastPlayerInput = 0;
 		ThirdPerson(const ThirdPerson&);
 		ThirdPerson& operator=(const ThirdPerson&);
 

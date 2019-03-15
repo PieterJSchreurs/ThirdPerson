@@ -37,10 +37,13 @@ private:
 	void PositionSprites();
 	bool _isMainMenuInitialized;
 	bool _changeScene = false;
+	void CheckForNarrative();
+	bool _isNarrativeActive = false;
 	
 	MenuStyles _currentMenuStyle = SPLASH;
 
 	float _timer = 0;
+	float _timer2 = 0;
 	float _playerInputDelay = 0.5f;
 	float _lastPlayerInput = 0;
 	bool _levelSelectLoaded = false;
@@ -62,7 +65,12 @@ private:
 	std::vector<bool> _levelUnlocked;
 	bool trueHolder = true;
 	bool falseHolder = false;
+	int _indexNarrative = 0;
 
+	sf::Sprite _backgroundNarrativeSprite;
+	sf::Texture _backgroundNarrativeTexture;
+	sf::Sprite _narrativeTextSprite;
+	sf::Texture _narrativeTextTexture;
 	
 #pragma region Textures and sprites
 	//Sprites menus & backgrounds

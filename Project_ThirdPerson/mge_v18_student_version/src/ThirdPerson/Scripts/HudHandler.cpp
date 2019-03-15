@@ -913,9 +913,10 @@ void HudHandler::KilledAllShips() {
 }
 
 void HudHandler::HasFinishedTheLevel(bool pWin) {
-
-	_hasFinishedTheLevel = true;
-	GameResolution(pWin);
+	if (!_hasFinishedTheLevel) {
+		GameResolution(pWin);
+		_hasFinishedTheLevel = true;
+	}
 }
 
 void HudHandler::enableTutorial() {

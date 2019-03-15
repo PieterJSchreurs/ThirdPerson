@@ -108,6 +108,15 @@ void PlayerController::update(float pStep) {
 		}
 	}
 
+	for (int i = 0; i < _myShips.size(); i++)
+	{
+		if (_myShips[i]->GetIsBig())
+		{
+			if (!_myShips[i]->GetIsAlive()) {
+				_thirdPerson->Defeat();
+			}
+		}
+	}
 	GameObject::update(pStep);
 }
 
