@@ -51,22 +51,22 @@ C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_ve
   Kraken.cpp
   MainMenu.cpp
 ..\src\ThirdPerson\Scripts\MainMenu.cpp(30): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(86): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(131): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(139): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(147): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(152): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-..\src\ThirdPerson\Scripts\MainMenu.cpp(162): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(292): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(304): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(371): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(409): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(449): warning C4018: '<': signed/unsigned mismatch
-..\src\ThirdPerson\Scripts\MainMenu.cpp(560): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-..\src\ThirdPerson\Scripts\MainMenu.cpp(561): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-..\src\ThirdPerson\Scripts\MainMenu.cpp(562): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-..\src\ThirdPerson\Scripts\MainMenu.cpp(563): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-..\src\ThirdPerson\Scripts\MainMenu.cpp(590): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(88): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(133): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(141): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(149): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(154): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(164): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(296): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(308): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(375): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(413): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(453): warning C4018: '<': signed/unsigned mismatch
+..\src\ThirdPerson\Scripts\MainMenu.cpp(565): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(566): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(567): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(568): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+..\src\ThirdPerson\Scripts\MainMenu.cpp(595): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
   MouseInputHandler.cpp
 C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 ..\src\ThirdPerson\Scripts\MouseInputHandler.cpp(99): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
@@ -119,9 +119,9 @@ C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_ve
 C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\src\ThirdPerson/Scripts/GridGenerator.h(127): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 ..\src\mge\core\AbstractGame.cpp(30): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Generating code
-  1 of 2880 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  9 of 2881 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    43 functions had inline decision re-evaluated but remain unchanged
+    56 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   mge.vcxproj -> C:\Users\Harry Kamp\Documents\ThirdPerson\Project_ThirdPerson\mge_v18_student_version\_vs2015\release_dynamic_exe/mge.exe
   mge.vcxproj -> release_dynamic_exe/mge.pdb (Full PDB)
